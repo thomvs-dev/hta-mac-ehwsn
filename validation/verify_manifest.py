@@ -90,6 +90,7 @@ def verify_locked_assets(manifest: dict) -> list[dict]:
         "progress_report",
         "preregistration",
         "novelty_audit",
+        "instructor_action_report",
     ):
         entry = manifest[key]
         rows.append(_check_file(ROOT / entry["path"], entry["sha256"], key))
