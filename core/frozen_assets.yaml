@@ -1,0 +1,22 @@
+upstream:
+  path: ../final_repo
+  git_commit: d96abce25237feb2b6d6c660f6b4d605feb94330
+
+checkpoint:
+  path: outputs/checkpoints/model_v91_throughput.pt
+  sha256: ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f
+  mode: eval_only
+
+solar_hmm:
+  path: outputs/stage1_params.mat
+  sha256: 8a864e9e10235037fb86b71fc6cc3a35c9a8637593c965c797318eaeff52252c
+  required_keys: ["hmm_A", "hmm_mu", "hmm_sigma2", "hmm_pi0"]
+
+thermal_hmm:
+  path: null
+  status: missing_trained_artifact
+  note: The upstream environment currently synthesizes thermal A, mu, and sigma2 in Python.
+  auxiliary_path: core/hmm/thermal_auxiliary_params.npz
+  auxiliary_sha256: 3d22e56e47a499884b50f88d2598124153ab99386ad62c327835d50cbc46c845
+  auxiliary_trained: false
+

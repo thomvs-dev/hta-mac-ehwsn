@@ -1,0 +1,206 @@
+{
+  "status": "pilot_not_final_ablation",
+  "idle_variant": "100_bit_control_header",
+  "seeds": [
+    2100,
+    2101,
+    2102
+  ],
+  "primary_T_rule_selected": 24,
+  "candidates": [
+    18,
+    22,
+    24,
+    27,
+    30
+  ],
+  "summary": [
+    {
+      "T": 18,
+      "median_t_fnd": 995.0,
+      "median_packets_delivered": 69745.0,
+      "median_stale_drops": 29455.0,
+      "censored_trials": 0
+    },
+    {
+      "T": 22,
+      "median_t_fnd": 893.0,
+      "median_packets_delivered": 70372.0,
+      "median_stale_drops": 18627.0,
+      "censored_trials": 0
+    },
+    {
+      "T": 24,
+      "median_t_fnd": 836.0,
+      "median_packets_delivered": 68526.0,
+      "median_stale_drops": 14934.0,
+      "censored_trials": 0
+    },
+    {
+      "T": 27,
+      "median_t_fnd": 813.0,
+      "median_packets_delivered": 69425.0,
+      "median_stale_drops": 11574.0,
+      "censored_trials": 0
+    },
+    {
+      "T": 30,
+      "median_t_fnd": 787.0,
+      "median_packets_delivered": 69636.0,
+      "median_stale_drops": 8764.0,
+      "censored_trials": 0
+    }
+  ],
+  "trials": [
+    {
+      "T": 18,
+      "seed": 2100,
+      "t_fnd": 997,
+      "rounds": 997,
+      "packets_delivered": 69768,
+      "dropped_stale_packets": 29631,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 18,
+      "seed": 2101,
+      "t_fnd": 920,
+      "rounds": 920,
+      "packets_delivered": 64700,
+      "dropped_stale_packets": 26999,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 18,
+      "seed": 2102,
+      "t_fnd": 995,
+      "rounds": 995,
+      "packets_delivered": 69745,
+      "dropped_stale_packets": 29455,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 22,
+      "seed": 2100,
+      "t_fnd": 909,
+      "rounds": 909,
+      "packets_delivered": 71122,
+      "dropped_stale_packets": 19477,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 22,
+      "seed": 2101,
+      "t_fnd": 893,
+      "rounds": 893,
+      "packets_delivered": 70372,
+      "dropped_stale_packets": 18627,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 22,
+      "seed": 2102,
+      "t_fnd": 847,
+      "rounds": 847,
+      "packets_delivered": 66216,
+      "dropped_stale_packets": 18184,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 24,
+      "seed": 2100,
+      "t_fnd": 903,
+      "rounds": 903,
+      "packets_delivered": 73610,
+      "dropped_stale_packets": 16389,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 24,
+      "seed": 2101,
+      "t_fnd": 836,
+      "rounds": 836,
+      "packets_delivered": 68526,
+      "dropped_stale_packets": 14774,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 24,
+      "seed": 2102,
+      "t_fnd": 818,
+      "rounds": 818,
+      "packets_delivered": 66565,
+      "dropped_stale_packets": 14934,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 27,
+      "seed": 2100,
+      "t_fnd": 864,
+      "rounds": 864,
+      "packets_delivered": 73694,
+      "dropped_stale_packets": 12405,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 27,
+      "seed": 2101,
+      "t_fnd": 792,
+      "rounds": 792,
+      "packets_delivered": 68048,
+      "dropped_stale_packets": 10851,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 27,
+      "seed": 2102,
+      "t_fnd": 813,
+      "rounds": 813,
+      "packets_delivered": 69425,
+      "dropped_stale_packets": 11574,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 30,
+      "seed": 2100,
+      "t_fnd": 817,
+      "rounds": 817,
+      "packets_delivered": 72144,
+      "dropped_stale_packets": 9256,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 30,
+      "seed": 2101,
+      "t_fnd": 749,
+      "rounds": 749,
+      "packets_delivered": 66455,
+      "dropped_stale_packets": 8145,
+      "max_backlog": 4,
+      "right_censored": false
+    },
+    {
+      "T": 30,
+      "seed": 2102,
+      "t_fnd": 787,
+      "rounds": 787,
+      "packets_delivered": 69636,
+      "dropped_stale_packets": 8764,
+      "max_backlog": 4,
+      "right_censored": false
+    }
+  ]
+}

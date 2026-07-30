@@ -1,0 +1,178 @@
+{
+  "created_at_utc": "2026-07-28T13:31:34.390331+00:00",
+  "hermes_root": "F:\\WSN\\matlab\\stage2\\hermes",
+  "phase0_compatible": false,
+  "incompatibilities": [
+    "standalone HERMES temporal window is 20, expected 10",
+    "standalone HERMES maximum power range is 200.0 m, expected 50 m",
+    "bundled Stage 1 MAT has no fitted thermal HMM parameter keys",
+    "no HERMES checkpoint matches W=10, F=31, legacy fixed-Top-K HEART-CH"
+  ],
+  "standalone_config": {
+    "num_nodes": 100,
+    "field_size": [
+      100.0,
+      100.0
+    ],
+    "bs_position": [
+      50.0,
+      175.0
+    ],
+    "initial_energy_j": 0.5,
+    "ch_ratio": 0.05,
+    "temporal_window": 20,
+    "max_power_range_m": 200.0,
+    "mobile_fraction": 0.2,
+    "speed_range_m_per_round": [
+      1.0,
+      5.0
+    ],
+    "thermal_persistence": 0.8
+  },
+  "bundled_stage1": {
+    "path": "F:\\WSN\\matlab\\stage2\\hermes\\colab\\_build\\hermes_colab_bundle\\heart_policy\\outputs\\stage1_params.mat",
+    "sha256": "8a864e9e10235037fb86b71fc6cc3a35c9a8637593c965c797318eaeff52252c",
+    "keys": [
+      "hmm_A",
+      "hmm_mu",
+      "hmm_pi0",
+      "hmm_sigma2"
+    ]
+  },
+  "checkpoints": [
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\results\\rotating_sentinel_selected_model.pt",
+      "sha256": "819b55a824ccbb840fb7bc0ef8be5392823150072dd716c1d0b09cf3b804d350",
+      "episode": 30,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": 298.6666666666667,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\results\\smoke_revision_20260723\\checkpoints\\checkpoint_ep1.pt",
+      "sha256": "c19ee8fb8ade8f094d841c771d0c6676814075003cf2c624b64209f19da65713",
+      "episode": 1,
+      "temporal_window": 20,
+      "node_features": 31,
+      "environment": "legacy",
+      "ch_selection": "fixed_topk",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\results\\smoke_revision_20260723\\checkpoints\\checkpoint_ep2.pt",
+      "sha256": "de3234959f28ca539cd3563c2e4bf717ec1601eef2d7d7ce9e834738bdbea6d3",
+      "episode": 2,
+      "temporal_window": 20,
+      "node_features": 31,
+      "environment": "legacy",
+      "ch_selection": "fixed_topk",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\results\\smoke_revision_20260723\\checkpoints\\final_model.pt",
+      "sha256": "3028aad53da79d99268df2e7ea1611597fba84d8b4afddd749b058950f21b092",
+      "episode": 2,
+      "temporal_window": 20,
+      "node_features": 31,
+      "environment": "legacy",
+      "ch_selection": "fixed_topk",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\best_model.pt",
+      "sha256": "819b55a824ccbb840fb7bc0ef8be5392823150072dd716c1d0b09cf3b804d350",
+      "episode": 30,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": 298.6666666666667,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\checkpoint_ep10.pt",
+      "sha256": "96baec1936bf1f1646958ef4f0b8aaf0a00c75f90f94632642b9eaa265ec967b",
+      "episode": 10,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\checkpoint_ep20.pt",
+      "sha256": "8f566d4888966c37d46add6e7a537ec9825bc53d693ee2dc18c9ff07864608bc",
+      "episode": 20,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\checkpoint_ep30.pt",
+      "sha256": "7e2af6b5120a27c27c878e6fa898c3ab4a2c899844e22534b26b801cea9431d3",
+      "episode": 30,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\checkpoint_ep40.pt",
+      "sha256": "94646741c9aef3c126c4c07dffaf2b0d8c909029ec91bfa5772138cda928edbd",
+      "episode": 40,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\checkpoint_ep50.pt",
+      "sha256": "bf21baa0fa15d4b38e5d504845cc481898752c8e9fc3b881d8cb7e03174faa7f",
+      "episode": 50,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    },
+    {
+      "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy\\checkpoints\\final_model.pt",
+      "sha256": "71e63c84599980ecbaebb06c52473674b88664dc1e3d68c9a0f79e543040ae65",
+      "episode": 50,
+      "temporal_window": 20,
+      "node_features": 33,
+      "environment": "realistic",
+      "ch_selection": "quorum_cover",
+      "embedded_mean_t_fnd": null,
+      "phase0_compatible": false
+    }
+  ],
+  "compatible_checkpoints": [],
+  "learned_policy_evaluation": {
+    "path": "F:\\WSN\\matlab\\stage2\\hermes\\wsn_results_quick_seed42\\learned_policy_evaluation.json",
+    "environment": "realistic",
+    "ch_selection": "quorum_cover",
+    "temporal_window": 20,
+    "node_features": 33,
+    "hermes_included": false,
+    "trials": 5,
+    "fnd_median": 403.0,
+    "fnd_iqr": 50.0
+  },
+  "decision": "HERMES artifacts cannot replace the missing frozen HEART-CH checkpoint provenance or trained thermal HMM."
+}

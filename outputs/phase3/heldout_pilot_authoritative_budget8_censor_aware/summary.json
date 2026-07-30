@@ -1,0 +1,790 @@
+{
+  "status": "pilot_complete",
+  "phase3_structural_gate_pass": true,
+  "inferential_superiority_claimed": false,
+  "seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "horizon": 3000,
+  "expected_primary_runs": 35,
+  "completed_primary_runs": 35,
+  "failures": [],
+  "all_metrics_finite": true,
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "frozen_checkpoint_sha256": "ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f",
+  "trained_checkpoint_sha256": "0ef29efaff04ec1cb652c84a432a53bd0c41d7c68dc9decfcadf9c277247c2ff",
+  "schedule_metadata": {
+    "3100": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1730,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "cache",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3100_horizon_3000_ccb572901e26.pkl"
+    },
+    "3101": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1633,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "cache",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3101_horizon_3000_ccb572901e26.pkl"
+    },
+    "3102": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1655,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "cache",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3102_horizon_3000_ccb572901e26.pkl"
+    },
+    "3103": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1648,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "cache",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3103_horizon_3000_ccb572901e26.pkl"
+    },
+    "3104": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1640,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "cache",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3104_horizon_3000_ccb572901e26.pkl"
+    }
+  },
+  "summary_median_iqr": {
+    "energy_proportional": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 126.0,
+        "q1": 118.0,
+        "q3": 128.0,
+        "iqr": 10.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 141.0,
+        "q1": 139.0,
+        "q3": 144.0,
+        "iqr": 5.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 12320.0,
+        "q1": 12303.0,
+        "q3": 12322.0,
+        "iqr": 19.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 44.86439999999988,
+        "q1": 44.744399999999914,
+        "q3": 44.88359999999988,
+        "iqr": 0.1391999999999669
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.963517615747116,
+        "q1": 0.9569475004886168,
+        "q3": 0.9651344255626099,
+        "iqr": 0.008186925073993101
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 53.118889755982735,
+        "q1": 53.06695061304012,
+        "q3": 53.171334116145495,
+        "iqr": 0.10438350310537459
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 231.7037968821442,
+        "q1": 231.6125215816342,
+        "q3": 232.1972500332838,
+        "iqr": 0.5847284516495961
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 7588.0,
+        "q1": 7420.0,
+        "q3": 7985.0,
+        "iqr": 565.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "ffss_adapted": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 149.0,
+        "q1": 138.0,
+        "q3": 150.0,
+        "iqr": 12.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 157.0,
+        "q1": 157.0,
+        "q3": 160.0,
+        "iqr": 3.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 12591.0,
+        "q1": 12405.0,
+        "q3": 12625.0,
+        "iqr": 220.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 44.97759999999973,
+        "q1": 44.956799999999745,
+        "q3": 45.27679999999975,
+        "iqr": 0.3200000000000074
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.95370927659042,
+        "q1": 0.9371542865327924,
+        "q3": 0.9598942505664797,
+        "iqr": 0.022739964033687277
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 54.227470092070874,
+        "q1": 53.80321789646049,
+        "q3": 54.48666226402805,
+        "iqr": 0.6834443675675601
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 231.70808185721796,
+        "q1": 230.5624177325661,
+        "q3": 232.18859332036314,
+        "iqr": 1.6261755877970359
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 16116.0,
+        "q1": 14612.0,
+        "q3": 16233.0,
+        "iqr": 1621.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "harvest_proportional": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 119.0,
+        "q1": 111.0,
+        "q3": 120.0,
+        "iqr": 9.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 164.0,
+        "q1": 161.0,
+        "q3": 165.0,
+        "iqr": 4.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 13945.0,
+        "q1": 13840.0,
+        "q3": 14066.0,
+        "iqr": 226.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 44.68919999999976,
+        "q1": 44.66759999999974,
+        "q3": 44.9291999999997,
+        "iqr": 0.26159999999996586
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.8866760240459551,
+        "q1": 0.8861574902962254,
+        "q3": 0.9106312412929207,
+        "iqr": 0.024473750996695354
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 54.119640993768385,
+        "q1": 54.00290997820763,
+        "q3": 54.16299269450904,
+        "iqr": 0.16008271630141024
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 258.22682528825527,
+        "q1": 255.71596348286462,
+        "q3": 259.9056413108807,
+        "iqr": 4.189677828016073
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 11948.0,
+        "q1": 11334.0,
+        "q3": 11985.0,
+        "iqr": 651.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "hta_mac": {
+      "t_fnd": {
+        "observed": 0,
+        "median": null,
+        "q1": null,
+        "q3": null,
+        "iqr": null
+      },
+      "t_hnd": {
+        "observed": 0,
+        "median": null,
+        "q1": null,
+        "q3": null,
+        "iqr": null
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 21374.0,
+        "q1": 21338.0,
+        "q3": 21775.0,
+        "iqr": 437.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 17.05700000000002,
+        "q1": 16.86900000000008,
+        "q3": 18.036000000000097,
+        "iqr": 1.1670000000000158
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.7803919999754018,
+        "q1": 0.7677022200108772,
+        "q3": 0.7892459091597684,
+        "iqr": 0.021543689148891265
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 36.29125418182115,
+        "q1": 36.0889997130395,
+        "q3": 37.198008003618106,
+        "iqr": 1.1090082905786076
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 592.258033471547,
+        "q1": 587.965350910593,
+        "q3": 600.2740791342414,
+        "iqr": 12.308728223648473
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 143335.0,
+        "q1": 141925.0,
+        "q3": 143826.0,
+        "iqr": 1901.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "random_budgeted_diagnostic": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 120.0,
+        "q1": 117.0,
+        "q3": 124.0,
+        "iqr": 7.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 193.0,
+        "q1": 183.0,
+        "q3": 194.0,
+        "iqr": 11.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 15377.0,
+        "q1": 15332.0,
+        "q3": 15472.0,
+        "iqr": 140.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 44.13479999999977,
+        "q1": 43.91999999999978,
+        "q3": 44.20079999999976,
+        "iqr": 0.28079999999997796
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9350825848940569,
+        "q1": 0.9331046945480003,
+        "q3": 0.9378454606937131,
+        "iqr": 0.004740766145712838
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 54.08902691056142,
+        "q1": 54.0868442180532,
+        "q3": 54.31299927509262,
+        "iqr": 0.22615505703942063
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 283.45860289467095,
+        "q1": 283.1182259354941,
+        "q3": 284.8022947256209,
+        "iqr": 1.6840687901268439
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 11150.0,
+        "q1": 10897.0,
+        "q3": 12094.0,
+        "iqr": 1197.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "s2a2mac_adapted": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 201.0,
+        "q1": 196.0,
+        "q3": 201.0,
+        "iqr": 5.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 354.0,
+        "q1": 335.0,
+        "q3": 358.0,
+        "iqr": 23.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 22637.0,
+        "q1": 22309.0,
+        "q3": 22790.0,
+        "iqr": 481.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 46.03240000000007,
+        "q1": 45.86000000000007,
+        "q3": 46.08180000000008,
+        "iqr": 0.22180000000000888
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.8402641881835242,
+        "q1": 0.8397154807341094,
+        "q3": 0.8484525338342648,
+        "iqr": 0.008737053100155379
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 59.21915689164824,
+        "q1": 59.21646070760328,
+        "q3": 59.33540059219789,
+        "iqr": 0.11893988459461013
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 381.50917958033597,
+        "q1": 376.71931130019635,
+        "q3": 382.5190705559881,
+        "iqr": 5.7997592557917415
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 39389.0,
+        "q1": 39347.0,
+        "q3": 40318.0,
+        "iqr": 971.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "static_equal": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 132.0,
+        "q1": 132.0,
+        "q3": 136.0,
+        "iqr": 4.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 163.0,
+        "q1": 161.0,
+        "q3": 164.0,
+        "iqr": 3.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 13247.0,
+        "q1": 13000.0,
+        "q3": 13256.0,
+        "iqr": 256.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 45.136799999999766,
+        "q1": 44.86519999999976,
+        "q3": 45.375999999999756,
+        "iqr": 0.5107999999999961
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9221487788929903,
+        "q1": 0.9062253068424828,
+        "q3": 0.9338207339081612,
+        "iqr": 0.027595427065678413
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 54.850936654545805,
+        "q1": 54.4832414674816,
+        "q3": 55.075212677034415,
+        "iqr": 0.5919712095528169
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 240.52562588693937,
+        "q1": 238.60548032479068,
+        "q3": 241.67317476248422,
+        "iqr": 3.0676944376935467
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 17973.0,
+        "q1": 17210.0,
+        "q3": 18907.0,
+        "iqr": 1697.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    }
+  },
+  "censor_aware_lifetime": {
+    "common_restriction_round": 1633,
+    "endpoints": {
+      "t_fnd": {
+        "energy_proportional": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 126.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 122.8,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1507.0
+          }
+        },
+        "ffss_adapted": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 149.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 145.8,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1484.0
+          }
+        },
+        "harvest_proportional": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 119.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 116.4,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1514.0
+          }
+        },
+        "hta_mac": {
+          "trials": 5,
+          "events": 0,
+          "right_censored": 5,
+          "kaplan_meier_median_round": null,
+          "median_reached": false,
+          "restricted_mean_event_free_rounds": 1633.0,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": null
+        },
+        "random_budgeted_diagnostic": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 120.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 119.8,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1513.0
+          }
+        },
+        "s2a2mac_adapted": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 201.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 200.0,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1432.0
+          }
+        },
+        "static_equal": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 132.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 132.0,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1501.0
+          }
+        }
+      },
+      "t_hnd": {
+        "energy_proportional": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 141.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 142.2,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1492.0
+          }
+        },
+        "ffss_adapted": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 157.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 158.4,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1476.0
+          }
+        },
+        "harvest_proportional": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 164.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 164.4,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1469.0
+          }
+        },
+        "hta_mac": {
+          "trials": 5,
+          "events": 0,
+          "right_censored": 5,
+          "kaplan_meier_median_round": null,
+          "median_reached": false,
+          "restricted_mean_event_free_rounds": 1633.0,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": null
+        },
+        "random_budgeted_diagnostic": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 193.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 189.0,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1440.0
+          }
+        },
+        "s2a2mac_adapted": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 354.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 346.4,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1279.0
+          }
+        },
+        "static_equal": {
+          "trials": 5,
+          "events": 5,
+          "right_censored": 0,
+          "kaplan_meier_median_round": 163.0,
+          "median_reached": true,
+          "restricted_mean_event_free_rounds": 162.2,
+          "restriction_round": 1633,
+          "paired_wilcoxon_vs_hta": {
+            "paired_trials": 5,
+            "statistic": 0.0,
+            "p_value_two_sided": 0.0625,
+            "median_paired_difference_rounds": 1470.0
+          }
+        }
+      }
+    }
+  },
+  "static_idle_off_compatibility": {
+    "reference_reproduced_t_fnd": 1100.6,
+    "pilot_median_t_fnd": null,
+    "relative_gap": null,
+    "within_prespecified_20_percent_diagnostic_band": null,
+    "summary": {}
+  },
+  "policy_count_resolution": "six named comparison policies including HTA-MAC plus one non-literature random-budgeted diagnostic equals seven",
+  "limitations": [
+    "Five seeds are a development pilot and do not support inferential superiority claims.",
+    "S2A2MAC HMM parameters are not published as a reusable artifact; cluster-local deterministic tertiles reproduce its three residual-energy/load layers.",
+    "FFSS slot ordering cannot be represented by the round-level environment; the adaptation preserves one-slot feasible-first fixed-frame selection."
+  ]
+}

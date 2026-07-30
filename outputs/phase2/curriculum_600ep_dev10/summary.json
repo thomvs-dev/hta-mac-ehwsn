@@ -1,0 +1,944 @@
+{
+  "status": "pass",
+  "phase2_curriculum_gate_pass": true,
+  "smoke_only": false,
+  "episodes_requested": 600,
+  "episodes_completed": 600,
+  "global_steps": 45663,
+  "optimizer_seed": 2199,
+  "development_seeds": [
+    2200,
+    2201,
+    2202,
+    2203,
+    2204,
+    2205,
+    2206,
+    2207,
+    2208,
+    2209
+  ],
+  "held_out_pilot_seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "held_out_overlap": [],
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "curriculum_clusters": [
+    {
+      "seed": 2200,
+      "cluster": 0,
+      "ch": 4,
+      "members": 3,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 1,
+      "ch": 25,
+      "members": 12,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 3,
+      "ch": 39,
+      "members": 53,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 4,
+      "ch": 43,
+      "members": 27,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 0,
+      "ch": 27,
+      "members": 25,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 1,
+      "ch": 75,
+      "members": 25,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 2,
+      "ch": 78,
+      "members": 4,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 3,
+      "ch": 82,
+      "members": 18,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 4,
+      "ch": 84,
+      "members": 23,
+      "input_dim": 50
+    },
+    {
+      "seed": 2202,
+      "cluster": 0,
+      "ch": 6,
+      "members": 23,
+      "input_dim": 50
+    },
+    {
+      "seed": 2202,
+      "cluster": 1,
+      "ch": 18,
+      "members": 34,
+      "input_dim": 50
+    },
+    {
+      "seed": 2202,
+      "cluster": 2,
+      "ch": 31,
+      "members": 15,
+      "input_dim": 50
+    },
+    {
+      "seed": 2202,
+      "cluster": 4,
+      "ch": 78,
+      "members": 23,
+      "input_dim": 50
+    },
+    {
+      "seed": 2203,
+      "cluster": 0,
+      "ch": 6,
+      "members": 35,
+      "input_dim": 50
+    },
+    {
+      "seed": 2203,
+      "cluster": 1,
+      "ch": 23,
+      "members": 6,
+      "input_dim": 50
+    },
+    {
+      "seed": 2203,
+      "cluster": 3,
+      "ch": 96,
+      "members": 8,
+      "input_dim": 50
+    },
+    {
+      "seed": 2203,
+      "cluster": 4,
+      "ch": 99,
+      "members": 46,
+      "input_dim": 50
+    },
+    {
+      "seed": 2204,
+      "cluster": 0,
+      "ch": 0,
+      "members": 8,
+      "input_dim": 50
+    },
+    {
+      "seed": 2204,
+      "cluster": 1,
+      "ch": 8,
+      "members": 2,
+      "input_dim": 50
+    },
+    {
+      "seed": 2204,
+      "cluster": 2,
+      "ch": 26,
+      "members": 42,
+      "input_dim": 50
+    },
+    {
+      "seed": 2204,
+      "cluster": 3,
+      "ch": 39,
+      "members": 16,
+      "input_dim": 50
+    },
+    {
+      "seed": 2204,
+      "cluster": 4,
+      "ch": 82,
+      "members": 27,
+      "input_dim": 50
+    },
+    {
+      "seed": 2205,
+      "cluster": 0,
+      "ch": 21,
+      "members": 6,
+      "input_dim": 50
+    },
+    {
+      "seed": 2205,
+      "cluster": 1,
+      "ch": 41,
+      "members": 5,
+      "input_dim": 50
+    },
+    {
+      "seed": 2205,
+      "cluster": 2,
+      "ch": 48,
+      "members": 13,
+      "input_dim": 50
+    },
+    {
+      "seed": 2205,
+      "cluster": 3,
+      "ch": 62,
+      "members": 36,
+      "input_dim": 50
+    },
+    {
+      "seed": 2205,
+      "cluster": 4,
+      "ch": 96,
+      "members": 35,
+      "input_dim": 50
+    },
+    {
+      "seed": 2206,
+      "cluster": 1,
+      "ch": 13,
+      "members": 41,
+      "input_dim": 50
+    },
+    {
+      "seed": 2206,
+      "cluster": 2,
+      "ch": 45,
+      "members": 1,
+      "input_dim": 50
+    },
+    {
+      "seed": 2206,
+      "cluster": 3,
+      "ch": 59,
+      "members": 36,
+      "input_dim": 50
+    },
+    {
+      "seed": 2206,
+      "cluster": 4,
+      "ch": 78,
+      "members": 17,
+      "input_dim": 50
+    },
+    {
+      "seed": 2207,
+      "cluster": 0,
+      "ch": 44,
+      "members": 35,
+      "input_dim": 50
+    },
+    {
+      "seed": 2207,
+      "cluster": 1,
+      "ch": 51,
+      "members": 5,
+      "input_dim": 50
+    },
+    {
+      "seed": 2207,
+      "cluster": 2,
+      "ch": 52,
+      "members": 4,
+      "input_dim": 50
+    },
+    {
+      "seed": 2207,
+      "cluster": 3,
+      "ch": 55,
+      "members": 51,
+      "input_dim": 50
+    },
+    {
+      "seed": 2208,
+      "cluster": 0,
+      "ch": 15,
+      "members": 16,
+      "input_dim": 50
+    },
+    {
+      "seed": 2208,
+      "cluster": 1,
+      "ch": 40,
+      "members": 40,
+      "input_dim": 50
+    },
+    {
+      "seed": 2208,
+      "cluster": 2,
+      "ch": 45,
+      "members": 28,
+      "input_dim": 50
+    },
+    {
+      "seed": 2208,
+      "cluster": 4,
+      "ch": 53,
+      "members": 11,
+      "input_dim": 50
+    },
+    {
+      "seed": 2209,
+      "cluster": 0,
+      "ch": 0,
+      "members": 28,
+      "input_dim": 50
+    },
+    {
+      "seed": 2209,
+      "cluster": 1,
+      "ch": 23,
+      "members": 33,
+      "input_dim": 50
+    },
+    {
+      "seed": 2209,
+      "cluster": 2,
+      "ch": 25,
+      "members": 15,
+      "input_dim": 50
+    },
+    {
+      "seed": 2209,
+      "cluster": 4,
+      "ch": 70,
+      "members": 19,
+      "input_dim": 50
+    }
+  ],
+  "curriculum_pair_count": 43,
+  "full_curriculum_seen": true,
+  "max_padded_branches": 53,
+  "agent_config": {
+    "input_dim": 50,
+    "actions": 4,
+    "budget": 24,
+    "gamma": 0.99,
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "replay_capacity": 20000,
+    "warmup": 256,
+    "target_update_steps": 250,
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "reward_calibration": {
+    "scales": {
+      "packets_delivered": 1.05,
+      "idle_energy_j": 0.07679999999999998,
+      "deaths": 1.0,
+      "high_harvest_alignment": 0.2,
+      "declining_allocation": 0.2,
+      "queue_fairness": 1.0
+    },
+    "weights": {
+      "packets_delivered": 2.0,
+      "idle_energy_j": 1.0,
+      "deaths": 2.0,
+      "high_harvest_alignment": 0.5,
+      "declining_allocation": 0.5,
+      "queue_fairness": 0.5
+    },
+    "evidence": "outputs/logs/phase2_reward_calibration.json"
+  },
+  "queue_feasibility_caps": true,
+  "target_ch_death_penalized": true,
+  "always_sleep_collapse": false,
+  "nonfinite_detected": false,
+  "reward_balance": {
+    "last_n_episodes": 50,
+    "absolute_totals": {
+      "packets_delivered": 6307.20179642008,
+      "idle_energy_j": 2796.666666666667,
+      "deaths": 92.0,
+      "high_harvest_alignment": 980.2111051196689,
+      "declining_allocation": 1046.5365783577683,
+      "queue_fairness": 1734.9598810324865
+    },
+    "fractions": {
+      "packets_delivered": 0.48675784598810645,
+      "idle_energy_j": 0.21583254929088644,
+      "deaths": 0.007100093397411758,
+      "high_harvest_alignment": 0.07564772169054178,
+      "declining_allocation": 0.0807663853276944,
+      "queue_fairness": 0.1338954043053592
+    },
+    "dominant_term": "packets_delivered",
+    "pathological_domination": false,
+    "threshold": 0.8
+  },
+  "greedy_evaluation": {
+    "clusters": [
+      {
+        "seed": 2200,
+        "cluster": 0,
+        "members": 3,
+        "reward": 213.30009920634896,
+        "packets": 270,
+        "steps": 90,
+        "packets_per_step": 3.0,
+        "mean_allocated_slots": 3.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 1,
+        "members": 12,
+        "reward": 132.12698412698404,
+        "packets": 768,
+        "steps": 64,
+        "packets_per_step": 12.0,
+        "mean_allocated_slots": 12.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 3,
+        "members": 53,
+        "reward": -21.510692763387578,
+        "packets": 1272,
+        "steps": 53,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 4,
+        "members": 27,
+        "reward": 29.255817314587382,
+        "packets": 1176,
+        "steps": 49,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 0,
+        "members": 25,
+        "reward": 73.82790432677604,
+        "packets": 2143,
+        "steps": 90,
+        "packets_per_step": 23.81111111111111,
+        "mean_allocated_slots": 23.81111111111111,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 1,
+        "members": 25,
+        "reward": 44.076071895379556,
+        "packets": 1392,
+        "steps": 58,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 2,
+        "members": 4,
+        "reward": 217.6502976190477,
+        "packets": 380,
+        "steps": 95,
+        "packets_per_step": 4.0,
+        "mean_allocated_slots": 4.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 3,
+        "members": 18,
+        "reward": 166.4416335978836,
+        "packets": 1980,
+        "steps": 110,
+        "packets_per_step": 18.0,
+        "mean_allocated_slots": 18.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 4,
+        "members": 23,
+        "reward": 58.923476102108516,
+        "packets": 1159,
+        "steps": 54,
+        "packets_per_step": 21.462962962962962,
+        "mean_allocated_slots": 21.462962962962962,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2202,
+        "cluster": 0,
+        "members": 23,
+        "reward": 57.244371118012374,
+        "packets": 1242,
+        "steps": 54,
+        "packets_per_step": 23.0,
+        "mean_allocated_slots": 23.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2202,
+        "cluster": 1,
+        "members": 34,
+        "reward": 15.46908538201367,
+        "packets": 1752,
+        "steps": 73,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2202,
+        "cluster": 2,
+        "members": 15,
+        "reward": 114.07142857142858,
+        "packets": 960,
+        "steps": 64,
+        "packets_per_step": 15.0,
+        "mean_allocated_slots": 15.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2202,
+        "cluster": 4,
+        "members": 23,
+        "reward": 104.94718130336508,
+        "packets": 2106,
+        "steps": 97,
+        "packets_per_step": 21.711340206185568,
+        "mean_allocated_slots": 21.711340206185568,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2203,
+        "cluster": 0,
+        "members": 35,
+        "reward": 16.602671592195943,
+        "packets": 2110,
+        "steps": 88,
+        "packets_per_step": 23.977272727272727,
+        "mean_allocated_slots": 23.977272727272727,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2203,
+        "cluster": 1,
+        "members": 6,
+        "reward": 191.24975198412673,
+        "packets": 498,
+        "steps": 83,
+        "packets_per_step": 6.0,
+        "mean_allocated_slots": 6.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2203,
+        "cluster": 3,
+        "members": 8,
+        "reward": 154.41145833333334,
+        "packets": 539,
+        "steps": 77,
+        "packets_per_step": 7.0,
+        "mean_allocated_slots": 7.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2203,
+        "cluster": 4,
+        "members": 46,
+        "reward": -12.90632058806064,
+        "packets": 1416,
+        "steps": 59,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2204,
+        "cluster": 0,
+        "members": 8,
+        "reward": 330.1934523809527,
+        "packets": 1200,
+        "steps": 150,
+        "packets_per_step": 8.0,
+        "mean_allocated_slots": 8.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2204,
+        "cluster": 1,
+        "members": 2,
+        "reward": 356.1830357142857,
+        "packets": 300,
+        "steps": 150,
+        "packets_per_step": 2.0,
+        "mean_allocated_slots": 2.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2204,
+        "cluster": 2,
+        "members": 42,
+        "reward": -6.878867642792613,
+        "packets": 1968,
+        "steps": 82,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2204,
+        "cluster": 3,
+        "members": 16,
+        "reward": 195.88139624617335,
+        "packets": 1789,
+        "steps": 113,
+        "packets_per_step": 15.831858407079647,
+        "mean_allocated_slots": 15.831858407079647,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2204,
+        "cluster": 4,
+        "members": 27,
+        "reward": 48.29254850088181,
+        "packets": 1776,
+        "steps": 74,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2205,
+        "cluster": 0,
+        "members": 6,
+        "reward": 155.80505952380955,
+        "packets": 380,
+        "steps": 95,
+        "packets_per_step": 4.0,
+        "mean_allocated_slots": 4.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2205,
+        "cluster": 1,
+        "members": 5,
+        "reward": 193.3261904761904,
+        "packets": 416,
+        "steps": 104,
+        "packets_per_step": 4.0,
+        "mean_allocated_slots": 4.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2205,
+        "cluster": 2,
+        "members": 13,
+        "reward": 131.77866489355645,
+        "packets": 871,
+        "steps": 67,
+        "packets_per_step": 13.0,
+        "mean_allocated_slots": 13.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2205,
+        "cluster": 3,
+        "members": 36,
+        "reward": 6.71898961164269,
+        "packets": 1464,
+        "steps": 61,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2205,
+        "cluster": 4,
+        "members": 35,
+        "reward": 7.039641873654289,
+        "packets": 1320,
+        "steps": 55,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2206,
+        "cluster": 1,
+        "members": 41,
+        "reward": -4.341306959933541,
+        "packets": 1176,
+        "steps": 49,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2206,
+        "cluster": 2,
+        "members": 1,
+        "reward": 309.333333333333,
+        "packets": 140,
+        "steps": 150,
+        "packets_per_step": 0.9333333333333333,
+        "mean_allocated_slots": 0.9333333333333333,
+        "zero_action_fraction": 0.3333333333333333,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2206,
+        "cluster": 3,
+        "members": 36,
+        "reward": 5.178165901874148,
+        "packets": 1416,
+        "steps": 59,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2206,
+        "cluster": 4,
+        "members": 17,
+        "reward": 98.95807072829128,
+        "packets": 990,
+        "steps": 66,
+        "packets_per_step": 15.0,
+        "mean_allocated_slots": 15.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2207,
+        "cluster": 0,
+        "members": 35,
+        "reward": 12.540951955540748,
+        "packets": 1487,
+        "steps": 62,
+        "packets_per_step": 23.983870967741936,
+        "mean_allocated_slots": 23.983870967741936,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2207,
+        "cluster": 1,
+        "members": 5,
+        "reward": 94.58303571428578,
+        "packets": 204,
+        "steps": 102,
+        "packets_per_step": 2.0,
+        "mean_allocated_slots": 2.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2207,
+        "cluster": 2,
+        "members": 4,
+        "reward": 179.91964285714286,
+        "packets": 300,
+        "steps": 100,
+        "packets_per_step": 3.0,
+        "mean_allocated_slots": 3.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2207,
+        "cluster": 3,
+        "members": 51,
+        "reward": -18.029052777106408,
+        "packets": 1248,
+        "steps": 52,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2208,
+        "cluster": 0,
+        "members": 16,
+        "reward": 104.5476190476191,
+        "packets": 930,
+        "steps": 62,
+        "packets_per_step": 15.0,
+        "mean_allocated_slots": 15.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2208,
+        "cluster": 1,
+        "members": 40,
+        "reward": -2.638529578269439,
+        "packets": 1248,
+        "steps": 52,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2208,
+        "cluster": 2,
+        "members": 28,
+        "reward": 31.470238095238088,
+        "packets": 1344,
+        "steps": 56,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2208,
+        "cluster": 4,
+        "members": 11,
+        "reward": 139.09374999999994,
+        "packets": 700,
+        "steps": 70,
+        "packets_per_step": 10.0,
+        "mean_allocated_slots": 10.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2209,
+        "cluster": 0,
+        "members": 28,
+        "reward": 30.13477891156462,
+        "packets": 1272,
+        "steps": 53,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2209,
+        "cluster": 1,
+        "members": 33,
+        "reward": 13.152460977191138,
+        "packets": 1224,
+        "steps": 51,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2209,
+        "cluster": 2,
+        "members": 15,
+        "reward": 113.7959325396825,
+        "packets": 923,
+        "steps": 71,
+        "packets_per_step": 13.0,
+        "mean_allocated_slots": 13.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2209,
+        "cluster": 4,
+        "members": 19,
+        "reward": 90.01147399749371,
+        "packets": 1159,
+        "steps": 61,
+        "packets_per_step": 19.0,
+        "mean_allocated_slots": 19.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      }
+    ],
+    "mean_reward": 97.00539291731266,
+    "mean_packets": 1125.7674418604652,
+    "mean_packets_per_step": 16.551436039899702,
+    "mean_zero_action_fraction": 0.007751937984496124
+  },
+  "trajectory_q_check": {
+    "equal_normalized_energy": 0.5,
+    "s1_q_values": [
+      26.007238388061523,
+      26.942655563354492,
+      25.053997039794922,
+      26.539180755615234
+    ],
+    "s8_q_values": [
+      26.27618408203125,
+      27.200170516967773,
+      25.262901306152344,
+      26.737531661987305
+    ],
+    "max_absolute_difference": 0.26894569396972656,
+    "differentiated": true
+  },
+  "convergence": {
+    "assessed": true,
+    "previous_50_mean_reward": 97.83891523942071,
+    "last_50_mean_reward": 101.74339075095611,
+    "relative_change": 0.03990718316919999,
+    "pass": true
+  },
+  "scope": "Balanced development curriculum over every frozen initial cluster; held-out Phase 3 seeds are excluded and CH selection remains exogenous."
+}

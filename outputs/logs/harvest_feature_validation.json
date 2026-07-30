@@ -1,0 +1,88 @@
+{
+  "active_checkpoint_environment": "final_repo/env/wsn_env.py",
+  "active_feature_semantics": {
+    "solar_probability_block": "state-conditioned transition row",
+    "thermal_probability_block": "state-conditioned transition row",
+    "bayesian_posterior_filter_used": false
+  },
+  "legacy_posterior_implementation": {
+    "path": "final_repo/src/ehwsn/hmm.py",
+    "used_by_frozen_checkpoint_environment": false,
+    "decision": "not imported across simulator boundary"
+  },
+  "solar": {
+    "active_upstream_mean": [
+      -0.01944444444444444,
+      -0.007777777777777776,
+      0.0005555555555555559,
+      -0.006363636363636364,
+      -0.0007692307692307694,
+      0.004545454545454545,
+      -4.336808689942018e-19,
+      0.02210526315789474
+    ],
+    "active_upstream_variance": [
+      0.0008689135802469135,
+      0.0005865061728395061,
+      0.0008216913580246913,
+      0.0008016859504132233,
+      0.0005834082840236687,
+      0.0008215206611570248,
+      0.0006615,
+      0.0007366204986149584
+    ],
+    "rectified_mean_j": [
+      5.3210646295461105e-05,
+      6.076660551294644e-05,
+      0.00011726668417520588,
+      8.679237640201884e-05,
+      8.599534687867615e-05,
+      0.00014133783094747338,
+      0.00010278876301344415,
+      0.0002635465991289487
+    ],
+    "rectified_variance_j2": [
+      1.4390705558139635e-08,
+      1.4667592975171089e-08,
+      2.81987381740385e-08,
+      2.3693157281139168e-08,
+      2.0511221037911625e-08,
+      2.99581744595129e-08,
+      2.5102155557386754e-08,
+      4.054120875961068e-08
+    ],
+    "mean_numerically_identical": false,
+    "variance_numerically_identical": false,
+    "transition_rows_identity_error": 0.0
+  },
+  "thermal": {
+    "active_upstream_mean": [
+      -0.002,
+      0.006,
+      0.014,
+      0.022000000000000006
+    ],
+    "active_upstream_variance": [
+      7.435e-05,
+      5.5150000000000006e-05,
+      8.634999999999993e-05,
+      8.714999999999992e-05
+    ],
+    "rectified_mean_j": [
+      1.1630519133905565e-05,
+      3.30589099256026e-05,
+      7.176997963438735e-05,
+      0.000111392601583082
+    ],
+    "rectified_variance_j2": [
+      1.100784103055109e-09,
+      1.1028373633305717e-09,
+      1.851864894732038e-09,
+      1.8250870833526802e-09
+    ],
+    "mean_numerically_identical": false,
+    "variance_numerically_identical": false,
+    "transition_rows_identity_error": 0.0
+  },
+  "conclusion": "Transition-probability blocks are exactly reusable. Active upstream forecast moments are raw Gaussian moments and are not numerically identical to manuscript Eqs. 13-14 after rectification and scaling; HTA-MAC uses the manuscript moments."
+}

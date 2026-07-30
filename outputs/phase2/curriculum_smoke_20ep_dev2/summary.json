@@ -1,0 +1,288 @@
+{
+  "status": "smoke_pass",
+  "phase2_curriculum_gate_pass": false,
+  "smoke_only": true,
+  "episodes_requested": 20,
+  "episodes_completed": 20,
+  "global_steps": 1522,
+  "optimizer_seed": 2199,
+  "development_seeds": [
+    2200,
+    2201
+  ],
+  "held_out_pilot_seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "held_out_overlap": [],
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "curriculum_clusters": [
+    {
+      "seed": 2200,
+      "cluster": 0,
+      "ch": 4,
+      "members": 3,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 1,
+      "ch": 25,
+      "members": 12,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 3,
+      "ch": 39,
+      "members": 53,
+      "input_dim": 50
+    },
+    {
+      "seed": 2200,
+      "cluster": 4,
+      "ch": 43,
+      "members": 27,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 0,
+      "ch": 27,
+      "members": 25,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 1,
+      "ch": 75,
+      "members": 25,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 2,
+      "ch": 78,
+      "members": 4,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 3,
+      "ch": 82,
+      "members": 18,
+      "input_dim": 50
+    },
+    {
+      "seed": 2201,
+      "cluster": 4,
+      "ch": 84,
+      "members": 23,
+      "input_dim": 50
+    }
+  ],
+  "curriculum_pair_count": 9,
+  "full_curriculum_seen": true,
+  "max_padded_branches": 53,
+  "agent_config": {
+    "input_dim": 50,
+    "actions": 4,
+    "budget": 24,
+    "gamma": 0.99,
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "replay_capacity": 20000,
+    "warmup": 256,
+    "target_update_steps": 250,
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "reward_calibration": {
+    "scales": {
+      "packets_delivered": 1.05,
+      "idle_energy_j": 0.07679999999999998,
+      "deaths": 1.0,
+      "high_harvest_alignment": 0.2,
+      "declining_allocation": 0.2,
+      "queue_fairness": 1.0
+    },
+    "weights": {
+      "packets_delivered": 2.0,
+      "idle_energy_j": 1.0,
+      "deaths": 2.0,
+      "high_harvest_alignment": 0.5,
+      "declining_allocation": 0.5,
+      "queue_fairness": 0.5
+    },
+    "evidence": "outputs/logs/phase2_reward_calibration.json"
+  },
+  "queue_feasibility_caps": true,
+  "target_ch_death_penalized": true,
+  "always_sleep_collapse": false,
+  "nonfinite_detected": false,
+  "reward_balance": {
+    "last_n_episodes": 20,
+    "absolute_totals": {
+      "packets_delivered": 2685.7525649873437,
+      "idle_energy_j": 1013.6145833333335,
+      "deaths": 40.0,
+      "high_harvest_alignment": 374.2425662605456,
+      "declining_allocation": 424.0658653115791,
+      "queue_fairness": 738.990443624721
+    },
+    "fractions": {
+      "packets_delivered": 0.5089866504753643,
+      "idle_energy_j": 0.19209375367244472,
+      "deaths": 0.007580544196226249,
+      "high_harvest_alignment": 0.0709240578411799,
+      "declining_allocation": 0.08036625085263382,
+      "queue_fairness": 0.140048742962151
+    },
+    "dominant_term": "packets_delivered",
+    "pathological_domination": false,
+    "threshold": 0.8
+  },
+  "greedy_evaluation": {
+    "clusters": [
+      {
+        "seed": 2200,
+        "cluster": 0,
+        "members": 3,
+        "reward": 213.30009920634896,
+        "packets": 270,
+        "steps": 90,
+        "packets_per_step": 3.0,
+        "mean_allocated_slots": 3.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 1,
+        "members": 12,
+        "reward": 132.12698412698404,
+        "packets": 768,
+        "steps": 64,
+        "packets_per_step": 12.0,
+        "mean_allocated_slots": 12.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 3,
+        "members": 53,
+        "reward": -2.3231158984616784,
+        "packets": 1272,
+        "steps": 53,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2200,
+        "cluster": 4,
+        "members": 27,
+        "reward": 39.077620276657576,
+        "packets": 1176,
+        "steps": 49,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 0,
+        "members": 25,
+        "reward": 87.1554119336202,
+        "packets": 2136,
+        "steps": 89,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 1,
+        "members": 25,
+        "reward": 50.66335803829371,
+        "packets": 1392,
+        "steps": 58,
+        "packets_per_step": 24.0,
+        "mean_allocated_slots": 24.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 2,
+        "members": 4,
+        "reward": 217.6502976190477,
+        "packets": 380,
+        "steps": 95,
+        "packets_per_step": 4.0,
+        "mean_allocated_slots": 4.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 3,
+        "members": 18,
+        "reward": 166.4416335978836,
+        "packets": 1980,
+        "steps": 110,
+        "packets_per_step": 18.0,
+        "mean_allocated_slots": 18.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      },
+      {
+        "seed": 2201,
+        "cluster": 4,
+        "members": 23,
+        "reward": 54.997800207039276,
+        "packets": 1196,
+        "steps": 52,
+        "packets_per_step": 23.0,
+        "mean_allocated_slots": 23.0,
+        "zero_action_fraction": 0.0,
+        "target_ch_alive": false
+      }
+    ],
+    "mean_reward": 106.56556545637926,
+    "mean_packets": 1174.4444444444443,
+    "mean_packets_per_step": 17.333333333333332,
+    "mean_zero_action_fraction": 0.0
+  },
+  "trajectory_q_check": {
+    "equal_normalized_energy": 0.5,
+    "s1_q_values": [
+      10.710403442382812,
+      11.214696884155273,
+      12.077438354492188,
+      12.807642936706543
+    ],
+    "s8_q_values": [
+      10.701126098632812,
+      11.202560424804688,
+      12.062858581542969,
+      12.797893524169922
+    ],
+    "max_absolute_difference": 0.01457977294921875,
+    "differentiated": true
+  },
+  "convergence": {
+    "assessed": false,
+    "relative_change": null,
+    "pass": false
+  },
+  "scope": "Balanced development curriculum over every frozen initial cluster; held-out Phase 3 seeds are excluded and CH selection remains exogenous."
+}

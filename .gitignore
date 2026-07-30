@@ -1,0 +1,13 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Reproducible frozen-schedule caches. Authoritative raw results and model
+# checkpoints under outputs/ remain tracked.
+outputs/cache/
+
+# Local scratch files
+.codex_tmp/
+*.tmp
+*.bak

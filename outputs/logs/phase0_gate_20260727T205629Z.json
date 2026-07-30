@@ -1,0 +1,26 @@
+{
+  "created_at_utc": "2026-07-27T20:56:29.452623+00:00",
+  "phase": 0,
+  "gate_pass": false,
+  "evaluation_executed": false,
+  "failures": [
+    "solar HMM keys missing: [' ', ',', '0', '2', 'A', '[', ']', '_', 'a', 'g', 'h', 'i', 'm', 'p', 's', 'u']",
+    "trained thermal HMM artifact missing; upstream synthesizes thermal parameters"
+  ],
+  "reproducibility": {
+    "upstream_path": "F:\\WSN\\matlab\\stage2\\final_repo",
+    "upstream_git_commit": "d96abce25237feb2b6d6c660f6b4d605feb94330",
+    "base_config_sha256": "395746bd4a7512ca3de50322cbea7376d84194e60b5e0567a968d30218797f0f",
+    "checkpoint_sha256": "ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f",
+    "solar_hmm_sha256": "8a864e9e10235037fb86b71fc6cc3a35c9a8637593c965c797318eaeff52252c",
+    "seed_start": 1000,
+    "episodes": 0,
+    "max_rounds": 2500
+  },
+  "hmm_parameters": {
+    "solar": {},
+    "thermal": null
+  },
+  "evaluation_summary": null,
+  "trials": []
+}

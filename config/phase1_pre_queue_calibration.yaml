@@ -1,0 +1,27 @@
+# Authoritative post-instructor Phase 1 configuration.
+phase: 1
+frame_slot_budget: 24
+frame_slot_budget_rule: ceil_1.3_times_measured_median_cluster_members
+frame_slot_budget_evidence: outputs/logs/cluster_contention_analysis.json
+n_max: 3
+queue_max_packets: 100
+queue_max_status: calibration_ceiling_pending_static_pilot
+packet_ttl_rounds: 3
+max_rounds: 3000
+idle_energy:
+  enabled: true
+  primary_slot_bit_times: 4000
+  sensitivity_slot_bit_times: 100
+  primary_label: full_data_slot
+  sensitivity_label: control_header_only
+cluster_selection:
+  mode: shared_per_round_frozen_heart_ch_schedule
+  requested_horizon: 3000
+  on_exhaustion: right_censor
+  stale_frame_replay: false
+embedding:
+  mode: shared_exogenous_schedule_replay
+probability_features:
+  terminology: state_conditioned_transition_probabilities
+forecast_features:
+  moments: rectified_gaussian_heart_ch_equations_13_14

@@ -1,0 +1,414 @@
+{
+  "created_at_utc": "2026-07-28T08:02:38.057141+00:00",
+  "phase": 0,
+  "gate_pass": false,
+  "evaluation_executed": true,
+  "failures": [
+    "trained thermal HMM artifact missing; upstream synthesizes thermal parameters",
+    "Phase 0 requires exactly 30 trials",
+    "fresh checkpoint T_FND does not reproduce the locked reference under the preregistered combined-standard-error criterion"
+  ],
+  "reproducibility": {
+    "upstream_path": "F:\\WSN\\matlab\\stage2\\final_repo",
+    "upstream_git_commit": "d96abce25237feb2b6d6c660f6b4d605feb94330",
+    "base_config_sha256": "395746bd4a7512ca3de50322cbea7376d84194e60b5e0567a968d30218797f0f",
+    "checkpoint_sha256": "ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f",
+    "solar_hmm_sha256": "8a864e9e10235037fb86b71fc6cc3a35c9a8637593c965c797318eaeff52252c",
+    "seed_start": 42,
+    "episodes": 20,
+    "max_rounds": 2500
+  },
+  "hmm_parameters": {
+    "solar": {
+      "hmm_A": [
+        [
+          0.4444444444444444,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.0,
+          0.0
+        ],
+        [
+          0.1111111111111111,
+          0.4444444444444444,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.0,
+          0.0
+        ],
+        [
+          0.1111111111111111,
+          0.1111111111111111,
+          0.4444444444444444,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.1111111111111111,
+          0.0,
+          0.0
+        ],
+        [
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.36363636363636365,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091
+        ],
+        [
+          0.07692307692307693,
+          0.07692307692307693,
+          0.07692307692307693,
+          0.07692307692307693,
+          0.46153846153846156,
+          0.07692307692307693,
+          0.07692307692307693,
+          0.07692307692307693
+        ],
+        [
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.09090909090909091,
+          0.36363636363636365,
+          0.09090909090909091,
+          0.09090909090909091
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.125,
+          0.125,
+          0.125,
+          0.5,
+          0.125
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.10526315789473684,
+          0.10526315789473684,
+          0.10526315789473684,
+          0.10526315789473684,
+          0.5789473684210527
+        ]
+      ],
+      "hmm_mu": [
+        [
+          -0.045,
+          -0.01,
+          0.015,
+          -0.02,
+          0.0,
+          0.02,
+          -0.01,
+          0.04
+        ]
+      ],
+      "hmm_sigma2": [
+        [
+          0.0001,
+          0.000225,
+          0.0006250000000000001,
+          0.00032399999999999996,
+          0.0001,
+          0.00032399999999999996,
+          0.0004,
+          0.000144
+        ]
+      ],
+      "hmm_pi0": [
+        [
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125
+        ]
+      ]
+    },
+    "thermal": null
+  },
+  "evaluation_summary": {
+    "t_fnd": {
+      "mean": 1083.4,
+      "population_std": 37.13138833924743,
+      "median": 1080.0,
+      "iqr": 55.0,
+      "min": 1017.0,
+      "max": 1174.0
+    },
+    "t_hnd": {
+      "mean": 1497.75,
+      "population_std": 19.196028235028205,
+      "median": 1499.0,
+      "iqr": 17.75,
+      "min": 1461.0,
+      "max": 1554.0
+    },
+    "rounds": {
+      "mean": 1598.3,
+      "population_std": 26.212783141055436,
+      "median": 1601.0,
+      "iqr": 26.0,
+      "min": 1545.0,
+      "max": 1656.0
+    },
+    "throughput": {
+      "mean": 367527.92378277506,
+      "population_std": 2660.898538045811,
+      "median": 367348.498012124,
+      "iqr": 3167.814099284413,
+      "min": 359265.6534954407,
+      "max": 371483.4605597964
+    },
+    "energy_efficiency": {
+      "mean": 1967.4622657755378,
+      "population_std": 18.080618579375013,
+      "median": 1970.6662778248306,
+      "iqr": 13.976740406244062,
+      "min": 1930.358458195431,
+      "max": 2016.9480622678257
+    },
+    "t_fnd_reproduction_test": {
+      "method": "absolute mean difference <= 1.96 * combined standard error",
+      "absolute_difference": 107.89999999999986,
+      "threshold": 23.91979053419992,
+      "pass": false
+    }
+  },
+  "trials": [
+    {
+      "trial": 1,
+      "seed": 42,
+      "t_fnd": 1174.0,
+      "t_hnd": 1554.0,
+      "rounds": 1656.0,
+      "throughput": 369285.0241545894,
+      "energy_efficiency": 2016.9480622678257,
+      "reward": 3810.8616624239075,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 2,
+      "seed": 43,
+      "t_fnd": 1054.0,
+      "t_hnd": 1485.0,
+      "rounds": 1591.0,
+      "throughput": 367389.06348208676,
+      "energy_efficiency": 1961.344017155702,
+      "reward": 3452.5651888553984,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 3,
+      "seed": 44,
+      "t_fnd": 1101.0,
+      "t_hnd": 1499.0,
+      "rounds": 1605.0,
+      "throughput": 370008.722741433,
+      "energy_efficiency": 1976.2407523268103,
+      "reward": 3544.866666162561,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 4,
+      "seed": 45,
+      "t_fnd": 1062.0,
+      "t_hnd": 1502.0,
+      "rounds": 1615.0,
+      "throughput": 366323.2198142415,
+      "energy_efficiency": 1975.5203729167351,
+      "reward": 3374.4056524349726,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 5,
+      "seed": 46,
+      "t_fnd": 1057.0,
+      "t_hnd": 1499.0,
+      "rounds": 1600.0,
+      "throughput": 364992.5,
+      "energy_efficiency": 1957.528892260156,
+      "reward": 3557.4014522894286,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 6,
+      "seed": 47,
+      "t_fnd": 1118.0,
+      "t_hnd": 1514.0,
+      "rounds": 1601.0,
+      "throughput": 368904.43472829484,
+      "energy_efficiency": 1972.8164370664879,
+      "reward": 3492.91460106289,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 7,
+      "seed": 48,
+      "t_fnd": 1118.0,
+      "t_hnd": 1503.0,
+      "rounds": 1611.0,
+      "throughput": 366110.4903786468,
+      "energy_efficiency": 1971.0774452540188,
+      "reward": 3529.029202262871,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 8,
+      "seed": 49,
+      "t_fnd": 1109.0,
+      "t_hnd": 1501.0,
+      "rounds": 1605.0,
+      "throughput": 367242.3676012461,
+      "energy_efficiency": 1971.5359030361599,
+      "reward": 3552.6968281692825,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 9,
+      "seed": 50,
+      "t_fnd": 1026.0,
+      "t_hnd": 1461.0,
+      "rounds": 1562.0,
+      "throughput": 365380.28169014084,
+      "energy_efficiency": 1935.6268359476062,
+      "reward": 3458.721983004827,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 10,
+      "seed": 51,
+      "t_fnd": 1054.0,
+      "t_hnd": 1465.0,
+      "rounds": 1545.0,
+      "throughput": 370089.32038834953,
+      "energy_efficiency": 1930.358458195431,
+      "reward": 3533.386736728251,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 11,
+      "seed": 52,
+      "t_fnd": 1119.0,
+      "t_hnd": 1479.0,
+      "rounds": 1567.0,
+      "throughput": 367484.3650287173,
+      "energy_efficiency": 1944.0761448713283,
+      "reward": 3599.1793757484993,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 12,
+      "seed": 53,
+      "t_fnd": 1045.0,
+      "t_hnd": 1498.0,
+      "rounds": 1582.0,
+      "throughput": 369896.33375474083,
+      "energy_efficiency": 1965.4889406430877,
+      "reward": 3402.0791225759313,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 13,
+      "seed": 54,
+      "t_fnd": 1088.0,
+      "t_hnd": 1486.0,
+      "rounds": 1584.0,
+      "throughput": 368027.77777777775,
+      "energy_efficiency": 1959.5569922358445,
+      "reward": 3453.881589869503,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 14,
+      "seed": 55,
+      "t_fnd": 1017.0,
+      "t_hnd": 1493.0,
+      "rounds": 1645.0,
+      "throughput": 359265.6534954407,
+      "energy_efficiency": 1971.082223049093,
+      "reward": 3533.003899239702,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 15,
+      "seed": 56,
+      "t_fnd": 1075.0,
+      "t_hnd": 1518.0,
+      "rounds": 1630.0,
+      "throughput": 365582.8220858896,
+      "energy_efficiency": 1990.4821712319488,
+      "reward": 3598.3636359139346,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 16,
+      "seed": 57,
+      "t_fnd": 1105.0,
+      "t_hnd": 1506.0,
+      "rounds": 1584.0,
+      "throughput": 371457.0707070707,
+      "energy_efficiency": 1970.2551103956425,
+      "reward": 3561.8252575653605,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 17,
+      "seed": 58,
+      "t_fnd": 1065.0,
+      "t_hnd": 1510.0,
+      "rounds": 1609.0,
+      "throughput": 367182.1006836544,
+      "energy_efficiency": 1977.729673022727,
+      "reward": 3544.2953012362705,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 18,
+      "seed": 59,
+      "t_fnd": 1124.0,
+      "t_hnd": 1501.0,
+      "rounds": 1601.0,
+      "throughput": 367145.5340412242,
+      "energy_efficiency": 1970.1749860816067,
+      "reward": 3424.9127231860184,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 19,
+      "seed": 60,
+      "t_fnd": 1085.0,
+      "t_hnd": 1486.0,
+      "rounds": 1572.0,
+      "throughput": 371483.4605597964,
+      "energy_efficiency": 1959.3917457836883,
+      "reward": 3516.322856042534,
+      "alive_at_end": 9
+    },
+    {
+      "trial": 20,
+      "seed": 61,
+      "t_fnd": 1072.0,
+      "t_hnd": 1495.0,
+      "rounds": 1601.0,
+      "throughput": 367307.93254216114,
+      "energy_efficiency": 1972.0101517688613,
+      "reward": 3381.6834915760846,
+      "alive_at_end": 9
+    }
+  ]
+}

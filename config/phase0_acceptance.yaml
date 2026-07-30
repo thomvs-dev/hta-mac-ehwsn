@@ -1,0 +1,24 @@
+decision:
+  status: authorized_corrected_foundation
+  date: 2026-07-28
+  authorization: user_directed_execute_accordingly_after_artifact_audit
+
+baseline:
+  protocol: frozen_heart_ch_v91_throughput_checkpoint
+  trials: 30
+  seed_start: 1000
+  t_fnd_mean: 1100.6
+  t_fnd_population_std: 44.18189674516023
+  evidence: outputs/logs/phase0_gate_20260727T210959Z.json
+
+thermal:
+  model_kind: fixed_synthetic_auxiliary
+  trained: false
+  artifact: core/hmm/thermal_auxiliary_params.npz
+  sha256: 3d22e56e47a499884b50f88d2598124153ab99386ad62c327835d50cbc46c845
+
+retired_claim:
+  t_fnd_mean: 1191.3
+  t_fnd_std: 40.0
+  reason: not_reproduced_by_fresh_or_historical_seed_evaluation
+

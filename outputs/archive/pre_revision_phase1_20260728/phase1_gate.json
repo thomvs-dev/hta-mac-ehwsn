@@ -1,0 +1,229 @@
+{
+  "phase": 1,
+  "status": "pass",
+  "timestamp_utc": "2026-07-28T13:52:14.806828+00:00",
+  "frozen_ch_count": 5,
+  "state_shape": [
+    100,
+    18
+  ],
+  "energy_conservation_20_rounds": {
+    "max_abs_error_j": 0.0,
+    "trace": [
+      {
+        "round": 1,
+        "consumed_j": 0.76625421806356,
+        "harvested_j": 0.020037128805470622,
+        "energy_after_j": 49.25378291074191,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 2,
+        "consumed_j": 0.7722982507480387,
+        "harvested_j": 0.019560816876587696,
+        "energy_after_j": 48.50104547687046,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 3,
+        "consumed_j": 0.7284045921952519,
+        "harvested_j": 0.02073950181009244,
+        "energy_after_j": 47.793380386485296,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 4,
+        "consumed_j": 0.47735589645289195,
+        "harvested_j": 0.018292667533814245,
+        "energy_after_j": 47.334317157566225,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 5,
+        "consumed_j": 0.6863730730514689,
+        "harvested_j": 0.01473691852106906,
+        "energy_after_j": 46.66268100303582,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 6,
+        "consumed_j": 0.806788125151032,
+        "harvested_j": 0.014899006364405873,
+        "energy_after_j": 45.87079188424919,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 7,
+        "consumed_j": 0.8565409450667882,
+        "harvested_j": 0.015371415917650589,
+        "energy_after_j": 45.02962235510006,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 8,
+        "consumed_j": 0.7750179640677755,
+        "harvested_j": 0.018629717926192283,
+        "energy_after_j": 44.273234108958476,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 9,
+        "consumed_j": 0.6351289806509972,
+        "harvested_j": 0.019644317118078406,
+        "energy_after_j": 43.65774944542555,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 10,
+        "consumed_j": 0.519332688501171,
+        "harvested_j": 0.01783651752984892,
+        "energy_after_j": 43.15625327445424,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 11,
+        "consumed_j": 0.6865257909507585,
+        "harvested_j": 0.018475685288662832,
+        "energy_after_j": 42.48820316879214,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 12,
+        "consumed_j": 0.4993552005901198,
+        "harvested_j": 0.018684210076645485,
+        "energy_after_j": 42.007532178278666,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 13,
+        "consumed_j": 0.6711303199012496,
+        "harvested_j": 0.016549364083410335,
+        "energy_after_j": 41.35295122246082,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 14,
+        "consumed_j": 0.6627405390432158,
+        "harvested_j": 0.019897966054017613,
+        "energy_after_j": 40.71010864947163,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 15,
+        "consumed_j": 0.5133815474913972,
+        "harvested_j": 0.020391944906747866,
+        "energy_after_j": 40.21711904688698,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 16,
+        "consumed_j": 0.5147936216689399,
+        "harvested_j": 0.017692739469150693,
+        "energy_after_j": 39.72001816468719,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 17,
+        "consumed_j": 0.5037274284520857,
+        "harvested_j": 0.01456976659264764,
+        "energy_after_j": 39.230860502827746,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 18,
+        "consumed_j": 0.5431136191318101,
+        "harvested_j": 0.018868725160632073,
+        "energy_after_j": 38.70661560885657,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 19,
+        "consumed_j": 0.46837952609140104,
+        "harvested_j": 0.02065541113881912,
+        "energy_after_j": 38.258891493903995,
+        "max_abs_error_j": 0.0
+      },
+      {
+        "round": 20,
+        "consumed_j": 0.58281176397948,
+        "harvested_j": 0.020713787861487882,
+        "energy_after_j": 37.696793517786,
+        "max_abs_error_j": 0.0
+      }
+    ]
+  },
+  "determinism_same_seed_20_rounds": true,
+  "budget_projection": {
+    "random_cases": 1000,
+    "violations": 0
+  },
+  "hmm_ks_10000": {
+    "solar_statistic": 0.0116,
+    "solar_pvalue": 0.5116055794163079,
+    "thermal_statistic": 0.0157,
+    "thermal_pvalue": 0.16993405715882504
+  },
+  "idle_ablation": {
+    "trials": [
+      {
+        "seed": 2100,
+        "t_fnd_idle_on": 68,
+        "t_fnd_idle_off": 904,
+        "member_t_fnd_idle_on": 68,
+        "member_t_fnd_idle_off": 904,
+        "idle_energy_on_j": 37.67320000000001,
+        "idle_energy_off_j": 0.0
+      },
+      {
+        "seed": 2101,
+        "t_fnd_idle_on": 78,
+        "t_fnd_idle_off": 877,
+        "member_t_fnd_idle_on": 78,
+        "member_t_fnd_idle_off": 877,
+        "idle_energy_on_j": 40.1588,
+        "idle_energy_off_j": 0.0
+      },
+      {
+        "seed": 2102,
+        "t_fnd_idle_on": 76,
+        "t_fnd_idle_off": 819,
+        "member_t_fnd_idle_on": 76,
+        "member_t_fnd_idle_off": 819,
+        "idle_energy_on_j": 40.50599999999999,
+        "idle_energy_off_j": 0.0
+      },
+      {
+        "seed": 2103,
+        "t_fnd_idle_on": 72,
+        "t_fnd_idle_off": 798,
+        "member_t_fnd_idle_on": 72,
+        "member_t_fnd_idle_off": 798,
+        "idle_energy_on_j": 39.0496,
+        "idle_energy_off_j": 0.0
+      },
+      {
+        "seed": 2104,
+        "t_fnd_idle_on": 55,
+        "t_fnd_idle_off": 666,
+        "member_t_fnd_idle_on": 55,
+        "member_t_fnd_idle_off": 3000,
+        "idle_energy_on_j": 36.82799999999999,
+        "idle_energy_off_j": 0.0
+      }
+    ],
+    "median_network_t_fnd_on": 72.0,
+    "median_network_t_fnd_off": 819.0,
+    "median_network_shift_rounds": 747.0,
+    "median_member_t_fnd_on": 72.0,
+    "median_member_t_fnd_off": 877.0,
+    "median_member_shift_rounds": 805.0,
+    "scope": "full member and CH Tx/Rx/aggregation/idle accounting"
+  },
+  "failures": [],
+  "cluster_integration": {
+    "mode": "per_round_schedule_from_frozen_heart_ch_checkpoint",
+    "shared_paired_schedule": true,
+    "ch_retraining": false,
+    "routing_changes": false
+  }
+}

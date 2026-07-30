@@ -1,0 +1,6 @@
+seed,policy,literature_baseline,idle_enabled,status,t_fnd,t_hnd,rounds,throughput,idle_energy_j,queue_fairness,energy_consumed_j,energy_efficiency_packets_per_j,dropped_stale_packets,dropped_overflow_packets,alive_at_end,right_censored,schedule_exhausted
+3100,static_equal,True,False,ok,906,,1730,119725,0.0,0.9895876463744393,67.3902531551955,1776.592228022662,46395,0,84,True,True
+3101,static_equal,True,False,ok,927,,1633,114946,0.0,0.9906136610873306,66.02137933727425,1741.0420859702328,38419,0,76,True,True
+3102,static_equal,True,False,ok,929,,1655,115391,0.0,0.9897653606892518,66.43291615674974,1736.9552124993688,41547,0,78,True,True
+3103,static_equal,True,False,ok,957,,1648,118100,0.0,0.9927422589811272,66.82172781655645,1767.3891989775564,40682,0,81,True,True
+3104,static_equal,True,False,ok,846,,1640,111959,0.0,0.9866244507261367,65.46063773778707,1710.3255310232307,39850,0,73,True,True

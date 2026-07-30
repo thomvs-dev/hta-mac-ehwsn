@@ -1,0 +1,105 @@
+{
+  "status": "phase2_control_inspection_complete",
+  "scope": "one deterministic fixed seed-2100 cluster; not a multi-trial superiority result",
+  "seed": 2100,
+  "target_members": 20,
+  "policies": [
+    {
+      "policy": "always_sleep",
+      "reward": 0.0,
+      "packets": 0,
+      "steps": 150,
+      "mean_slots": 0.0,
+      "action_histogram": [
+        3000,
+        0,
+        0,
+        0
+      ],
+      "raw_reward_terms": {
+        "packets_delivered": 0.0,
+        "idle_energy_j": 0.0,
+        "deaths": 0.0,
+        "high_harvest_alignment": 0.0,
+        "declining_allocation": 0.0,
+        "queue_fairness": 0.0
+      }
+    },
+    {
+      "policy": "static_equal",
+      "reward": 89.40773809523807,
+      "packets": 1240,
+      "steps": 62,
+      "mean_slots": 20.0,
+      "action_histogram": [
+        0,
+        1240,
+        0,
+        0
+      ],
+      "raw_reward_terms": {
+        "packets_delivered": 62.0,
+        "idle_energy_j": -4.711999999999999,
+        "deaths": 0.0,
+        "high_harvest_alignment": 7.666666666666663,
+        "declining_allocation": -6.999999999999998,
+        "queue_fairness": 62.0
+      }
+    },
+    {
+      "policy": "random_budgeted",
+      "reward": 93.93300252567226,
+      "packets": 1221,
+      "steps": 64,
+      "mean_slots": 24.0,
+      "action_histogram": [
+        345,
+        497,
+        275,
+        163
+      ],
+      "raw_reward_terms": {
+        "packets_delivered": 61.049999999999976,
+        "idle_energy_j": -4.180799999999999,
+        "deaths": 0.0,
+        "high_harvest_alignment": 9.083333333333334,
+        "declining_allocation": -8.833333333333336,
+        "queue_fairness": 62.919576479916
+      }
+    },
+    {
+      "policy": "trained_greedy",
+      "reward": 92.45547200837643,
+      "packets": 1006,
+      "steps": 75,
+      "mean_slots": 23.746666666666666,
+      "action_histogram": [
+        628,
+        398,
+        39,
+        435
+      ],
+      "raw_reward_terms": {
+        "packets_delivered": 50.300000000000004,
+        "idle_energy_j": -3.7976000000000028,
+        "deaths": 0.0,
+        "high_harvest_alignment": 15.366666666666658,
+        "declining_allocation": -9.216666666666663,
+        "queue_fairness": 61.437729731038644
+      }
+    }
+  ],
+  "trained_minus_static": {
+    "reward": 3.0477339131383587,
+    "packets": -234,
+    "steps": 13,
+    "idle_energy_j": 0.9143999999999961
+  },
+  "trained_minus_random": {
+    "reward": -1.4775305172958326,
+    "packets": -215,
+    "steps": 11
+  },
+  "superiority_established": false,
+  "reason": "The trained policy exceeds static reward in this one fixed episode but not the random-budgeted control; Phase 3/4 paired trials remain required."
+}

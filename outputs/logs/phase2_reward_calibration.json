@@ -1,0 +1,90 @@
+{
+  "status": "calibrated_not_trained",
+  "seed": 2100,
+  "policies": [
+    {
+      "policy": "always_sleep",
+      "steps": 100,
+      "packets": 6800,
+      "t_fnd": 47,
+      "target_member_count": 20
+    },
+    {
+      "policy": "static_equal",
+      "steps": 62,
+      "packets": 5456,
+      "t_fnd": 47,
+      "target_member_count": 20
+    },
+    {
+      "policy": "random_budgeted",
+      "steps": 63,
+      "packets": 5498,
+      "t_fnd": 47,
+      "target_member_count": 20
+    }
+  ],
+  "raw_term_diagnostics": {
+    "packets_delivered": {
+      "min": 0.0,
+      "median": 0.9,
+      "max": 1.15,
+      "p90_abs_nonzero": 1.05
+    },
+    "idle_energy_j": {
+      "min": -0.0816,
+      "median": -0.062400000000000004,
+      "max": -0.0,
+      "p90_abs_nonzero": 0.07679999999999998
+    },
+    "deaths": {
+      "min": -0.0,
+      "median": 0.0,
+      "max": -0.0,
+      "p90_abs_nonzero": 1.0
+    },
+    "high_harvest_alignment": {
+      "min": 0.0,
+      "median": 0.08333333333333333,
+      "max": 0.2833333333333333,
+      "p90_abs_nonzero": 0.2
+    },
+    "declining_allocation": {
+      "min": -0.26666666666666666,
+      "median": -0.05,
+      "max": -0.0,
+      "p90_abs_nonzero": 0.2
+    },
+    "queue_fairness": {
+      "min": 0.0,
+      "median": 0.9877264757451782,
+      "max": 1.0,
+      "p90_abs_nonzero": 1.0
+    }
+  },
+  "scales": {
+    "packets_delivered": 1.05,
+    "idle_energy_j": 0.07679999999999998,
+    "deaths": 1.0,
+    "high_harvest_alignment": 0.2,
+    "declining_allocation": 0.2,
+    "queue_fairness": 1.0
+  },
+  "weights_after_scale_normalization": {
+    "packets_delivered": 2.0,
+    "idle_energy_j": 1.0,
+    "deaths": 2.0,
+    "high_harvest_alignment": 0.5,
+    "declining_allocation": 0.5,
+    "queue_fairness": 0.5
+  },
+  "reward_equation": "sum(weight[name] * raw[name] / scale[name])",
+  "calibration_cluster_layout": [
+    24,
+    19,
+    20,
+    31,
+    1
+  ],
+  "selection_reason": "median-sized non-degenerate 20-member cluster"
+}

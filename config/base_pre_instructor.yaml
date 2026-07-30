@@ -1,0 +1,50 @@
+# Inherited HEART-CH V9.1 constants.
+# Sources:
+# - ../final_repo/paper/main.tex, Table "IoT Sensor-Network Environment Setup"
+# - ../final_repo/config.py, first-order radio, HMM, mobility, and simulation constants
+# HTA-MAC intentionally inherits W=10. The Stage 1 W=20 benchmark result is
+# recorded as future work and is not substituted into this paper.
+
+network:
+  num_nodes: 100
+  field_size_m: [100.0, 100.0]
+  bs_position_m: [50.0, 175.0]
+  initial_energy_j: 0.5
+  packet_bits: 4000
+  control_packet_bits: 100
+  ch_ratio: 0.05
+  tx_range_m: 50.0
+
+radio:
+  e_elec_j_per_bit: 5.0e-8
+  eps_fs_j_per_bit_m2: 1.0e-11
+  eps_mp_j_per_bit_m4: 1.3e-15
+  e_da_j_per_bit: 5.0e-9
+  d0_m: 87.70580193070292
+
+model:
+  temporal_window: 10
+  node_features: 31
+
+mobility:
+  enabled: true
+  mobile_fraction: 0.20
+  speed_m_per_round: [1.0, 5.0]
+  pause_rounds: 3
+  model: random_waypoint
+
+harvesting:
+  solar:
+    states: 8
+    rectification_scale: 0.01
+  thermal:
+    states: 4
+    rectification_scale: 0.005
+
+evaluation:
+  reference_t_fnd_mean: 1191.3
+  reference_t_fnd_std: 40.0
+  reference_trials: 20
+  phase0_trials: 30
+  fresh_seed_start: 1000
+

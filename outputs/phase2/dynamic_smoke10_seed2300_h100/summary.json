@@ -1,0 +1,231 @@
+{
+  "status": "fail",
+  "phase2_curriculum_gate_pass": false,
+  "smoke_only": true,
+  "episodes_requested": 10,
+  "episodes_completed": 10,
+  "global_steps": 224,
+  "optimizer_seed": 2299,
+  "development_seeds": [
+    2300
+  ],
+  "held_out_pilot_seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "held_out_overlap": [],
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "curriculum_clusters": [
+    {
+      "seed": 2300,
+      "target_rank": 0,
+      "initial_cluster": 0,
+      "initial_ch": 10,
+      "initial_members": 24,
+      "input_dim": 50,
+      "schedule_coverage_rounds": 100,
+      "schedule_cache": "outputs/cache/phase3_schedules/seed_2300_horizon_100_ccb572901e26.pkl"
+    },
+    {
+      "seed": 2300,
+      "target_rank": 1,
+      "initial_cluster": 1,
+      "initial_ch": 37,
+      "initial_members": 8,
+      "input_dim": 50,
+      "schedule_coverage_rounds": 100,
+      "schedule_cache": "outputs/cache/phase3_schedules/seed_2300_horizon_100_ccb572901e26.pkl"
+    },
+    {
+      "seed": 2300,
+      "target_rank": 2,
+      "initial_cluster": 2,
+      "initial_ch": 81,
+      "initial_members": 48,
+      "input_dim": 50,
+      "schedule_coverage_rounds": 100,
+      "schedule_cache": "outputs/cache/phase3_schedules/seed_2300_horizon_100_ccb572901e26.pkl"
+    },
+    {
+      "seed": 2300,
+      "target_rank": 3,
+      "initial_cluster": 3,
+      "initial_ch": 89,
+      "initial_members": 13,
+      "input_dim": 50,
+      "schedule_coverage_rounds": 100,
+      "schedule_cache": "outputs/cache/phase3_schedules/seed_2300_horizon_100_ccb572901e26.pkl"
+    },
+    {
+      "seed": 2300,
+      "target_rank": 4,
+      "initial_cluster": 4,
+      "initial_ch": 90,
+      "initial_members": 2,
+      "input_dim": 50,
+      "schedule_coverage_rounds": 100,
+      "schedule_cache": "outputs/cache/phase3_schedules/seed_2300_horizon_100_ccb572901e26.pkl"
+    }
+  ],
+  "curriculum_pair_count": 5,
+  "full_curriculum_seen": true,
+  "max_padded_branches": 100,
+  "agent_config": {
+    "input_dim": 50,
+    "actions": 4,
+    "budget": 24,
+    "gamma": 0.99,
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "replay_capacity": 5000,
+    "warmup": 256,
+    "target_update_steps": 250,
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "reward_calibration": {
+    "scales": {
+      "packets_delivered": 1.05,
+      "idle_energy_j": 0.07679999999999998,
+      "deaths": 1.0,
+      "high_harvest_alignment": 0.2,
+      "declining_allocation": 0.2,
+      "queue_fairness": 1.0
+    },
+    "weights": {
+      "packets_delivered": 2.0,
+      "idle_energy_j": 1.0,
+      "deaths": 2.0,
+      "high_harvest_alignment": 0.5,
+      "declining_allocation": 0.5,
+      "queue_fairness": 0.5
+    },
+    "evidence": "outputs/logs/phase2_reward_calibration.json"
+  },
+  "queue_feasibility_caps": true,
+  "target_ch_death_penalized": true,
+  "always_sleep_collapse": true,
+  "nonfinite_detected": false,
+  "reward_balance": {
+    "last_n_episodes": 10,
+    "absolute_totals": {
+      "packets_delivered": 241.3840023013495,
+      "idle_energy_j": 57.34375,
+      "deaths": 0.0,
+      "high_harvest_alignment": 30.247510895625528,
+      "declining_allocation": 29.58981554980838,
+      "queue_fairness": 50.89557217932927
+    },
+    "fractions": {
+      "packets_delivered": 0.5895169700809842,
+      "idle_energy_j": 0.14004703472800295,
+      "deaths": 0.0,
+      "high_harvest_alignment": 0.07387159383255047,
+      "declining_allocation": 0.07226534584674382,
+      "queue_fairness": 0.12429905551171849
+    },
+    "dominant_term": "packets_delivered",
+    "pathological_domination": false,
+    "threshold": 0.8
+  },
+  "greedy_evaluation": {
+    "clusters": [
+      {
+        "seed": 2300,
+        "target_rank": 0,
+        "cluster": 0,
+        "members": 0,
+        "reward": 0.0,
+        "packets": 0,
+        "steps": 2,
+        "packets_per_step": 0.0,
+        "mean_allocated_slots": 0.0,
+        "zero_action_fraction": 1.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2300,
+        "target_rank": 1,
+        "cluster": 1,
+        "members": 0,
+        "reward": 0.0,
+        "packets": 0,
+        "steps": 33,
+        "packets_per_step": 0.0,
+        "mean_allocated_slots": 0.0,
+        "zero_action_fraction": 1.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2300,
+        "target_rank": 2,
+        "cluster": 2,
+        "members": 0,
+        "reward": 0.0,
+        "packets": 0,
+        "steps": 15,
+        "packets_per_step": 0.0,
+        "mean_allocated_slots": 0.0,
+        "zero_action_fraction": 1.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2300,
+        "target_rank": 3,
+        "cluster": 3,
+        "members": 0,
+        "reward": 0.0,
+        "packets": 0,
+        "steps": 30,
+        "packets_per_step": 0.0,
+        "mean_allocated_slots": 0.0,
+        "zero_action_fraction": 1.0,
+        "target_ch_alive": true
+      },
+      {
+        "seed": 2300,
+        "target_rank": 4,
+        "cluster": 4,
+        "members": 0,
+        "reward": 0.0,
+        "packets": 0,
+        "steps": 32,
+        "packets_per_step": 0.0,
+        "mean_allocated_slots": 0.0,
+        "zero_action_fraction": 1.0,
+        "target_ch_alive": true
+      }
+    ],
+    "mean_reward": 0.0,
+    "mean_packets": 0.0,
+    "mean_packets_per_step": 0.0,
+    "mean_zero_action_fraction": 1.0
+  },
+  "trajectory_q_check": {
+    "equal_normalized_energy": 0.5,
+    "s1_q_values": [
+      0.06880205869674683,
+      -0.2722991108894348,
+      -0.2937140464782715,
+      -0.3045424222946167
+    ],
+    "s8_q_values": [
+      0.06835189461708069,
+      -0.2764017879962921,
+      -0.29240846633911133,
+      -0.3030861020088196
+    ],
+    "max_absolute_difference": 0.0041026771068573,
+    "differentiated": true
+  },
+  "convergence": {
+    "assessed": false,
+    "relative_change": null,
+    "pass": false
+  },
+  "scope": "Development curriculum uses frozen per-round CH schedule replay; held-out Phase 3 seeds are excluded and CH selection remains exogenous."
+}

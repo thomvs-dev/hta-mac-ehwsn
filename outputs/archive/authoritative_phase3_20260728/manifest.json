@@ -1,0 +1,68 @@
+{
+  "status": "authoritative_corrected_phase3_evidence",
+  "created_date": "2026-07-28",
+  "superseded_run": "outputs/phase3/paired_pilot_5seed_superseded_revival_bug",
+  "phase4_ready": false,
+  "files": [
+    {
+      "source": "PHASE3_STATUS.md",
+      "archived_as": "01_PHASE3_STATUS.md",
+      "bytes": 5004,
+      "sha256": "c4a756107103024df113af57328dcde46aa171d4839349850b3644c4292b944c"
+    },
+    {
+      "source": "BASELINE_PROVENANCE.md",
+      "archived_as": "02_BASELINE_PROVENANCE.md",
+      "bytes": 2901,
+      "sha256": "cacbb48c3f17e9d1994489fe88454a6bd16e7f6628ed39802ce38c50ef0df5a2"
+    },
+    {
+      "source": "config/phase3.yaml",
+      "archived_as": "03_phase3.yaml",
+      "bytes": 756,
+      "sha256": "ef3489bd57523609e837c5a3b7e84cc3b23b2bd968fe8e4610b18c525b044d74"
+    },
+    {
+      "source": "baselines/interface.py",
+      "archived_as": "04_interface.py",
+      "bytes": 1142,
+      "sha256": "84d1a204dc03788b46e9dff16aa430fbe764741c1c59bd1dccb125352e04d1a9"
+    },
+    {
+      "source": "baselines/policies.py",
+      "archived_as": "05_policies.py",
+      "bytes": 9231,
+      "sha256": "9d9f0afd2dff71c00d6b3324c3fb38921d1ed5275ff6673e7b135b3a747c4dc1"
+    },
+    {
+      "source": "outputs/phase3/paired_pilot_5seed/raw_trials.csv",
+      "archived_as": "06_raw_trials.csv",
+      "bytes": 5453,
+      "sha256": "fa595045ee617c7be4f118527a1977cab9e946463945c1c1f52da21f05621687"
+    },
+    {
+      "source": "outputs/phase3/paired_pilot_5seed/summary.json",
+      "archived_as": "07_summary.json",
+      "bytes": 17243,
+      "sha256": "e3a8b179a7c02b6b1340eac2b3990dc836715d2c360dae10f1511f4a00f8eeea"
+    },
+    {
+      "source": "outputs/phase3/paired_pilot_5seed/static_idle_off_compatibility.csv",
+      "archived_as": "08_static_idle_off_compatibility.csv",
+      "bytes": 909,
+      "sha256": "ea416b337a9676eccc68fcb8a8b1eb787575261f09c196a779fbd0e24171dc6a"
+    },
+    {
+      "source": "outputs/logs/phase3_pilot_audit.json",
+      "archived_as": "09_phase3_pilot_audit.json",
+      "bytes": 5040,
+      "sha256": "c123dda2f1a140b0a7e205e8656370a366c4d2ba2cc18f95b2fe7083fa2095b4"
+    },
+    {
+      "source": "outputs/logs/phase1_gate.json",
+      "archived_as": "10_phase1_gate.json",
+      "bytes": 8975,
+      "sha256": "594d684ed30ee68975eb751a3c871bc4236f39bec9cb70b947379c33b41217d5"
+    }
+  ]
+}

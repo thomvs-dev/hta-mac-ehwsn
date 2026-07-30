@@ -1,0 +1,19 @@
+{
+  "scales": {
+    "packets_delivered": 1.05,
+    "idle_energy_j": 0.07679999999999998,
+    "deaths": 1.0,
+    "high_harvest_alignment": 0.2,
+    "declining_allocation": 0.2,
+    "queue_fairness": 1.0
+  },
+  "weights": {
+    "packets_delivered": 2.0,
+    "idle_energy_j": 1.0,
+    "deaths": 2.0,
+    "high_harvest_alignment": 0.5,
+    "declining_allocation": 0.5,
+    "queue_fairness": 0.5
+  },
+  "evidence": "outputs/logs/phase2_reward_calibration.json"
+}

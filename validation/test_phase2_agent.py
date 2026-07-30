@@ -1,0 +1,141 @@
+"""Focused unit tests for the Phase 2 Branching Dueling C51 agent."""
+
+from __future__ import annotations
+
+import numpy as np
+import torch
+
+from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent, BranchingDuelingC51
+from agents.reward_model import RewardModel
+from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
+from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
+
+
+def test_branching_distribution_shape_and_normalization():
+    network = BranchingDuelingC51(input_dim=50, actions=4, atoms=51)
+    state = torch.randn(2, 7, 50)
+    log_probabilities = network(state)
+    assert log_probabilities.shape == (2, 7, 4, 51)
+    totals = log_probabilities.exp().sum(dim=-1)
+    assert torch.allclose(totals, torch.ones_like(totals), atol=1e-6)
+    assert network.q_values(state).shape == (2, 7, 4)
+
+
+def test_budget_projection_respects_mask_and_budget():
+    agent = BranchingDQNAgent(BranchingAgentConfig(input_dim=50, actions=4, budget=5))
+    q_values = np.array([
+        [0.0, 5.0, 7.0, 8.0],
+        [0.0, 4.0, 8.0, 9.0],
+        [0.0, 100.0, 200.0, 300.0],
+    ])
+    allocation = agent._project(q_values, np.array([True, True, False]), fill_budget=True)
+    assert allocation.shape == (3,)
+    assert int(allocation.sum()) <= 5
+    assert allocation[2] == 0
+    assert np.all((allocation >= 0) & (allocation <= 3))
+
+
+def test_budget_projection_respects_queue_caps():
+    agent = BranchingDQNAgent(
+        BranchingAgentConfig(input_dim=50, actions=4, budget=8)
+    )
+    q_values = np.array(
+        [
+            [0.0, 1.0, 5.0, 9.0],
+            [0.0, 2.0, 6.0, 10.0],
+            [0.0, 3.0, 7.0, 11.0],
+        ]
+    )
+    caps = np.array([0, 1, 2])
+    allocation = agent._project(
+        q_values, np.ones(3, dtype=bool), fill_budget=True, caps=caps
+    )
+    assert np.all(allocation <= caps)
+    assert allocation[0] == 0
+
+
+def test_death_count_includes_target_cluster_head():
+    assert FixedClusterTrainingEnv._death_count(
+        [True, True], [False, True], True, False
+    ) == 2
+    assert FixedClusterTrainingEnv._death_count(
+        [True, True], [True, True], False, False
+    ) == 0
+
+def test_fixed_cluster_episode_terminates_on_first_local_death():
+    assert FixedClusterTrainingEnv._is_done(False, False, 1, True, True)
+    assert not FixedClusterTrainingEnv._is_done(
+        False, False, 0, True, True
+    )
+
+def test_dynamic_cluster_does_not_treat_reassignment_as_death():
+    assert not DynamicClusterTrainingEnv._is_done(
+        False, False, 0, True
+    )
+    assert DynamicClusterTrainingEnv._is_done(False, False, 1, True)
+
+def test_reward_has_no_always_sleep_incentive():
+    model = RewardModel(
+        scales={
+            "packets_delivered": 1.05,
+            "idle_energy_j": 0.0768,
+            "deaths": 1.0,
+            "high_harvest_alignment": 0.2,
+            "declining_allocation": 0.2,
+            "queue_fairness": 1.0,
+        },
+        weights={
+            "packets_delivered": 2.0,
+            "idle_energy_j": 1.0,
+            "deaths": 2.0,
+            "high_harvest_alignment": 0.5,
+            "declining_allocation": 0.5,
+            "queue_fairness": 0.5,
+        },
+    )
+    sleeping = {
+        "packets_delivered": 0.0,
+        "idle_energy_j": 0.0,
+        "deaths": 0.0,
+        "high_harvest_alignment": 0.0,
+        "declining_allocation": 0.0,
+        "queue_fairness": 0.0,
+    }
+    productive = {
+        "packets_delivered": 1.0,
+        "idle_energy_j": -0.05,
+        "deaths": 0.0,
+        "high_harvest_alignment": 0.1,
+        "declining_allocation": -0.05,
+        "queue_fairness": 0.9,
+    }
+    sleep_reward, _ = model.evaluate(sleeping)
+    productive_reward, _ = model.evaluate(productive)
+    assert sleep_reward == 0.0
+    assert productive_reward > sleep_reward
+
+
+def test_prioritized_replay_update_produces_finite_loss():
+    config = BranchingAgentConfig(
+        input_dim=50,
+        actions=4,
+        budget=6,
+        batch_size=2,
+        replay_capacity=8,
+        warmup=2,
+        target_update_steps=2,
+    )
+    agent = BranchingDQNAgent(config)
+    rng = np.random.default_rng(9)
+    mask = np.ones(5, dtype=bool)
+    for index in range(2):
+        state = rng.normal(size=(5, 50)).astype(np.float32)
+        next_state = rng.normal(size=(5, 50)).astype(np.float32)
+        action = np.array([1, 1, 1, 1, 1], dtype=np.int64)
+        agent.store(
+            state, action, reward=1.0 + index, next_state=next_state,
+            done=index == 1, mask=mask, next_mask=mask,
+        )
+    loss = agent.learn(beta=0.4)
+    assert loss is not None
+    assert np.isfinite(loss)

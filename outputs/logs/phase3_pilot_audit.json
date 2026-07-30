@@ -1,0 +1,199 @@
+{
+  "status": "phase3_implemented_phase4_blocked",
+  "seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "comparisons": {
+    "static_equal": {
+      "t_fnd": {
+        "paired_deltas": [
+          -9.0,
+          44.0,
+          13.0,
+          13.0,
+          9.0
+        ],
+        "median_delta": 13.0,
+        "hta_wins": 4,
+        "ties": 0,
+        "hta_losses": 1
+      },
+      "throughput": {
+        "paired_deltas": [
+          5380.0,
+          5437.0,
+          5187.0,
+          5025.0,
+          4843.0
+        ],
+        "median_delta": 5187.0,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      },
+      "queue_fairness": {
+        "paired_deltas": [
+          -0.022560428190891213,
+          -0.01435293231577972,
+          -0.0027429690406460816,
+          0.021428136873323345,
+          -0.007245752126026295
+        ],
+        "median_delta": -0.007245752126026295,
+        "hta_wins": 1,
+        "ties": 0,
+        "hta_losses": 4
+      },
+      "energy_efficiency_packets_per_j": {
+        "paired_deltas": [
+          75.89031613409668,
+          72.5158600718224,
+          71.22939527819054,
+          69.40542787385672,
+          70.30331058951379
+        ],
+        "median_delta": 71.22939527819054,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      }
+    },
+    "s2a2mac_adapted": {
+      "t_fnd": {
+        "paired_deltas": [
+          -68.0,
+          -19.0,
+          -76.0,
+          -52.0,
+          -55.0
+        ],
+        "median_delta": -55.0,
+        "hta_wins": 0,
+        "ties": 0,
+        "hta_losses": 5
+      },
+      "throughput": {
+        "paired_deltas": [
+          -4410.0,
+          -3924.0,
+          -4563.0,
+          -4058.0,
+          -3925.0
+        ],
+        "median_delta": -4058.0,
+        "hta_wins": 0,
+        "ties": 0,
+        "hta_losses": 5
+      },
+      "queue_fairness": {
+        "paired_deltas": [
+          0.072662218724165,
+          0.07101526775811673,
+          0.07612516807035996,
+          0.07005558158763847,
+          0.05470495246374074
+        ],
+        "median_delta": 0.07101526775811673,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      },
+      "energy_efficiency_packets_per_j": {
+        "paired_deltas": [
+          -70.36340869576668,
+          -66.09649847699865,
+          -70.76404939085819,
+          -67.46103673296346,
+          -61.62835507095093
+        ],
+        "median_delta": -67.46103673296346,
+        "hta_wins": 0,
+        "ties": 0,
+        "hta_losses": 5
+      }
+    },
+    "random_budgeted_diagnostic": {
+      "t_fnd": {
+        "paired_deltas": [
+          24.0,
+          52.0,
+          14.0,
+          29.0,
+          12.0
+        ],
+        "median_delta": 24.0,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      },
+      "throughput": {
+        "paired_deltas": [
+          3003.0,
+          2913.0,
+          3102.0,
+          2991.0,
+          2863.0
+        ],
+        "median_delta": 2991.0,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      },
+      "queue_fairness": {
+        "paired_deltas": [
+          -0.016220279060848553,
+          -0.013636892955618762,
+          -0.0316002470922202,
+          -0.03919775812281734,
+          -0.022942433926749106
+        ],
+        "median_delta": -0.022942433926749106,
+        "hta_wins": 0,
+        "ties": 0,
+        "hta_losses": 5
+      },
+      "energy_efficiency_packets_per_j": {
+        "paired_deltas": [
+          31.377570523393274,
+          25.82051809757678,
+          28.296418270458958,
+          25.844972088206475,
+          30.275889179550006
+        ],
+        "median_delta": 28.296418270458958,
+        "hta_wins": 5,
+        "ties": 0,
+        "hta_losses": 0
+      }
+    }
+  },
+  "hta_hnd_observed": 1,
+  "hta_hnd_right_censored": 4,
+  "all_primary_trials_right_censored": true,
+  "schedule_coverage_rounds": {
+    "3100": 1730,
+    "3101": 1633,
+    "3102": 1655,
+    "3103": 1648,
+    "3104": 1640
+  },
+  "schedule_stop_reasons": {
+    "3100": "frozen_policy_selected_no_ch",
+    "3101": "frozen_policy_selected_no_ch",
+    "3102": "frozen_policy_selected_no_ch",
+    "3103": "frozen_policy_selected_no_ch",
+    "3104": "frozen_policy_selected_no_ch"
+  },
+  "phase4_blockers": [
+    "HTA-MAC loses T_FND and throughput to the S2A2MAC adaptation on all five pilot seeds.",
+    "Four of five HTA-MAC HND observations are right-censored, so paired Wilcoxon testing on raw HND is invalid without a censor-aware design.",
+    "Every trial is right-censored when the exogenous HEART-CH schedule selects no CH before 3000 rounds.",
+    "The previous S2A2MAC novelty sentence is contradicted by the primary source and must not be used."
+  ],
+  "phase2_return_recommended": true,
+  "inferential_claim_allowed": false
+}

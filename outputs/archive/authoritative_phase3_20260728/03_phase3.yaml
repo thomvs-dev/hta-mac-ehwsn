@@ -1,0 +1,24 @@
+phase: 3
+status: implemented_phase4_blocked
+interface: baselines.interface.MACPolicyInterface
+primary_policies:
+  - static_equal
+  - energy_proportional
+  - harvest_proportional
+  - s2a2mac_adapted
+  - ffss_adapted
+  - hta_mac
+diagnostic_policy: random_budgeted_diagnostic
+pilot:
+  seeds: [3100, 3101, 3102, 3103, 3104]
+  requested_horizon: 3000
+  primary_runs: 35
+  failures: 0
+  evidence: outputs/phase3/paired_pilot_5seed/summary.json
+  audit: outputs/logs/phase3_pilot_audit.json
+phase4_ready: false
+blockers:
+  - hta_loses_fnd_and_throughput_to_s2a2_on_all_five_pilot_seeds
+  - four_of_five_hta_hnd_values_are_right_censored
+  - all_trials_end_at_exogenous_schedule_exhaustion
+  - s2a2mac_novelty_positioning_requires_revision

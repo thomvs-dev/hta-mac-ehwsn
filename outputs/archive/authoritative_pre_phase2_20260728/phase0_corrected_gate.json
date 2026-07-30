@@ -1,0 +1,30 @@
+{
+  "created_at_utc": "2026-07-28T13:49:00.659507+00:00",
+  "phase": 0,
+  "foundation": "corrected_empirical",
+  "gate_pass": true,
+  "failures": [],
+  "baseline": {
+    "trials": 30,
+    "seed_start": 1000,
+    "seed_end": 1029,
+    "t_fnd_mean": 1100.6,
+    "t_fnd_population_std": 44.18189674516023,
+    "t_fnd_median": 1100.0,
+    "t_fnd_iqr": 58.25
+  },
+  "artifacts": {
+    "upstream_commit": "d96abce25237feb2b6d6c660f6b4d605feb94330",
+    "checkpoint_sha256": "ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f",
+    "solar_hmm_sha256": "8a864e9e10235037fb86b71fc6cc3a35c9a8637593c965c797318eaeff52252c",
+    "solar_provenance": "trained_stage1_baum_welch",
+    "thermal_sha256": "3d22e56e47a499884b50f88d2598124153ab99386ad62c327835d50cbc46c845",
+    "thermal_provenance": "synthetic_auxiliary_from_heart_ch_defaults",
+    "thermal_trained": false
+  },
+  "retired_claim": {
+    "t_fnd_mean": 1191.3,
+    "t_fnd_std": 40.0,
+    "reason": "not_reproduced_by_fresh_or_historical_seed_evaluation"
+  }
+}

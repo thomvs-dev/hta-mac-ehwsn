@@ -1,0 +1,54 @@
+{
+  "status": "immutable_authoritative_phase2_evidence",
+  "created_date": "2026-07-28",
+  "files": [
+    {
+      "source": "PHASE2_STATUS.md",
+      "archived_as": "PHASE2_STATUS.md",
+      "bytes": 4190,
+      "sha256": "e33a62a9de5b976e75be7c36f444268e99af753d9ebd5adf85f8898e39c0a28d"
+    },
+    {
+      "source": "config/agent.yaml",
+      "archived_as": "agent.yaml",
+      "bytes": 696,
+      "sha256": "779586b4613c1f508309fe39025852791458eabeb64e3414fb99d96a52fc4048"
+    },
+    {
+      "source": "config/reward_calibration.json",
+      "archived_as": "reward_calibration.json",
+      "bytes": 475,
+      "sha256": "37205d8c82031f03b2121192637cb52b70fd6c184abe73b66ab4cfe9e86a6218"
+    },
+    {
+      "source": "outputs/logs/phase2_reward_calibration.json",
+      "archived_as": "phase2_reward_calibration.json",
+      "bytes": 2070,
+      "sha256": "308a4957f8c82f771905be0367c12547b8d395db47abbaa3fa3aa975859a2ffd"
+    },
+    {
+      "source": "outputs/logs/phase2_fixed_cluster_controls.json",
+      "archived_as": "phase2_fixed_cluster_controls.json",
+      "bytes": 2800,
+      "sha256": "20aab18925977b04e84b5b8fb8367c234598ec7b18bdac384fdf10256c7961cb"
+    },
+    {
+      "source": "outputs/phase2/authoritative_500ep_seed2100/summary.json",
+      "archived_as": "summary.json",
+      "bytes": 4410,
+      "sha256": "022628b38b9df132408b0cdf1e198fbf64d2e4bba3bb14c44bc026c7c949371f"
+    },
+    {
+      "source": "outputs/phase2/authoritative_500ep_seed2100/episodes.jsonl",
+      "archived_as": "episodes.jsonl",
+      "bytes": 408060,
+      "sha256": "9de1098fb5e2bfc2ca1297c6d91365bcd405122db07233f7ddb9fbc161cf96a5"
+    },
+    {
+      "source": "outputs/phase2/authoritative_500ep_seed2100/branching_c51.pt",
+      "archived_as": "branching_c51.pt",
+      "bytes": 924959,
+      "sha256": "fff4ed60246a2431688d9cdcbf2c300cea6e3ec6bdee9a422aea61daf6a65a22"
+    }
+  ]
+}

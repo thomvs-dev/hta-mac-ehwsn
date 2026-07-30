@@ -1,0 +1,654 @@
+{
+  "status": "pilot_complete",
+  "phase3_structural_gate_pass": true,
+  "inferential_superiority_claimed": false,
+  "seeds": [
+    3100,
+    3101,
+    3102,
+    3103,
+    3104
+  ],
+  "horizon": 3000,
+  "expected_primary_runs": 35,
+  "completed_primary_runs": 35,
+  "failures": [],
+  "all_metrics_finite": true,
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "frozen_checkpoint_sha256": "ccb572901e263a50954c9a9b0746cf596193d0018502e0c7b26b623e6d287c5f",
+  "trained_checkpoint_sha256": "fff4ed60246a2431688d9cdcbf2c300cea6e3ec6bdee9a422aea61daf6a65a22",
+  "schedule_metadata": {
+    "3100": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1730,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3100_horizon_3000_ccb572901e26.pkl"
+    },
+    "3101": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1633,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3101_horizon_3000_ccb572901e26.pkl"
+    },
+    "3102": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1655,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3102_horizon_3000_ccb572901e26.pkl"
+    },
+    "3103": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1648,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3103_horizon_3000_ccb572901e26.pkl"
+    },
+    "3104": {
+      "requested_horizon": 3000,
+      "coverage_rounds": 1640,
+      "complete": false,
+      "stop_reason": "frozen_policy_selected_no_ch",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_3104_horizon_3000_ccb572901e26.pkl"
+    }
+  },
+  "summary_median_iqr": {
+    "energy_proportional": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 126.0,
+        "q1": 118.0,
+        "q3": 128.0,
+        "iqr": 10.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 144.0,
+        "q1": 144.0,
+        "q3": 160.0,
+        "iqr": 16.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 69972.0,
+        "q1": 69945.0,
+        "q3": 70194.0,
+        "iqr": 249.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 204.37200000000036,
+        "q1": 204.1296,
+        "q3": 206.09760000000006,
+        "iqr": 1.9680000000000462
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9988713947415856,
+        "q1": 0.9988585096199749,
+        "q3": 0.9988747888573395,
+        "iqr": 1.6279237364580368e-05
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 245.52860448973823,
+        "q1": 245.1570156431489,
+        "q3": 248.14266769203954,
+        "iqr": 2.9856520488906426
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 284.9851248306364,
+        "q1": 284.61045616388424,
+        "q3": 285.30694835106044,
+        "iqr": 0.6964921871762044
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 12299.0,
+        "q1": 12219.0,
+        "q3": 12642.0,
+        "iqr": 423.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "ffss_adapted": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 149.0,
+        "q1": 138.0,
+        "q3": 150.0,
+        "iqr": 12.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 157.0,
+        "q1": 156.0,
+        "q3": 158.0,
+        "iqr": 2.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 58767.0,
+        "q1": 58711.0,
+        "q3": 58836.0,
+        "iqr": 125.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 206.29159999999908,
+        "q1": 205.21239999999946,
+        "q3": 207.2923999999993,
+        "iqr": 2.079999999999842
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9993034833776286,
+        "q1": 0.999263470770848,
+        "q3": 0.9993717072637154,
+        "iqr": 0.00010823649286739734
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 242.21643618807306,
+        "q1": 240.52407504523202,
+        "q3": 243.64613831100283,
+        "iqr": 3.122063265770805
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 243.38648948004408,
+        "q1": 242.39065244281295,
+        "q3": 244.18575820224171,
+        "iqr": 1.7951057594287647
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 9411.0,
+        "q1": 9354.0,
+        "q3": 9509.0,
+        "iqr": 155.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "harvest_proportional": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 119.0,
+        "q1": 111.0,
+        "q3": 120.0,
+        "iqr": 9.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 177.0,
+        "q1": 176.0,
+        "q3": 184.0,
+        "iqr": 8.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 65138.0,
+        "q1": 65015.0,
+        "q3": 65474.0,
+        "iqr": 459.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 236.05200000000025,
+        "q1": 234.9120000000001,
+        "q3": 237.28440000000018,
+        "iqr": 2.372400000000084
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9985791746373037,
+        "q1": 0.9984951117218636,
+        "q3": 0.9986155714997922,
+        "iqr": 0.00012045977792862761
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 275.24534632215335,
+        "q1": 273.7535990549047,
+        "q3": 276.646855401418,
+        "iqr": 2.893256346513283
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 237.87504811568277,
+        "q1": 236.40967725512894,
+        "q3": 238.3933042283813,
+        "iqr": 1.9836269732523704
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 14859.0,
+        "q1": 14706.0,
+        "q3": 15908.0,
+        "iqr": 1202.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "hta_mac": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 141.0,
+        "q1": 133.0,
+        "q3": 149.0,
+        "iqr": 16.0
+      },
+      "t_hnd": {
+        "observed": 0,
+        "median": null,
+        "q1": null,
+        "q3": null,
+        "iqr": null
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 21066.0,
+        "q1": 21034.0,
+        "q3": 21495.0,
+        "iqr": 461.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 50.52239999999985,
+        "q1": 50.3787999999999,
+        "q3": 51.833000000000034,
+        "iqr": 1.4542000000001352
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9242338002339638,
+        "q1": 0.919236520527761,
+        "q3": 0.9311793813725959,
+        "iqr": 0.01194286084483498
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 67.02212420487555,
+        "q1": 66.99568484357381,
+        "q3": 69.4135370834257,
+        "iqr": 2.4178522398518822
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 313.8366658702511,
+        "q1": 312.8161072627661,
+        "q3": 314.4381619381362,
+        "iqr": 1.6220546753701228
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 140741.0,
+        "q1": 139232.0,
+        "q3": 141724.0,
+        "iqr": 2492.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "random_budgeted_diagnostic": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 120.0,
+        "q1": 117.0,
+        "q3": 124.0,
+        "iqr": 7.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 206.0,
+        "q1": 199.0,
+        "q3": 216.0,
+        "iqr": 17.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 67107.0,
+        "q1": 66801.0,
+        "q3": 67141.0,
+        "iqr": 340.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 209.44200000000018,
+        "q1": 209.2164000000009,
+        "q3": 212.12280000000052,
+        "iqr": 2.9063999999996213
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9987632996145702,
+        "q1": 0.9986870488723685,
+        "q3": 0.9988527260253175,
+        "iqr": 0.00016567715294901753
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 249.30975905534623,
+        "q1": 248.63576342245102,
+        "q3": 252.83352595837854,
+        "iqr": 4.197762535927524
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 267.33811084067446,
+        "q1": 266.99741187895006,
+        "q3": 269.29721377911426,
+        "iqr": 2.299801900164198
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 16147.0,
+        "q1": 15510.0,
+        "q3": 16230.0,
+        "iqr": 720.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "s2a2mac_adapted": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 201.0,
+        "q1": 196.0,
+        "q3": 201.0,
+        "iqr": 5.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 816.0,
+        "q1": 768.0,
+        "q3": 872.0,
+        "iqr": 104.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 56984.0,
+        "q1": 56940.0,
+        "q3": 57970.0,
+        "iqr": 1030.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 145.99359999999965,
+        "q1": 145.72359999999986,
+        "q3": 148.5619999999994,
+        "iqr": 2.838399999999524
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9512079653108423,
+        "q1": 0.9484548345028848,
+        "q3": 0.9517363674167509,
+        "iqr": 0.0032815329138661253
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 178.78192896791242,
+        "q1": 178.00368907008138,
+        "q3": 180.88993721935594,
+        "iqr": 2.8862481492745644
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 320.47111570226684,
+        "q1": 320.1281967676803,
+        "q3": 321.8266262121319,
+        "iqr": 1.6984294444515626
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 55008.0,
+        "q1": 54885.0,
+        "q3": 56973.0,
+        "iqr": 2088.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    },
+    "static_equal": {
+      "t_fnd": {
+        "observed": 5,
+        "median": 132.0,
+        "q1": 132.0,
+        "q3": 136.0,
+        "iqr": 4.0
+      },
+      "t_hnd": {
+        "observed": 5,
+        "median": 171.0,
+        "q1": 171.0,
+        "q3": 173.0,
+        "iqr": 2.0
+      },
+      "rounds": {
+        "observed": 5,
+        "median": 1648.0,
+        "q1": 1640.0,
+        "q3": 1655.0,
+        "iqr": 15.0
+      },
+      "throughput": {
+        "observed": 5,
+        "median": 58484.0,
+        "q1": 58476.0,
+        "q3": 58574.0,
+        "iqr": 98.0
+      },
+      "idle_energy_j": {
+        "observed": 5,
+        "median": 205.00439999999963,
+        "q1": 204.59839999999951,
+        "q3": 206.08599999999936,
+        "iqr": 1.4875999999998442
+      },
+      "queue_fairness": {
+        "observed": 5,
+        "median": 0.9992666007301553,
+        "q1": 0.999224496941439,
+        "q3": 0.9993290218740918,
+        "iqr": 0.00010452493265278306
+      },
+      "energy_consumed_j": {
+        "observed": 5,
+        "median": 240.88365221950897,
+        "q1": 240.58050682095075,
+        "q3": 242.46522779780838,
+        "iqr": 1.8847209768576363
+      },
+      "energy_efficiency_packets_per_j": {
+        "observed": 5,
+        "median": 243.09533957182174,
+        "q1": 242.4946627211142,
+        "q3": 244.6037964088273,
+        "iqr": 2.109133687713097
+      },
+      "dropped_stale_packets": {
+        "observed": 5,
+        "median": 10712.0,
+        "q1": 10693.0,
+        "q3": 11457.0,
+        "iqr": 764.0
+      },
+      "dropped_overflow_packets": {
+        "observed": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0
+      }
+    }
+  },
+  "static_idle_off_compatibility": {
+    "reference_reproduced_t_fnd": 1100.6,
+    "pilot_median_t_fnd": 927.0,
+    "relative_gap": 0.15773214610212605,
+    "within_prespecified_20_percent_diagnostic_band": true,
+    "summary": {
+      "static_equal": {
+        "t_fnd": {
+          "observed": 5,
+          "median": 927.0,
+          "q1": 906.0,
+          "q3": 929.0,
+          "iqr": 23.0
+        },
+        "t_hnd": {
+          "observed": 0,
+          "median": null,
+          "q1": null,
+          "q3": null,
+          "iqr": null
+        },
+        "rounds": {
+          "observed": 5,
+          "median": 1648.0,
+          "q1": 1640.0,
+          "q3": 1655.0,
+          "iqr": 15.0
+        },
+        "throughput": {
+          "observed": 5,
+          "median": 120577.0,
+          "q1": 120228.0,
+          "q3": 121833.0,
+          "iqr": 1605.0
+        },
+        "idle_energy_j": {
+          "observed": 5,
+          "median": 0.0,
+          "q1": 0.0,
+          "q3": 0.0,
+          "iqr": 0.0
+        },
+        "queue_fairness": {
+          "observed": 5,
+          "median": 0.9983593622720986,
+          "q1": 0.9982232458018689,
+          "q3": 0.9984028270053839,
+          "iqr": 0.00017958120351491136
+        },
+        "energy_consumed_j": {
+          "observed": 5,
+          "median": 70.07829417703574,
+          "q1": 69.77035810579997,
+          "q3": 70.21703022748211,
+          "iqr": 0.4466721216821412
+        },
+        "energy_efficiency_packets_per_j": {
+          "observed": 5,
+          "median": 1723.1959712416256,
+          "q1": 1720.6040959757322,
+          "q3": 1754.9162171877524,
+          "iqr": 34.3121212120202
+        },
+        "dropped_stale_packets": {
+          "observed": 5,
+          "median": 42027.0,
+          "q1": 41215.0,
+          "q3": 43141.0,
+          "iqr": 1926.0
+        },
+        "dropped_overflow_packets": {
+          "observed": 5,
+          "median": 0.0,
+          "q1": 0.0,
+          "q3": 0.0,
+          "iqr": 0.0
+        }
+      }
+    }
+  },
+  "policy_count_resolution": "six named comparison policies including HTA-MAC plus one non-literature random-budgeted diagnostic equals seven",
+  "limitations": [
+    "Five seeds are a development pilot and do not support inferential superiority claims.",
+    "S2A2MAC HMM parameters are not published as a reusable artifact; cluster-local deterministic tertiles reproduce its three residual-energy/load layers.",
+    "FFSS slot ordering cannot be represented by the round-level environment; the adaptation preserves one-slot feasible-first fixed-frame selection."
+  ]
+}

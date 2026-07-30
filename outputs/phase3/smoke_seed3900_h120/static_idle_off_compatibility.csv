@@ -1,0 +1,2 @@
+seed,policy,literature_baseline,idle_enabled,status,t_fnd,t_hnd,rounds,throughput,idle_energy_j,queue_fairness,energy_consumed_j,energy_efficiency_packets_per_j,dropped_stale_packets,dropped_overflow_packets,alive_at_end,right_censored,schedule_exhausted
+3900,static_equal,True,False,ok,,,120,8745,0.0,0.9923534632767702,6.457007553798694,1354.3425382637608,2955,0,100,True,False

@@ -1,0 +1,28 @@
+phase: 2
+status: fixed_cluster_gate_pass
+evidence: outputs/phase2/authoritative_500ep_seed2100/summary.json
+architecture: branching_dueling_q_network
+state_input:
+  mac_features: 18
+  frozen_stgcn_embedding: 32
+  total: 50
+  schedule_mode: shared_exogenous_frozen_replay
+action_levels: 4
+n_max: 3
+frame_slot_budget: 24
+fixed_cluster:
+  seed: 2100
+  member_count: 20
+training:
+  episodes: 500
+  gamma: 0.99
+  learning_rate: 0.0001
+  batch_size: 32
+  replay_capacity: 20000
+  warmup_steps: 256
+  target_update_steps: 250
+  epsilon_start: 1.0
+  epsilon_end: 0.05
+  epsilon_decay_episodes: 400
+reward_calibration: config/reward_calibration.json
+always_sleep_guard: required

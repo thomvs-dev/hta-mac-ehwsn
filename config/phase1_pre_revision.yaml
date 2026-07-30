@@ -1,0 +1,13 @@
+# Phase 1 structural defaults. T and n_max are protocol design parameters,
+# not inherited HEART-CH constants; they remain sweepable in Phase 5.
+phase: 1
+frame_slot_budget: 40
+n_max: 3
+queue_max_packets: 10
+max_rounds: 3000
+idle_energy:
+  enabled: true
+  p_idle_source: e_elec_j_per_bit
+  slot_bit_times_source: packet_bits
+cluster_selection:
+  mode: frozen_heart_ch_once_at_reset

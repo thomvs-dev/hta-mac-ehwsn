@@ -1,0 +1,167 @@
+{
+  "status": "pass",
+  "phase2_gate_pass": true,
+  "smoke_only": false,
+  "episodes_requested": 500,
+  "episodes_completed": 500,
+  "global_steps": 35137,
+  "seed": 2100,
+  "git_hash": "e26011e67e95b4d712fbbf15704bdb5bd78f67de",
+  "target_cluster": 2,
+  "target_ch": 30,
+  "target_members": 20,
+  "input_shape": [
+    20,
+    50
+  ],
+  "agent_config": {
+    "input_dim": 50,
+    "actions": 4,
+    "budget": 24,
+    "gamma": 0.99,
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "replay_capacity": 20000,
+    "warmup": 256,
+    "target_update_steps": 250,
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "reward_calibration": {
+    "scales": {
+      "packets_delivered": 1.05,
+      "idle_energy_j": 0.07679999999999998,
+      "deaths": 1.0,
+      "high_harvest_alignment": 0.2,
+      "declining_allocation": 0.2,
+      "queue_fairness": 1.0
+    },
+    "weights": {
+      "packets_delivered": 2.0,
+      "idle_energy_j": 1.0,
+      "deaths": 2.0,
+      "high_harvest_alignment": 0.5,
+      "declining_allocation": 0.5,
+      "queue_fairness": 0.5
+    },
+    "evidence": "outputs/logs/phase2_reward_calibration.json"
+  },
+  "always_sleep_collapse": false,
+  "nonfinite_detected": false,
+  "reward_balance": {
+    "last_n_episodes": 50,
+    "absolute_totals": {
+      "packets_delivered": 5213.238095238094,
+      "idle_energy_j": 2686.325520833334,
+      "deaths": 0.0,
+      "high_harvest_alignment": 1166.6666666666663,
+      "declining_allocation": 1005.0000000000001,
+      "queue_fairness": 1628.2675079139137
+    },
+    "fractions": {
+      "packets_delivered": 0.4455950322417696,
+      "idle_energy_j": 0.2296103276313048,
+      "deaths": 0.0,
+      "high_harvest_alignment": 0.09971938005739378,
+      "declining_allocation": 0.08590112310658353,
+      "queue_fairness": 0.13917413696294834
+    },
+    "dominant_term": "packets_delivered",
+    "pathological_domination": false,
+    "threshold": 0.8
+  },
+  "greedy_evaluation": {
+    "episodes": [
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      },
+      {
+        "reward": 92.45547200837643,
+        "packets": 1006,
+        "steps": 75,
+        "zero_action_fraction": 0.0
+      }
+    ],
+    "deterministic": true,
+    "mean_reward": 92.45547200837643,
+    "mean_packets": 1006.0,
+    "mean_zero_action_fraction": 0.0
+  },
+  "trajectory_q_check": {
+    "equal_normalized_energy": 0.5,
+    "s1_q_values": [
+      6.936644077301025,
+      6.003884792327881,
+      6.111074447631836,
+      6.600403785705566
+    ],
+    "s8_q_values": [
+      7.526683330535889,
+      6.548601150512695,
+      6.729173183441162,
+      7.205472469329834
+    ],
+    "max_absolute_difference": 0.6180987358093262,
+    "differentiated": true
+  },
+  "convergence": {
+    "assessed": true,
+    "previous_50_mean_reward": 83.70317526873478,
+    "last_50_mean_reward": 86.33693497970685,
+    "relative_change": 0.03146546952987393,
+    "pass": true
+  },
+  "fixed_cluster_scope": "single immutable seed-2100 HEART-CH cluster snapshot for the Phase 2 sanity gate; full evaluation uses shared exogenous per-round replay"
+}

@@ -1,0 +1,15 @@
+{
+  "seed": 2100,
+  "policy": "static_equal_round_robin",
+  "idle_energy_enabled": false,
+  "packet_ttl_rounds": 3,
+  "calibration_queue_ceiling": 100,
+  "observed_max_backlog": 4,
+  "recommended_queue_max_packets": 5,
+  "dropped_stale_packets": 18061,
+  "dropped_overflow_packets": 0,
+  "rounds_observed": 997,
+  "t_fnd": 997,
+  "right_censored_schedule": false,
+  "schedule_coverage_rounds": 1664
+}
