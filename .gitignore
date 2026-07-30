@@ -14,3 +14,6 @@ outputs/cache/
 outputs/phase2/*smoke*/
 outputs/phase2/*probe*/
 outputs/phase3/smoke_*/
+outputs/phase2/registered_sweep_stdout.log
+outputs/phase2/registered_sweep_stderr.log
+outputs/phase2/registered_sweep_runtime.json
