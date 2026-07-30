@@ -91,6 +91,16 @@
       "reason": "ok"
     },
     {
+      "label": "instructor_action_report",
+      "path": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_INSTRUCTOR_ACTION_REPORT_20260731.md",
+      "exists": true,
+      "expected_sha256": "28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76",
+      "actual_sha256": "28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76",
+      "bytes": 17667,
+      "pass": true,
+      "reason": "ok"
+    },
+    {
       "label": "archive:authoritative_phase2_20260728/PHASE2_STATUS.md",
       "path": "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\archive\\authoritative_phase2_20260728\\PHASE2_STATUS.md",
       "exists": true,
@@ -307,7 +317,7 @@
       "size_pass": true
     }
   ],
-  "check_count": 27,
+  "check_count": 28,
   "failure_count": 0,
   "pass": true
 }

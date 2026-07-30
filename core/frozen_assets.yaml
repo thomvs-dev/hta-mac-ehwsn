@@ -41,6 +41,10 @@ novelty_audit:
   path: NOVELTY_AND_CLOSEST_WORK_AUDIT.md
   sha256: 867dd55bc8e14823f18d5de474cecb3f2927739ab499286538066c843a66b496
 
+instructor_action_report:
+  path: HTA_MAC_INSTRUCTOR_ACTION_REPORT_20260731.md
+  sha256: 28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76
+
 schedule_contract:
   schema_version: 2
   seed_deterministic: true

@@ -132,33 +132,44 @@ def contribution_balance(rows):
 
 
 def trajectory_q_check(agent, env, observation):
-    base = observation[0].copy()
-    low = base.copy()
-    high = base.copy()
-    low[0] = high[0] = 0.5
-    low[3:11] = env.base.solar.transition[0]
-    high[3:11] = env.base.solar.transition[7]
+    """Compare S1 and S8 on the same node/head at equal residual energy."""
+    observation = np.asarray(observation, dtype=np.float32)
+    mask = np.asarray(env._mask(), dtype=bool)
+    active = np.flatnonzero(mask)
+    if not active.size:
+        raise RuntimeError("trajectory Q check requires one active member")
+    node = int(active[0])
+    low_state = observation.copy()
+    high_state = observation.copy()
+    low_state[node, 0] = high_state[node, 0] = 0.5
+    low_state[node, 3:11] = env.base.solar.transition[0]
+    high_state[node, 3:11] = env.base.solar.transition[7]
     solar_mean, solar_var = next_rectified_statistics(
         env.base.solar.transition,
         env.base.solar.mean,
         env.base.solar.variance,
         env.base.cfg.solar_scale,
     )
-    low[1], low[2] = solar_mean[0], solar_var[0]
-    high[1], high[2] = solar_mean[7], solar_var[7]
-    pair = np.stack((low, high)).astype(np.float32)[None, :, :]
+    low_state[node, 1], low_state[node, 2] = solar_mean[0], solar_var[0]
+    high_state[node, 1], high_state[node, 2] = solar_mean[7], solar_var[7]
+    pair = np.stack((low_state, high_state)).astype(np.float32)
+    pair_mask = np.stack((mask, mask))
     with torch.no_grad():
         q = agent.online.q_values(
-            torch.as_tensor(pair, dtype=torch.float32, device=agent.device)
-        )[0].cpu().numpy()
+            torch.as_tensor(pair, dtype=torch.float32, device=agent.device),
+            torch.as_tensor(pair_mask, dtype=torch.bool, device=agent.device),
+        ).cpu().numpy()
+    low_q = q[0, node]
+    high_q = q[1, node]
     return {
+        "same_node_same_head": True,
+        "node_index": node,
         "equal_normalized_energy": 0.5,
-        "s1_q_values": q[0].tolist(),
-        "s8_q_values": q[1].tolist(),
-        "max_absolute_difference": float(np.max(np.abs(q[1] - q[0]))),
-        "differentiated": bool(np.max(np.abs(q[1] - q[0])) > 1e-4),
+        "s1_q_values": low_q.tolist(),
+        "s8_q_values": high_q.tolist(),
+        "max_absolute_difference": float(np.max(np.abs(high_q - low_q))),
+        "differentiated": bool(np.max(np.abs(high_q - low_q)) > 1e-4),
     }
-
 
 def greedy_evaluation(agent, env, reward_model, episodes=10):
     rows = []

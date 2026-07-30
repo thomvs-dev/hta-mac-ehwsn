@@ -239,3 +239,31 @@ def test_independent_dqn_ablation_has_no_cross_node_context():
     q_second = network.q_values(second, mask)
     torch.testing.assert_close(q_first[:, 0], q_second[:, 0])
     assert not torch.allclose(q_first[:, 1], q_second[:, 1])
+
+def test_trajectory_q_check_changes_state_on_same_node_head():
+    from types import SimpleNamespace
+
+    from experiments.train_phase2_fixed_cluster import trajectory_q_check
+
+    transition = np.eye(8, dtype=np.float64)
+    base = SimpleNamespace(
+        solar=SimpleNamespace(
+            transition=transition,
+            mean=np.linspace(-0.04, 0.04, 8),
+            variance=np.full(8, 0.0001),
+        ),
+        cfg=SimpleNamespace(solar_scale=0.01),
+    )
+    env = SimpleNamespace(
+        base=base,
+        _mask=lambda: np.array([False, True, True, False]),
+    )
+    agent = BranchingDQNAgent(
+        BranchingAgentConfig(input_dim=50, max_branches=4)
+    )
+    result = trajectory_q_check(
+        agent, env, np.zeros((4, 50), dtype=np.float32)
+    )
+    assert result["same_node_same_head"]
+    assert result["node_index"] == 1
+    assert result["differentiated"]
