@@ -41,12 +41,20 @@ class StaticEqualPolicy(MACPolicyInterface):
 class EnergyProportionalPolicy(MACPolicyInterface):
     name = "energy_proportional"
 
+    def __init__(self, score_exponent: float = 1.0):
+        if score_exponent <= 0.0:
+            raise ValueError("energy score exponent must be positive")
+        self.score_exponent = float(score_exponent)
+
     def select_action(self, state, env):
         action = np.zeros(env.n_nodes, dtype=np.int64)
         for cluster, ch in enumerate(env.cluster_heads):
             members = self.eligible_members(env, cluster, int(ch))
             action[members] = _rank_proportional(
-                env.energy[members] / env.cfg.initial_energy_j,
+                np.power(
+                    env.energy[members] / env.cfg.initial_energy_j,
+                    self.score_exponent,
+                ),
                 env.cfg.frame_slot_budget,
                 env.cfg.n_max,
             )
@@ -56,12 +64,17 @@ class EnergyProportionalPolicy(MACPolicyInterface):
 class HarvestProportionalPolicy(MACPolicyInterface):
     name = "harvest_proportional"
 
+    def __init__(self, score_exponent: float = 1.0):
+        if score_exponent <= 0.0:
+            raise ValueError("harvest score exponent must be positive")
+        self.score_exponent = float(score_exponent)
+
     def select_action(self, state, env):
         action = np.zeros(env.n_nodes, dtype=np.int64)
         forecast = np.maximum(np.asarray(state[:, 1], dtype=np.float64), 0.0)
         for cluster, ch in enumerate(env.cluster_heads):
             members = self.eligible_members(env, cluster, int(ch))
-            scores = forecast[members]
+            scores = np.power(forecast[members], self.score_exponent)
             if len(scores) and not np.any(scores > 0.0):
                 scores = np.ones(len(members), dtype=np.float64)
             action[members] = _rank_proportional(
@@ -81,6 +94,11 @@ class S2A2MACAdaptedPolicy(MACPolicyInterface):
 
     name = "s2a2mac_adapted"
 
+    def __init__(self, energy_weight: float = 0.5):
+        if not 0.0 <= energy_weight <= 1.0:
+            raise ValueError("S2A2MAC energy weight must be in [0, 1]")
+        self.energy_weight = float(energy_weight)
+
     def select_action(self, state, env):
         action = np.zeros(env.n_nodes, dtype=np.int64)
         for cluster, ch in enumerate(env.cluster_heads):
@@ -95,7 +113,10 @@ class S2A2MACAdaptedPolicy(MACPolicyInterface):
             load = np.clip(
                 env.queue[members] / env.cfg.queue_max_packets, 0.0, 1.0
             )
-            score = 0.5 * energy + 0.5 * load
+            score = (
+                self.energy_weight * energy
+                + (1.0 - self.energy_weight) * load
+            )
             order = np.argsort(score, kind="stable")
             layers = np.ones(len(members), dtype=np.int64)
             first = len(members) // 3
@@ -126,6 +147,18 @@ class FFSSAdaptedPolicy(MACPolicyInterface):
 
     name = "ffss_adapted"
 
+    def __init__(
+        self,
+        margin_weight: float = 1.0,
+        queue_weight: float = 1.0,
+    ):
+        if margin_weight < 0.0 or queue_weight < 0.0:
+            raise ValueError("FFSS adaptation weights must be nonnegative")
+        if margin_weight + queue_weight == 0.0:
+            raise ValueError("at least one FFSS adaptation weight must be positive")
+        self.margin_weight = float(margin_weight)
+        self.queue_weight = float(queue_weight)
+
     def select_action(self, state, env):
         action = np.zeros(env.n_nodes, dtype=np.int64)
         forecast = np.maximum(np.asarray(state[:, 1], dtype=np.float64), 0.0)
@@ -143,14 +176,16 @@ class FFSSAdaptedPolicy(MACPolicyInterface):
             has_data = env.queue[members] > 0
             margin = available - required
             qualified = has_data & (margin >= 0.0)
-            priority = np.lexsort(
-                (
-                    members,
-                    -env.queue[members],
-                    -margin,
-                    ~qualified,
-                )
+            margin_scale = max(float(np.max(np.abs(margin))), 1e-12)
+            normalized_margin = margin / margin_scale
+            normalized_queue = (
+                env.queue[members] / env.cfg.queue_max_packets
             )
+            score = (
+                self.margin_weight * normalized_margin
+                + self.queue_weight * normalized_queue
+            )
+            priority = np.lexsort((members, -score, ~qualified))
             selected = members[priority[: env.cfg.frame_slot_budget]]
             action[selected] = 1
         return self.validate(action, env)
@@ -159,6 +194,7 @@ class FFSSAdaptedPolicy(MACPolicyInterface):
 class RandomBudgetedPolicy(MACPolicyInterface):
     name = "random_budgeted_diagnostic"
     literature_baseline = False
+    comparison_role = "formal_stochastic_floor"
 
     def __init__(self):
         self.rng = np.random.default_rng(0)
@@ -197,7 +233,10 @@ class HTAMACPolicy(MACPolicyInterface):
         checkpoint = torch.load(
             Path(checkpoint_path), map_location=device, weights_only=False
         )
-        config = BranchingAgentConfig(**checkpoint["config"])
+        raw_config = dict(checkpoint["config"])
+        if "architecture" not in raw_config:
+            raw_config["architecture"] = "legacy_weight_tied"
+        config = BranchingAgentConfig(**raw_config)
         self.agent = BranchingDQNAgent(config, device=device)
         self.agent.online.load_state_dict(checkpoint["online_state_dict"])
         self.agent.target.load_state_dict(checkpoint["target_state_dict"])
@@ -211,39 +250,82 @@ class HTAMACPolicy(MACPolicyInterface):
             members = self.eligible_members(env, cluster, int(ch))
             if not len(members):
                 continue
-            cluster_action, _ = self.agent.act(
-                features[members],
-                np.ones(len(members), dtype=bool),
-                epsilon=0.0,
-                caps=np.minimum(env.queue[members], env.cfg.n_max),
-                budget=min(
-                    env.cfg.frame_slot_budget,
-                    self.agent.cfg.budget
-                    if self.allocation_budget is None
-                    else self.allocation_budget,
-                ),
+            budget = min(
+                env.cfg.frame_slot_budget,
+                self.agent.cfg.budget
+                if self.allocation_budget is None
+                else self.allocation_budget,
             )
-            action[members] = cluster_action
+            if self.agent.cfg.architecture == "legacy_weight_tied":
+                cluster_action, _ = self.agent.act(
+                    features[members],
+                    np.ones(len(members), dtype=bool),
+                    epsilon=0.0,
+                    caps=np.minimum(env.queue[members], env.cfg.n_max),
+                    budget=budget,
+                )
+                action[members] = cluster_action
+            else:
+                cluster_mask = np.zeros(env.n_nodes, dtype=bool)
+                cluster_mask[members] = True
+                caps = np.minimum(env.queue, env.cfg.n_max)
+                caps[~cluster_mask] = 0
+                global_action, _ = self.agent.act(
+                    features,
+                    cluster_mask,
+                    epsilon=0.0,
+                    caps=caps,
+                    budget=budget,
+                )
+                action[members] = global_action[members]
         return self.validate(action, env)
 
 
-def phase3_policy_factories(root: Path):
+def phase3_policy_factories(
+    root: Path,
+    *,
+    hta_checkpoint: str | Path | None = None,
+    hta_budget: int | None = None,
+):
     checkpoint = (
         root
         / "outputs"
         / "phase2"
         / "authoritative_dynamic_budget8_500ep"
         / "branching_c51.pt"
+        if hta_checkpoint is None
+        else Path(hta_checkpoint)
     )
+    if not checkpoint.is_absolute():
+        checkpoint = root / checkpoint
+    allocation_budget = 8 if hta_budget is None else int(hta_budget)
+    if allocation_budget <= 0:
+        raise ValueError("HTA allocation budget must be positive")
     return (
         (StaticEqualPolicy.name, StaticEqualPolicy),
-        (EnergyProportionalPolicy.name, EnergyProportionalPolicy),
-        (HarvestProportionalPolicy.name, HarvestProportionalPolicy),
-        (S2A2MACAdaptedPolicy.name, S2A2MACAdaptedPolicy),
-        (FFSSAdaptedPolicy.name, FFSSAdaptedPolicy),
+        (
+            EnergyProportionalPolicy.name,
+            lambda: EnergyProportionalPolicy(score_exponent=2.0),
+        ),
+        (
+            HarvestProportionalPolicy.name,
+            lambda: HarvestProportionalPolicy(score_exponent=2.0),
+        ),
+        (
+            S2A2MACAdaptedPolicy.name,
+            lambda: S2A2MACAdaptedPolicy(energy_weight=0.25),
+        ),
+        (
+            FFSSAdaptedPolicy.name,
+            lambda: FFSSAdaptedPolicy(
+                margin_weight=1.0, queue_weight=0.0
+            ),
+        ),
         (
             HTAMACPolicy.name,
-            lambda: HTAMACPolicy(checkpoint, allocation_budget=8),
+            lambda: HTAMACPolicy(
+                checkpoint, allocation_budget=allocation_budget
+            ),
         ),
         (RandomBudgetedPolicy.name, RandomBudgetedPolicy),
     )

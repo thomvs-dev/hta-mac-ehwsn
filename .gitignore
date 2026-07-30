@@ -11,3 +11,6 @@ outputs/cache/
 .codex_tmp/
 *.tmp
 *.bak
+outputs/phase2/*smoke*/
+outputs/phase2/*probe*/
+outputs/phase3/smoke_*/

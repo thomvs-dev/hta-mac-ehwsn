@@ -12,6 +12,7 @@ class MACPolicyInterface(ABC):
 
     name: str
     literature_baseline: bool = True
+    comparison_role: str = "literature_baseline"
 
     def reset(self, seed: int) -> None:
         """Reset policy-local randomness or history for one paired trial."""

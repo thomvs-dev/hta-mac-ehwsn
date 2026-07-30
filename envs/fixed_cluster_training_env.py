@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import numpy as np
 
-from core.hmm.rectified_moments import (
-    next_rectified_statistics,
-    rectified_gaussian_moments,
-)
+
+
+SOLAR_HIGH_HARVEST_STATES = (5, 7)  # HEART-CH S6 and S8
+SOLAR_DECLINING_STATES = (0, 3, 6)  # HEART-CH S1, S4, and S7
 
 
 class FixedClusterTrainingEnv:
@@ -98,34 +98,17 @@ class FixedClusterTrainingEnv:
         return float(values.sum() ** 2 / denominator)
 
     def _trajectory_indicators(self):
-        solar_g1, _ = rectified_gaussian_moments(
-            self.base.solar.mean,
-            self.base.solar.variance,
-            self.base.cfg.solar_scale,
-        )
-        thermal_g1, _ = rectified_gaussian_moments(
-            self.base.thermal.mean,
-            self.base.thermal.variance,
-            self.base.cfg.thermal_scale,
-        )
-        solar_next, _ = next_rectified_statistics(
-            self.base.solar.transition,
-            self.base.solar.mean,
-            self.base.solar.variance,
-            self.base.cfg.solar_scale,
-        )
-        thermal_next, _ = next_rectified_statistics(
-            self.base.thermal.transition,
-            self.base.thermal.mean,
-            self.base.thermal.variance,
-            self.base.cfg.thermal_scale,
-        )
+        """Map solar states to HEART-CH's published suitability taxonomy.
+
+        S6/S8 are rewarded as high-harvest states; S1/S4/S7 are penalized as
+        avoid/critical declining states. The synthetic thermal auxiliary has no
+        validated state taxonomy, so no categorical thermal label is invented.
+        Thermal trajectory information remains present in the observation's
+        forecast moments and state-conditioned transition probabilities.
+        """
         solar_state = self.base.solar_states[self.members]
-        thermal_state = self.base.thermal_states[self.members]
-        current = solar_g1[solar_state] + thermal_g1[thermal_state]
-        forecast = solar_next[solar_state] + thermal_next[thermal_state]
-        high = (solar_state == 7) | (thermal_state == 3)
-        declining = forecast < current
+        high = np.isin(solar_state, SOLAR_HIGH_HARVEST_STATES)
+        declining = np.isin(solar_state, SOLAR_DECLINING_STATES)
         return high, declining
 
     def step(self, member_action):

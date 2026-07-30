@@ -22,24 +22,54 @@ if str(ROOT) not in sys.path:
 
 from baselines import StaticEqualPolicy, phase3_policy_factories
 from core.ch_selection.frozen_heart_ch import FrozenHeartCH
-from core.ch_selection.frozen_schedule_full import frozen_ch_schedule_full
+from core.ch_selection.frozen_schedule_full import (
+    SCHEDULE_SCHEMA_VERSION,
+    frozen_ch_schedule_full,
+)
 from core.configuration import load_simple_yaml
 from core.energy.radio_model import RadioModel
 from core.hmm import load_solar_hmm, load_thermal_auxiliary
+from core.paired_statistics import paired_wilcoxon_effect
 from envs import MACEnvironmentConfig
 from envs.scheduled_mac_env import ScheduledIntraClusterMACEnv
 
+
+METRIC_DIRECTION = {
+    "throughput": "higher_is_better",
+    "packets_generated": "descriptive_only",
+    "delivery_ratio": "higher_is_better",
+    "stale_drop_ratio": "lower_is_better",
+    "idle_energy_j": "lower_is_better",
+    "queue_fairness": "higher_is_better",
+    "residual_energy_fairness": "higher_is_better",
+    "residual_energy_cv": "lower_is_better",
+    "mean_residual_energy_j": "higher_is_better",
+    "min_residual_energy_j": "higher_is_better",
+    "energy_consumed_j": "lower_is_better",
+    "energy_efficiency_packets_per_j": "higher_is_better",
+    "dropped_stale_packets": "lower_is_better",
+    "dropped_death_packets": "lower_is_better",
+    "dropped_overflow_packets": "lower_is_better",
+}
 
 METRICS = (
     "t_fnd",
     "t_hnd",
     "rounds",
     "throughput",
+    "packets_generated",
+    "delivery_ratio",
+    "stale_drop_ratio",
     "idle_energy_j",
     "queue_fairness",
+    "residual_energy_fairness",
+    "residual_energy_cv",
+    "mean_residual_energy_j",
+    "min_residual_energy_j",
     "energy_consumed_j",
     "energy_efficiency_packets_per_j",
     "dropped_stale_packets",
+    "dropped_death_packets",
     "dropped_overflow_packets",
 )
 
@@ -50,6 +80,8 @@ def parse_args():
     parser.add_argument("--horizon", type=int, default=3000)
     parser.add_argument("--run-name", default="paired_pilot_5seed")
     parser.add_argument("--skip-compatibility", action="store_true")
+    parser.add_argument("--hta-checkpoint")
+    parser.add_argument("--hta-budget", type=int, default=8)
     return parser.parse_args()
 
 
@@ -71,7 +103,7 @@ def file_sha256(path: Path):
 def git_hash():
     try:
         return subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT.parent, text=True
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip()
     except (OSError, subprocess.CalledProcessError):
         return "unavailable"
@@ -119,7 +151,10 @@ def build_assets(horizon: int):
 def schedule_bundle(policy, seed: int, horizon: int, checkpoint_sha: str):
     cache_dir = ROOT / "outputs" / "cache" / "phase3_schedules"
     cache_dir.mkdir(parents=True, exist_ok=True)
-    cache = cache_dir / f"seed_{seed}_horizon_{horizon}_{checkpoint_sha[:12]}.pkl"
+    cache = cache_dir / (
+        f"seed_{seed}_horizon_{horizon}_v{SCHEDULE_SCHEMA_VERSION}_"
+        f"{checkpoint_sha[:12]}.pkl"
+    )
     if cache.exists():
         with cache.open("rb") as handle:
             result = pickle.load(handle)
@@ -147,6 +182,12 @@ def jain(values):
     return float(values.sum() ** 2 / denominator) if denominator > 0.0 else 0.0
 
 
+def coefficient_of_variation(values):
+    values = np.asarray(values, dtype=np.float64)
+    mean = float(values.mean()) if values.size else 0.0
+    return float(values.std(ddof=0) / mean) if mean > 0.0 else 0.0
+
+
 def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
     env = ScheduledIntraClusterMACEnv(
         config, radio, solar, thermal, idle_energy_enabled=idle_enabled
@@ -170,12 +211,19 @@ def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
         if hnd is None and info["alive"] <= env.n_nodes // 2:
             hnd = env.round
     throughput = int(env.total_packets)
+    generated = int(env.total_packets_generated)
+    delivery_ratio = throughput / generated if generated > 0 else 0.0
+    stale_drop_ratio = (
+        int(env.dropped_stale_packets) / generated if generated > 0 else 0.0
+    )
     efficiency = throughput / total_consumed if total_consumed > 0.0 else 0.0
+    residual_energy = np.asarray(env.energy, dtype=np.float64)
     right_censored = bool(truncated and info["alive"] > 0)
     return {
         "seed": seed,
         "policy": policy.name,
         "literature_baseline": bool(policy.literature_baseline),
+        "comparison_role": policy.comparison_role,
         "idle_enabled": bool(idle_enabled),
         "status": "ok",
         "t_fnd": env.t_fnd,
@@ -185,11 +233,19 @@ def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
         "censor_round": env.round,
         "rounds": env.round,
         "throughput": throughput,
+        "packets_generated": generated,
+        "delivery_ratio": delivery_ratio,
+        "stale_drop_ratio": stale_drop_ratio,
         "idle_energy_j": float(env.total_idle_energy),
         "queue_fairness": jain(cumulative_service),
+        "residual_energy_fairness": jain(residual_energy),
+        "residual_energy_cv": coefficient_of_variation(residual_energy),
+        "mean_residual_energy_j": float(residual_energy.mean()),
+        "min_residual_energy_j": float(residual_energy.min()),
         "energy_consumed_j": total_consumed,
         "energy_efficiency_packets_per_j": efficiency,
         "dropped_stale_packets": int(env.dropped_stale_packets),
+        "dropped_death_packets": int(env.dropped_death_packets),
         "dropped_overflow_packets": int(env.dropped_overflow_packets),
         "alive_at_end": int(env.alive.sum()),
         "right_censored": right_censored,
@@ -331,6 +387,47 @@ def censor_aware_lifetime_summary(rows, reference_policy="hta_mac"):
         result["endpoints"][endpoint] = endpoint_summary
     return result
 
+def paired_non_lifetime_comparisons(rows, reference_policy="hta_mac"):
+    """Paired Wilcoxon tests and effects for uncensored scalar endpoints."""
+    by_policy = {}
+    for row in rows:
+        by_policy.setdefault(row["policy"], {})[int(row["seed"])] = row
+    reference = by_policy.get(reference_policy, {})
+    comparisons = {}
+    for policy, indexed in sorted(by_policy.items()):
+        if policy == reference_policy:
+            continue
+        common = sorted(set(reference).intersection(indexed))
+        metrics = {}
+        for metric, direction in METRIC_DIRECTION.items():
+            first = np.asarray(
+                [reference[seed][metric] for seed in common], dtype=np.float64
+            )
+            second = np.asarray(
+                [indexed[seed][metric] for seed in common], dtype=np.float64
+            )
+            payload = paired_wilcoxon_effect(first, second)
+            payload["difference_orientation"] = (
+                f"{reference_policy}_minus_{policy}"
+            )
+            payload["preferred_direction"] = direction
+            if direction == "lower_is_better":
+                payload["reference_better_effect_sign"] = "negative"
+            elif direction == "higher_is_better":
+                payload["reference_better_effect_sign"] = "positive"
+            else:
+                payload["reference_better_effect_sign"] = "not_applicable"
+            metrics[metric] = payload
+        comparisons[policy] = metrics
+    return {
+        "reference_policy": reference_policy,
+        "multiplicity_adjustment": "none_development_only",
+        "metrics": comparisons,
+        "random_floor_policy": "random_budgeted_diagnostic",
+        "random_floor_is_formal_comparator": True,
+    }
+
+
 def finite_row(row):
     for metric in METRICS:
         value = row[metric]
@@ -349,7 +446,22 @@ def main():
     run_dir.mkdir(parents=True, exist_ok=True)
     policy, solar, thermal, radio, config, manifest = build_assets(args.horizon)
     checkpoint_sha = manifest["checkpoint"]["sha256"]
-    factories = phase3_policy_factories(ROOT)
+    hta_checkpoint = (
+        ROOT
+        / "outputs"
+        / "phase2"
+        / "authoritative_dynamic_budget8_500ep"
+        / "branching_c51.pt"
+        if args.hta_checkpoint is None
+        else Path(args.hta_checkpoint)
+    )
+    if not hta_checkpoint.is_absolute():
+        hta_checkpoint = ROOT / hta_checkpoint
+    factories = phase3_policy_factories(
+        ROOT,
+        hta_checkpoint=hta_checkpoint,
+        hta_budget=args.hta_budget,
+    )
     rows = []
     compatibility_rows = []
     schedule_metadata = {}
@@ -369,7 +481,8 @@ def main():
                 print(
                     f"SEED={seed} POLICY={name} FND={row['t_fnd']} "
                     f"HND={row['t_hnd']} ROUNDS={row['rounds']} "
-                    f"PACKETS={row['throughput']} IDLE_J={row['idle_energy_j']:.6f}",
+                    f"PACKETS={row['throughput']} DELIVERY={row['delivery_ratio']:.4f} "
+                    f"IDLE_J={row['idle_energy_j']:.6f}",
                     flush=True,
                 )
             except Exception as exc:
@@ -452,16 +565,13 @@ def main():
         "all_metrics_finite": all_finite,
         "git_hash": git_hash(),
         "frozen_checkpoint_sha256": checkpoint_sha,
-        "trained_checkpoint_sha256": file_sha256(
-            ROOT
-            / "outputs"
-            / "phase2"
-            / "authoritative_dynamic_budget8_500ep"
-            / "branching_c51.pt"
-        ),
+        "hta_checkpoint": str(hta_checkpoint),
+        "hta_budget": int(args.hta_budget),
+        "trained_checkpoint_sha256": file_sha256(hta_checkpoint),
         "schedule_metadata": schedule_metadata,
         "summary_median_iqr": summary_metrics,
         "censor_aware_lifetime": censor_aware_lifetime_summary(rows),
+        "paired_non_lifetime_comparisons": paired_non_lifetime_comparisons(rows),
         "static_idle_off_compatibility": {
             "reference_reproduced_t_fnd": 1100.6,
             "pilot_median_t_fnd": compatibility_median,

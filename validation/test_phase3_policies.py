@@ -90,6 +90,7 @@ def test_all_seven_policies_are_identified_once():
     assert len(names) == 7
     assert len(set(names)) == 7
     assert names[-1] == "random_budgeted_diagnostic"
+    assert RandomBudgetedPolicy.comparison_role == "formal_stochastic_floor"
 
 
 def test_heuristic_policies_share_action_contract():
@@ -203,4 +204,4 @@ def test_censor_aware_summary_uses_common_restricted_horizon():
             "median_paired_difference_rounds"
         ]
         == 6.5
-    )
+    )

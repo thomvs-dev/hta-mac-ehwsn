@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent
 from agents.reward_model import RewardModel, TERM_ORDER
 from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
+from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
 from envs.scheduled_mac_env import ScheduledIntraClusterMACEnv
 from experiments.run_phase3_pilot import build_assets, schedule_bundle
 from experiments.train_phase2_fixed_cluster import (
@@ -49,6 +50,14 @@ def parse_args():
     parser.add_argument("--epsilon-end", type=float, default=0.05)
     parser.add_argument("--initial-checkpoint" )
     parser.add_argument("--projection-budget", type=int)
+    parser.add_argument(
+        "--architecture",
+        choices=("shared_branching", "independent_dqns"),
+        default="shared_branching",
+    )
+    parser.add_argument("--stability-interval", type=int, default=50)
+    parser.add_argument("--stability-tail-episodes", type=int, default=100)
+    parser.add_argument("--stability-relative-tolerance", type=float, default=0.10)
     return parser.parse_args()
 
 
@@ -96,6 +105,7 @@ def build_curriculum(seeds, max_steps):
                     "input_dim": int(observation.shape[1]),
                     "schedule_coverage_rounds": len(bundle["schedule"]),
                     "schedule_cache": schedule_metadata["cache_file"],
+                    "schedule_schema_version": schedule_metadata["schedule_schema_version"],
                 }
             )
     if not environments:
@@ -156,6 +166,18 @@ def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model
                 "packets_per_step": packets / max(1, steps),
                 "mean_allocated_slots": allocated / max(1, steps),
                 "zero_action_fraction": zero_steps / max(1, steps),
+                "fnd_free_steps": int(
+                    env.base.t_fnd if env.base.t_fnd is not None else steps
+                ),
+                "global_throughput": int(env.base.total_packets),
+                "queue_fairness": FixedClusterTrainingEnv._jain(
+                    env.cumulative_service
+                ),
+                "delivery_ratio": (
+                    env.base.total_packets / env.base.total_packets_generated
+                    if env.base.total_packets_generated > 0
+                    else 0.0
+                ),
                 "target_ch_alive": bool(env.base.alive[int(info["target_ch"])]),
             }
         )
@@ -169,7 +191,55 @@ def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model
         "mean_zero_action_fraction": float(
             np.mean([row["zero_action_fraction"] for row in rows])
         ),
+        "mean_fnd_free_steps": float(
+            np.mean([row["fnd_free_steps"] for row in rows])
+        ),
+        "mean_throughput": float(
+            np.mean([row["global_throughput"] for row in rows])
+        ),
+        "mean_queue_fairness": float(
+            np.mean([row["queue_fairness"] for row in rows])
+        ),
+        "mean_delivery_ratio": float(
+            np.mean([row["delivery_ratio"] for row in rows])
+        ),
     }, first_env, first_observation
+
+
+def policy_stability_summary(snapshots, relative_tolerance):
+    metric_names = (
+        "mean_fnd_free_steps",
+        "mean_throughput",
+        "mean_queue_fairness",
+    )
+    metrics = {}
+    for name in metric_names:
+        values = np.asarray(
+            [row["evaluation"][name] for row in snapshots],
+            dtype=np.float64,
+        )
+        mean = float(values.mean()) if values.size else 0.0
+        relative_span = (
+            float((values.max() - values.min()) / max(abs(mean), 1e-12))
+            if values.size
+            else None
+        )
+        metrics[name] = {
+            "values": values.tolist(),
+            "mean": mean,
+            "relative_span": relative_span,
+            "pass": bool(
+                values.size >= 3 and relative_span <= relative_tolerance
+            ),
+        }
+    assessed = len(snapshots) >= 3
+    return {
+        "assessed": assessed,
+        "snapshot_count": len(snapshots),
+        "relative_tolerance": float(relative_tolerance),
+        "metrics": metrics,
+        "pass": bool(assessed and all(row["pass"] for row in metrics.values())),
+    }
 
 
 def main():
@@ -219,6 +289,8 @@ def main():
             else args.projection_budget
         ),
         replay_capacity=5000,
+        max_branches=max_branches,
+        architecture=args.architecture,
     )
     agent = BranchingDQNAgent(agent_cfg, device=args.device)
     initialization = None
@@ -229,12 +301,21 @@ def main():
         checkpoint = torch.load(
             checkpoint_path, map_location=args.device, weights_only=False
         )
+        checkpoint_architecture = checkpoint.get("config", {}).get(
+            "architecture", "legacy_weight_tied"
+        )
+        if checkpoint_architecture != args.architecture:
+            raise ValueError(
+                "initial checkpoint architecture mismatch: "
+                f"{checkpoint_architecture} != {args.architecture}"
+            )
         agent.online.load_state_dict(checkpoint["online_state_dict"] )
         agent.target.load_state_dict(checkpoint["target_state_dict"] )
         initialization = str(checkpoint_path)
 
     expected_steps = args.episodes * args.max_steps
     rows = []
+    stability_snapshots = []
     recent = deque(maxlen=args.collapse_window)
     global_step = 0
     stopped_for_collapse = False
@@ -340,6 +421,35 @@ def main():
         with episodes_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(row) + "\n")
 
+        completed = episode + 1
+        stability_start = max(
+            args.stability_interval,
+            args.episodes - args.stability_tail_episodes,
+        )
+        if completed >= stability_start and (
+            completed % args.stability_interval == 0
+            or completed == args.episodes
+        ):
+            snapshot_evaluation, _, _ = greedy_curriculum_evaluation(
+                agent, environments, max_branches, reward_model
+            )
+            snapshot = {
+                "episode": completed,
+                "evaluation": snapshot_evaluation,
+            }
+            stability_snapshots.append(snapshot)
+            agent.save(
+                run_dir / f"stability_episode_{completed}.pt",
+                snapshot,
+            )
+            print(
+                f"POLICY_STABILITY_SNAPSHOT={completed} "
+                f"FND_FREE={snapshot_evaluation['mean_fnd_free_steps']:.4f} "
+                f"THROUGHPUT={snapshot_evaluation['mean_throughput']:.4f} "
+                f"FAIRNESS={snapshot_evaluation['mean_queue_fairness']:.6f}",
+                flush=True,
+            )
+
         if (episode + 1) % 10 == 0 or episode == 0:
             print(
                 f"EPISODE={episode + 1}/{args.episodes} "
@@ -372,6 +482,9 @@ def main():
         agent, environments, max_branches, reward_model
     )
     q_check = trajectory_q_check(agent, check_env, check_observation)
+    policy_stability = policy_stability_summary(
+        stability_snapshots, args.stability_relative_tolerance
+    )
     balance_rows = rows[-min(50, len(rows)) :]
     contribution_totals, contribution_fractions, dominant = contribution_balance(
         balance_rows
@@ -412,6 +525,7 @@ def main():
         and not dominating
         and q_check["differentiated"]
         and convergence["pass"]
+        and policy_stability["pass"]
     )
     status = (
         "smoke_pass"
@@ -433,6 +547,7 @@ def main():
         "projection_budget": agent_cfg.budget,
         "environment_capacity": env_cfg.frame_slot_budget,
         "development_seeds": seeds,
+        "schedule_schema_version": curriculum_manifest[0]["schedule_schema_version"],
         "held_out_pilot_seeds": sorted(held_out),
         "held_out_overlap": sorted(overlap),
         "git_hash": git_hash(),
@@ -441,6 +556,9 @@ def main():
         "full_curriculum_seen": full_curriculum_seen,
         "max_padded_branches": max_branches,
         "agent_config": agent_cfg.__dict__,
+        "online_parameter_count": int(
+            sum(parameter.numel() for parameter in agent.online.parameters())
+        ),
         "reward_calibration": reward_payload,
         "queue_feasibility_caps": True,
         "target_ch_death_penalized": True,
@@ -457,6 +575,8 @@ def main():
         "greedy_evaluation": evaluation,
         "trajectory_q_check": q_check,
         "convergence": convergence,
+        "policy_stability": policy_stability,
+        "policy_stability_snapshots": stability_snapshots,
         "scope": (
             "Development curriculum uses frozen per-round CH schedule replay; "
             "held-out Phase 3 seeds are excluded and CH selection remains exogenous."
@@ -476,6 +596,7 @@ def main():
     print(f"GREEDY_MEAN_PACKETS={evaluation['mean_packets']:.4f}")
     print(f"S8_S1_Q_MAX_ABS_DIFF={q_check['max_absolute_difference']:.8f}")
     print(f"CONVERGENCE_PASS={convergence['pass']}")
+    print(f"POLICY_STABILITY_PASS={policy_stability['pass']}")
     print(f"PHASE2_CURRICULUM_GATE_PASS={gate_pass}")
     print(f"summary={summary_path}")
     return 0 if status in {"smoke_pass", "pass"} else 2

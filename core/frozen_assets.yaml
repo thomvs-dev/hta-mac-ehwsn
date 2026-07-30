@@ -19,4 +19,28 @@ thermal_hmm:
   auxiliary_path: core/hmm/thermal_auxiliary_params.npz
   auxiliary_sha256: 3d22e56e47a499884b50f88d2598124153ab99386ad62c327835d50cbc46c845
   auxiliary_trained: false
+historical_hta_phase2:
+  status: superseded_for_final_evidence_by_schema_v2_sweep
+  path: outputs/phase2/authoritative_dynamic_budget8_500ep/branching_c51.pt
+  sha256: 0ef29efaff04ec1cb652c84a432a53bd0c41d7c68dc9decfcadf9c277247c2ff
 
+historical_hta_phase3:
+  status: paired_pilot_only_schedule_schema_v1
+  path: outputs/phase3/heldout_pilot_authoritative_budget8_censor_aware/raw_trials.csv
+  sha256: 7529e8ccb99f35f6e0bcc6552b62bd9c5b8de95b2e584548e17c51fd6d076438
+
+progress_report:
+  path: HTA_MAC_COMPREHENSIVE_PROGRESS_REPORT_20260729.md
+  sha256: 14b13241c6fd9a50e3788ff386327b1530ecc59271160371acecb9afc57df36b
+
+preregistration:
+  path: PHASE4_PREREGISTRATION.md
+  sha256: 30e64870ed2d4614051021853915e7ddef5daec509159ecb2c9c11aaca2c1790
+
+novelty_audit:
+  path: NOVELTY_AND_CLOSEST_WORK_AUDIT.md
+  sha256: 867dd55bc8e14823f18d5de474cecb3f2927739ab499286538066c843a66b496
+
+schedule_contract:
+  schema_version: 2
+  seed_deterministic: true

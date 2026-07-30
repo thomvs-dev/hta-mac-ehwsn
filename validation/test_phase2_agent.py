@@ -9,6 +9,7 @@ from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent, Branch
 from agents.reward_model import RewardModel
 from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
 from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
+from experiments.train_phase2_dynamic_curriculum import policy_stability_summary
 
 
 def test_branching_distribution_shape_and_normalization():
@@ -139,3 +140,102 @@ def test_prioritized_replay_update_produces_finite_loss():
     loss = agent.learn(beta=0.4)
     assert loss is not None
     assert np.isfinite(loss)
+
+def test_greedy_action_does_not_advance_numpy_rng():
+    agent = BranchingDQNAgent(
+        BranchingAgentConfig(input_dim=50, actions=4, budget=4)
+    )
+    state = np.zeros((3, 50), dtype=np.float32)
+    mask = np.ones(3, dtype=bool)
+    np.random.seed(12)
+    before = np.random.get_state()
+    agent.act(state, mask, epsilon=0.0)
+    after = np.random.get_state()
+    assert before[0] == after[0]
+    np.testing.assert_array_equal(before[1], after[1])
+    assert before[2:] == after[2:]
+
+
+def test_policy_stability_requires_three_stable_snapshots():
+    snapshots = []
+    for episode, scale in ((400, 1.00), (450, 1.02), (500, 0.99)):
+        snapshots.append(
+            {
+                "episode": episode,
+                "evaluation": {
+                    "mean_fnd_free_steps": 140.0 * scale,
+                    "mean_throughput": 1000.0 * scale,
+                    "mean_queue_fairness": 0.90 * scale,
+                },
+            }
+        )
+    result = policy_stability_summary(snapshots, relative_tolerance=0.10)
+    assert result["assessed"]
+    assert result["pass"]
+
+    unstable = [dict(item) for item in snapshots]
+    unstable[-1] = {
+        "episode": 500,
+        "evaluation": {
+            "mean_fnd_free_steps": 70.0,
+            "mean_throughput": 500.0,
+            "mean_queue_fairness": 0.45,
+        },
+    }
+    assert not policy_stability_summary(unstable, 0.10)["pass"]
+
+
+def test_heart_solar_reward_taxonomy_is_exact():
+    from envs.fixed_cluster_training_env import (
+        SOLAR_DECLINING_STATES,
+        SOLAR_HIGH_HARVEST_STATES,
+    )
+
+    assert SOLAR_HIGH_HARVEST_STATES == (5, 7)
+    assert SOLAR_DECLINING_STATES == (0, 3, 6)
+    assert set(SOLAR_HIGH_HARVEST_STATES).isdisjoint(SOLAR_DECLINING_STATES)
+
+
+def test_trajectory_indicators_use_only_published_solar_taxonomy():
+    class Base:
+        solar_states = np.arange(8, dtype=np.int64)
+        thermal_states = np.array([3, 3, 3, 3, 3, 3, 3, 3])
+
+    env = FixedClusterTrainingEnv.__new__(FixedClusterTrainingEnv)
+    env.base = Base()
+    env.members = np.arange(8, dtype=np.int64)
+    high, declining = env._trajectory_indicators()
+    np.testing.assert_array_equal(high, [False, False, False, False, False, True, False, True])
+    np.testing.assert_array_equal(declining, [True, False, False, True, False, False, True, False])
+
+def test_shared_branching_has_global_cross_node_context():
+    from agents.architectures import GlobalBranchingDuelingC51
+
+    torch.manual_seed(4)
+    network = GlobalBranchingDuelingC51(
+        input_dim=3, hidden_dim=16, actions=2, atoms=7, max_branches=4
+    )
+    first = torch.zeros(1, 4, 3)
+    second = first.clone()
+    second[:, 1, 0] = 1.0
+    mask = torch.ones(1, 4, dtype=torch.bool)
+    q_first = network.q_values(first, mask)
+    q_second = network.q_values(second, mask)
+    assert not torch.allclose(q_first[:, 0], q_second[:, 0])
+
+
+def test_independent_dqn_ablation_has_no_cross_node_context():
+    from agents.architectures import IndependentDuelingC51
+
+    torch.manual_seed(4)
+    network = IndependentDuelingC51(
+        input_dim=3, hidden_dim=16, actions=2, atoms=7, max_branches=4
+    )
+    first = torch.zeros(1, 4, 3)
+    second = first.clone()
+    second[:, 1, 0] = 1.0
+    mask = torch.ones(1, 4, dtype=torch.bool)
+    q_first = network.q_values(first, mask)
+    q_second = network.q_values(second, mask)
+    torch.testing.assert_close(q_first[:, 0], q_second[:, 0])
+    assert not torch.allclose(q_first[:, 1], q_second[:, 1])

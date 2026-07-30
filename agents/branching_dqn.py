@@ -9,6 +9,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from .architectures import GlobalBranchingDuelingC51, IndependentDuelingC51
 from .budget_projection import project_slot_budget
 from .prioritized_replay import PrioritizedReplay
 
@@ -47,7 +48,7 @@ class BranchingDuelingC51(nn.Module):
             nn.Linear(64, actions * atoms),
         )
 
-    def forward(self, state):
+    def forward(self, state, mask=None):
         hidden = self.trunk(state)
         value = self.value(hidden).unsqueeze(2)
         advantage = self.advantage(hidden).view(
@@ -56,8 +57,8 @@ class BranchingDuelingC51(nn.Module):
         logits = value + advantage - advantage.mean(dim=2, keepdim=True)
         return F.log_softmax(logits, dim=-1)
 
-    def q_values(self, state):
-        log_probabilities = self.forward(state)
+    def q_values(self, state, mask=None):
+        log_probabilities = self.forward(state, mask)
         return (log_probabilities.exp() * self.support).sum(dim=-1)
 
 
@@ -75,6 +76,8 @@ class BranchingAgentConfig:
     v_min: float = -30.0
     v_max: float = 30.0
     atoms: int = 51
+    max_branches: int = 100
+    architecture: str = "shared_branching"
 
 
 class BranchingDQNAgent:
@@ -88,8 +91,18 @@ class BranchingDQNAgent:
             v_min=config.v_min,
             v_max=config.v_max,
         )
-        self.online = BranchingDuelingC51(**kwargs).to(self.device)
-        self.target = BranchingDuelingC51(**kwargs).to(self.device)
+        if config.architecture == "legacy_weight_tied":
+            network_type = BranchingDuelingC51
+        elif config.architecture == "shared_branching":
+            network_type = GlobalBranchingDuelingC51
+            kwargs["max_branches"] = config.max_branches
+        elif config.architecture == "independent_dqns":
+            network_type = IndependentDuelingC51
+            kwargs["max_branches"] = config.max_branches
+        else:
+            raise ValueError(f"unsupported architecture: {config.architecture}")
+        self.online = network_type(**kwargs).to(self.device)
+        self.target = network_type(**kwargs).to(self.device)
         self.target.load_state_dict(self.online.state_dict())
         self.target.eval()
         self.optimizer = torch.optim.Adam(
@@ -122,7 +135,7 @@ class BranchingDQNAgent:
         return allocation
 
     def act(self, state, mask, epsilon=0.0, caps=None, budget=None):
-        if np.random.random() < epsilon:
+        if epsilon > 0.0 and np.random.random() < epsilon:
             random_q = np.random.normal(
                 size=(len(state), self.cfg.actions)
             )
@@ -138,7 +151,10 @@ class BranchingDQNAgent:
             tensor = torch.as_tensor(
                 state, dtype=torch.float32, device=self.device
             ).unsqueeze(0)
-            q = self.online.q_values(tensor)[0].cpu().numpy()
+            mask_tensor = torch.as_tensor(
+                mask, dtype=torch.bool, device=self.device
+            ).unsqueeze(0)
+            q = self.online.q_values(tensor, mask_tensor)[0].cpu().numpy()
         self.online.train()
         return self._project(q, mask, caps=caps, budget=budget), q
 
@@ -213,21 +229,26 @@ class BranchingDQNAgent:
             importance, dtype=torch.float32, device=self.device
         )
 
-        log_probabilities = self.online(states)
+        log_probabilities = self.online(states, masks_t)
         gather_index = actions.unsqueeze(-1).unsqueeze(-1).expand(
             -1, -1, 1, self.cfg.atoms
         )
         chosen_log = log_probabilities.gather(2, gather_index).squeeze(2)
 
         with torch.no_grad():
-            next_q = self.online.q_values(next_states).cpu().numpy()
+            next_masks_t = torch.as_tensor(
+                next_masks_np, dtype=torch.bool, device=self.device
+            )
+            next_q = self.online.q_values(
+                next_states, next_masks_t
+            ).cpu().numpy()
             next_actions_np = self._target_actions(
                 next_q, next_masks_np, next_caps_np
             )
             next_actions = torch.as_tensor(
                 next_actions_np, dtype=torch.long, device=self.device
             )
-            target_log = self.target(next_states)
+            target_log = self.target(next_states, next_masks_t)
             target_index = next_actions.unsqueeze(-1).unsqueeze(-1).expand(
                 -1, -1, 1, self.cfg.atoms
             )

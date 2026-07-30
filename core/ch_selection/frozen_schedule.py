@@ -7,6 +7,7 @@ import sys
 import numpy as np
 
 from .frozen_heart_ch import FrozenHeartCH
+from ..reproducibility import set_global_seed
 
 
 def frozen_ch_schedule(
@@ -16,6 +17,7 @@ def frozen_ch_schedule(
     max_rounds: int = 2000,
 ) -> list[dict]:
     """Run upstream HEART-CH without retraining and archive every CH decision."""
+    set_global_seed(seed)
     if str(policy.upstream) not in sys.path:
         sys.path.insert(0, str(policy.upstream))
     from train import load_stage1_params, make_env

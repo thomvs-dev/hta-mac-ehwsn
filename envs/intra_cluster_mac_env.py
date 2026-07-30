@@ -76,7 +76,9 @@ class IntraClusterMACEnv:
         self.t_fnd = None
         self.total_idle_energy = 0.0
         self.total_packets = 0
+        self.total_packets_generated = self.n_nodes
         self.dropped_stale_packets = 0
+        self.dropped_death_packets = 0
         self.dropped_overflow_packets = 0
         self.max_backlog_observed = 1
         self._assign_clusters()
@@ -169,18 +171,20 @@ class IntraClusterMACEnv:
 
     def _update_queues(self, delivered: np.ndarray) -> None:
         for node in range(self.n_nodes):
-            if not self.alive[node]:
-                self.packet_ages[node] = []
-                continue
             served = min(int(delivered[node]), len(self.packet_ages[node]))
             if served:
                 del self.packet_ages[node][:served]
+            if not self.alive[node]:
+                self.dropped_death_packets += len(self.packet_ages[node])
+                self.packet_ages[node] = []
+                continue
             aged = [age + 1 for age in self.packet_ages[node]]
             retained = [
                 age for age in aged if age <= self.cfg.packet_ttl_rounds
             ]
             self.dropped_stale_packets += len(aged) - len(retained)
             retained.append(0)
+            self.total_packets_generated += 1
             if len(retained) > self.cfg.queue_max_packets:
                 overflow = len(retained) - self.cfg.queue_max_packets
                 self.dropped_overflow_packets += overflow
@@ -314,7 +318,9 @@ class IntraClusterMACEnv:
             "t_fnd": self.t_fnd,
             "total_idle_energy_j": self.total_idle_energy,
             "packets_delivered": self.total_packets,
+            "packets_generated": self.total_packets_generated,
             "dropped_stale_packets": self.dropped_stale_packets,
+            "dropped_death_packets": self.dropped_death_packets,
             "dropped_overflow_packets": self.dropped_overflow_packets,
             "max_backlog_observed": self.max_backlog_observed,
             "cluster_heads": self.cluster_heads.copy(),

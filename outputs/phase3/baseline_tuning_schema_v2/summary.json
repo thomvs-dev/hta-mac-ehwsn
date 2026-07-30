@@ -1,0 +1,438 @@
+{
+  "status": "complete",
+  "schedule_schema_version": 2,
+  "seeds": [
+    2500,
+    2501,
+    2502,
+    2503,
+    2504
+  ],
+  "protected_seed_overlap": [],
+  "horizon": 3000,
+  "candidate_count": 14,
+  "run_count": 70,
+  "selection_rules": {
+    "energy_proportional": "maximize median FND-or-censor, then delivery ratio, then packet fairness",
+    "harvest_proportional": "maximize median FND-or-censor, then delivery ratio, then packet fairness",
+    "s2a2mac_adapted": "maximize median FND-or-censor, then delivery ratio, then packet fairness",
+    "ffss_adapted": "maximize delivery ratio, then packet fairness, then median FND-or-censor, matching FFSS channel-utilization intent"
+  },
+  "adaptation_limit": "No unpublished S2A2MAC HMM threshold was invented. The sweep only tests the explicit energy/load mixture used to replace unavailable source parameters. FFSS remains a round-level feasible-first adaptation.",
+  "schedule_metadata": {
+    "2500": {
+      "schedule_schema_version": 2,
+      "requested_horizon": 3000,
+      "coverage_rounds": 1602,
+      "complete": false,
+      "stop_reason": "upstream_episode_terminated",
+      "terminal_alive_count": 9,
+      "upstream_episode_stats": {
+        "total_harvest": 24.887091898099815,
+        "total_tx_cost": 73.72505593962511,
+        "total_recluster_cost": 0.7220349999999938,
+        "total_deaths": 91,
+        "recluster_count": 1554,
+        "fallback_count": 0,
+        "ch_turnover_sum": 1061.1246031746016,
+        "rounds_survived": 1602,
+        "t_fnd": 1117,
+        "t_hnd": 1494,
+        "packets_delivered": 146180,
+        "packets_generated": 146180,
+        "total_hop_count": 370042
+      },
+      "upstream_termination_cause": "alive_fraction_below_death_threshold",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_2500_horizon_3000_v2_ccb572901e26.pkl"
+    },
+    "2501": {
+      "schedule_schema_version": 2,
+      "requested_horizon": 3000,
+      "coverage_rounds": 1564,
+      "complete": false,
+      "stop_reason": "upstream_episode_terminated",
+      "terminal_alive_count": 9,
+      "upstream_episode_stats": {
+        "total_harvest": 24.480935909156315,
+        "total_tx_cost": 73.38847186306438,
+        "total_recluster_cost": 0.7093749999999992,
+        "total_deaths": 91,
+        "recluster_count": 1518,
+        "fallback_count": 0,
+        "ch_turnover_sum": 1041.0265873015853,
+        "rounds_survived": 1564,
+        "t_fnd": 1046,
+        "t_hnd": 1484,
+        "packets_delivered": 144163,
+        "packets_generated": 144163,
+        "total_hop_count": 365913
+      },
+      "upstream_termination_cause": "alive_fraction_below_death_threshold",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_2501_horizon_3000_v2_ccb572901e26.pkl"
+    },
+    "2502": {
+      "schedule_schema_version": 2,
+      "requested_horizon": 3000,
+      "coverage_rounds": 1617,
+      "complete": false,
+      "stop_reason": "upstream_episode_terminated",
+      "terminal_alive_count": 9,
+      "upstream_episode_stats": {
+        "total_harvest": 25.391129092976776,
+        "total_tx_cost": 74.1864519322788,
+        "total_recluster_cost": 0.7330899999999925,
+        "total_deaths": 91,
+        "recluster_count": 1577,
+        "fallback_count": 0,
+        "ch_turnover_sum": 1090.405158730158,
+        "rounds_survived": 1617,
+        "t_fnd": 1139,
+        "t_hnd": 1527,
+        "packets_delivered": 148762,
+        "packets_generated": 148762,
+        "total_hop_count": 374647
+      },
+      "upstream_termination_cause": "alive_fraction_below_death_threshold",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_2502_horizon_3000_v2_ccb572901e26.pkl"
+    },
+    "2503": {
+      "schedule_schema_version": 2,
+      "requested_horizon": 3000,
+      "coverage_rounds": 1603,
+      "complete": false,
+      "stop_reason": "upstream_episode_terminated",
+      "terminal_alive_count": 9,
+      "upstream_episode_stats": {
+        "total_harvest": 25.378105057227216,
+        "total_tx_cost": 74.34521941456347,
+        "total_recluster_cost": 0.7335649999999974,
+        "total_deaths": 91,
+        "recluster_count": 1567,
+        "fallback_count": 0,
+        "ch_turnover_sum": 1092.108333333335,
+        "rounds_survived": 1603,
+        "t_fnd": 1142,
+        "t_hnd": 1514,
+        "packets_delivered": 148285,
+        "packets_generated": 148285,
+        "total_hop_count": 377419
+      },
+      "upstream_termination_cause": "alive_fraction_below_death_threshold",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_2503_horizon_3000_v2_ccb572901e26.pkl"
+    },
+    "2504": {
+      "schedule_schema_version": 2,
+      "requested_horizon": 3000,
+      "coverage_rounds": 1579,
+      "complete": false,
+      "stop_reason": "upstream_episode_terminated",
+      "terminal_alive_count": 9,
+      "upstream_episode_stats": {
+        "total_harvest": 24.93762493529973,
+        "total_tx_cost": 73.86253690746422,
+        "total_recluster_cost": 0.7213749999999967,
+        "total_deaths": 91,
+        "recluster_count": 1538,
+        "fallback_count": 0,
+        "ch_turnover_sum": 1078.7202380952385,
+        "rounds_survived": 1579,
+        "t_fnd": 1103,
+        "t_hnd": 1495,
+        "packets_delivered": 145795,
+        "packets_generated": 145795,
+        "total_hop_count": 373068
+      },
+      "upstream_termination_cause": "alive_fraction_below_death_threshold",
+      "cache_source": "generated",
+      "cache_file": "outputs/cache/phase3_schedules/seed_2504_horizon_3000_v2_ccb572901e26.pkl"
+    }
+  },
+  "configurations": [
+    {
+      "policy": "energy_proportional",
+      "configuration_id": "energy_proportional:score_exponent=0.5",
+      "parameters": {
+        "score_exponent": 0.5
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 120.0,
+        "median_delivery_ratio": 0.5932402070919215,
+        "median_queue_fairness": 0.9597227038189036,
+        "median_residual_energy_fairness": 0.0376014301242736,
+        "median_energy_efficiency_packets_per_j": 230.47681279733624,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "harvest_proportional",
+      "configuration_id": "harvest_proportional:score_exponent=0.5",
+      "parameters": {
+        "score_exponent": 0.5
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 106.0,
+        "median_delivery_ratio": 0.5464613254888389,
+        "median_queue_fairness": 0.9156028647310533,
+        "median_residual_energy_fairness": 0.04941942099677296,
+        "median_energy_efficiency_packets_per_j": 238.5559892934468,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "energy_proportional",
+      "configuration_id": "energy_proportional:score_exponent=1.0",
+      "parameters": {
+        "score_exponent": 1.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 121.0,
+        "median_delivery_ratio": 0.6199650611429998,
+        "median_queue_fairness": 0.9542365098747616,
+        "median_residual_energy_fairness": 0.029979417363982058,
+        "median_energy_efficiency_packets_per_j": 232.67345925780336,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "harvest_proportional",
+      "configuration_id": "harvest_proportional:score_exponent=1.0",
+      "parameters": {
+        "score_exponent": 1.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 114.0,
+        "median_delivery_ratio": 0.5512141105750218,
+        "median_queue_fairness": 0.9127592444504167,
+        "median_residual_energy_fairness": 0.04209928226225355,
+        "median_energy_efficiency_packets_per_j": 257.63424909225074,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "energy_proportional",
+      "configuration_id": "energy_proportional:score_exponent=2.0",
+      "parameters": {
+        "score_exponent": 2.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 122.0,
+        "median_delivery_ratio": 0.5702456778889899,
+        "median_queue_fairness": 0.9512208111777007,
+        "median_residual_energy_fairness": 0.047961085280186305,
+        "median_energy_efficiency_packets_per_j": 235.10348981009074,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "harvest_proportional",
+      "configuration_id": "harvest_proportional:score_exponent=2.0",
+      "parameters": {
+        "score_exponent": 2.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 130.0,
+        "median_delivery_ratio": 0.5445477539097289,
+        "median_queue_fairness": 0.9391449222272886,
+        "median_residual_energy_fairness": 0.04732543579178787,
+        "median_energy_efficiency_packets_per_j": 281.40394360651703,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "s2a2mac_adapted",
+      "configuration_id": "s2a2mac_adapted:energy_weight=0.25,load_weight=0.75",
+      "parameters": {
+        "energy_weight": 0.25,
+        "load_weight": 0.75
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 204.0,
+        "median_delivery_ratio": 0.3674590124678725,
+        "median_queue_fairness": 0.8685049596227434,
+        "median_residual_energy_fairness": 0.09641561485487728,
+        "median_energy_efficiency_packets_per_j": 385.90309581288744,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "s2a2mac_adapted",
+      "configuration_id": "s2a2mac_adapted:energy_weight=0.5,load_weight=0.5",
+      "parameters": {
+        "energy_weight": 0.5,
+        "load_weight": 0.5
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 204.0,
+        "median_delivery_ratio": 0.3608130548636393,
+        "median_queue_fairness": 0.8418128692955933,
+        "median_residual_energy_fairness": 0.10164226629876263,
+        "median_energy_efficiency_packets_per_j": 378.8860578885938,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "s2a2mac_adapted",
+      "configuration_id": "s2a2mac_adapted:energy_weight=0.75,load_weight=0.25",
+      "parameters": {
+        "energy_weight": 0.75,
+        "load_weight": 0.25
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 200.0,
+        "median_delivery_ratio": 0.35266821345707655,
+        "median_queue_fairness": 0.8276808915124296,
+        "median_residual_energy_fairness": 0.09444440182227558,
+        "median_energy_efficiency_packets_per_j": 369.59951732600916,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=1.0,queue_weight=0.0",
+      "parameters": {
+        "margin_weight": 1.0,
+        "queue_weight": 0.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 139.0,
+        "median_delivery_ratio": 0.48636842310542533,
+        "median_queue_fairness": 0.9722107625558718,
+        "median_residual_energy_fairness": 0.04917684176041445,
+        "median_energy_efficiency_packets_per_j": 229.03276559110344,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=0.75,queue_weight=0.25",
+      "parameters": {
+        "margin_weight": 0.75,
+        "queue_weight": 0.25
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 139.0,
+        "median_delivery_ratio": 0.46592253104671794,
+        "median_queue_fairness": 0.9517759048186518,
+        "median_residual_energy_fairness": 0.05937264194548225,
+        "median_energy_efficiency_packets_per_j": 232.41739327060324,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=0.5,queue_weight=0.5",
+      "parameters": {
+        "margin_weight": 0.5,
+        "queue_weight": 0.5
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 139.0,
+        "median_delivery_ratio": 0.46592253104671794,
+        "median_queue_fairness": 0.9517759048186518,
+        "median_residual_energy_fairness": 0.05937264194548225,
+        "median_energy_efficiency_packets_per_j": 232.41739327060324,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=0.25,queue_weight=0.75",
+      "parameters": {
+        "margin_weight": 0.25,
+        "queue_weight": 0.75
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 139.0,
+        "median_delivery_ratio": 0.46592253104671794,
+        "median_queue_fairness": 0.9517759048186518,
+        "median_residual_energy_fairness": 0.05937264194548225,
+        "median_energy_efficiency_packets_per_j": 232.41739327060324,
+        "fnd_events": 5
+      }
+    },
+    {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=0.0,queue_weight=1.0",
+      "parameters": {
+        "margin_weight": 0.0,
+        "queue_weight": 1.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 111.0,
+        "median_delivery_ratio": 0.3823330748255072,
+        "median_queue_fairness": 0.8524089881119522,
+        "median_residual_energy_fairness": 0.1001620462507842,
+        "median_energy_efficiency_packets_per_j": 272.59934804065887,
+        "fnd_events": 5
+      }
+    }
+  ],
+  "selected": {
+    "energy_proportional": {
+      "policy": "energy_proportional",
+      "configuration_id": "energy_proportional:score_exponent=2.0",
+      "parameters": {
+        "score_exponent": 2.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 122.0,
+        "median_delivery_ratio": 0.5702456778889899,
+        "median_queue_fairness": 0.9512208111777007,
+        "median_residual_energy_fairness": 0.047961085280186305,
+        "median_energy_efficiency_packets_per_j": 235.10348981009074,
+        "fnd_events": 5
+      }
+    },
+    "ffss_adapted": {
+      "policy": "ffss_adapted",
+      "configuration_id": "ffss_adapted:margin_weight=1.0,queue_weight=0.0",
+      "parameters": {
+        "margin_weight": 1.0,
+        "queue_weight": 0.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 139.0,
+        "median_delivery_ratio": 0.48636842310542533,
+        "median_queue_fairness": 0.9722107625558718,
+        "median_residual_energy_fairness": 0.04917684176041445,
+        "median_energy_efficiency_packets_per_j": 229.03276559110344,
+        "fnd_events": 5
+      }
+    },
+    "harvest_proportional": {
+      "policy": "harvest_proportional",
+      "configuration_id": "harvest_proportional:score_exponent=2.0",
+      "parameters": {
+        "score_exponent": 2.0
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 130.0,
+        "median_delivery_ratio": 0.5445477539097289,
+        "median_queue_fairness": 0.9391449222272886,
+        "median_residual_energy_fairness": 0.04732543579178787,
+        "median_energy_efficiency_packets_per_j": 281.40394360651703,
+        "fnd_events": 5
+      }
+    },
+    "s2a2mac_adapted": {
+      "policy": "s2a2mac_adapted",
+      "configuration_id": "s2a2mac_adapted:energy_weight=0.25,load_weight=0.75",
+      "parameters": {
+        "energy_weight": 0.25,
+        "load_weight": 0.75
+      },
+      "summary": {
+        "median_fnd_or_censor_round": 204.0,
+        "median_delivery_ratio": 0.3674590124678725,
+        "median_queue_fairness": 0.8685049596227434,
+        "median_residual_energy_fairness": 0.09641561485487728,
+        "median_energy_efficiency_packets_per_j": 385.90309581288744,
+        "fnd_events": 5
+      }
+    }
+  }
+}

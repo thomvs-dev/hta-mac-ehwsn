@@ -53,7 +53,7 @@ def set_seeds(seed: int):
 def git_hash():
     try:
         return subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT.parent, text=True
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip()
     except (OSError, subprocess.CalledProcessError):
         return "unavailable"

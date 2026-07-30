@@ -1,0 +1,20 @@
+{
+  "audit_date": "2026-07-30",
+  "seed": 3100,
+  "requested_horizon": 3000,
+  "schedule_schema_version": 2,
+  "coverage_rounds": 1640,
+  "stop_reason": "upstream_episode_terminated",
+  "upstream_termination_cause": "alive_fraction_below_death_threshold",
+  "terminal_alive_count": 9,
+  "upstream_death_threshold_fraction": 0.1,
+  "upstream_t_fnd": 1178,
+  "upstream_t_hnd": 1539,
+  "schedule_signature_sha256": "10a571b3e53165075e61b3ee43a4a3b32d24269fa0900095c0e478283ee16312",
+  "repeat_signature_sha256": "10a571b3e53165075e61b3ee43a4a3b32d24269fa0900095c0e478283ee16312",
+  "deterministic_repeat_pass": true,
+  "hard_generator_round_cap_found": false,
+  "old_stop_reason_was_misclassified": true,
+  "old_cache_schema_seed_deterministic": false,
+  "interpretation": "The approximately 1700-round ceiling is the inherited upstream environment terminal condition (<10% nodes alive or no surviving current CH), not a hidden generator horizon. Extending it would change the upstream evaluation contract. Version-1 cached schedules remained valid paired exogenous schedules for their historical pilot, but were not regenerable from the seed alone because NoisyNet evaluation noise was not reseeded per schedule."
+}

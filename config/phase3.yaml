@@ -22,3 +22,14 @@ blockers:
   - four_of_five_hta_hnd_values_are_right_censored
   - all_trials_end_at_exogenous_schedule_exhaustion
   - s2a2mac_novelty_positioning_requires_revision
+baseline_tuning:
+  schedule_schema_version: 2
+  seeds: [2500, 2501, 2502, 2503, 2504]
+  evidence: outputs/phase3/baseline_tuning_schema_v2/summary.json
+  raw_sha256: 0834fbce9955bd3a0e0f0b2fff6735b60555d4b551a049c1a6d7243c064fffd4
+  energy_proportional_score_exponent: 2.0
+  harvest_proportional_score_exponent: 2.0
+  s2a2mac_energy_weight: 0.25
+  s2a2mac_load_weight: 0.75
+  ffss_margin_weight: 1.0
+  ffss_queue_weight: 0.0
