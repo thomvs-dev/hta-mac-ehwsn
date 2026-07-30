@@ -94,9 +94,9 @@
       "label": "instructor_action_report",
       "path": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_INSTRUCTOR_ACTION_REPORT_20260731.md",
       "exists": true,
-      "expected_sha256": "28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76",
-      "actual_sha256": "28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76",
-      "bytes": 17667,
+      "expected_sha256": "a376a93f37952c7913db242c0f44b5add56327199c73c4e6a46c968d5723c883",
+      "actual_sha256": "a376a93f37952c7913db242c0f44b5add56327199c73c4e6a46c968d5723c883",
+      "bytes": 18252,
       "pass": true,
       "reason": "ok"
     },

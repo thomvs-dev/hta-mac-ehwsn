@@ -17,7 +17,7 @@ Consequently, the earlier budget-8 Phase 2 checkpoint and its schema-v1 Phase 3 
 
 Current verified state:
 
-- Validation: **37 passed**, 0 failed; 93 upstream-library deprecation warnings.
+- Validation: **38 passed**, 0 failed; 93 upstream-library deprecation warnings.
 - Locked-artifact verifier: **28 checks**, **0 failures**.
 - Frozen schedule repeatability: seed 3100 produced identical signature `10a571b3e53165075e61b3ee43a4a3b32d24269fa0900095c0e478283ee16312` on two fresh schema-v2 generations.
 - Registered training plan: **18 runs** (15 primary + 3 architecture ablation), dry-run manifest generated successfully.
@@ -245,11 +245,11 @@ This remains test-contingent and is not phrased as a worldwide first claim.
 
 ## 6. Current run and what remains
 
-At report-writing time, a 100-episode from-scratch shared-branching budget-12 diagnostic is running on CPU to test collapse behavior under the corrected architecture and taxonomy. It is not a Phase 2 gate because registered runs require 500 episodes and three tail stability checkpoints.
+The 100-episode from-scratch shared-branching budget-12 diagnostic completed in 1554.6 s on CPU. It printed `ALWAYS_SLEEP_COLLAPSE=False`, `REWARD_PATHOLOGICAL_DOMINATION=False`, `FULL_CURRICULUM_SEEN=True`, and greedy mean target packets `1261.0`. It correctly did not pass the Phase 2 gate: only two deterministic snapshots existed and the reward-convergence test failed at episode 100. The two snapshot metrics were FND-free `141.00 -> 141.96`, throughput `10375.00 -> 10342.88`, and fairness `0.436766 -> 0.446520`. A post-run corrected same-node/same-head check produced S8-S1 maximum Q difference `0.00214028` and `DIFFERENTIATED=True`. This remains a development diagnostic, not an authoritative checkpoint.
 
 Remaining sequence:
 
-1. Finish the 100-episode collapse diagnostic and inspect service rate, zero-action rate, reward balance, Q differentiation, and finite loss.
+1. **Completed:** 100-episode collapse diagnostic; no sleep collapse or non-finite loss, but no convergence/gate pass at this short horizon.
 2. If it does not collapse, execute the registered 18-run Phase 2 sweep from commit `f45f02b`.
 3. Archive every run, including gate failures; update the artifact manifest and hashes.
 4. Do not start Phase 4 if any primary budget arm intended for reporting lacks its three registered gate-passing models. Report instability rather than replacing seeds.
@@ -260,7 +260,7 @@ Remaining sequence:
 
 ## 7. Open doubts and risks
 
-1. **CPU cost:** CUDA is unavailable. The corrected shared model has 2.84M parameters and the independent ablation 5.62M. One early diagnostic measured roughly 10 CPU-seconds per episode, implying the full 18-run sweep may require many tens of hours. This is a scheduling constraint, not permission to reduce registered episodes after observing results.
+1. **CPU cost:** CUDA is unavailable. The corrected shared model has 2.84M parameters and the independent ablation 5.62M. The completed 100-episode diagnostic required 1554.6 s including two deterministic evaluations and the final evaluation. A 500-episode shared run is therefore expected to take roughly 1.5-2.5 hours, and the complete 18-run sweep may require roughly 30-45 CPU-hours if no run fails early. This is a scheduling constraint, not permission to reduce registered episodes after observing results.
 2. **Training stability:** the corrected architecture is newly implemented. Passing tensor-level smokes does not prove 500-episode stability; the 100-episode diagnostic is the first meaningful collapse check.
 3. **Independent-DQN feasibility:** the ablation is larger and may be slower or less stable. Failure is itself reportable architecture evidence and cannot be replaced by a lighter unregistered model.
 4. **Thermal realism:** thermal parameters remain synthetic upstream defaults. Hybrid-source experiments test mechanism separation, not real-world thermal forecasting.

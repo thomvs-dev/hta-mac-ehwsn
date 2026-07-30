@@ -43,7 +43,7 @@ novelty_audit:
 
 instructor_action_report:
   path: HTA_MAC_INSTRUCTOR_ACTION_REPORT_20260731.md
-  sha256: 28c8ff22ed5a96a0d25de38d1d01545ebd85695abc3683caeada1265f7d5de76
+  sha256: a376a93f37952c7913db242c0f44b5add56327199c73c4e6a46c968d5723c883
 
 schedule_contract:
   schema_version: 2
