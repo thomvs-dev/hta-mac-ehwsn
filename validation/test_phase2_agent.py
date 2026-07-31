@@ -9,7 +9,10 @@ from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent, Branch
 from agents.reward_model import RewardModel
 from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
 from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
-from experiments.train_phase2_dynamic_curriculum import policy_stability_summary
+from experiments.train_phase2_dynamic_curriculum import (
+    policy_stability_summary,
+    reset_inspection_state,
+)
 
 
 def test_branching_distribution_shape_and_normalization():
@@ -267,3 +270,27 @@ def test_trajectory_q_check_changes_state_on_same_node_head():
     assert result["same_node_same_head"]
     assert result["node_index"] == 1
     assert result["differentiated"]
+
+def test_inspection_state_is_reset_after_terminal_evaluation():
+    class TerminalThenResetEnv:
+        def __init__(self):
+            self.terminal = True
+
+        def reset(self):
+            self.terminal = False
+            observation = np.ones((3, 50), dtype=np.float32)
+            mask = np.array([False, True, False])
+            return observation, mask, {"reset": True}
+
+        def _mask(self):
+            return (
+                np.zeros(3, dtype=bool)
+                if self.terminal
+                else np.array([False, True, False])
+            )
+
+    env = TerminalThenResetEnv()
+    assert not env._mask().any()
+    observation = reset_inspection_state(env)
+    assert env._mask().any()
+    assert observation.shape == (3, 50)

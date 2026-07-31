@@ -206,6 +206,15 @@ def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model
     }, first_env, first_observation
 
 
+def reset_inspection_state(env):
+    """Return an observation aligned with a freshly reset, active mask."""
+    observation, mask, _ = env.reset()
+    if not np.any(mask):
+        raise RuntimeError(
+            "inspection environment has no active member immediately after reset"
+        )
+    return observation
+
 def policy_stability_summary(snapshots, relative_tolerance):
     metric_names = (
         "mean_fnd_free_steps",
@@ -481,6 +490,7 @@ def main():
     evaluation, check_env, check_observation = greedy_curriculum_evaluation(
         agent, environments, max_branches, reward_model
     )
+    check_observation = reset_inspection_state(check_env)
     q_check = trajectory_q_check(agent, check_env, check_observation)
     policy_stability = policy_stability_summary(
         stability_snapshots, args.stability_relative_tolerance
