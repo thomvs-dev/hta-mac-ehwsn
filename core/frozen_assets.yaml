@@ -45,6 +45,10 @@ instructor_action_report:
   path: HTA_MAC_INSTRUCTOR_ACTION_REPORT_20260731.md
   sha256: a376a93f37952c7913db242c0f44b5add56327199c73c4e6a46c968d5723c883
 
+registered_phase2_manifest:
+  path: outputs/phase2/registered_sweep_artifact_manifest.json
+  sha256: 304d7588147ab3ec6d3525179e035f20d566bb470bcb8bc3f6a7597bc6eae1ea
+
 schedule_contract:
   schema_version: 2
   seed_deterministic: true

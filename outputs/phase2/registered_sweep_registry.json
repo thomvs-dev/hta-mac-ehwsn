@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-30T18:38:36.477951+00:00",
+  "created_utc": "2026-07-31T08:22:27.726527+00:00",
   "preregistration": "PHASE4_PREREGISTRATION.md",
   "schedule_schema_version": 2,
   "episodes": 500,
@@ -31,7 +31,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b8_seed2299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -59,7 +60,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b8_seed3299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -87,7 +89,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b8_seed4299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -115,7 +118,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b12_seed2299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -143,7 +147,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b12_seed3299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -171,7 +176,8 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "status": "existing_gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b12_seed4299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -199,7 +205,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b16_seed2299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -227,7 +235,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b16_seed3299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -255,7 +265,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b16_seed4299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -283,7 +295,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b20_seed2299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -311,7 +325,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b20_seed3299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -339,7 +355,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b20_seed4299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -367,7 +385,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b24_seed2299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -395,7 +415,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b24_seed3299\\summary.json"
     },
     {
       "architecture": "shared_branching",
@@ -423,7 +445,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_shared_b24_seed4299\\summary.json"
     },
     {
       "architecture": "independent_dqns",
@@ -451,7 +475,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_independent_b12_seed2299\\summary.json"
     },
     {
       "architecture": "independent_dqns",
@@ -479,7 +505,9 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_independent_b12_seed3299\\summary.json"
     },
     {
       "architecture": "independent_dqns",
@@ -507,10 +535,12 @@
         "--device",
         "cpu"
       ],
-      "status": "planned"
+      "return_code": 0,
+      "status": "gate_pass",
+      "summary": "outputs\\phase2\\registered_independent_b12_seed4299\\summary.json"
     }
   ],
   "expected_runs": 18,
-  "gate_pass_runs": 0,
-  "complete": false
+  "gate_pass_runs": 18,
+  "complete": true
 }

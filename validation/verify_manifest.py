@@ -91,11 +91,63 @@ def verify_locked_assets(manifest: dict) -> list[dict]:
         "preregistration",
         "novelty_audit",
         "instructor_action_report",
+        "registered_phase2_manifest",
     ):
         entry = manifest[key]
         rows.append(_check_file(ROOT / entry["path"], entry["sha256"], key))
     return rows
 
+
+def verify_registered_phase2_artifacts(manifest: dict) -> list[dict]:
+    """Verify every artifact admitted to the completed registered Phase 2 sweep."""
+    entry = manifest["registered_phase2_manifest"]
+    path = ROOT / entry["path"]
+    if not path.is_file():
+        return [{
+            "label": "registered_phase2.artifact_manifest",
+            "path": str(path),
+            "pass": False,
+            "reason": "missing",
+        }]
+    data = json.loads(path.read_text(encoding="utf-8"))
+    rows = []
+    expected_runs = int(data["expected_runs"])
+    runs = data.get("runs", [])
+    rows.append({
+        "label": "registered_phase2.run_count",
+        "path": str(path),
+        "expected_runs": expected_runs,
+        "actual_runs": len(runs),
+        "pass": len(runs) == expected_runs == 18,
+        "reason": "ok" if len(runs) == expected_runs == 18 else "run_count_mismatch",
+    })
+    registry = data["registry"]
+    rows.append(
+        _check_file(ROOT / registry["path"], registry["sha256"], "registered_phase2.registry")
+    )
+    for run in runs:
+        checks = run.get("checks", {})
+        admitted = bool(checks) and all(value is True for value in checks.values())
+        rows.append({
+            "label": f"registered_phase2.admission:{run['run_name']}",
+            "path": str(path),
+            "pass": admitted,
+            "reason": "ok" if admitted else "admission_check_failed",
+        })
+        for artifact in run.get("files", []):
+            row = _check_file(
+                ROOT / artifact["path"],
+                artifact["sha256"],
+                f"registered_phase2:{run['run_name']}/{Path(artifact['path']).name}",
+            )
+            expected_bytes = int(artifact["bytes"])
+            row["expected_bytes"] = expected_bytes
+            row["size_pass"] = row.get("bytes") == expected_bytes
+            if not row["size_pass"]:
+                row["pass"] = False
+                row["reason"] = "size_mismatch"
+            rows.append(row)
+    return rows
 
 def verify_archive_manifests() -> list[dict]:
     rows = []
@@ -131,6 +183,7 @@ def main() -> int:
     manifest_path = ROOT / "core" / "frozen_assets.yaml"
     manifest = load_simple_yaml(manifest_path)
     rows = verify_locked_assets(manifest)
+    rows.extend(verify_registered_phase2_artifacts(manifest))
     if not args.skip_archives:
         rows.extend(verify_archive_manifests())
     failures = [row for row in rows if not row["pass"]]

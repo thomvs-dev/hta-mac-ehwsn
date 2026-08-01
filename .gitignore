@@ -17,3 +17,6 @@ outputs/phase3/smoke_*/
 outputs/phase2/registered_sweep_stdout.log
 outputs/phase2/registered_sweep_stderr.log
 outputs/phase2/registered_sweep_runtime.json
+# Registered model directories are immutable local evidence. Their complete
+# size/hash inventory is tracked in registered_sweep_artifact_manifest.json.
+outputs/phase2/registered_*/
