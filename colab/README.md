@@ -8,8 +8,8 @@ Files:
 
 ## Fast start
 
-1. Upload the ZIP to `MyDrive/HTA_MAC_Colab_Training_Bundle_20260801.zip`.
-2. Open the notebook in Colab.
+1. Open the notebook in Colab.
+2. Upload the ZIP to `/content/HTA_MAC_Colab_Training_Bundle_20260801.zip`; renamed uploads such as `(1)` are detected automatically.
 3. Select **Runtime > Change runtime type > GPU** (A100 or L4 preferred).
 4. Run every cell in order.
 5. Leave `RUN_SELECTION = "0-17"` for the full registered sweep.
