@@ -22,3 +22,5 @@ outputs/phase2/registered_sweep_runtime.json
 outputs/phase2/registered_*/
 outputs/phase4/*smoke*
 colab/_bundle_build/
+colab/_bundle_validate/
+colab/HTA_MAC_Colab_Training_Bundle_*.zip
