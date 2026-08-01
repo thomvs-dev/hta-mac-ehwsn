@@ -21,3 +21,4 @@ outputs/phase2/registered_sweep_runtime.json
 # size/hash inventory is tracked in registered_sweep_artifact_manifest.json.
 outputs/phase2/registered_*/
 outputs/phase4/*smoke*
+colab/_bundle_build/
