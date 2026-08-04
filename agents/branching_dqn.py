@@ -78,12 +78,24 @@ class BranchingAgentConfig:
     atoms: int = 51
     max_branches: int = 100
     architecture: str = "shared_branching"
+    normalize_input_blocks: bool = False
+    hybrid_harvest_max_j: float = 1.0
+    trajectory_low_block: tuple[float, ...] = ()
+    trajectory_high_block: tuple[float, ...] = ()
+    trajectory_loss_weight: float = 0.0
+    concavity_loss_weight: float = 0.0
+    trajectory_margin_fraction: float = 0.05
+    precision: str = "fp32"
 
 
 class BranchingDQNAgent:
     def __init__(self, config: BranchingAgentConfig, device="cpu"):
         self.cfg = config
         self.device = torch.device(device)
+        if config.precision not in {"fp32", "bf16"}:
+            raise ValueError(f"unsupported precision: {config.precision}")
+        if config.precision == "bf16" and self.device.type != "cuda":
+            raise ValueError("bf16 training requires a CUDA device")
         kwargs = dict(
             input_dim=config.input_dim,
             actions=config.actions,
@@ -110,6 +122,73 @@ class BranchingDQNAgent:
         )
         self.replay = PrioritizedReplay(config.replay_capacity)
         self.train_steps = 0
+        self.last_loss_terms = None
+
+    def _autocast(self):
+        return torch.autocast(
+            device_type=self.device.type,
+            dtype=torch.bfloat16,
+            enabled=self.cfg.precision == "bf16",
+        )
+
+    def _transform_state_tensor(self, state):
+        """Scale physical forecast moments and the inherited embedding."""
+        if not self.cfg.normalize_input_blocks:
+            return state
+        transformed = state.clone()
+        harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
+        transformed[..., 1] = transformed[..., 1] / harvest_scale
+        transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
+        if transformed.shape[-1] > 18:
+            transformed[..., 18:] = F.layer_norm(
+                transformed[..., 18:], (transformed.shape[-1] - 18,)
+            )
+        return transformed
+
+    def q_values_tensor(self, state, mask=None, *, target=False):
+        network = self.target if target else self.online
+        with self._autocast():
+            return network.q_values(self._transform_state_tensor(state), mask)
+
+    @staticmethod
+    def _concavity_loss(q_values, masks):
+        """Penalize increasing marginal Q gains for successive slots."""
+        marginal = q_values[..., 1:] - q_values[..., :-1]
+        violations = F.relu(marginal[..., 1:] - marginal[..., :-1])
+        valid = masks.unsqueeze(-1).expand_as(violations)
+        if not torch.any(valid):
+            return q_values.sum() * 0.0
+        return violations[valid].mean()
+
+    def _trajectory_order_loss(self, raw_states, masks):
+        """Require high-harvest counterfactuals to have no smaller slot gains."""
+        low_block = self.cfg.trajectory_low_block
+        high_block = self.cfg.trajectory_high_block
+        if len(low_block) != 14 or len(high_block) != 14:
+            return raw_states.sum() * 0.0
+        valid_samples = torch.any(masks, dim=1)
+        if not torch.any(valid_samples):
+            return raw_states.sum() * 0.0
+        selected = torch.argmax(masks.to(torch.int64), dim=1)
+        low_states = raw_states[valid_samples].clone()
+        high_states = raw_states[valid_samples].clone()
+        selected = selected[valid_samples]
+        rows = torch.arange(selected.shape[0], device=raw_states.device)
+        low_values = raw_states.new_tensor(low_block)
+        high_values = raw_states.new_tensor(high_block)
+        low_states[rows, selected, 1:15] = low_values
+        high_states[rows, selected, 1:15] = high_values
+        counterfactual_masks = masks[valid_samples]
+        low_q = self.q_values_tensor(low_states, counterfactual_masks)
+        high_q = self.q_values_tensor(high_states, counterfactual_masks)
+        low_q = low_q[rows, selected]
+        high_q = high_q[rows, selected]
+        low_marginal = low_q[:, 1:] - low_q[:, :-1]
+        high_marginal = high_q[:, 1:] - high_q[:, :-1]
+        scale = torch.cat((low_marginal, high_marginal), dim=1).detach()
+        scale = scale.abs().median().clamp_min(1e-3)
+        margin = float(self.cfg.trajectory_margin_fraction) * scale
+        return F.relu(margin + low_marginal - high_marginal).mean()
 
     def _project(
         self, q_values, mask, *, fill_budget=False, caps=None, budget=None
@@ -154,7 +233,7 @@ class BranchingDQNAgent:
             mask_tensor = torch.as_tensor(
                 mask, dtype=torch.bool, device=self.device
             ).unsqueeze(0)
-            q = self.online.q_values(tensor, mask_tensor)[0].cpu().numpy()
+            q = self.q_values_tensor(tensor, mask_tensor)[0].cpu().numpy()
         self.online.train()
         return self._project(q, mask, caps=caps, budget=budget), q
 
@@ -229,18 +308,21 @@ class BranchingDQNAgent:
             importance, dtype=torch.float32, device=self.device
         )
 
-        log_probabilities = self.online(states, masks_t)
+        model_states = self._transform_state_tensor(states)
+        model_next_states = self._transform_state_tensor(next_states)
+        with self._autocast():
+            log_probabilities = self.online(model_states, masks_t)
         gather_index = actions.unsqueeze(-1).unsqueeze(-1).expand(
             -1, -1, 1, self.cfg.atoms
         )
         chosen_log = log_probabilities.gather(2, gather_index).squeeze(2)
 
-        with torch.no_grad():
+        with torch.no_grad(), self._autocast():
             next_masks_t = torch.as_tensor(
                 next_masks_np, dtype=torch.bool, device=self.device
             )
             next_q = self.online.q_values(
-                next_states, next_masks_t
+                model_next_states, next_masks_t
             ).cpu().numpy()
             next_actions_np = self._target_actions(
                 next_q, next_masks_np, next_caps_np
@@ -248,7 +330,7 @@ class BranchingDQNAgent:
             next_actions = torch.as_tensor(
                 next_actions_np, dtype=torch.long, device=self.device
             )
-            target_log = self.target(next_states, next_masks_t)
+            target_log = self.target(model_next_states, next_masks_t)
             target_index = next_actions.unsqueeze(-1).unsqueeze(-1).expand(
                 -1, -1, 1, self.cfg.atoms
             )
@@ -286,7 +368,17 @@ class BranchingDQNAgent:
         per_sample = (branch_loss * valid).sum(dim=1) / valid.sum(
             dim=1
         ).clamp_min(1.0)
-        loss = (per_sample * weights).mean()
+        c51_loss = (per_sample * weights).mean()
+        current_all_q = (
+            log_probabilities.exp() * self.online.support
+        ).sum(dim=-1)
+        concavity_loss = self._concavity_loss(current_all_q, masks_t)
+        trajectory_loss = self._trajectory_order_loss(states, masks_t)
+        loss = (
+            c51_loss
+            + float(self.cfg.concavity_loss_weight) * concavity_loss
+            + float(self.cfg.trajectory_loss_weight) * trajectory_loss
+        )
         self.optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(self.online.parameters(), 10.0)
@@ -307,6 +399,12 @@ class BranchingDQNAgent:
         self.train_steps += 1
         if self.train_steps % self.cfg.target_update_steps == 0:
             self.target.load_state_dict(self.online.state_dict())
+        self.last_loss_terms = {
+            "c51": float(c51_loss.item()),
+            "trajectory_order": float(trajectory_loss.item()),
+            "concavity": float(concavity_loss.item()),
+            "total": float(loss.item()),
+        }
         return float(loss.item())
 
     def save(self, path, metadata):

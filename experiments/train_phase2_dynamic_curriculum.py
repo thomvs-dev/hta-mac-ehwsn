@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 
 from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent
 from agents.reward_model import RewardModel, TERM_ORDER
+from core.hmm.rectified_moments import next_rectified_statistics
 from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
 from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
 from envs.scheduled_mac_env import ScheduledIntraClusterMACEnv
@@ -58,7 +59,42 @@ def parse_args():
     parser.add_argument("--stability-interval", type=int, default=50)
     parser.add_argument("--stability-tail-episodes", type=int, default=100)
     parser.add_argument("--stability-relative-tolerance", type=float, default=0.10)
+    parser.add_argument("--learning-rate", type=float, default=1e-4)
+    parser.add_argument("--normalize-input-blocks", action="store_true")
+    parser.add_argument("--trajectory-loss-weight", type=float, default=0.0)
+    parser.add_argument("--concavity-loss-weight", type=float, default=0.0)
+    parser.add_argument("--trajectory-margin-fraction", type=float, default=0.05)
+    parser.add_argument("--precision", choices=("fp32", "bf16"), default="fp32")
     return parser.parse_args()
+
+
+def trajectory_blocks(env):
+    solar_mean, solar_var = next_rectified_statistics(
+        env.base.solar.transition,
+        env.base.solar.mean,
+        env.base.solar.variance,
+        env.base.cfg.solar_scale,
+    )
+    thermal_mean, thermal_var = next_rectified_statistics(
+        env.base.thermal.transition,
+        env.base.thermal.mean,
+        env.base.thermal.variance,
+        env.base.cfg.thermal_scale,
+    )
+    low = (
+        float(solar_mean[0] + thermal_mean[0]),
+        float(solar_var[0] + thermal_var[0]),
+        *env.base.solar.transition[0].tolist(),
+        *env.base.thermal.transition[0].tolist(),
+    )
+    high = (
+        float(solar_mean[-1] + thermal_mean[-1]),
+        float(solar_var[-1] + thermal_var[-1]),
+        *env.base.solar.transition[-1].tolist(),
+        *env.base.thermal.transition[-1].tolist(),
+    )
+    harvest_scale = float(np.max(solar_mean) + np.max(thermal_mean))
+    return low, high, harvest_scale
 
 
 def epsilon_for(
@@ -289,6 +325,7 @@ def main():
     reward_payload = dict(reward_payload)
     reward_payload["weights"] = reward_weights
     reward_model = RewardModel(reward_payload["scales"], reward_weights)
+    low_block, high_block, harvest_scale = trajectory_blocks(environments[0])
     agent_cfg = BranchingAgentConfig(
         input_dim=input_dim,
         actions=env_cfg.n_max + 1,
@@ -300,6 +337,15 @@ def main():
         replay_capacity=5000,
         max_branches=max_branches,
         architecture=args.architecture,
+        learning_rate=args.learning_rate,
+        normalize_input_blocks=args.normalize_input_blocks,
+        hybrid_harvest_max_j=harvest_scale,
+        trajectory_low_block=low_block,
+        trajectory_high_block=high_block,
+        trajectory_loss_weight=args.trajectory_loss_weight,
+        concavity_loss_weight=args.concavity_loss_weight,
+        trajectory_margin_fraction=args.trajectory_margin_fraction,
+        precision=args.precision,
     )
     agent = BranchingDQNAgent(agent_cfg, device=args.device)
     initialization = None
@@ -348,6 +394,7 @@ def main():
         raw_sums = {name: 0.0 for name in TERM_ORDER}
         weighted_sums = {name: 0.0 for name in TERM_ORDER}
         losses = []
+        loss_terms = []
         packets = 0
         zero_action_steps = 0
         allocated_slots = 0
@@ -390,6 +437,7 @@ def main():
                     done = True
                     break
                 losses.append(loss)
+                loss_terms.append(dict(agent.last_loss_terms))
             episode_reward += reward
             packets += int(info["target_packets_delivered"])
             zero_action_steps += int(actual_action.sum() == 0)
@@ -418,6 +466,13 @@ def main():
             "zero_action_fraction": zero_action_steps / max(1, steps),
             "mean_allocated_slots": allocated_slots / max(1, steps),
             "mean_loss": float(np.mean(losses)) if losses else None,
+            "mean_loss_terms": (
+                {
+                    name: float(np.mean([item[name] for item in loss_terms]))
+                    for name in loss_terms[0]
+                }
+                if loss_terms else None
+            ),
             "raw_terms": raw_sums,
             "weighted_terms": weighted_sums,
             "t_fnd": env.base.t_fnd,

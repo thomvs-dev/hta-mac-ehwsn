@@ -1,0 +1,56 @@
+{
+  "result_root": "HTA_MAC_Phase2B_Confirmation_Results_20260803",
+  "runs": [
+    {
+      "training_seed": 2299,
+      "run": "phase2b_confirm_shared_b12_seed2299_125ep",
+      "episodes": 125,
+      "death_weight": 2.0,
+      "death_events": 83,
+      "weighted_death_magnitude": 166.0,
+      "episodes_with_death": 78,
+      "episodes_with_death_fraction": 0.624,
+      "mean_deaths_per_episode": 0.664,
+      "median_deaths_per_episode": 1.0,
+      "max_deaths_in_episode": 3,
+      "first_death_episode": 1,
+      "episodes_with_t_fnd": 125,
+      "last_50_death_events": 30,
+      "last_50_episodes_with_death": 29
+    },
+    {
+      "training_seed": 3299,
+      "run": "phase2b_confirm_shared_b12_seed3299_125ep",
+      "episodes": 125,
+      "death_weight": 2.0,
+      "death_events": 87,
+      "weighted_death_magnitude": 174.0,
+      "episodes_with_death": 84,
+      "episodes_with_death_fraction": 0.672,
+      "mean_deaths_per_episode": 0.696,
+      "median_deaths_per_episode": 1.0,
+      "max_deaths_in_episode": 2,
+      "first_death_episode": 1,
+      "episodes_with_t_fnd": 125,
+      "last_50_death_events": 33,
+      "last_50_episodes_with_death": 32
+    },
+    {
+      "training_seed": 4299,
+      "run": "phase2b_confirm_shared_b12_seed4299_125ep",
+      "episodes": 125,
+      "death_weight": 2.0,
+      "death_events": 91,
+      "weighted_death_magnitude": 182.0,
+      "episodes_with_death": 87,
+      "episodes_with_death_fraction": 0.696,
+      "mean_deaths_per_episode": 0.728,
+      "median_deaths_per_episode": 1.0,
+      "max_deaths_in_episode": 2,
+      "first_death_episode": 3,
+      "episodes_with_t_fnd": 125,
+      "last_50_death_events": 39,
+      "last_50_episodes_with_death": 37
+    }
+  ]
+}

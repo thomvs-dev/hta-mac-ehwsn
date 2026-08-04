@@ -1,0 +1,48 @@
+{
+  "status": "development_diagnostic_not_phase2_gate",
+  "counterfactual": "same node and energy; joint lowest versus highest solar+thermal rectified moments and state-conditioned transition probabilities",
+  "eligibility": "active member with queue-derived action cap >= 2",
+  "paired_identical_states": true,
+  "development_seeds": [
+    2300,
+    2301,
+    2302,
+    2303,
+    2304
+  ],
+  "audit_seed": 20260803,
+  "rollout_policy": "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\phase2\\phase2b_local_adjusted_b12_seed2299_10ep\\branching_c51.pt",
+  "rollout_epsilon": 0.15,
+  "original_checkpoint": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_Phase2_Registered\\runs\\registered_shared_b12_seed2299\\branching_c51.pt",
+  "repaired_checkpoint": "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\phase2\\phase2b_local_adjusted_b12_seed2299_10ep\\branching_c51.pt",
+  "original": {
+    "local_argmax_changes": 16,
+    "projected_node_changes": 14,
+    "projected_vector_changes": 105,
+    "high_more_slots": 6,
+    "high_fewer_slots": 8,
+    "all_marginals_ordered": 189,
+    "probe_count": 3809,
+    "local_argmax_changes_fraction": 0.00420057757941717,
+    "projected_node_changes_fraction": 0.0036755053819900237,
+    "projected_vector_changes_fraction": 0.027566290364925177,
+    "high_more_slots_fraction": 0.0015752165922814387,
+    "high_fewer_slots_fraction": 0.002100288789708585,
+    "all_marginals_ordered_fraction": 0.04961932265686532
+  },
+  "repaired": {
+    "local_argmax_changes": 64,
+    "projected_node_changes": 50,
+    "projected_vector_changes": 448,
+    "high_more_slots": 40,
+    "high_fewer_slots": 10,
+    "all_marginals_ordered": 1806,
+    "probe_count": 3809,
+    "local_argmax_changes_fraction": 0.01680231031766868,
+    "projected_node_changes_fraction": 0.013126804935678657,
+    "projected_vector_changes_fraction": 0.11761617222368076,
+    "high_more_slots_fraction": 0.010501443948542924,
+    "high_fewer_slots_fraction": 0.002625360987135731,
+    "all_marginals_ordered_fraction": 0.47414019427671306
+  }
+}

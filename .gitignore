@@ -24,3 +24,11 @@ outputs/phase4/*smoke*
 colab/_bundle_build/
 colab/_bundle_validate/
 colab/HTA_MAC_Colab_Training_Bundle_*.zip
+
+# Downloaded/Colab experiment evidence is immutable local data, not source.
+HTA_MAC_Phase2_Registered/
+HTA_MAC_Phase2_Registered_COMPLETE.zip
+HTA_MAC_Phase2B_Confirmation_Results_*/
+HTA_MAC_Phase2B_Confirmation_Results_*.zip
+colab/HTA_MAC_Phase2B_Confirmation_Bundle_*.zip
+outputs/phase2/phase2b_local_*/

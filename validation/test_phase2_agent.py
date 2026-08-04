@@ -294,3 +294,35 @@ def test_inspection_state_is_reset_after_terminal_evaluation():
     observation = reset_inspection_state(env)
     assert env._mask().any()
     assert observation.shape == (3, 50)
+
+
+def test_physical_block_transform_scales_moments_and_embedding():
+    config = BranchingAgentConfig(
+        input_dim=50,
+        max_branches=2,
+        normalize_input_blocks=True,
+        hybrid_harvest_max_j=4e-4,
+    )
+    agent = BranchingDQNAgent(config)
+    state = torch.zeros(1, 2, 50)
+    state[..., 1] = 2e-4
+    state[..., 2] = 8e-8
+    state[..., 18:] = torch.arange(32, dtype=torch.float32)
+    transformed = agent._transform_state_tensor(state)
+    torch.testing.assert_close(
+        transformed[..., 1], torch.full((1, 2), 0.5)
+    )
+    torch.testing.assert_close(
+        transformed[..., 2], torch.full((1, 2), 0.5)
+    )
+    torch.testing.assert_close(
+        transformed[..., 18:].mean(dim=-1), torch.zeros(1, 2), atol=1e-6, rtol=0
+    )
+
+
+def test_concavity_loss_detects_increasing_marginal_slot_gains():
+    masks = torch.tensor([[True, False]])
+    concave_q = torch.tensor([[[0.0, 3.0, 5.0, 6.0], [0.0, 0.0, 0.0, 0.0]]])
+    convex_q = torch.tensor([[[0.0, 1.0, 3.0, 6.0], [0.0, 0.0, 0.0, 0.0]]])
+    assert BranchingDQNAgent._concavity_loss(concave_q, masks).item() == 0.0
+    assert BranchingDQNAgent._concavity_loss(convex_q, masks).item() > 0.0

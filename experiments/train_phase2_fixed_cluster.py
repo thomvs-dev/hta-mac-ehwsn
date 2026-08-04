@@ -155,7 +155,7 @@ def trajectory_q_check(agent, env, observation):
     pair = np.stack((low_state, high_state)).astype(np.float32)
     pair_mask = np.stack((mask, mask))
     with torch.no_grad():
-        q = agent.online.q_values(
+        q = agent.q_values_tensor(
             torch.as_tensor(pair, dtype=torch.float32, device=agent.device),
             torch.as_tensor(pair_mask, dtype=torch.bool, device=agent.device),
         ).cpu().numpy()
