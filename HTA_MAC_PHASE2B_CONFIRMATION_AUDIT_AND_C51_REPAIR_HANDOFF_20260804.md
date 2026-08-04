@@ -705,3 +705,117 @@ This report-only closure is committed separately so the implementation/evidence 
 9. Keep held-out seeds untouched until the preregistration addendum is frozen.
 
 No model is publication-ready at this boundary. Phase 2B established development-set mechanism response and exposed output saturation; Phase 2C must establish numerical validity, attribution, identity robustness, and energy-distribution behavior before held-out evaluation.
+---
+
+## 20. Second Phase 2C gate clarification — death salience, curriculum shift, return reference, and Dutta 2025
+
+This section answers the second instructor review. It supersedes any statement in Section 19 that calls the death calibration, reference-return policy, or competitor search closed without the qualifications below.
+
+### 20.1 Death signal: active and reward-scale-salient, but causal learning remains unproven
+
+`experiments/audit_phase2b_death_activation.py` now compares the death penalty at firing timesteps with the packet-delivery term on the timestep scale.
+
+| Seed | Logged steps | Death-firing steps | Firing-step fraction | Mean weighted death magnitude when firing | Mean weighted packet term per logged step | Death/packet ratio |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2299 | 18,978 | 78 | 0.411% | 2.1282 | 1.3644 | 1.5598 |
+| 3299 | 19,342 | 84 | 0.434% | 2.0714 | 1.5010 | 1.3800 |
+| 4299 | 19,205 | 87 | 0.453% | 2.0920 | 1.4938 | 1.4005 |
+
+A single death contributes exactly `-2.0`; averages exceed 2 because a few terminal steps contain two or three simultaneous target-cluster deaths. The death term is therefore approximately 1.38–1.56 times the typical packet-delivery contribution when it fires, not 1/200 of it. This rejects the specific numerical-drowning hypothesis and supports keeping `w3=2.0` frozen during the narrow C51 scaling repair.
+
+Evidence boundary: Phase 2B did not archive a per-step trace separating packet reward on death versus non-death timesteps. The denominator above is the exact mean packet term over all logged timesteps. Death-firing steps are only 0.41–0.45% of all steps, so this is a close proxy for a typical non-death timestep, but it is not falsely labeled an exact non-death-only mean. Reward-scale salience also does not prove that the learned network assigns correct causal credit to death or that lifetime behavior generalizes.
+
+### 20.2 The death audit measures the local curriculum, not full network-wide policy evaluation
+
+Section 19.1 audits `DynamicClusterTrainingEnv` episodes. The underlying `ScheduledIntraClusterMACEnv`, HEART-CH schedules, 0.5-J initial energy, radio model, HMM assets, queue rules, full-slot idle model, and harvest update are shared with Phase 3. There is no smaller battery or accelerated physical depletion constant.
+
+The rollout semantics differ materially:
+
+| Dimension | Phase 2B curriculum | Phase 3 held-out pilot |
+|---|---|---|
+| Horizon | At most 300 scheduled rounds | 1,633–1,730 rounds before schedule censoring |
+| Policy coverage | Learned policy controls one scheduled target cluster; all other clusters use static-equal TDMA | Selected policy controls every cluster |
+| Exploration | Epsilon-greedy, 0.10→0.03 | Greedy/deterministic policy evaluation |
+| Budget/model | Repaired shared-branching budget-12 checkpoints | Earlier authoritative budget-8 checkpoint |
+| Episode terminal | Target member/CH death, global termination, or truncation | Full-network termination or schedule exhaustion |
+| Death reward | Newly dead target members plus target CH | No training reward; FND is a network metric |
+
+The zero-FND statement in Phase 3 applies only to the earlier greedy HTA budget-8 policy. The same full-network environment produced FND events for every conventional baseline (approximately 110–207 rounds in the five-seed pilot). Therefore the environment is not incapable of death; the HTA policy slept sufficiently often to remain right-censored.
+
+The distribution gap was not introduced as a deliberately calibrated accelerated-stress curriculum. It arose from the local-credit training wrapper: applying a candidate to one target cluster while retaining static TDMA elsewhere made single-cluster learning tractable and preserved global node identity. It is now treated as an explicit curriculum/evaluation shift. Consequences:
+
+- do not use curriculum FND as evidence of network-wide lifetime;
+- do not interpret the death-term audit as representative deployment event frequency;
+- add a development-only network-wide greedy rollout for every Phase 2C checkpoint before confirmation acceptance;
+- report both local-curriculum and network-wide outcomes;
+- if the network-wide policy remains completely censored while the local curriculum dies near 150 rounds, describe the curriculum as a stress/credit-assignment surrogate only after empirically quantifying that gap—not by design intent.
+
+### 20.3 Exact reference policies for the return-scale audit
+
+The earlier phrase “fixed reference-rollout set” was underspecified. No `c` has been computed yet, and no pre-repair registered checkpoint is authorized as the sole reference.
+
+The reference checkpoint set is the complete repaired Phase 2B confirmation trio:
+
+| Optimizer seed | Checkpoint | SHA-256 |
+|---:|---|---|
+| 2299 | `HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed2299_125ep/branching_c51.pt` | `F67962F4F48871D7A7BA9446F1E528A6AE381305CED4E9207DB68551392C8049` |
+| 3299 | `HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed3299_125ep/branching_c51.pt` | `B1CFBC377BE1A5BAE6FE0D571CD3AF7DE06522A0C7DA45CB4A8888376632F182` |
+| 4299 | `HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed4299_125ep/branching_c51.pt` | `350B443B3CE84F47A2DC6E6377D86C08010C8375091E6610E33019E0A5C6DE61` |
+
+For every checkpoint (k), run the complete 25-pair development curriculum formed by schedule seeds 2300–2304 and their five initial target ranks, using the frozen budget-12 policy with the predeclared deterministic audit action seed and `epsilon=0.10`, the Phase 2C starting exploration rate. Archive every raw per-step reward and return. The locked tail statistic becomes
+
+\[
+Q^*=\max_{k\in\{2299,3299,4299\}}\max_{j\in\{2300,\ldots,2304\}}Q_{0.995}(G\mid k,j),
+\qquad
+c=\min\left(1,\frac{0.8V_{max}}{Q^*}\right).
+\]
+
+This is conservative across both schedule and optimizer lineage. The run manifest must additionally hash the action RNG seed, environment/schedule manifest, reward configuration, horizon, discount, and raw transition CSV. If any checkpoint hash differs, scale selection aborts.
+
+### 20.4 Rescaling-only attribution now requires two lineages
+
+The rescaling-only ablation remains required for saturated seed 2299 and is extended to non-saturated seed 3299. Both arms run 125 episodes with identical initialization, support, scale, action seeds, curriculum order, and optimizer settings as their corresponding full Phase 2C arms, with only the trajectory and concavity weights set to zero.
+
+Seed 2299 diagnoses recovery from the worst saturation case; seed 3299 checks that attribution is not an artifact of that outlier. A mechanism statement requires directionally consistent paired evidence across both. With two lineages the result remains an ablation replication, not a precise population-level percentage decomposition. No paper sentence may claim “X% due to scaling and Y% due to auxiliary losses” from these two runs alone.
+
+### 20.5 Targeted identity swaps added to the permutation test
+
+Retain 20 deterministic random active-branch permutations per checkpoint. Add at least 10 targeted swaps per checkpoint that pair:
+
+- one alive backlog-eligible high-harvest node (`S6` or `S8` solar taxonomy), and
+- one alive backlog-eligible declining/low node (`S1`, `S4`, or `S7`),
+
+preferably within the same cluster, with equal queue-derived action cap and residual energy matched within a predeclared tolerance. Move the complete state row, mask, cap, and action mask; inverse-map actions before projection and environment stepping.
+
+Report whether the allocation follows the moved feature bundle or stays associated with the original branch head, plus marginal-Q ordering and projected allocation. Random permutations test general branch dependence; targeted high/low swaps are the sensitive state-versus-identity diagnostic.
+
+### 20.6 Dutta et al. 2025 primary-source audit — now a top-tier competitor
+
+The follow-on is H. Dutta, A. K. Bhuyan, and S. Biswas, “Cooperative Reinforcement Learning for Energy Management in Multi-Hop Networks With Energy Harvesting,” *IEEE TGCN*, vol. 9, no. 4, pp. 1783–1793, 2025, DOI [10.1109/TGCN.2025.3544073](https://doi.org/10.1109/TGCN.2025.3544073).
+
+Primary-source findings:
+
+- multi-hop, decentralized EH sensor/IoT network;
+- two-state Markov solar process generates high/low radiation energy arrivals;
+- two tabular Q-learning agents per node share a reward;
+- the transmission agent observes quantized harvested-energy influx and chooses discretized transmission probability;
+- the sleep agent observes the transmission policy and chooses discretized transceiver-on probability;
+- a neighbor-shared learning-confidence parameter suppresses unreliable downstream updates;
+- no hybrid solar-plus-thermal model, no clustered frozen-CH evaluation, no learned per-node multi-slot-count vector, no Branching DQN, and no hard cluster slot-budget projection.
+
+This paper invalidates broad novelty for Markov-solar-conditioned per-node RL transmit/sleep scheduling. It is more urgent for positioning than Dutta et al. 2024 and must appear prominently in the introduction/related-work competitor table. The remaining defensible intersection is hybrid solar/thermal state-transition features plus a shared branching categorical value network for hard-budgeted intra-cluster discrete multi-slot counts.
+
+Detailed durable audit: `HTA_MAC_DUTTA_2025_PRIMARY_SOURCE_AUDIT_20260804.md`.
+
+### 20.7 Revised immediate decision
+
+Before Phase 2C training:
+
+1. keep `w3=2.0` frozen; the timestep audit rejects numerical drowning but not causal-learning uncertainty;
+2. implement the per-step reference-return logger using all three repaired checkpoint hashes and all 25 development pairs;
+3. compute one worst-lineage/worst-schedule `Q*` and freeze/hash `c`;
+4. add the network-wide development rollout gate, two-lineage rescaling-only ablation, random permutations, targeted swaps, and residual-energy metrics to the mini-plan;
+5. keep held-out seeds untouched;
+6. do not start confirmation training until the mini-plan and implementation tests pass.
+
+The C51 repair remains necessary. The literature audit and curriculum disclosure narrow the claims but do not eliminate the exact HTA-MAC formulation as a potentially publishable contribution.

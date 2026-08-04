@@ -24,6 +24,15 @@ def audit_run(run_dir: Path) -> dict[str, object]:
     positive_indices = [index for index, value in enumerate(deaths) if value > 0]
     tail = deaths[-50:]
     death_weight = float(summary["reward_calibration"]["weights"]["deaths"])
+    total_steps = sum(int(row["steps"]) for row in rows)
+    firing_steps = len(positive_indices)
+    weighted_packet_total = sum(
+        float(row["weighted_terms"]["packets_delivered"]) for row in rows
+    )
+    mean_death_at_firing_step = (
+        sum(weighted_deaths) / firing_steps if firing_steps else 0.0
+    )
+    mean_packet_per_logged_step = weighted_packet_total / total_steps
 
     return {
         "training_seed": int(seed_match.group(1)),
@@ -32,6 +41,14 @@ def audit_run(run_dir: Path) -> dict[str, object]:
         "death_weight": death_weight,
         "death_events": int(sum(deaths)),
         "weighted_death_magnitude": float(sum(weighted_deaths)),
+        "total_logged_steps": total_steps,
+        "death_firing_steps": firing_steps,
+        "death_firing_step_fraction": firing_steps / total_steps,
+        "mean_weighted_death_at_firing_step": mean_death_at_firing_step,
+        "mean_weighted_packet_per_logged_step": mean_packet_per_logged_step,
+        "death_to_typical_packet_magnitude_ratio": (
+            mean_death_at_firing_step / mean_packet_per_logged_step
+        ),
         "episodes_with_death": len(positive_indices),
         "episodes_with_death_fraction": len(positive_indices) / len(rows),
         "mean_deaths_per_episode": statistics.fmean(deaths),

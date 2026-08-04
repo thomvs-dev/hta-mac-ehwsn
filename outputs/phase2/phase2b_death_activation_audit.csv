@@ -1,4 +1,4 @@
-training_seed,run,episodes,death_weight,death_events,weighted_death_magnitude,episodes_with_death,episodes_with_death_fraction,mean_deaths_per_episode,median_deaths_per_episode,max_deaths_in_episode,first_death_episode,episodes_with_t_fnd,last_50_death_events,last_50_episodes_with_death
-2299,phase2b_confirm_shared_b12_seed2299_125ep,125,2.0,83,166.0,78,0.624,0.664,1.0,3,1,125,30,29
-3299,phase2b_confirm_shared_b12_seed3299_125ep,125,2.0,87,174.0,84,0.672,0.696,1.0,2,1,125,33,32
-4299,phase2b_confirm_shared_b12_seed4299_125ep,125,2.0,91,182.0,87,0.696,0.728,1.0,2,3,125,39,37
+training_seed,run,episodes,death_weight,death_events,weighted_death_magnitude,total_logged_steps,death_firing_steps,death_firing_step_fraction,mean_weighted_death_at_firing_step,mean_weighted_packet_per_logged_step,death_to_typical_packet_magnitude_ratio,episodes_with_death,episodes_with_death_fraction,mean_deaths_per_episode,median_deaths_per_episode,max_deaths_in_episode,first_death_episode,episodes_with_t_fnd,last_50_death_events,last_50_episodes_with_death
+2299,phase2b_confirm_shared_b12_seed2299_125ep,125,2.0,83,166.0,18978,78,0.004110022130888397,2.128205128205128,1.3644466730121374,1.559756911207769,78,0.624,0.664,1.0,3,1,125,30,29
+3299,phase2b_confirm_shared_b12_seed3299_125ep,125,2.0,87,174.0,19342,84,0.004342880777582463,2.0714285714285716,1.501027926592385,1.3800066839070098,84,0.672,0.696,1.0,2,1,125,33,32
+4299,phase2b_confirm_shared_b12_seed4299_125ep,125,2.0,91,182.0,19205,87,0.00453007029419422,2.0919540229885056,1.4937590139688628,1.4004628614292078,87,0.696,0.728,1.0,2,3,125,39,37
