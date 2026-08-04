@@ -678,7 +678,19 @@ Primary-source mechanism evidence: the author manuscript describes the three-tie
 
 ### 19.7 Git provenance — hard gate
 
-Create a scoped source/report commit before Phase 2C implementation. Do not add result ZIPs, model directories, downloaded evidence trees, smoke outputs, or unrelated Phase 4 files. Record the branch, commit, clean/dirty state, and exact artifact hashes in the Phase 2C mini-plan. The commit produced for this addendum is recorded below after verification.
+Create a scoped source/report commit before Phase 2C implementation. Do not add result ZIPs, model directories, downloaded evidence trees, smoke outputs, or unrelated Phase 4 files. Record the branch, commit, clean/dirty state, and exact artifact hashes in the Phase 2C mini-plan.
+
+Verified provenance boundary:
+
+- branch: `codex/phase2b-provenance`;
+- Phase 2B implementation/evidence commit: `d489f988cd458441a94a92b8f64dbb6396f25f2f`;
+- validation: `python -B -m compileall -q agents experiments validation` passed;
+- validation: `python -B -m pytest validation -q -p no:cacheprovider` → `43 passed, 93 warnings` in 44.27 s;
+- warnings are third-party Torch/Torch-Geometric deprecations, not test failures;
+- large ZIPs, downloaded result trees, checkpoints, local smoke directories, and unrelated `outputs/phase4/` remain uncommitted;
+- the only residual untracked path after the implementation commit is the pre-existing `outputs/phase4/` tree, deliberately outside this provenance scope.
+
+This report-only closure is committed separately so the implementation/evidence commit can be named without a circular self-hash.
 
 ### 19.8 Revised Phase 2C execution order
 
