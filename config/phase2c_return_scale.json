@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "frozen_development_scale",
+  "reward_scale": 0.14436784678738615,
+  "apply_to": "replay_and_c51_reward_only",
+  "physical_metrics_scaled": false,
+  "q_star": 166.2420028702468,
+  "q_star_optimizer_seed": 3299,
+  "q_star_schedule_seed": 2300,
+  "manifest_sha256": "4720EEE0B1AA79402A3D7B984EF8670506493B0697226097865234547DCF3F6C",
+  "returns_csv_sha256": "32A94148925CB8262BB0D6DDB822AC9B5032BC24826351CDF751A25480FF36E7",
+  "checkpoint_sha256": [
+    "F67962F4F48871D7A7BA9446F1E528A6AE381305CED4E9207DB68551392C8049",
+    "B1CFBC377BE1A5BAE6FE0D571CD3AF7DE06522A0C7DA45CB4A8888376632F182",
+    "350B443B3CE84F47A2DC6E6377D86C08010C8375091E6610E33019E0A5C6DE61"
+  ],
+  "support": {
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "headroom_fraction": 0.8,
+  "quantile_probability": 0.995,
+  "held_out_seeds_used": false
+}

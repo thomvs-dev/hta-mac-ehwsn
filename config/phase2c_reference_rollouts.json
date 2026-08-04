@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "purpose": "development-only Phase 2C C51 return-support calibration",
+  "checkpoints": [
+    {
+      "optimizer_seed": 2299,
+      "path": "HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed2299_125ep/branching_c51.pt",
+      "sha256": "F67962F4F48871D7A7BA9446F1E528A6AE381305CED4E9207DB68551392C8049"
+    },
+    {
+      "optimizer_seed": 3299,
+      "path": "HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed3299_125ep/branching_c51.pt",
+      "sha256": "B1CFBC377BE1A5BAE6FE0D571CD3AF7DE06522A0C7DA45CB4A8888376632F182"
+    },
+    {
+      "optimizer_seed": 4299,
+      "path": "HTA_MAC_Phase2B_Confirmation_Results_20260803/runs/phase2b_confirm_shared_b12_seed4299_125ep/branching_c51.pt",
+      "sha256": "350B443B3CE84F47A2DC6E6377D86C08010C8375091E6610E33019E0A5C6DE61"
+    }
+  ],
+  "development_seeds": [2300, 2301, 2302, 2303, 2304],
+  "held_out_seeds_forbidden": [3100, 3101, 3102, 3103, 3104],
+  "max_steps": 300,
+  "rollout_epsilon": 0.10,
+  "audit_seed": 20260804,
+  "headroom_fraction": 0.80,
+  "quantile_probability": 0.995,
+  "expected_support": {
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "projection_budget": 12,
+  "reference_policy_rule": "all three repaired checkpoints x all 25 development schedule-target pairs",
+  "scale_rule": "c=min(1,0.8*v_max/max_checkpoint_schedule_seed_q0.995)",
+  "lower_tail_gate": "scaled q0.005 must be >= 0.8*v_min",
+  "held_out_use": "forbidden"
+}

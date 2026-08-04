@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import deque
@@ -50,6 +51,10 @@ def parse_args():
     parser.add_argument("--epsilon-start", type=float, default=1.0)
     parser.add_argument("--epsilon-end", type=float, default=0.05)
     parser.add_argument("--initial-checkpoint" )
+    parser.add_argument("--reward-scale-config")
+    parser.add_argument(
+        "--reinitialize-categorical-outputs", action="store_true"
+    )
     parser.add_argument("--projection-budget", type=int)
     parser.add_argument(
         "--architecture",
@@ -66,6 +71,54 @@ def parse_args():
     parser.add_argument("--trajectory-margin-fraction", type=float, default=0.05)
     parser.add_argument("--precision", choices=("fp32", "bf16"), default="fp32")
     return parser.parse_args()
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest().upper()
+
+
+def validate_reward_scale_payload(payload):
+    if payload.get("status") != "frozen_development_scale":
+        raise ValueError("reward scale is not frozen development evidence")
+    if payload.get("apply_to") != "replay_and_c51_reward_only":
+        raise ValueError("reward scale has an unsupported application scope")
+    if payload.get("physical_metrics_scaled") is not False:
+        raise ValueError("physical metrics must remain unscaled")
+    if payload.get("held_out_seeds_used") is not False:
+        raise ValueError("reward scale must not use held-out seeds")
+    scale = float(payload["reward_scale"])
+    if not np.isfinite(scale) or not 0.0 < scale <= 1.0:
+        raise ValueError("reward_scale must be finite and in (0, 1]")
+    return scale
+
+
+def load_reward_scale(path):
+    """Load and validate the one frozen Phase 2C learning-reward scale."""
+    if path is None:
+        return 1.0, None
+    scale_path = Path(path)
+    if not scale_path.is_absolute():
+        scale_path = ROOT / scale_path
+    if not scale_path.is_file():
+        raise FileNotFoundError(scale_path)
+    payload = json.loads(scale_path.read_text(encoding="utf-8"))
+    scale = validate_reward_scale_payload(payload)
+    return scale, {
+        "path": str(scale_path.resolve()),
+        "sha256": sha256_file(scale_path),
+        "payload": payload,
+    }
+
+
+def learning_reward(raw_reward, reward_scale):
+    value = float(raw_reward) * float(reward_scale)
+    if not np.isfinite(value):
+        raise ValueError("scaled learning reward is non-finite")
+    return value
 
 
 def trajectory_blocks(env):
@@ -157,6 +210,31 @@ def padded_state(env, observation, mask, max_branches):
     return observation.astype(np.float32), mask.astype(bool), caps
 
 
+def residual_energy_metrics(energy, alive):
+    """Describe the alive-node energy level and dispersion together."""
+    values = np.asarray(energy, dtype=np.float64)[np.asarray(alive, dtype=bool)]
+    if values.size == 0:
+        return {
+            "alive_nodes": 0,
+            "residual_energy_fairness": 0.0,
+            "residual_energy_cv": 0.0,
+            "mean_residual_energy_j": 0.0,
+            "min_residual_energy_j": 0.0,
+            "p10_residual_energy_j": 0.0,
+        }
+    mean = float(values.mean())
+    return {
+        "alive_nodes": int(values.size),
+        "residual_energy_fairness": FixedClusterTrainingEnv._jain(values),
+        "residual_energy_cv": (
+            float(values.std(ddof=0) / mean) if mean > 0.0 else 0.0
+        ),
+        "mean_residual_energy_j": mean,
+        "min_residual_energy_j": float(values.min()),
+        "p10_residual_energy_j": float(np.quantile(values, 0.10)),
+    }
+
+
 def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model):
     rows = []
     first_observation = None
@@ -215,6 +293,9 @@ def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model
                     else 0.0
                 ),
                 "target_ch_alive": bool(env.base.alive[int(info["target_ch"])]),
+                **residual_energy_metrics(
+                    env.base.energy, env.base.alive
+                ),
             }
         )
     return {
@@ -238,6 +319,21 @@ def greedy_curriculum_evaluation(agent, environments, max_branches, reward_model
         ),
         "mean_delivery_ratio": float(
             np.mean([row["delivery_ratio"] for row in rows])
+        ),
+        "mean_residual_energy_fairness": float(
+            np.mean([row["residual_energy_fairness"] for row in rows])
+        ),
+        "mean_residual_energy_cv": float(
+            np.mean([row["residual_energy_cv"] for row in rows])
+        ),
+        "mean_residual_energy_j": float(
+            np.mean([row["mean_residual_energy_j"] for row in rows])
+        ),
+        "mean_min_residual_energy_j": float(
+            np.mean([row["min_residual_energy_j"] for row in rows])
+        ),
+        "mean_p10_residual_energy_j": float(
+            np.mean([row["p10_residual_energy_j"] for row in rows])
         ),
     }, first_env, first_observation
 
@@ -289,6 +385,10 @@ def policy_stability_summary(snapshots, relative_tolerance):
 
 def main():
     args = parse_args()
+    if args.reinitialize_categorical_outputs and not args.initial_checkpoint:
+        raise ValueError(
+            "categorical output reinitialization requires an initial checkpoint"
+        )
     seeds = [
         int(value)
         for value in args.development_seeds.split(",")
@@ -300,6 +400,9 @@ def main():
     overlap = held_out.intersection(seeds)
     if overlap:
         raise ValueError(f"held-out pilot seeds cannot train: {sorted(overlap)}")
+    reward_scale, reward_scale_evidence = load_reward_scale(
+        args.reward_scale_config
+    )
 
     set_seeds(args.optimizer_seed)
     run_dir = ROOT / "outputs" / "phase2" / args.run_name
@@ -346,9 +449,23 @@ def main():
         concavity_loss_weight=args.concavity_loss_weight,
         trajectory_margin_fraction=args.trajectory_margin_fraction,
         precision=args.precision,
+        reward_scale=reward_scale,
     )
+    if reward_scale_evidence is not None:
+        frozen_support = reward_scale_evidence["payload"]["support"]
+        actual_support = {
+            "v_min": agent_cfg.v_min,
+            "v_max": agent_cfg.v_max,
+            "atoms": agent_cfg.atoms,
+        }
+        if frozen_support != actual_support:
+            raise ValueError(
+                f"reward-scale support mismatch: {frozen_support} != "
+                f"{actual_support}"
+            )
     agent = BranchingDQNAgent(agent_cfg, device=args.device)
     initialization = None
+    initialization_details = None
     if args.initial_checkpoint:
         checkpoint_path = Path(args.initial_checkpoint)
         if not checkpoint_path.is_absolute():
@@ -364,9 +481,34 @@ def main():
                 "initial checkpoint architecture mismatch: "
                 f"{checkpoint_architecture} != {args.architecture}"
             )
-        agent.online.load_state_dict(checkpoint["online_state_dict"] )
-        agent.target.load_state_dict(checkpoint["target_state_dict"] )
-        initialization = str(checkpoint_path)
+        checkpoint_config = checkpoint.get("config", {})
+        checkpoint_reward_scale = float(
+            checkpoint_config.get("reward_scale", 1.0)
+        )
+        scale_changed = not np.isclose(
+            checkpoint_reward_scale, reward_scale, rtol=0.0, atol=1e-15
+        )
+        if scale_changed and not args.reinitialize_categorical_outputs:
+            raise ValueError(
+                "checkpoint reward scale differs from this run; categorical "
+                "output reinitialization is required"
+            )
+        agent.online.load_state_dict(checkpoint["online_state_dict"])
+        agent.target.load_state_dict(checkpoint["target_state_dict"])
+        if args.reinitialize_categorical_outputs:
+            agent.reinitialize_categorical_outputs(seed=args.optimizer_seed)
+        initialization = str(checkpoint_path.resolve())
+        initialization_details = {
+            "checkpoint_sha256": sha256_file(checkpoint_path),
+            "checkpoint_reward_scale": checkpoint_reward_scale,
+            "run_reward_scale": reward_scale,
+            "reward_scale_changed": bool(scale_changed),
+            "categorical_outputs_reinitialized": bool(
+                args.reinitialize_categorical_outputs
+            ),
+            "optimizer_reinitialized": True,
+            "replay_reinitialized": True,
+        }
 
     expected_steps = args.episodes * args.max_steps
     rows = []
@@ -391,6 +533,7 @@ def main():
             episode, args.episodes, args.epsilon_start, args.epsilon_end
         )
         episode_reward = 0.0
+        episode_learning_reward = 0.0
         raw_sums = {name: 0.0 for name in TERM_ORDER}
         weighted_sums = {name: 0.0 for name in TERM_ORDER}
         losses = []
@@ -411,14 +554,19 @@ def main():
                 env, next_observation, next_mask, max_branches
             )
             reward, weighted = reward_model.evaluate(info["reward_raw_terms"])
-            if not np.isfinite(reward) or not np.all(np.isfinite(next_padded)):
+            scaled_reward = learning_reward(reward, reward_scale)
+            if (
+                not np.isfinite(reward)
+                or not np.isfinite(scaled_reward)
+                or not np.all(np.isfinite(next_padded))
+            ):
                 stopped_for_nonfinite = True
                 done = True
                 break
             agent.store(
                 padded,
                 action,
-                reward,
+                scaled_reward,
                 next_padded,
                 done,
                 padded_mask,
@@ -439,6 +587,7 @@ def main():
                 losses.append(loss)
                 loss_terms.append(dict(agent.last_loss_terms))
             episode_reward += reward
+            episode_learning_reward += scaled_reward
             packets += int(info["target_packets_delivered"])
             zero_action_steps += int(actual_action.sum() == 0)
             allocated_slots += int(actual_action.sum())
@@ -461,6 +610,9 @@ def main():
             "epsilon": epsilon,
             "steps": steps,
             "reward": episode_reward,
+            "raw_physical_reward": episode_reward,
+            "scaled_learning_reward": episode_learning_reward,
+            "reward_scale": reward_scale,
             "target_packets": packets,
             "packets_per_step": packets / max(1, steps),
             "zero_action_fraction": zero_action_steps / max(1, steps),
@@ -607,6 +759,15 @@ def main():
         "optimizer_seed": args.optimizer_seed,
         "learn_every_environment_steps": args.learn_every,
         "initial_checkpoint": initialization,
+        "initialization_details": initialization_details,
+        "reward_scale": reward_scale,
+        "reward_scale_evidence": reward_scale_evidence,
+        "reward_application": {
+            "replay_and_c51_reward_scaled": True,
+            "physical_metrics_scaled": False,
+            "episode_reward_field": "raw_physical_reward",
+            "learning_reward_field": "scaled_learning_reward",
+        },
         "epsilon_start": args.epsilon_start,
         "epsilon_end": args.epsilon_end,
         "projection_budget": agent_cfg.budget,
@@ -668,4 +829,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main())

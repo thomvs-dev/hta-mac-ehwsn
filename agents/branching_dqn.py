@@ -86,6 +86,7 @@ class BranchingAgentConfig:
     concavity_loss_weight: float = 0.0
     trajectory_margin_fraction: float = 0.05
     precision: str = "fp32"
+    reward_scale: float = 1.0
 
 
 class BranchingDQNAgent:
@@ -124,6 +125,47 @@ class BranchingDQNAgent:
         self.train_steps = 0
         self.last_loss_terms = None
 
+    @staticmethod
+    def _categorical_output_layers(network):
+        """Return only the final value/advantage atom projection layers."""
+        layers = []
+        if isinstance(network, GlobalBranchingDuelingC51):
+            layers.append(network.value[-1])
+            layers.extend(head[-1] for head in network.advantages)
+        elif isinstance(network, IndependentDuelingC51):
+            for local in network.networks:
+                layers.extend((local.value[-1], local.advantage[-1]))
+        elif isinstance(network, BranchingDuelingC51):
+            layers.extend((network.value[-1], network.advantage[-1]))
+        else:
+            raise TypeError(f"unsupported network type: {type(network)!r}")
+        if not layers or not all(isinstance(layer, nn.Linear) for layer in layers):
+            raise RuntimeError("categorical output-layer discovery failed")
+        return layers
+
+    def reinitialize_categorical_outputs(self, seed: int | None = None):
+        """Reset atom projections while preserving every upstream parameter."""
+        if seed is not None:
+            devices = (
+                [self.device.index or torch.cuda.current_device()]
+                if self.device.type == "cuda"
+                else []
+            )
+            with torch.random.fork_rng(devices=devices):
+                torch.manual_seed(int(seed))
+                for layer in self._categorical_output_layers(self.online):
+                    layer.reset_parameters()
+        else:
+            for layer in self._categorical_output_layers(self.online):
+                layer.reset_parameters()
+        self.target.load_state_dict(self.online.state_dict())
+        self.target.eval()
+        self.optimizer = torch.optim.Adam(
+            self.online.parameters(), lr=self.cfg.learning_rate
+        )
+        self.replay = PrioritizedReplay(self.cfg.replay_capacity)
+        self.train_steps = 0
+        self.last_loss_terms = None
     def _autocast(self):
         return torch.autocast(
             device_type=self.device.type,

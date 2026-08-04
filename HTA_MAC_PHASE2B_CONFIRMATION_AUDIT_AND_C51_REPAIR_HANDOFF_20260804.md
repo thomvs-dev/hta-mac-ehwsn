@@ -819,3 +819,107 @@ Before Phase 2C training:
 6. do not start confirmation training until the mini-plan and implementation tests pass.
 
 The C51 repair remains necessary. The literature audit and curriculum disclosure narrow the claims but do not eliminate the exact HTA-MAC formulation as a potentially publishable contribution.
+---
+
+## 21. Phase 2C implementation update - frozen return scale and training wiring
+
+This section records executed evidence after Section 20. It supersedes the statement that no Phase 2C scale had yet been computed.
+
+### 21.1 Stage A: fixed development-return audit passed
+
+The audit used all three repaired Phase 2B checkpoints, all 25 development schedule/target-rank pairs, horizon 300, epsilon 0.10, discount 0.99, and no held-out seed.
+
+Authoritative command: python -B experiments/audit_phase2c_return_support.py
+
+Executed result:
+
+- status: gate_pass;
+- logged transitions: 11,466;
+- checkpoint/environment rollouts: 75;
+- worst group: optimizer seed 3299, schedule seed 2300;
+- worst-group Q_0.995(G): 166.2420028702468;
+- frozen scale: c = 0.14436784678738615;
+- scaled-return q0.995: 22.143472;
+- scaled-return maximum: 24.536374;
+- scaled returns outside [-30,30]: 0.
+
+The scale was selected once from the worst optimizer-lineage/schedule tail, not separately per seed. It is development-only and maps the worst group q0.995 exactly to 0.8 * Vmax = 24.
+
+Evidence hashes:
+
+| Artifact | SHA-256 |
+|---|---|
+| config/phase2c_reference_rollouts.json | 4720EEE0B1AA79402A3D7B984EF8670506493B0697226097865234547DCF3F6C |
+| config/phase2c_return_scale.json | AA797D8C15B06B35B31CA1DE98B7D11FDDBD25ED82268ECA1A664681A3AA72BD |
+| phase2c_reference_returns.csv | 32A94148925CB8262BB0D6DDB822AC9B5032BC24826351CDF751A25480FF36E7 |
+| phase2c_return_support_audit.json | FE7F7F28092862855C2E9FCB4C73B0717790FC716F49A42A749E7097FC95F9EE |
+
+Decision: use this one frozen c for every Phase 2C lineage. Do not recompute it per seed or from held-out evaluation.
+
+### 21.2 Stage B: scale wired into C51 without changing physical metrics
+
+Implemented behavior:
+
+1. raw reward is still accumulated and reported as raw_physical_reward;
+2. only raw_reward * c is inserted into replay and used by the C51 Bellman target;
+3. queue, packet, energy, death, lifetime, and fairness metrics remain in physical units;
+4. checkpoint metadata records the scale file, SHA-256, complete payload, old/new scales, and reset flags;
+5. a scale mismatch on checkpoint resume is rejected unless categorical outputs are explicitly reinitialized;
+6. only final atom-projection layers are reset: the value output and every branch advantage output;
+7. shared trunk, value/advantage hidden layers, and inherited feature processing remain unchanged;
+8. target network is synchronized from the reset online network; optimizer and replay are fresh.
+
+Reason: an old categorical head encodes the previous return geometry. Reusing it after shrinking rewards would retain precisely the saturation being repaired. Resetting the entire network would discard the useful Phase 2B representation and auxiliary-order learning.
+
+### 21.3 Alive-node residual-energy reporting added
+
+Every greedy curriculum cluster now records:
+
+- alive-node count;
+- Jain residual-energy fairness;
+- residual-energy coefficient of variation;
+- mean residual energy;
+- minimum residual energy;
+- 10th-percentile residual energy.
+
+The aggregate block reports the mean of each cluster-level metric. Fairness is interpreted together with energy level because equal near-zero batteries can otherwise appear ideal.
+
+### 21.4 Real integration smoke
+
+The one-episode, ten-step process check loaded the repaired seed-2299 checkpoint, validated the frozen scale, reset categorical outputs, ran the environment, saved a new checkpoint, and wrote summary/episode logs.
+
+| Check | Value |
+|---|---:|
+| status | smoke_pass |
+| old checkpoint scale | 1.0 |
+| new scale | 0.14436784678738615 |
+| categorical outputs reset | true |
+| raw physical episode reward | 7.211235119047618 |
+| scaled learning reward | 1.0410704868144849 |
+| observed scaled/raw ratio | 0.14436784678738615 |
+| physical metrics scaled | false |
+| S8-vs-S1 max Q difference after reset | 0.02759445 |
+| always-sleep collapse | false |
+
+This run is only a wiring check: it has one episode, no optimizer update because replay warmup was not reached, incomplete curriculum coverage, and no convergence or stability assessment. It is not evidence that Phase 2C training succeeds.
+
+### 21.5 Validation
+
+Authoritative result: python -B -m pytest validation -q -p no:cacheprovider -> 61 passed, 93 warnings in 4.84 s.
+
+Warnings are the existing third-party Torch/Torch-Geometric deprecations.
+
+### 21.6 Remaining hard gates
+
+Phase 2C is not complete. The next actions remain:
+
+1. implement and pass random active-branch permutations plus targeted high/declining-state swaps;
+2. run a short seed-2299 full-repair learning smoke long enough to cross replay warmup;
+3. audit categorical boundary probability/Q-value mass during and after that smoke;
+4. stop if boundary saturation returns, actions collapse, or residual-energy level/fairness degrades materially;
+5. run paired 125-episode rescaling-only ablations for seeds 2299 and 3299;
+6. run development-only network-wide greedy evaluation for each candidate;
+7. freeze the mini-plan before the three-seed confirmation;
+8. keep held-out seeds 3100-3104 untouched.
+
+No publication-ready or superiority claim is authorized at this boundary.
