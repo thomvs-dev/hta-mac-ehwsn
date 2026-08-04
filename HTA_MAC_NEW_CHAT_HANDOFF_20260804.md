@@ -652,3 +652,63 @@ The next agent should update this file or create a dated successor after each ma
 - whether held-out data was touched.
 
 Do not replace evidence with narrative confidence.
+---
+
+## 17. Phase 2C branch-identity audit - gate failed
+
+This section records executed evidence after the original handoff and supersedes the statement that the branch-identity audit was incomplete.
+
+### 17.1 Verified starting state
+
+- branch: `codex/phase2b-provenance`
+- starting HEAD: `9186ceeac962e3308052bf0bcc04df3191011269`
+- the only commit after implementation commit `4c995ffa6863292599dfb5cfb87570750198fdb9` was the documentation-only new-chat handoff
+- frozen scale SHA-256: `AA797D8C15B06B35B31CA1DE98B7D11FDDBD25ED82268ECA1A664681A3AA72BD`
+- pre-change validation: `python -B -m pytest validation -q -p no:cacheprovider` -> `61 passed, 93 warnings`
+- unrelated `outputs/phase4/` remained untracked and untouched
+
+### 17.2 Implemented audit and frozen gates
+
+Implemented `agents/branch_permutation.py`, `experiments/audit_phase2c_branch_identity.py`, and `validation/test_phase2c_branch_permutation.py`. The audit moves the complete state row, validity mask, queue cap, and per-action mask and inverse-maps branch outputs before physical environment stepping. Tests reject inconsistent caps or action masks and catch omitted inverse mapping.
+
+Per checkpoint the audit executed 20 deterministic active-branch permutations, 10 equal-cap high-harvest S6/S8 versus declining S1/S4/S7 swaps with residual energy difference at most 0.05 J, 20 joint solar/thermal counterfactuals, and paired canonical/permuted physical rollouts over all 25 development pairs at horizon 300. No held-out seed was used.
+
+Predeclared gates: random inverse allocation agreement >= 0.95; targeted inverse agreement >= 0.90; state-conditioned classification >= 0.50; fixed identity classification <= 0.10; and hybrid high-more > high-fewer.
+
+Command: `python -B experiments/audit_phase2c_branch_identity.py`. The first invocation hit the shell timeout at 120 seconds and produced no claimed result. The identical command completed with a longer timeout in 190.3 seconds.
+
+### 17.3 Measured identity result
+
+| Seed | Random raw agreement | Random inverse agreement | Inverse disagreement | Target inverse agreement | State-conditioned | Fixed identity | High-more / fewer |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2299 | 0.953175 | 0.577443 | 0.422557 | 0.941113 | 0.00 | 0.30 | 0 / 0 |
+| 3299 | 0.923536 | 0.556241 | 0.443759 | 0.923247 | 0.00 | 0.50 | 0 / 0 |
+| 4299 | 0.920299 | 0.529674 | 0.470326 | 0.966074 | 0.00 | 0.40 | 0 / 0 |
+
+Mean raw-branch versus inverse-physical marginal-Q MAE was 0.135851/0.286546 for seed 2299, 0.076222/0.400762 for seed 3299, and 0.077213/0.358613 for seed 4299. High raw agreement together with low inverse agreement means the decision remains associated with fixed branch heads more strongly than with the moved physical feature bundle. The targeted agreement alone is inflated by many identical zero/low allocations; distance classification, random permutations, and marginal-Q behavior expose the shortcut. No checkpoint supports a transferable state-conditioned claim.
+
+### 17.4 Physical-outcome sensitivity
+
+All 25 canonical and all 25 permuted local-curriculum rollouts per checkpoint observed FND. Complete-bundle permutation plus inverse mapping changed the realized policy:
+
+| Seed | Mean reward canonical / permuted | Packets canonical / permuted | Packet Jain canonical / permuted | Mean residual J canonical / permuted |
+|---:|---:|---:|---:|---:|
+| 2299 | 204.369 / 235.746 | 1428.16 / 1514.56 | 0.556949 / 0.831096 | 0.093075 / 0.074654 |
+| 3299 | 233.953 / 249.911 | 1529.44 / 1554.72 | 0.664448 / 0.834438 | 0.077315 / 0.071712 |
+| 4299 | 226.847 / 245.955 | 1499.68 / 1529.16 | 0.622634 / 0.827714 | 0.083655 / 0.077197 |
+
+These are development diagnostics, not evidence that permutation improves the policy. They confirm that moving node features across fixed heads changes the physical allocation and outcomes.
+
+### 17.5 Artifacts and stop decision
+
+Artifact directory: `outputs/phase2/phase2c_branch_identity_audit_20260804/`.
+
+| Artifact | SHA-256 |
+|---|---|
+| `branch_identity_records.csv` | `F929D6DA6CFB931AA275F1BCEC47F52C3182DA5E55095B94DF2AB0404F771053` |
+| `branch_identity_audit.json` | `3AC8D7B06FF33599F57A4B0419A93337CB5DEDFBAAFCE965725AFFDB36DD6429` |
+| `artifact_hashes.json` | `07E0A1E3821507EE85582FBF8CA218347BEC6B4D476E64F49AE3F6DC92C808C5` |
+
+Decision: `gate_fail`. The categorical boundary audit and seed-2299 learning smoke were not started. Weakening the threshold or treating the inflated targeted agreement as a pass was rejected because it conflicts with the random-permutation, distance, and marginal-Q evidence.
+
+The next repair must remove fixed node-head dependence before training. The leading scoped option is a genuinely permutation-equivariant shared local action head with permutation-invariant masked global context, with architectural invariance tests required before retraining. This is a new architecture repair; the failed checkpoints remain unauthorized as publication models.
