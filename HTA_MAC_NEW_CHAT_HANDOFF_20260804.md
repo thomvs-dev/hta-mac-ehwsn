@@ -652,6 +652,7 @@ The next agent should update this file or create a dated successor after each ma
 - whether held-out data was touched.
 
 Do not replace evidence with narrative confidence.
+
 ---
 
 ## 17. Phase 2C branch-identity audit - gate failed
@@ -662,6 +663,7 @@ This section records executed evidence after the original handoff and supersedes
 
 - branch: `codex/phase2b-provenance`
 - starting HEAD: `9186ceeac962e3308052bf0bcc04df3191011269`
+- audit implementation and evidence commit: `b60d96fb67a22b5543ee408bf9a591857b2f6f1f`
 - the only commit after implementation commit `4c995ffa6863292599dfb5cfb87570750198fdb9` was the documentation-only new-chat handoff
 - frozen scale SHA-256: `AA797D8C15B06B35B31CA1DE98B7D11FDDBD25ED82268ECA1A664681A3AA72BD`
 - pre-change validation: `python -B -m pytest validation -q -p no:cacheprovider` -> `61 passed, 93 warnings`
