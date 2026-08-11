@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "frozen_adaptive_development_experiment",
+  "method": "dqfd_style_large_margin_distillation_from_shield_interventions",
+  "source_development_seed": 2400,
+  "optimizer_seed": 5701,
+  "epochs": 5,
+  "batch_size": 64,
+  "learning_rate": 0.00003,
+  "large_margin": 0.8,
+  "cpu_threads": 18,
+  "horizon": 1200,
+  "budget": 16,
+  "controller_config": "config/step3_qos_deficit_override_selected_v2.json",
+  "selection_rule": "no_parameter_selection_within_run; report controller-on and controller-off after epoch 5",
+  "success_gate": {
+    "controller_off_joint_qos_minimum": 1,
+    "controller_on_joint_qos_minimum": 18,
+    "mean_fnd_free_steps_minimum": 1158.75
+  },
+  "confirmation_seed_2401_used": false,
+  "publication_evidence": false,
+  "claim_boundary": "adaptive seed-2400 methodology probe only"
+}

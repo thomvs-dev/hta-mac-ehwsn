@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "frozen_development_only",
+  "prepared": "2026-08-04",
+  "scope": "Phase 2D-4 QoS constraint selection; no held-out seeds",
+  "development_seeds": [2300, 2301, 2302, 2303, 2304],
+  "horizon": 300,
+  "checkpoint_sha256": "DCBBE0F65253ADEBA0D520FD0F66548AC393669375286ABEEEE52DE218960AB3",
+  "evidence": {
+    "summary": "outputs/phase3/phase2d_qos_feasibility_dev2300_2304_h300_20260804/summary.json",
+    "summary_sha256": "8AA7F7685D0E03BF8AD8109527B535801FD4494F1F9DB51DB2AF21AA6360F36D",
+    "raw_trials": "outputs/phase3/phase2d_qos_feasibility_dev2300_2304_h300_20260804/raw_trials.csv",
+    "raw_trials_sha256": "B390AEF4155D5DC64817C6A71410B6228B267FEBFBD26868E1D3BBA4BDD267E5",
+    "completed_runs": 35,
+    "failures": 0
+  },
+  "hta_development_medians": {
+    "delivery_ratio": 0.513189368770764,
+    "stale_drop_ratio": 0.474186046511628,
+    "queue_fairness": 0.952177243739772,
+    "fnd_or_censor_round": 237.0,
+    "idle_energy_j": 30.896,
+    "throughput": 15395.0
+  },
+  "demonstrated_feasible_reference_medians": {
+    "static_equal": {
+      "delivery_ratio": 0.660947887625992,
+      "stale_drop_ratio": 0.321037958395883,
+      "queue_fairness": 0.981190463462178
+    },
+    "energy_proportional": {
+      "delivery_ratio": 0.79495394473368,
+      "stale_drop_ratio": 0.191830196235483,
+      "queue_fairness": 0.991210453094738
+    },
+    "harvest_proportional": {
+      "delivery_ratio": 0.669509496588604,
+      "stale_drop_ratio": 0.323068412317905,
+      "queue_fairness": 0.986437719491417
+    },
+    "ffss_adapted": {
+      "delivery_ratio": 0.654516812428703,
+      "stale_drop_ratio": 0.32739420935412,
+      "queue_fairness": 0.986547713269813
+    }
+  },
+  "frozen_constraints": {
+    "minimum_delivery_ratio": 0.55,
+    "maximum_stale_drop_ratio": 0.45,
+    "minimum_queue_fairness": 0.95
+  },
+  "rationale": "The delivery and stale thresholds are stricter than the current HTA median but looser than multiple demonstrated-feasible nonlearned policies on identical schedules. The fairness floor is near the current HTA median and below all service-oriented feasible references. These are development constraints, not final performance claims."
+}

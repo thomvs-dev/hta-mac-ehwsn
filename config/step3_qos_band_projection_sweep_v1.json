@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "frozen_adaptive_development_sweep",
+  "method": "minimal_two_sided_qos_band_action_projection",
+  "lower_delivery_target": 0.5575,
+  "upper_delivery_targets": [0.5575, 0.5625, 0.5675],
+  "reserve_floor": 0.2,
+  "completion_fraction": 0.5,
+  "horizon": 1200,
+  "budget": 16,
+  "development_seed": 2400,
+  "workers": 3,
+  "threads_per_worker": 6,
+  "selection_rule": "maximum_joint_qos_then_maximum_mean_fnd_then_smallest_upper_target",
+  "success_gate": {
+    "joint_qos_minimum": 18,
+    "mean_fnd_free_steps_minimum": 1158.75
+  },
+  "confirmation_seed_2401_used": false,
+  "publication_evidence": false
+}

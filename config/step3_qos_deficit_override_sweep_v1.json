@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_execution",
+  "candidate_family": "qos_deficit_override_v1",
+  "development_only": true,
+  "no_learning": true,
+  "seed": 2400,
+  "target_ranks": 20,
+  "horizon": 1200,
+  "budget": 16,
+  "grid": {
+    "delivery_trajectory_target": [0.525, 0.55, 0.575],
+    "ch_post_forwarding_reserve_floor": [0.1, 0.15],
+    "deficit_completion_fraction": [0.5, 1.0]
+  },
+  "gates": {
+    "minimum_joint_qos_pairs": 18,
+    "fnd_noninferiority_margin_rounds": 12.0
+  },
+  "selection_rule": "passing_then_max_mean_fnd_then_min_added_slots_then_max_delivery",
+  "learned_intervention": "mac_allocation_only",
+  "ch_schedule_modified": false,
+  "uses_realized_future_harvest": false,
+  "claim_boundary": "development_no_learning_mechanism_screen_not_model_selection_or_publication_evidence"
+}

@@ -9,6 +9,7 @@ outputs/cache/
 
 # Local scratch files
 .codex_tmp/
+.firecrawl/
 *.tmp
 *.bak
 outputs/phase2/*smoke*/

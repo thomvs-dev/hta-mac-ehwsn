@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "status": "frozen_development_constraint",
+  "feasibility_evidence": "config/paper_aligned_hasani2025_qos_feasibility.json",
+  "minimum_delivery_ratio": 0.55,
+  "maximum_stale_drop_ratio": 0.45,
+  "minimum_queue_fairness": 0.95,
+  "multiplier_learning_rate": {
+    "delivery": 0.05,
+    "stale": 0.05,
+    "fairness": 0.02
+  },
+  "initial_multiplier": {
+    "delivery": 1.0,
+    "stale": 1.0,
+    "fairness": 0.5
+  },
+  "maximum_multiplier": 10.0,
+  "update_interval": "episode_end",
+  "fairness_warmup_steps": 5,
+  "penalty_scale": 0.25,
+  "ratio_scope": "episode_cumulative_target_cluster",
+  "apply_to": "raw_learning_reward_before_frozen_c51_scale",
+  "physical_metrics_modified": false,
+  "held_out_seeds_used": false
+}

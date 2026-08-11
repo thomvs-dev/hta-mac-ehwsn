@@ -17,10 +17,24 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent
+from agents.qos_constraints import (
+    QoSConstraintConfig,
+    QoSConstraintController,
+)
 from agents.reward_model import RewardModel, TERM_ORDER
 from core.hmm.rectified_moments import next_rectified_statistics
 from envs.dynamic_cluster_training_env import DynamicClusterTrainingEnv
 from envs.fixed_cluster_training_env import FixedClusterTrainingEnv
+from envs.policy_observation import (
+    LEGACY_POLICY_SCHEMA,
+    PHASE2D_POLICY_SCHEMA,
+)
+from experiments.paper_aligned_environment import (
+    configure_mac as configure_paper_aligned_mac,
+    disabled_thermal_hmm,
+    load_profile as load_environment_profile,
+    schedule_bundle as paper_aligned_schedule_bundle,
+)
 from envs.scheduled_mac_env import ScheduledIntraClusterMACEnv
 from experiments.run_phase3_pilot import build_assets, schedule_bundle
 from experiments.train_phase2_fixed_cluster import (
@@ -52,13 +66,19 @@ def parse_args():
     parser.add_argument("--epsilon-end", type=float, default=0.05)
     parser.add_argument("--initial-checkpoint" )
     parser.add_argument("--reward-scale-config")
+    parser.add_argument("--qos-constraint-config")
+    parser.add_argument("--environment-profile")
     parser.add_argument(
         "--reinitialize-categorical-outputs", action="store_true"
     )
     parser.add_argument("--projection-budget", type=int)
     parser.add_argument(
         "--architecture",
-        choices=("shared_branching", "independent_dqns"),
+        choices=(
+            "shared_branching",
+            "equivariant_set_branching",
+            "independent_dqns",
+        ),
         default="shared_branching",
     )
     parser.add_argument("--stability-interval", type=int, default=50)
@@ -69,6 +89,10 @@ def parse_args():
     parser.add_argument("--trajectory-loss-weight", type=float, default=0.0)
     parser.add_argument("--concavity-loss-weight", type=float, default=0.0)
     parser.add_argument("--trajectory-margin-fraction", type=float, default=0.05)
+    parser.add_argument(
+        "--demonstration-margin-loss-weight", type=float, default=0.0
+    )
+    parser.add_argument("--demonstration-margin", type=float, default=0.8)
     parser.add_argument("--precision", choices=("fp32", "bf16"), default="fp32")
     return parser.parse_args()
 
@@ -110,6 +134,31 @@ def load_reward_scale(path):
     return scale, {
         "path": str(scale_path.resolve()),
         "sha256": sha256_file(scale_path),
+        "payload": payload,
+    }
+
+
+def load_qos_constraints(path):
+    """Load frozen development-only QoS thresholds and controller settings."""
+    if path is None:
+        return None, None
+    config_path = Path(path)
+    if not config_path.is_absolute():
+        config_path = ROOT / config_path
+    if not config_path.is_file():
+        raise FileNotFoundError(config_path)
+    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    config = QoSConstraintConfig.from_payload(payload)
+    evidence_path = Path(payload["feasibility_evidence"])
+    if not evidence_path.is_absolute():
+        evidence_path = ROOT / evidence_path
+    if not evidence_path.is_file():
+        raise FileNotFoundError(evidence_path)
+    return config, {
+        "path": str(config_path.resolve()),
+        "sha256": sha256_file(config_path),
+        "feasibility_evidence_path": str(evidence_path.resolve()),
+        "feasibility_evidence_sha256": sha256_file(evidence_path),
         "payload": payload,
     }
 
@@ -158,15 +207,36 @@ def epsilon_for(
     return start + fraction * (end - start)
 
 
-def build_curriculum(seeds, max_steps):
+def build_curriculum(
+    seeds,
+    max_steps,
+    observation_schema=LEGACY_POLICY_SCHEMA,
+    environment_profile=None,
+):
     frozen_policy, solar, thermal, radio, cfg, manifest = build_assets(max_steps)
+    profile = None
+    profile_evidence = None
+    idle_energy_enabled = True
+    if environment_profile is not None:
+        profile_path = Path(environment_profile)
+        if not profile_path.is_absolute():
+            profile_path = ROOT / profile_path
+        profile, profile_evidence = load_environment_profile(profile_path)
+        thermal = disabled_thermal_hmm(thermal)
+        cfg = configure_paper_aligned_mac(profile, cfg)
+        idle_energy_enabled = False
     environments = []
     curriculum_manifest = []
     checkpoint_sha = manifest["checkpoint"]["sha256"]
     for seed in seeds:
-        bundle, schedule_metadata = schedule_bundle(
-            frozen_policy, seed, max_steps, checkpoint_sha
-        )
+        if profile is None:
+            bundle, schedule_metadata = schedule_bundle(
+                frozen_policy, seed, max_steps, checkpoint_sha
+            )
+        else:
+            bundle, schedule_metadata = paper_aligned_schedule_bundle(
+                profile, solar, seed, max_steps
+            )
         initial_ranks = len(bundle["schedule"][0]["cluster_heads"])
         for target_rank in range(initial_ranks):
             base = ScheduledIntraClusterMACEnv(
@@ -174,13 +244,14 @@ def build_curriculum(seeds, max_steps):
                 radio,
                 solar,
                 thermal,
-                idle_energy_enabled=True,
+                idle_energy_enabled=idle_energy_enabled,
             )
             env = DynamicClusterTrainingEnv(
                 base,
                 bundle,
                 seed=seed,
                 target_rank=target_rank,
+                observation_schema=observation_schema,
             )
             observation, _, _ = env.reset()
             environments.append(env)
@@ -192,11 +263,20 @@ def build_curriculum(seeds, max_steps):
                     "initial_ch": env.ch,
                     "initial_members": env.member_count,
                     "input_dim": int(observation.shape[1]),
+                    "observation_schema": env.observation_schema,
+                    "observation_layout": env.observation_layout,
                     "schedule_coverage_rounds": len(bundle["schedule"]),
-                    "schedule_cache": schedule_metadata["cache_file"],
+                    "schedule_cache": schedule_metadata.get("cache_file"),
                     "schedule_schema_version": schedule_metadata["schedule_schema_version"],
                 }
             )
+            if profile_evidence is not None:
+                curriculum_manifest[-1]["environment_profile"] = {
+                    "profile_id": profile["profile_id"],
+                    "path": profile_evidence["path"],
+                    "sha256": profile_evidence["sha256"],
+                    "claim_boundary": profile["claim_boundary"],
+                }
     if not environments:
         raise RuntimeError("dynamic curriculum contains no target ranks")
     return environments, curriculum_manifest, cfg
@@ -403,6 +483,10 @@ def main():
     reward_scale, reward_scale_evidence = load_reward_scale(
         args.reward_scale_config
     )
+    qos_config, qos_evidence = load_qos_constraints(
+        args.qos_constraint_config
+    )
+    qos_controller = QoSConstraintController(qos_config) if qos_config else None
 
     set_seeds(args.optimizer_seed)
     run_dir = ROOT / "outputs" / "phase2" / args.run_name
@@ -411,14 +495,23 @@ def main():
     if episodes_path.exists():
         episodes_path.unlink()
 
+    observation_schema = (
+        PHASE2D_POLICY_SCHEMA
+        if args.architecture == "equivariant_set_branching"
+        else LEGACY_POLICY_SCHEMA
+    )
     environments, curriculum_manifest, env_cfg = build_curriculum(
-        seeds, args.max_steps
+        seeds,
+        args.max_steps,
+        observation_schema=observation_schema,
+        environment_profile=args.environment_profile,
     )
     max_branches = environments[0].base.n_nodes
     input_dims = {entry["input_dim"] for entry in curriculum_manifest}
     if len(input_dims) != 1:
         raise RuntimeError(f"inconsistent input dimensions: {input_dims}")
     input_dim = input_dims.pop()
+    observation_layout = environments[0].observation_layout
     _, reward_payload = load_reward_model()
     reward_weights = dict(reward_payload["weights"])
     if args.idle_weight is not None:
@@ -440,6 +533,8 @@ def main():
         replay_capacity=5000,
         max_branches=max_branches,
         architecture=args.architecture,
+        state_schema=observation_schema,
+        embedding_start_dim=int(observation_layout["embedding_start"]),
         learning_rate=args.learning_rate,
         normalize_input_blocks=args.normalize_input_blocks,
         hybrid_harvest_max_j=harvest_scale,
@@ -448,6 +543,8 @@ def main():
         trajectory_loss_weight=args.trajectory_loss_weight,
         concavity_loss_weight=args.concavity_loss_weight,
         trajectory_margin_fraction=args.trajectory_margin_fraction,
+        demonstration_margin_loss_weight=args.demonstration_margin_loss_weight,
+        demonstration_margin=args.demonstration_margin,
         precision=args.precision,
         reward_scale=reward_scale,
     )
@@ -482,6 +579,22 @@ def main():
                 f"{checkpoint_architecture} != {args.architecture}"
             )
         checkpoint_config = checkpoint.get("config", {})
+        checkpoint_schema = checkpoint_config.get(
+            "state_schema", LEGACY_POLICY_SCHEMA
+        )
+        if checkpoint_schema != observation_schema:
+            raise ValueError(
+                "initial checkpoint state schema mismatch: "
+                f"{checkpoint_schema} != {observation_schema}"
+            )
+        if int(checkpoint_config.get("input_dim", -1)) != input_dim:
+            raise ValueError("initial checkpoint input dimension mismatch")
+        if int(
+            checkpoint_config.get("embedding_start_dim", 18)
+        ) != int(observation_layout["embedding_start"]):
+            raise ValueError(
+                "initial checkpoint embedding boundary mismatch"
+            )
         checkpoint_reward_scale = float(
             checkpoint_config.get("reward_scale", 1.0)
         )
@@ -509,6 +622,13 @@ def main():
             "optimizer_reinitialized": True,
             "replay_reinitialized": True,
         }
+        if qos_controller is not None:
+            saved_qos = checkpoint.get("metadata", {}).get(
+                "qos_constraints", {}
+            ).get("controller_state")
+            if saved_qos is not None:
+                qos_controller.load_state_dict(saved_qos)
+                initialization_details["qos_multipliers_restored"] = True
 
     expected_steps = args.episodes * args.max_steps
     rows = []
@@ -526,6 +646,8 @@ def main():
             order_rng.shuffle(order)
         env = environments[int(order[offset])]
         observation, mask, _ = env.reset()
+        if qos_controller is not None:
+            qos_controller.begin_episode()
         padded, padded_mask, caps = padded_state(
             env, observation, mask, max_branches
         )
@@ -534,6 +656,10 @@ def main():
         )
         episode_reward = 0.0
         episode_learning_reward = 0.0
+        constrained_raw_reward = 0.0
+        constraint_penalty_total = 0.0
+        last_qos_details = None
+        qos_episode_update = None
         raw_sums = {name: 0.0 for name in TERM_ORDER}
         weighted_sums = {name: 0.0 for name in TERM_ORDER}
         losses = []
@@ -554,9 +680,16 @@ def main():
                 env, next_observation, next_mask, max_branches
             )
             reward, weighted = reward_model.evaluate(info["reward_raw_terms"])
-            scaled_reward = learning_reward(reward, reward_scale)
+            constraint_penalty = 0.0
+            if qos_controller is not None:
+                constraint_penalty, last_qos_details = qos_controller.evaluate_info(info)
+            constrained_step_reward = reward + constraint_penalty
+            scaled_reward = learning_reward(
+                constrained_step_reward, reward_scale
+            )
             if (
                 not np.isfinite(reward)
+                or not np.isfinite(constraint_penalty)
                 or not np.isfinite(scaled_reward)
                 or not np.all(np.isfinite(next_padded))
             ):
@@ -587,6 +720,8 @@ def main():
                 losses.append(loss)
                 loss_terms.append(dict(agent.last_loss_terms))
             episode_reward += reward
+            constrained_raw_reward += constrained_step_reward
+            constraint_penalty_total += constraint_penalty
             episode_learning_reward += scaled_reward
             packets += int(info["target_packets_delivered"])
             zero_action_steps += int(actual_action.sum() == 0)
@@ -600,6 +735,11 @@ def main():
             steps += 1
             global_step += 1
 
+        if qos_controller is not None:
+            qos_episode_update = qos_controller.end_episode()
+            if last_qos_details is not None:
+                last_qos_details["episode_end_update"] = qos_episode_update
+
         row = {
             "episode": episode + 1,
             "seed": env.seed,
@@ -611,6 +751,10 @@ def main():
             "steps": steps,
             "reward": episode_reward,
             "raw_physical_reward": episode_reward,
+            "constrained_raw_learning_reward": constrained_raw_reward,
+            "constraint_penalty_total": constraint_penalty_total,
+            "qos_constraint": last_qos_details,
+            "qos_episode_update": qos_episode_update,
             "scaled_learning_reward": episode_learning_reward,
             "reward_scale": reward_scale,
             "target_packets": packets,
@@ -717,11 +861,16 @@ def main():
 
     convergence = {"assessed": len(rows) >= 100, "relative_change": None, "pass": False}
     if len(rows) >= 100:
-        previous = np.mean([row["reward"] for row in rows[-100:-50]])
-        current = np.mean([row["reward"] for row in rows[-50:]])
+        convergence_field = (
+            "constrained_raw_learning_reward" if qos_controller is not None
+            else "reward"
+        )
+        previous = np.mean([row[convergence_field] for row in rows[-100:-50]])
+        current = np.mean([row[convergence_field] for row in rows[-50:]])
         relative = abs(current - previous) / max(1.0, abs(previous))
         convergence = {
             "assessed": True,
+            "field": convergence_field,
             "previous_50_mean_reward": float(previous),
             "last_50_mean_reward": float(current),
             "relative_change": float(relative),
@@ -762,10 +911,19 @@ def main():
         "initialization_details": initialization_details,
         "reward_scale": reward_scale,
         "reward_scale_evidence": reward_scale_evidence,
+        "qos_constraints": {
+            "enabled": qos_controller is not None,
+            "evidence": qos_evidence,
+            "controller_state": (
+                qos_controller.state_dict()
+                if qos_controller is not None else None
+            ),
+        },
         "reward_application": {
             "replay_and_c51_reward_scaled": True,
             "physical_metrics_scaled": False,
             "episode_reward_field": "raw_physical_reward",
+            "constraint_application": "raw_learning_reward_before_frozen_c51_scale",
             "learning_reward_field": "scaled_learning_reward",
         },
         "epsilon_start": args.epsilon_start,
@@ -777,6 +935,9 @@ def main():
         "held_out_pilot_seeds": sorted(held_out),
         "held_out_overlap": sorted(overlap),
         "git_hash": git_hash(),
+        "environment_profile": curriculum_manifest[0].get(
+            "environment_profile"
+        ),
         "curriculum_clusters": curriculum_manifest,
         "curriculum_pair_count": len(environments),
         "full_curriculum_seen": full_curriculum_seen,
@@ -804,8 +965,11 @@ def main():
         "policy_stability": policy_stability,
         "policy_stability_snapshots": stability_snapshots,
         "scope": (
-            "Development curriculum uses frozen per-round CH schedule replay; "
-            "held-out Phase 3 seeds are excluded and CH selection remains exogenous."
+            "Development curriculum uses an exogenous per-round CH schedule; "
+            "held-out Phase 3 seeds are excluded and CH selection remains "
+            "outside the learned intervention. Paper-aligned profiles are "
+            "exploratory and do not replace the registered frozen HEART-CH "
+            "experiment."
         ),
     }
     summary_path = run_dir / "summary.json"

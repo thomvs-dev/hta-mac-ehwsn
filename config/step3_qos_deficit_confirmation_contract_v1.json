@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_confirmation",
+  "method_classification": "shielded_hybrid_rl",
+  "controller_config": "config/step3_qos_deficit_override_selected_v2.json",
+  "confirmation_development_seed": 2401,
+  "optimizer_seed": 5699,
+  "episodes": 100,
+  "horizon": 1200,
+  "budget": 16,
+  "cpu_threads": 18,
+  "gates": {
+    "minimum_joint_qos_pairs_each_of_last_three_snapshots": 18,
+    "mean_fnd_noninferiority_reference": 1170.75,
+    "mean_fnd_noninferiority_margin_rounds": 12.0,
+    "minimum_mean_fnd_free_steps": 1158.75,
+    "ch_risk_must_be_active": true,
+    "ch_risk_max_absolute_reward_fraction": 0.2,
+    "controller_must_add_slots": true,
+    "controller_risk_gate_must_block_at_least_one_slot": true,
+    "legacy_lagrangian_penalty_geometry_gate": "not_applicable_for_shielded_confirmation_but_legacy_failure_must_be_reported"
+  },
+  "selection_or_tuning_on_seed_2401": false,
+  "held_out_evaluation_authorized_before_pass": false,
+  "claim_boundary": "fresh_unused_development_seed_confirmation_not_held_out_or_publication_evidence"
+}

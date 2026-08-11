@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "frozen_selected_adaptive_development_candidate",
+  "method": "dqfd_style_shield_distillation_plus_minimal_two_sided_qos_band_projection",
+  "lower_delivery_target": 0.5555,
+  "upper_delivery_target": 0.556,
+  "reserve_floor": 0.2,
+  "completion_fraction": 0.5,
+  "budget": 16,
+  "horizon": 1200,
+  "source_checkpoint": "outputs/phase2/step3_dqfd_shield_distillation_seed5701_cpu18/branching_c51_shield_distilled.pt",
+  "source_checkpoint_sha256": "f955963f253e8fcc51f43daa3cf943224c2135d4bd61bd7f39dc87b633af239b",
+  "selection_report": "outputs/audits/step3_qos_band_projection_refinement_v2/qos_band_refinement_report.json",
+  "selection_report_sha256": "077801edeb843467c5c22c8ecf97d5bac8f60ddf0d64fceba0b88c24d5bcc6ae",
+  "selection_evidence": {
+    "joint_qos_passes": 18,
+    "delivery_passes": 20,
+    "fairness_passes": 18,
+    "mean_delivery_ratio": 0.5555383249957419,
+    "mean_fairness": 0.8430342861501933,
+    "mean_fnd_free_steps": 1159.25,
+    "minimum_mean_fnd_free_steps": 1158.75,
+    "added_slots": 3531,
+    "removed_slots": 16452,
+    "risk_blocked_slots": 153
+  },
+  "development_seed": 2400,
+  "confirmation_seed_used": false,
+  "publication_evidence": false,
+  "claim_boundary": "adaptive development candidate with only 0.5-round FND gate margin; independent confirmation required"
+}

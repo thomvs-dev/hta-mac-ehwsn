@@ -1,0 +1,625 @@
+{
+  "schema_version": 1,
+  "status": "development_fnd_node_identity_audit_complete",
+  "interpretation": "mechanism diagnostic on frozen development trials; not an outcome or superiority test",
+  "checkpoint": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_PaperAligned_B16_QoSRepaired_Trained_Results_20260808\\phase2\\paper_aligned_b16_qos_repaired_500ep_seed7399\\branching_c51.pt",
+  "checkpoint_sha256": "829a24ac9f43889b7ce0dae54364db8aaaeab2cfd89e4768cfc79785e6854f5c",
+  "environment_profile": {
+    "path": "F:\\WSN\\matlab\\stage2\\hta-mac\\config\\paper_aligned_hasani2025_b16_qos_repaired.json",
+    "sha256": "57E579E702DFCDAB0D0DF78CB20C0944212B7D34D6D32667DF352E3CBE88F964",
+    "payload": {
+      "schema_version": 1,
+      "profile_id": "hasani2025_ge2021_terrestrial_solar_b16_qos_repaired_v2",
+      "status": "exploratory_paper_aligned_development",
+      "purpose": "Fresh post-repair HTA-MAC development branch with cohort-consistent target backlog service accounting",
+      "track_role": "secondary_literature_alignment_side_study",
+      "primary_track_replaced": false,
+      "primary_track": "registered_idle_on_hybrid_solar_thermal_frozen_heart_ch",
+      "primary_contributions_evaluated_by_this_profile": false,
+      "disabled_primary_contributions": [
+        "idle_listening_energy_accounting_C3",
+        "hybrid_solar_thermal_harvesting_C1"
+      ],
+      "architecture_decision": "config/paper_aligned_hasani2025_architecture_decision_repaired.json",
+      "closest_sources": [
+        "https://doi.org/10.1038/s41598-025-14111-y",
+        "https://doi.org/10.1177/15501477211007411"
+      ],
+      "claim_boundary": "paper_aligned_not_a_third_party_reproduction",
+      "learned_intervention": "hta_mac_only",
+      "cluster_schedule": "exogenous_balanced_leach_rotation",
+      "mobility": "disabled_static_positions",
+      "idle_listening": "disabled_to_match_published_omission",
+      "network": {
+        "num_nodes": 100,
+        "field_size_m": 100.0,
+        "bs_position_m": [
+          50.0,
+          50.0
+        ],
+        "initial_energy_j": 0.5,
+        "ch_ratio": 0.2,
+        "packet_bits": 4000,
+        "control_packet_bits": 500
+      },
+      "harvesting": {
+        "solar": "trained_stage1_hmm",
+        "solar_rectification_scale": 0.01,
+        "thermal": "disabled_zero_energy"
+      },
+      "mac": {
+        "frame_slot_budget": 16,
+        "n_max": 3,
+        "queue_max_packets": 5,
+        "packet_ttl_rounds": 3,
+        "idle_slot_bit_times": 4000
+      },
+      "development_seeds": [
+        2400,
+        2401,
+        2402,
+        2403,
+        2404
+      ],
+      "optimizer_seeds": [
+        5399,
+        6399,
+        7399
+      ],
+      "reserved_confirmation_seeds": [
+        3400,
+        3401,
+        3402,
+        3403,
+        3404
+      ],
+      "prohibited_registered_held_out_seeds": [
+        3100,
+        3101,
+        3102,
+        3103,
+        3104
+      ],
+      "held_out_seeds_used": false
+    }
+  },
+  "environment_profile_sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964",
+  "run_phase3_pilot_sha256": "75ac52a4fcfca6f4bc48c6adc72cc6e4d3ecfd9005ada2f04efa02679a74617e",
+  "seeds": [
+    2400,
+    2401,
+    2402,
+    2403,
+    2404
+  ],
+  "policies": [
+    "hta_mac",
+    "energy_proportional"
+  ],
+  "horizon": 3000,
+  "held_out_or_confirmation_seeds_used": false,
+  "merged_from": [
+    "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\fnd_identity_seed2400.json",
+    "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\fnd_identity_seed2401.json",
+    "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\fnd_identity_seed2402.json",
+    "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\fnd_identity_seed2403.json",
+    "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\fnd_identity_seed2404.json"
+  ],
+  "archived_fnd_replay_checks": [
+    {
+      "seed": 2400,
+      "policy": "hta_mac",
+      "archived_fnd_round": 1039,
+      "replayed_fnd_round": 1039,
+      "match": true
+    },
+    {
+      "seed": 2400,
+      "policy": "energy_proportional",
+      "archived_fnd_round": 1078,
+      "replayed_fnd_round": 1078,
+      "match": true
+    },
+    {
+      "seed": 2401,
+      "policy": "hta_mac",
+      "archived_fnd_round": 1027,
+      "replayed_fnd_round": 1027,
+      "match": true
+    },
+    {
+      "seed": 2401,
+      "policy": "energy_proportional",
+      "archived_fnd_round": 1075,
+      "replayed_fnd_round": 1075,
+      "match": true
+    },
+    {
+      "seed": 2402,
+      "policy": "hta_mac",
+      "archived_fnd_round": 1080,
+      "replayed_fnd_round": 1080,
+      "match": true
+    },
+    {
+      "seed": 2402,
+      "policy": "energy_proportional",
+      "archived_fnd_round": 1090,
+      "replayed_fnd_round": 1090,
+      "match": true
+    },
+    {
+      "seed": 2403,
+      "policy": "hta_mac",
+      "archived_fnd_round": 1108,
+      "replayed_fnd_round": 1108,
+      "match": true
+    },
+    {
+      "seed": 2403,
+      "policy": "energy_proportional",
+      "archived_fnd_round": 1132,
+      "replayed_fnd_round": 1132,
+      "match": true
+    },
+    {
+      "seed": 2404,
+      "policy": "hta_mac",
+      "archived_fnd_round": 1081,
+      "replayed_fnd_round": 1081,
+      "match": true
+    },
+    {
+      "seed": 2404,
+      "policy": "energy_proportional",
+      "archived_fnd_round": 1127,
+      "replayed_fnd_round": 1127,
+      "match": true
+    }
+  ],
+  "all_archived_fnd_rounds_reproduced": true,
+  "summary": {
+    "by_policy": {
+      "hta_mac": {
+        "trials": 5,
+        "unique_fnd_node_ids": [
+          42,
+          48,
+          49,
+          60,
+          68
+        ],
+        "fnd_node_frequency": {
+          "42": 1,
+          "48": 1,
+          "49": 1,
+          "60": 1,
+          "68": 1
+        },
+        "maximum_single_node_frequency": 1
+      },
+      "energy_proportional": {
+        "trials": 5,
+        "unique_fnd_node_ids": [
+          46,
+          48,
+          49,
+          60,
+          68
+        ],
+        "fnd_node_frequency": {
+          "46": 1,
+          "48": 1,
+          "49": 1,
+          "60": 1,
+          "68": 1
+        },
+        "maximum_single_node_frequency": 1
+      }
+    },
+    "paired_seed_comparison": [
+      {
+        "seed": 2400,
+        "left_policy": "hta_mac",
+        "left_nodes": [
+          48
+        ],
+        "right_policy": "energy_proportional",
+        "right_nodes": [
+          48
+        ],
+        "same_fnd_node_set": true,
+        "any_fnd_node_overlap": true
+      },
+      {
+        "seed": 2401,
+        "left_policy": "hta_mac",
+        "left_nodes": [
+          60
+        ],
+        "right_policy": "energy_proportional",
+        "right_nodes": [
+          60
+        ],
+        "same_fnd_node_set": true,
+        "any_fnd_node_overlap": true
+      },
+      {
+        "seed": 2402,
+        "left_policy": "hta_mac",
+        "left_nodes": [
+          49
+        ],
+        "right_policy": "energy_proportional",
+        "right_nodes": [
+          49
+        ],
+        "same_fnd_node_set": true,
+        "any_fnd_node_overlap": true
+      },
+      {
+        "seed": 2403,
+        "left_policy": "hta_mac",
+        "left_nodes": [
+          68
+        ],
+        "right_policy": "energy_proportional",
+        "right_nodes": [
+          68
+        ],
+        "same_fnd_node_set": true,
+        "any_fnd_node_overlap": true
+      },
+      {
+        "seed": 2404,
+        "left_policy": "hta_mac",
+        "left_nodes": [
+          42
+        ],
+        "right_policy": "energy_proportional",
+        "right_nodes": [
+          46
+        ],
+        "same_fnd_node_set": false,
+        "any_fnd_node_overlap": false
+      }
+    ],
+    "paired_same_node_set_count": 4,
+    "paired_any_node_overlap_count": 4,
+    "paired_trial_count": 5,
+    "same_node_set_fraction": 0.8,
+    "any_node_overlap_fraction": 0.8
+  },
+  "records": [
+    {
+      "seed": 2400,
+      "policy": "energy_proportional",
+      "fnd_round": 1078,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 48,
+          "position_m": [
+            79.50117394666981,
+            64.16508792285008
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 12,
+          "scheduled_ch_on_fnd_round": 48,
+          "energy_before_j": 0.0009576572731131877,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0017828387592037495,
+          "harvested_on_fnd_round_j": 0.0004810598553131805,
+          "queue_before": 4,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 216,
+          "ch_assignment_fraction_through_fnd": 0.20037105751391465,
+          "cumulative_consumed_j": 0.6170451813667535,
+          "cumulative_harvested_j": 0.11694973019505642,
+          "cumulative_allocated_slots": 1358,
+          "cumulative_delivered_packets": 1003,
+          "distance_to_bs_m": 32.72566240878468
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2400,
+      "policy": "hta_mac",
+      "fnd_round": 1039,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 48,
+          "position_m": [
+            79.50117394666981,
+            64.16508792285008
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 7,
+          "scheduled_ch_on_fnd_round": 48,
+          "energy_before_j": 0.0004871090852845157,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0037628387592037495,
+          "harvested_on_fnd_round_j": 9.323790286255596e-05,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 208,
+          "ch_assignment_fraction_through_fnd": 0.20019249278152068,
+          "cumulative_consumed_j": 0.6178886975714886,
+          "cumulative_harvested_j": 0.11495487625951223,
+          "cumulative_allocated_slots": 1038,
+          "cumulative_delivered_packets": 1038,
+          "distance_to_bs_m": 32.72566240878468
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2401,
+      "policy": "energy_proportional",
+      "fnd_round": 1075,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 60,
+          "position_m": [
+            74.61690375828563,
+            58.97906689420126
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 17,
+          "scheduled_ch_on_fnd_round": 60,
+          "energy_before_j": 0.0010044692479150741,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0017674646237174094,
+          "harvested_on_fnd_round_j": 0.0,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 215,
+          "ch_assignment_fraction_through_fnd": 0.2,
+          "cumulative_consumed_j": 0.6163912072712817,
+          "cumulative_harvested_j": 0.11562821189547795,
+          "cumulative_allocated_slots": 1390,
+          "cumulative_delivered_packets": 1012,
+          "distance_to_bs_m": 26.20335079594284
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2401,
+      "policy": "hta_mac",
+      "fnd_round": 1027,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 60,
+          "position_m": [
+            74.61690375828563,
+            58.97906689420126
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 14,
+          "scheduled_ch_on_fnd_round": 60,
+          "energy_before_j": 0.002525415657713231,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0026474646237174093,
+          "harvested_on_fnd_round_j": 0.0,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 206,
+          "ch_assignment_fraction_through_fnd": 0.2005842259006816,
+          "cumulative_consumed_j": 0.6101771328069574,
+          "cumulative_harvested_j": 0.1100550838409549,
+          "cumulative_allocated_slots": 1026,
+          "cumulative_delivered_packets": 1026,
+          "distance_to_bs_m": 26.20335079594284
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2402,
+      "policy": "energy_proportional",
+      "fnd_round": 1090,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 49,
+          "position_m": [
+            30.81983977628334,
+            11.248276059807495
+          ],
+          "was_ch_on_fnd_round": false,
+          "cluster_on_fnd_round": 2,
+          "scheduled_ch_on_fnd_round": 6,
+          "energy_before_j": 4.8472721109011567e-05,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.00020059566151677904,
+          "harvested_on_fnd_round_j": 0.0,
+          "queue_before": 3,
+          "allocated_slots_on_fnd_round": 1,
+          "delivered_on_fnd_round": 1,
+          "ch_assignments_through_fnd": 218,
+          "ch_assignment_fraction_through_fnd": 0.2,
+          "cumulative_consumed_j": 0.6235277609000853,
+          "cumulative_harvested_j": 0.12351008046708489,
+          "cumulative_allocated_slots": 1482,
+          "cumulative_delivered_packets": 1040,
+          "distance_to_bs_m": 43.238578313172276
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2402,
+      "policy": "hta_mac",
+      "fnd_round": 1080,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 49,
+          "position_m": [
+            30.81983977628334,
+            11.248276059807495
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 10,
+          "scheduled_ch_on_fnd_round": 49,
+          "energy_before_j": 0.0016694934130037982,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0018147829861817732,
+          "harvested_on_fnd_round_j": 0.0,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 216,
+          "ch_assignment_fraction_through_fnd": 0.2,
+          "cumulative_consumed_j": 0.623000700285288,
+          "cumulative_harvested_j": 0.12298985321951743,
+          "cumulative_allocated_slots": 1079,
+          "cumulative_delivered_packets": 1079,
+          "distance_to_bs_m": 43.238578313172276
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2403,
+      "policy": "energy_proportional",
+      "fnd_round": 1132,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 68,
+          "position_m": [
+            42.56103384205431,
+            81.42937536567663
+          ],
+          "was_ch_on_fnd_round": false,
+          "cluster_on_fnd_round": 13,
+          "scheduled_ch_on_fnd_round": 71,
+          "energy_before_j": 0.000361106888698078,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0004026944569810536,
+          "harvested_on_fnd_round_j": 1.393752761239023e-05,
+          "queue_before": 2,
+          "allocated_slots_on_fnd_round": 3,
+          "delivered_on_fnd_round": 2,
+          "ch_assignments_through_fnd": 226,
+          "ch_assignment_fraction_through_fnd": 0.19964664310954064,
+          "cumulative_consumed_j": 0.6256159193566817,
+          "cumulative_harvested_j": 0.12558826931601133,
+          "cumulative_allocated_slots": 1771,
+          "cumulative_delivered_packets": 1101,
+          "distance_to_bs_m": 32.29773758912012
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2403,
+      "policy": "hta_mac",
+      "fnd_round": 1108,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 68,
+          "position_m": [
+            42.56103384205431,
+            81.42937536567663
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 13,
+          "scheduled_ch_on_fnd_round": 68,
+          "energy_before_j": 0.0006485770901672673,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.003101725754135026,
+          "harvested_on_fnd_round_j": 0.0,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 222,
+          "ch_assignment_fraction_through_fnd": 0.2003610108303249,
+          "cumulative_consumed_j": 0.6260513612753779,
+          "cumulative_harvested_j": 0.12359821261141087,
+          "cumulative_allocated_slots": 1107,
+          "cumulative_delivered_packets": 1107,
+          "distance_to_bs_m": 32.29773758912012
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2404,
+      "policy": "energy_proportional",
+      "fnd_round": 1127,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 46,
+          "position_m": [
+            26.686823174441678,
+            41.08656923038677
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 7,
+          "scheduled_ch_on_fnd_round": 46,
+          "energy_before_j": 0.0023907303999068856,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0028649181384713773,
+          "harvested_on_fnd_round_j": 0.00016623046005251923,
+          "queue_before": 2,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 226,
+          "ch_assignment_fraction_through_fnd": 0.2005323868677906,
+          "cumulative_consumed_j": 0.6289897076758588,
+          "cumulative_harvested_j": 0.12868175039735053,
+          "cumulative_allocated_slots": 1807,
+          "cumulative_delivered_packets": 1097,
+          "distance_to_bs_m": 24.959035674168934
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    },
+    {
+      "seed": 2404,
+      "policy": "hta_mac",
+      "fnd_round": 1081,
+      "newly_dead_count": 1,
+      "newly_dead_nodes": [
+        {
+          "node_id": 42,
+          "position_m": [
+            79.7758806375604,
+            71.74716314663958
+          ],
+          "was_ch_on_fnd_round": true,
+          "cluster_on_fnd_round": 8,
+          "scheduled_ch_on_fnd_round": 42,
+          "energy_before_j": 0.0003524607173053383,
+          "energy_after_j": 0.0,
+          "consumed_on_fnd_round_j": 0.0009143816869067521,
+          "harvested_on_fnd_round_j": 0.0004638162388419874,
+          "queue_before": 1,
+          "allocated_slots_on_fnd_round": 0,
+          "delivered_on_fnd_round": 0,
+          "ch_assignments_through_fnd": 217,
+          "ch_assignment_fraction_through_fnd": 0.20074005550416282,
+          "cumulative_consumed_j": 0.6108730391295814,
+          "cumulative_harvested_j": 0.1107749343988269,
+          "cumulative_allocated_slots": 1080,
+          "cumulative_delivered_packets": 1080,
+          "distance_to_bs_m": 36.8719700133964
+        }
+      ],
+      "schedule_stop_reason": "horizon_reached"
+    }
+  ]
+}

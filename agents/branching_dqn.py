@@ -9,7 +9,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .architectures import GlobalBranchingDuelingC51, IndependentDuelingC51
+from .architectures import (
+    EquivariantSetBranchingC51,
+    GlobalBranchingDuelingC51,
+    IndependentDuelingC51,
+)
 from .budget_projection import project_slot_budget
 from .prioritized_replay import PrioritizedReplay
 
@@ -78,6 +82,8 @@ class BranchingAgentConfig:
     atoms: int = 51
     max_branches: int = 100
     architecture: str = "shared_branching"
+    state_schema: str = "phase2c_v1"
+    embedding_start_dim: int = 18
     normalize_input_blocks: bool = False
     hybrid_harvest_max_j: float = 1.0
     trajectory_low_block: tuple[float, ...] = ()
@@ -85,6 +91,8 @@ class BranchingAgentConfig:
     trajectory_loss_weight: float = 0.0
     concavity_loss_weight: float = 0.0
     trajectory_margin_fraction: float = 0.05
+    demonstration_margin_loss_weight: float = 0.0
+    demonstration_margin: float = 0.8
     precision: str = "fp32"
     reward_scale: float = 1.0
 
@@ -109,6 +117,10 @@ class BranchingDQNAgent:
         elif config.architecture == "shared_branching":
             network_type = GlobalBranchingDuelingC51
             kwargs["max_branches"] = config.max_branches
+        elif config.architecture == "equivariant_set_branching":
+            network_type = EquivariantSetBranchingC51
+            kwargs["budget"] = config.budget
+            kwargs["max_branches"] = config.max_branches
         elif config.architecture == "independent_dqns":
             network_type = IndependentDuelingC51
             kwargs["max_branches"] = config.max_branches
@@ -132,6 +144,8 @@ class BranchingDQNAgent:
         if isinstance(network, GlobalBranchingDuelingC51):
             layers.append(network.value[-1])
             layers.extend(head[-1] for head in network.advantages)
+        elif isinstance(network, EquivariantSetBranchingC51):
+            layers.extend((network.value[-1], network.advantage[-1]))
         elif isinstance(network, IndependentDuelingC51):
             for local in network.networks:
                 layers.extend((local.value[-1], local.advantage[-1]))
@@ -181,9 +195,13 @@ class BranchingDQNAgent:
         harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
         transformed[..., 1] = transformed[..., 1] / harvest_scale
         transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
-        if transformed.shape[-1] > 18:
-            transformed[..., 18:] = F.layer_norm(
-                transformed[..., 18:], (transformed.shape[-1] - 18,)
+        embedding_start = int(self.cfg.embedding_start_dim)
+        if not 18 <= embedding_start <= transformed.shape[-1]:
+            raise ValueError("embedding start is incompatible with state schema")
+        if transformed.shape[-1] > embedding_start:
+            transformed[..., embedding_start:] = F.layer_norm(
+                transformed[..., embedding_start:],
+                (transformed.shape[-1] - embedding_start,),
             )
         return transformed
 
@@ -233,7 +251,14 @@ class BranchingDQNAgent:
         return F.relu(margin + low_marginal - high_marginal).mean()
 
     def _project(
-        self, q_values, mask, *, fill_budget=False, caps=None, budget=None
+        self,
+        q_values,
+        mask,
+        *,
+        fill_budget=False,
+        caps=None,
+        budget=None,
+        tie_break_priorities=None,
     ):
         q = np.asarray(q_values, dtype=np.float64).copy()
         mask = np.asarray(mask, dtype=bool)
@@ -250,12 +275,21 @@ class BranchingDQNAgent:
             q,
             self.cfg.budget if budget is None else int(budget),
             stop_at_nonpositive_gain=not fill_budget,
+            tie_break_priorities=tie_break_priorities,
         )
         allocation = np.minimum(allocation, caps)
         allocation[~mask] = 0
         return allocation
 
-    def act(self, state, mask, epsilon=0.0, caps=None, budget=None):
+    def act(
+        self,
+        state,
+        mask,
+        epsilon=0.0,
+        caps=None,
+        budget=None,
+        tie_break_priorities=None,
+    ):
         if epsilon > 0.0 and np.random.random() < epsilon:
             random_q = np.random.normal(
                 size=(len(state), self.cfg.actions)
@@ -263,7 +297,12 @@ class BranchingDQNAgent:
             random_q[:, 1:] += 0.5
             return (
                 self._project(
-                    random_q, mask, fill_budget=True, caps=caps, budget=budget
+                    random_q,
+                    mask,
+                    fill_budget=True,
+                    caps=caps,
+                    budget=budget,
+                    tie_break_priorities=tie_break_priorities,
                 ),
                 random_q,
             )
@@ -277,7 +316,13 @@ class BranchingDQNAgent:
             ).unsqueeze(0)
             q = self.q_values_tensor(tensor, mask_tensor)[0].cpu().numpy()
         self.online.train()
-        return self._project(q, mask, caps=caps, budget=budget), q
+        return (
+            self._project(
+                q, mask, caps=caps, budget=budget,
+                tie_break_priorities=tie_break_priorities,
+            ),
+            q,
+        )
 
     def store(
         self,
@@ -416,10 +461,36 @@ class BranchingDQNAgent:
         ).sum(dim=-1)
         concavity_loss = self._concavity_loss(current_all_q, masks_t)
         trajectory_loss = self._trajectory_order_loss(states, masks_t)
+        caps_t = torch.as_tensor(
+            np.stack(caps), dtype=torch.long, device=self.device
+        )
+        action_levels = torch.arange(
+            self.cfg.actions, device=self.device
+        ).view(1, 1, -1)
+        feasible_actions = action_levels <= caps_t.unsqueeze(-1)
+        chosen_q = current_all_q.gather(2, actions.unsqueeze(-1)).squeeze(-1)
+        supervised_margin = (
+            action_levels != actions.unsqueeze(-1)
+        ).to(current_all_q.dtype) * float(self.cfg.demonstration_margin)
+        margin_candidates = (current_all_q + supervised_margin).masked_fill(
+            ~feasible_actions, -torch.inf
+        )
+        branch_margin_loss = torch.relu(
+            margin_candidates.max(dim=-1).values - chosen_q
+        )
+        demonstration_per_sample = (
+            (branch_margin_loss * valid).sum(dim=1)
+            / valid.sum(dim=1).clamp_min(1.0)
+        )
+        demonstration_margin_loss = (
+            demonstration_per_sample * weights
+        ).mean()
         loss = (
             c51_loss
             + float(self.cfg.concavity_loss_weight) * concavity_loss
             + float(self.cfg.trajectory_loss_weight) * trajectory_loss
+            + float(self.cfg.demonstration_margin_loss_weight)
+            * demonstration_margin_loss
         )
         self.optimizer.zero_grad()
         loss.backward()
@@ -445,6 +516,7 @@ class BranchingDQNAgent:
             "c51": float(c51_loss.item()),
             "trajectory_order": float(trajectory_loss.item()),
             "concavity": float(concavity_loss.item()),
+            "demonstration_margin": float(demonstration_margin_loss.item()),
             "total": float(loss.item()),
         }
         return float(loss.item())

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "reporting_correction_raw_artifact_preserved",
+  "raw_report": "outputs/phase2/step3_dqfd_shield_distillation_seed5701_cpu18/shield_distillation_report.json",
+  "raw_report_sha256": "7f6917b518b54cfe38de02637524e0d41243ff118c0c34fb03d350b269580965",
+  "incorrect_field": "controller_on.micro_delivery_ratio",
+  "raw_value": 0.0,
+  "corrected_value": null,
+  "reason": "the compact controller-on evaluator populated per-pair delivery values but intentionally left aggregate packet counters at zero; therefore macro_mean_delivery_ratio=0.599151101921368 is measured, while micro delivery was not computed",
+  "affected_selection": false,
+  "selection_used_report": "outputs/audits/step3_qos_band_projection_refinement_v2/qos_band_refinement_report.json",
+  "claim_boundary": "correction removes an invalid zero; it does not add or infer a replacement measurement"
+}

@@ -106,23 +106,40 @@ def load_agent(path: Path) -> BranchingDQNAgent:
     return agent
 
 
-def inference(agent, state, mask, caps):
+def inference(
+    agent, state, mask, caps, tie_break_priorities=None
+):
     state_t = torch.as_tensor(state, dtype=torch.float32).unsqueeze(0)
     mask_t = torch.as_tensor(mask, dtype=torch.bool).unsqueeze(0)
     with torch.no_grad():
         q_values = agent.q_values_tensor(state_t, mask_t)[0].cpu().numpy()
-    action = agent._project(q_values, mask, caps=caps)
+    action = agent._project(
+        q_values,
+        mask,
+        caps=caps,
+        tie_break_priorities=tie_break_priorities,
+    )
     local = np.argmax(q_values, axis=1)
     return action, q_values, local
 
 
 def permuted_inference(agent, state, mask, caps, permutation):
     action_mask = action_mask_from_caps(mask, caps, agent.cfg.actions)
+    priorities = np.arange(len(state), dtype=np.int64)
     bundle = permute_complete_bundle(
-        state, mask, caps, action_mask, permutation
+        state,
+        mask,
+        caps,
+        action_mask,
+        permutation,
+        tie_break_priorities=priorities,
     )
     branch_action, branch_q, branch_local = inference(
-        agent, bundle["state"], bundle["mask"], bundle["caps"]
+        agent,
+        bundle["state"],
+        bundle["mask"],
+        bundle["caps"],
+        bundle["tie_break_priorities"],
     )
     return {
         "branch_action": branch_action,
@@ -430,7 +447,10 @@ def main():
         if observed_hash != expected_hash:
             raise RuntimeError(f"checkpoint hash mismatch for seed {optimizer_seed}")
         agent = load_agent(checkpoint)
-        environments, manifest, _ = build_curriculum(seeds, args.max_steps)
+        environments, manifest, _ = build_curriculum(
+            seeds, args.max_steps,
+            observation_schema=agent.cfg.state_schema,
+        )
         random_probes, targeted_probes, hybrid_probes = collect_probes(
             agent, environments, args, optimizer_seed
         )
@@ -450,8 +470,14 @@ def main():
         random_summary = summarize_records(random_records)
         targeted_summary = summarize_records(targeted_records)
         hybrid = hybrid_summary(agent, hybrid_probes)
-        canonical_envs, _, _ = build_curriculum(seeds, args.max_steps)
-        permuted_envs, _, _ = build_curriculum(seeds, args.max_steps)
+        canonical_envs, _, _ = build_curriculum(
+            seeds, args.max_steps,
+            observation_schema=agent.cfg.state_schema,
+        )
+        permuted_envs, _, _ = build_curriculum(
+            seeds, args.max_steps,
+            observation_schema=agent.cfg.state_schema,
+        )
         canonical = rollout_metrics(
             agent, canonical_envs, reward_model, False, args.audit_seed + optimizer_seed
         )

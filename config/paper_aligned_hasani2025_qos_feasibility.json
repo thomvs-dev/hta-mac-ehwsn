@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "transferred_exploratory_targets_not_prevalidated",
+  "environment_profile": "config/paper_aligned_hasani2025_b16.json",
+  "source": "HTA-MAC B16 development diagnostic on seeds 2300-2304",
+  "source_artifact": "outputs/phase3/phase2d_qos_trained_seed4299_budget16_dev_diag_20260806/summary.json",
+  "joint_qos_pass_schedules": 5,
+  "joint_qos_total_schedules": 5,
+  "warning": "The thresholds transfer from the registered simulator and are not guaranteed feasible in the paper-aligned profile. Failure must not be repaired by weakening them after training.",
+  "held_out_seeds_used": false
+}

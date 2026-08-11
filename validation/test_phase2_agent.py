@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 import torch
 
 from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent, BranchingDuelingC51
@@ -143,6 +144,42 @@ def test_prioritized_replay_update_produces_finite_loss():
     loss = agent.learn(beta=0.4)
     assert loss is not None
     assert np.isfinite(loss)
+    assert np.isfinite(agent.last_loss_terms["demonstration_margin"])
+
+
+def test_demonstration_margin_loss_is_wired_into_total_loss():
+    weight = 0.25
+    config = BranchingAgentConfig(
+        input_dim=50,
+        actions=4,
+        budget=6,
+        batch_size=2,
+        replay_capacity=8,
+        warmup=2,
+        demonstration_margin_loss_weight=weight,
+        demonstration_margin=0.8,
+    )
+    agent = BranchingDQNAgent(config)
+    rng = np.random.default_rng(91)
+    mask = np.ones(5, dtype=bool)
+    caps = np.full(5, 3, dtype=np.int64)
+    for index in range(2):
+        state = rng.normal(size=(5, 50)).astype(np.float32)
+        next_state = rng.normal(size=(5, 50)).astype(np.float32)
+        action = np.array([0, 1, 2, 3, 1], dtype=np.int64)
+        agent.store(
+            state, action, reward=1.0, next_state=next_state,
+            done=index == 1, mask=mask, next_mask=mask,
+            caps=caps, next_caps=caps,
+        )
+    loss = agent.learn(beta=0.4)
+    terms = agent.last_loss_terms
+    expected = (
+        terms["c51"]
+        + weight * terms["demonstration_margin"]
+    )
+    assert terms["demonstration_margin"] > 0.0
+    assert loss == pytest.approx(expected, abs=1e-5)
 
 def test_greedy_action_does_not_advance_numpy_rng():
     agent = BranchingDQNAgent(

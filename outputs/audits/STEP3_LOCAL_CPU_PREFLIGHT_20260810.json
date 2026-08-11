@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "step3_v3_pretraining_pass",
+  "overall_pass": true,
+  "device_scope": "local_cpu_exact_runtime",
+  "runtime_fingerprint_sha256": "15d399fce23a7aab1c9ca6d5ba5b88932596a5c2c8afe7f06be83a464cc0583b",
+  "ch_risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "qos_config_sha256": "31aaf56a3d7afa425c68cb51017d7df6c6dfff115d0ad796861c87bed6df305c",
+  "mechanism_report_sha256": "9cf1e40b9fe15c00f0c0a696386874b3ec0fea9c1bc6d26f7f69da4668a532aa",
+  "foundation_checkpoint_sha256": "16d071a6dfac17642c0df86d879b0a60cb6d93f8978e8afa26e34b371993ae43",
+  "cross_platform_tolerance_validated": false,
+  "gates": {
+    "mechanism_probe": true,
+    "schema_is_v3": true,
+    "input_dimension_is_65": true,
+    "embedding_start_is_33": true,
+    "ch_reserve_is_observable": true,
+    "schedule_schema_unchanged": true,
+    "same_platform_permutation_foundation": true
+  },
+  "foundation_stdout": "{\n  \"status\": \"gate_pass\",\n  \"random_log_probability_error_le_1e_6\": true,\n  \"random_q_error_le_1e_6\": true,\n  \"random_allocation_agreement_ge_0_95\": true,\n  \"targeted_allocation_agreement_ge_0_90\": true,\n  \"local_argmax_agreement_is_one\": true,\n  \"all_allocations_feasible\": true,\n  \"median_boundary_atom_mass_lt_0_10\": true,\n  \"q_near_boundary_fraction_le_0_05\": true\n}\nreport=F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\audits\\STEP3_LOCAL_CPU_PREFLIGHT_20260810.foundation.json\n",
+  "foundation_stderr": ""
+}

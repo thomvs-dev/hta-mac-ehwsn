@@ -1,0 +1,50 @@
+phase: 2D
+status: qos_objective_frozen_confirmation_training_authorized
+architecture: equivariant_set_branching
+observation_schema: phase2d_ttl_cap_v2
+state_input:
+  physical_features: 18
+  packet_age_features: 4
+  action_validity_features: 4
+  frozen_stgcn_embedding: 32
+  embedding_start: 26
+  total: 58
+  schedule_mode: shared_exogenous_frozen_replay
+set_context:
+  node_encoder: shared
+  aggregation: masked_mean_and_max
+  advantage_head: shared
+  raw_node_id_learned: false
+action_levels: 4
+n_max: 3
+frame_slot_budget: 12
+queue_ttl_rounds: 3
+queue_max_packets: 5
+distributional_head:
+  algorithm: C51
+  atoms: 51
+  v_min: -30.0
+  v_max: 30.0
+  reward_scale: 0.14436784678738615
+frozen_development_seeds: [2300, 2301, 2302, 2303, 2304]
+optimizer_lineages: [2299, 3299, 4299]
+correctness_gates:
+  deterministic_permutations: 20
+  maximum_logit_q_equivariance_error: 1.0e-6
+  budget_and_cap_feasibility: required
+  bundle_stable_tie_priority: required
+training_authorized: three_lineage_development_confirmation_500ep
+learning_smoke_artifact: outputs/phase2/phase2d_equivariant_learning_smoke_seed2299_50ep_20260804
+learning_smoke_checkpoint_sha256: DCBBE0F65253ADEBA0D520FD0F66548AC393669375286ABEEEE52DE218960AB3
+learning_smoke_foundation_audit: gate_pass
+full_curriculum_convergence_gate: not_assessed_by_50_episode_smoke
+qos_constraint_config: config/phase2d_qos_constraints.json
+qos_feasibility_evidence: config/phase2d_qos_feasibility.json
+qos_smoke_artifact: outputs/phase2/phase2d_qos_constrained_smoke_seed2299_50ep_20260804
+qos_smoke_checkpoint_sha256: 3820F394307B88BCE5F7DE7251A3AF84F3CC0729A789B19AB3ABC81BFA8F409B
+qos_smoke_foundation_audit: gate_pass
+qos_smoke_safety: finite_no_collapse_no_pathological_reward_domination
+confirmation_training_authorized: true
+confirmation_protocol: three_optimizer_lineages_500_episodes_development_only
+held_out_phase3_authorized: false
+validation_command: python -B -m pytest validation -q -p no:cacheprovider

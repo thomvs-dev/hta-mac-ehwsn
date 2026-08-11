@@ -6,15 +6,30 @@ import numpy as np
 
 from .fixed_cluster_training_env import FixedClusterTrainingEnv
 
+from .policy_observation import (
+    LEGACY_POLICY_SCHEMA,
+    build_policy_observation,
+    policy_feature_layout,
+)
+
 
 class DynamicClusterTrainingEnv:
     """Train one cluster rank while the frozen HEART-CH schedule evolves."""
 
-    def __init__(self, base_env, schedule_bundle: dict, *, seed: int, target_rank: int):
+    def __init__(
+        self,
+        base_env,
+        schedule_bundle: dict,
+        *,
+        seed: int,
+        target_rank: int,
+        observation_schema: str = LEGACY_POLICY_SCHEMA,
+    ):
         self.base = base_env
         self.bundle = schedule_bundle
         self.seed = int(seed)
         self.target_rank = int(target_rank)
+        self.observation_schema = str(observation_schema)
         self.target_cluster = None
         self.members = None
         self.ch = None
@@ -46,8 +61,16 @@ class DynamicClusterTrainingEnv:
         return int(len(self.members))
 
     def _observation(self, state):
-        embedding = np.asarray(self.base.embedding, dtype=np.float32)
-        return np.concatenate((state, embedding), axis=1).astype(np.float32)
+        return build_policy_observation(
+            self.base,
+            state,
+            self._mask(),
+            schema=self.observation_schema,
+        )
+
+    @property
+    def observation_layout(self):
+        return policy_feature_layout(self.base, self.observation_schema)
 
     def _mask(self):
         mask = np.zeros(self.base.n_nodes, dtype=bool)
@@ -95,6 +118,11 @@ class DynamicClusterTrainingEnv:
         combined[current_members] = target_action
         queue_before = self.base.queue[current_members].copy()
         delivered = np.minimum(queue_before, target_action)
+        expiring_before = np.asarray(
+            [sum(age >= self.base.cfg.packet_ttl_rounds for age in self.base.packet_ages[node])
+             for node in current_members],
+            dtype=np.int64,
+        )
         high, declining = self._trajectory_indicators(current_members)
         alive_count = max(1, int(alive_before.sum()))
         total_before = self.base.total_packets
@@ -128,12 +156,20 @@ class DynamicClusterTrainingEnv:
         }
         info["reward_raw_terms"] = raw_terms
         info["target_packets_delivered"] = int(delivered.sum())
+        # Same-step pre-service demand remains coherent as the target rotates.
+        info["target_packets_offered"] = int(queue_before[alive_before].sum())
+        info["target_packets_generated"] = int(alive_after.sum())
+        info["target_expiring_packets"] = int(expiring_before.sum())
+        info["target_stale_drops"] = int(
+            np.maximum(0, expiring_before[alive_after] - delivered[alive_after]).sum()
+        )
         info["global_packets_delta"] = int(
             self.base.total_packets - total_before
         )
         info["target_cluster"] = current_cluster
         info["target_ch"] = current_ch
         info["target_members"] = current_members.copy()
+        info["target_cluster_service_fairness"] = raw_terms["queue_fairness"]
 
         done = self._is_done(
             terminated,

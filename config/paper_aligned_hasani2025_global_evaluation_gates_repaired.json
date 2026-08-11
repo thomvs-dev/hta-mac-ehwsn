@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "predeclared_development_evaluation_gate",
+  "scope": "global_network_end_to_end",
+  "environment_profile": "config/paper_aligned_hasani2025_b16_qos_repaired.json",
+  "minimum_delivery_ratio": 0.95,
+  "maximum_stale_drop_ratio": 0.01,
+  "minimum_global_network_service_fairness": 0.95,
+  "short_horizon_rounds": 300,
+  "long_horizon_rounds": 3000,
+  "long_horizon_lifetime_rule": "report Kaplan-Meier and restricted mean event-free rounds; never replace censored FND or HND with the horizon",
+  "action_distinctness_rule": "report common-state agreement, normalized L1 distance, and active-set Jaccard; no post-hoc threshold",
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "reserved_confirmation_seeds": [3400, 3401, 3402, 3403, 3404],
+  "prohibited_registered_held_out_seeds": [3100, 3101, 3102, 3103, 3104],
+  "held_out_seeds_used": false
+}

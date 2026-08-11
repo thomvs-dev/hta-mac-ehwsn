@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "adaptive_candidate_pass_confirmation_required",
+  "overall_pass": true,
+  "gates": {
+    "selection_report_hash_matches": true,
+    "checkpoint_hash_matches": true,
+    "report_selected_same_candidate": true,
+    "joint_qos_pass": true,
+    "delivery_pass": true,
+    "fnd_gate_pass": true,
+    "two_sided_projection_active": true,
+    "risk_gate_active": true,
+    "confirmation_not_used": true,
+    "publication_not_claimed": true
+  },
+  "selected_metrics": {
+    "joint_qos_pass_count": 18,
+    "mean_delivery_ratio": 0.5555383249957419,
+    "mean_fairness": 0.8430342861501933,
+    "mean_fnd_free_steps": 1159.25,
+    "fnd_gate_margin_rounds": 0.5
+  },
+  "method_classification": "shielded_hybrid_rl_with_demonstration_distillation",
+  "confirmation_authorized": true,
+  "publication_claim_authorized": false,
+  "claim_boundary": "adaptive development candidate with only 0.5-round FND gate margin; independent confirmation required"
+}

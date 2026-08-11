@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "status": "pretraining_claim_preflight_fail",
+  "stop_training_if_fail": true,
+  "episodes_jsonl": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_PaperAligned_B16_QoSRepaired_Trained_Results_20260808\\phase2\\paper_aligned_b16_qos_repaired_500ep_seed7399\\episodes.jsonl",
+  "episodes_sha256": "3676a7629ebe91b0fa54b31be0335ff19c69e2d56e2b3353ececd3389098c7ad",
+  "checkpoint": "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_PaperAligned_B16_QoSRepaired_Trained_Results_20260808\\phase2\\paper_aligned_b16_qos_repaired_500ep_seed7399\\branching_c51.pt",
+  "checkpoint_sha256": "829a24ac9f43889b7ce0dae54364db8aaaeab2cfd89e4768cfc79785e6854f5c",
+  "environment_profile": "F:\\WSN\\matlab\\stage2\\hta-mac\\config\\paper_aligned_hasani2025_b16_qos_repaired.json",
+  "environment_profile_sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964",
+  "gates": {
+    "claim_reward_term_activated": {
+      "pass": false,
+      "term": "deaths",
+      "nonzero_records": 0,
+      "required_nonzero_records": 1,
+      "maximum_absolute_value": 0.0
+    },
+    "accounting_invariant_all_records": {
+      "pass": true,
+      "records": 500,
+      "records_with_accounting": 500,
+      "missing_accounting_records": 0,
+      "delivered_le_demand_records": 500,
+      "contract_match_records": 500
+    },
+    "headline_event_observed": {
+      "pass": false,
+      "field": "t_fnd",
+      "event_records": 0,
+      "required_event_records": 1
+    },
+    "training_horizon_covers_claim_event": {
+      "pass": false,
+      "observed_max_horizon": 300,
+      "required_minimum_horizon": 1080
+    },
+    "current_code_permutation_foundation": {
+      "pass": false,
+      "command": [
+        "C:\\Users\\ASUS\\scoop\\apps\\python313\\current\\python.exe",
+        "-B",
+        "F:\\WSN\\matlab\\stage2\\hta-mac\\experiments\\audit_phase2d_foundation.py",
+        "F:\\WSN\\matlab\\stage2\\hta-mac\\HTA_MAC_PaperAligned_B16_QoSRepaired_Trained_Results_20260808\\phase2\\paper_aligned_b16_qos_repaired_500ep_seed7399\\branching_c51.pt",
+        "--output",
+        "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\current_b16_lifetime_claim_preflight_20260808.foundation.json",
+        "--max-steps",
+        "5",
+        "--development-seeds",
+        "2400,2401,2402,2403,2404",
+        "--environment-profile",
+        "F:\\WSN\\matlab\\stage2\\hta-mac\\config\\paper_aligned_hasani2025_b16_qos_repaired.json",
+        "--audit-seed",
+        "7399"
+      ],
+      "returncode": 1,
+      "checkpoint_sha256": "829a24ac9f43889b7ce0dae54364db8aaaeab2cfd89e4768cfc79785e6854f5c",
+      "audit_checkpoint_sha256": "829A24AC9F43889B7CE0DAE54364DB8AAAEAB2CFD89E4768CFC79785E6854F5C",
+      "audit_status": "gate_fail",
+      "stdout": "{\n  \"status\": \"gate_fail\",\n  \"random_log_probability_error_le_1e_6\": true,\n  \"random_q_error_le_1e_6\": false,\n  \"random_allocation_agreement_ge_0_95\": true,\n  \"targeted_allocation_agreement_ge_0_90\": true,\n  \"local_argmax_agreement_is_one\": true,\n  \"all_allocations_feasible\": true,\n  \"median_boundary_atom_mass_lt_0_10\": true,\n  \"q_near_boundary_fraction_le_0_05\": true\n}\nreport=F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\diagnostics\\current_b16_lifetime_claim_preflight_20260808.foundation.json\n",
+      "stderr": ""
+    }
+  },
+  "overall_pass": false
+}

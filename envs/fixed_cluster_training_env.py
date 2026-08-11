@@ -4,6 +4,12 @@ from __future__ import annotations
 
 import numpy as np
 
+from .policy_observation import (
+    LEGACY_POLICY_SCHEMA,
+    build_policy_observation,
+    policy_feature_layout,
+)
+
 
 
 SOLAR_HIGH_HARVEST_STATES = (5, 7)  # HEART-CH S6 and S8
@@ -20,11 +26,13 @@ class FixedClusterTrainingEnv:
         *,
         seed: int = 3210,
         target_cluster: int | None = None,
+        observation_schema: str = LEGACY_POLICY_SCHEMA,
     ):
         self.base = base_env
         self.snapshot = frozen_snapshot
         self.seed = int(seed)
         self.requested_cluster = target_cluster
+        self.observation_schema = str(observation_schema)
         self.target_cluster = None
         self.members = None
         self.ch = None
@@ -60,10 +68,24 @@ class FixedClusterTrainingEnv:
         return int(len(self.members))
 
     def _observation(self, state):
-        embedding = np.asarray(self.base.embedding, dtype=np.float32)
-        return np.concatenate(
-            (state[self.members], embedding[self.members]), axis=1
-        ).astype(np.float32)
+        return build_policy_observation(
+            self.base,
+            state,
+            self._global_active_mask(),
+            schema=self.observation_schema,
+            node_indices=self.members,
+        )
+
+    def _global_active_mask(self):
+        mask = np.zeros(self.base.n_nodes, dtype=bool)
+        mask[self.members] = self.base.alive[self.members]
+        if not self.base.alive[self.ch]:
+            mask[:] = False
+        return mask
+
+    @property
+    def observation_layout(self):
+        return policy_feature_layout(self.base, self.observation_schema)
 
     def _mask(self):
         return self.base.alive[self.members].copy()
@@ -126,6 +148,11 @@ class FixedClusterTrainingEnv:
         combined[self.members] = member_action
         queue_before = self.base.queue[self.members].copy()
         delivered = np.minimum(queue_before, member_action)
+        expiring_before = np.asarray(
+            [sum(age >= self.base.cfg.packet_ttl_rounds for age in self.base.packet_ages[node])
+             for node in self.members],
+            dtype=np.int64,
+        )
         high, declining = self._trajectory_indicators()
         alive_count = max(1, int(alive_before.sum()))
         total_before = self.base.total_packets
@@ -156,11 +183,18 @@ class FixedClusterTrainingEnv:
         }
         info["reward_raw_terms"] = raw_terms
         info["target_packets_delivered"] = int(delivered.sum())
+        info["target_packets_offered"] = int(queue_before[alive_before].sum())
+        info["target_packets_generated"] = int(alive_after.sum())
+        info["target_expiring_packets"] = int(expiring_before.sum())
+        info["target_stale_drops"] = int(
+            np.maximum(0, expiring_before[alive_after] - delivered[alive_after]).sum()
+        )
         info["global_packets_delta"] = int(
             self.base.total_packets - total_before
         )
         info["target_cluster"] = self.target_cluster
         info["target_ch"] = self.ch
+        info["target_cluster_service_fairness"] = raw_terms["queue_fairness"]
         done = self._is_done(
             terminated,
             truncated,

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "status": "adaptive_development_distillation_complete",
+  "method": "dqfd_style_large_margin_distillation_from_shield_interventions",
+  "publication_evidence": false,
+  "confirmation_evidence": false,
+  "development_seed": 2400,
+  "optimizer_seed": 5701,
+  "source_checkpoint_sha256": "dee764c793aa768441046be1ce955c493d128d1559c00375a1b98be3913a2d24",
+  "output_checkpoint_sha256": "f955963f253e8fcc51f43daa3cf943224c2135d4bd61bd7f39dc87b633af239b",
+  "parameters": {
+    "epochs": 5,
+    "batch_size": 64,
+    "learning_rate": 3e-05,
+    "margin": 0.8,
+    "cpu_threads": 18
+  },
+  "collection": {
+    "steps": 23283,
+    "intervention_steps": 11276,
+    "added_slots": 19934,
+    "risk_blocked_slots": 1430
+  },
+  "demonstrations": 11276,
+  "baseline_demonstration_agreement": {
+    "exact_action_fraction": 0.004256828662646328,
+    "mean_branch_absolute_error": 0.01791858815182689,
+    "samples": 11276
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_margin_loss": 0.671905018547748,
+      "train": {
+        "exact_action_fraction": 0.4189578713968958,
+        "mean_branch_absolute_error": 0.019302660753880267,
+        "samples": 9020
+      },
+      "validation": {
+        "exact_action_fraction": 0.40381205673758863,
+        "mean_branch_absolute_error": 0.01995567375886525,
+        "samples": 2256
+      }
+    },
+    {
+      "epoch": 2,
+      "mean_margin_loss": 0.5729082896777079,
+      "train": {
+        "exact_action_fraction": 0.4240576496674058,
+        "mean_branch_absolute_error": 0.01601330376940133,
+        "samples": 9020
+      },
+      "validation": {
+        "exact_action_fraction": 0.40868794326241137,
+        "mean_branch_absolute_error": 0.016750886524822695,
+        "samples": 2256
+      }
+    },
+    {
+      "epoch": 3,
+      "mean_margin_loss": 0.5018039134377283,
+      "train": {
+        "exact_action_fraction": 0.4149667405764967,
+        "mean_branch_absolute_error": 0.009334811529933481,
+        "samples": 9020
+      },
+      "validation": {
+        "exact_action_fraction": 0.4020390070921986,
+        "mean_branch_absolute_error": 0.00978723404255319,
+        "samples": 2256
+      }
+    },
+    {
+      "epoch": 4,
+      "mean_margin_loss": 0.4248308700027195,
+      "train": {
+        "exact_action_fraction": 0.42305986696230596,
+        "mean_branch_absolute_error": 0.008916851441241685,
+        "samples": 9020
+      },
+      "validation": {
+        "exact_action_fraction": 0.41976950354609927,
+        "mean_branch_absolute_error": 0.00915336879432624,
+        "samples": 2256
+      }
+    },
+    {
+      "epoch": 5,
+      "mean_margin_loss": 0.4096061183628461,
+      "train": {
+        "exact_action_fraction": 0.42782705099778273,
+        "mean_branch_absolute_error": 0.008740576496674058,
+        "samples": 9020
+      },
+      "validation": {
+        "exact_action_fraction": 0.42774822695035464,
+        "mean_branch_absolute_error": 0.00900709219858156,
+        "samples": 2256
+      }
+    }
+  ],
+  "controller_off": {
+    "pairs": 20,
+    "joint_qos_pass_count": 17,
+    "delivery_pass_count": 20,
+    "stale_pass_count": 20,
+    "fairness_pass_count": 17,
+    "macro_mean_delivery_ratio": 0.5994259659059366,
+    "micro_delivery_ratio": 0.5983035336139058,
+    "mean_fnd_free_steps": 1147.05,
+    "mean_fairness": 0.816633263464368,
+    "totals": {
+      "offered_demand": 337643.0,
+      "feasible_backlog": 266555.0,
+      "budget_feasible_delivery": 220134.0,
+      "requested_slots": 217942.0,
+      "requested_service": 217942.0,
+      "projected_slots": 202013.0,
+      "executed_delivery": 202013.0,
+      "unused_budget": 166739.0,
+      "service_gap_to_budget_oracle": 18121.0,
+      "stale_drops": 4772.0,
+      "empty_target_steps": 1840.0,
+      "dead_ch_before_steps": 4.0,
+      "ch_death_terminations": 4.0,
+      "membership_transitions": 22880.0,
+      "ch_transitions": 22859.0,
+      "post_transition_service_gap": 18119.0,
+      "member_tx_energy_j": 41.7131503202184,
+      "ch_forwarding_energy_j": 49.990651273617395
+    }
+  },
+  "controller_on": {
+    "pairs": 20,
+    "joint_qos_pass_count": 17,
+    "delivery_pass_count": 20,
+    "stale_pass_count": 20,
+    "fairness_pass_count": 17,
+    "macro_mean_delivery_ratio": 0.599151101921368,
+    "micro_delivery_ratio": 0.0,
+    "mean_fnd_free_steps": 1147.05,
+    "mean_fairness": 0.816633263464368,
+    "totals": {
+      "offered_demand": 0.0,
+      "feasible_backlog": 0.0,
+      "budget_feasible_delivery": 0.0,
+      "requested_slots": 0.0,
+      "requested_service": 0.0,
+      "projected_slots": 0.0,
+      "executed_delivery": 0.0,
+      "unused_budget": 0.0,
+      "service_gap_to_budget_oracle": 0.0,
+      "stale_drops": 0.0,
+      "empty_target_steps": 0.0,
+      "dead_ch_before_steps": 0.0,
+      "ch_death_terminations": 0.0,
+      "membership_transitions": 0.0,
+      "ch_transitions": 0.0,
+      "post_transition_service_gap": 0.0,
+      "member_tx_energy_j": 0.0,
+      "ch_forwarding_energy_j": 0.0
+    }
+  },
+  "elapsed_seconds": 625.3515890999697,
+  "claim_boundary": "single adaptive development seed; requires independent frozen confirmation"
+}

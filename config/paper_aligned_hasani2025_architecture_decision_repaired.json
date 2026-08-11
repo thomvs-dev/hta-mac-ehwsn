@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "status": "frozen_preflight_architecture_decision",
+  "decision": "use_equivariant_set_branching_and_keep_global_flattened_architecture_retired",
+  "selected_architecture_key": "equivariant_set_branching",
+  "selected_python_class": "agents.architectures.EquivariantSetBranchingC51",
+  "rejected_architecture_key": "shared_branching",
+  "rejected_python_class": "agents.architectures.GlobalBranchingDuelingC51",
+  "rejected_reason": "flattened node-order input and node-specific heads failed the mandatory physical-identity permutation property",
+  "network_contract": {
+    "shared_node_encoder": true,
+    "masked_mean_pooling": true,
+    "masked_max_pooling": true,
+    "shared_advantage_head": true,
+    "raw_learned_node_id": false,
+    "parameter_count_independent_of_branch_capacity": true
+  },
+  "observation_contract": {
+    "schema": "phase2d_ttl_cap_v2",
+    "total_features": 58,
+    "physical_features": 18,
+    "packet_age_histogram_features": 4,
+    "action_validity_features": 4,
+    "frozen_spatial_embedding_features": 32,
+    "rank_or_percentile_features_present": false,
+    "rank_or_percentile_decision": "explicitly_deferred_to_a_separate_versioned_ablation_after_the_qos_repair_run"
+  },
+  "mechanism_losses": {
+    "trajectory_order_loss_present": true,
+    "trajectory_loss_weight": 1.0,
+    "concavity_loss_present": true,
+    "concavity_loss_weight": 0.1,
+    "prior_79_63_percent_ordering_result_transferred_as_current_evidence": false,
+    "reason": "the losses are carried into the architecture, but the old mechanism percentage must be remeasured on each fresh checkpoint"
+  },
+  "current_code_preflight": {
+    "checkpoint": "HTA_MAC_PaperAligned_B16_Trained_Results_20260806/phase2/paper_aligned_b16_equivariant_500ep_seed5299/branching_c51.pt",
+    "audit": "outputs/audits/paper_aligned_b16_current_code_preflight_foundation_seed5299_20260808.json",
+    "status": "gate_pass",
+    "random_permutations": 20,
+    "targeted_swaps": 10,
+    "maximum_random_log_probability_error": 4.76837158203125e-07,
+    "maximum_random_q_error": 8.940696716308594e-07,
+    "mean_random_projected_allocation_agreement": 1.0,
+    "maximum_projected_allocation_l1": 0,
+    "all_allocations_feasible": true
+  },
+  "paper_aligned_b16_role": "secondary_literature_alignment_side_study",
+  "primary_track_replaced": false,
+  "fresh_optimizer_seeds": [5399, 6399, 7399],
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "reserved_confirmation_seeds": [3400, 3401, 3402, 3403, 3404],
+  "prohibited_registered_held_out_seeds": [3100, 3101, 3102, 3103, 3104],
+  "held_out_seeds_used": false
+}

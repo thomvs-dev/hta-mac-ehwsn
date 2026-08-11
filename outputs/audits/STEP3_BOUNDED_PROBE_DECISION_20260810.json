@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "status": "one_bounded_100_episode_probe_justified",
+  "overall_pass": true,
+  "selected_diagnostic_policy": "ch_energy_rank_r0.40_b0.55",
+  "development_informed_gate": true,
+  "confirmation_evidence": false,
+  "full_training_authorized": false,
+  "energy_ranked_evidence_sha256": "1ff9ee78bd47c185d9458e142a64d82af6bdbbfbfe11ef1cf23dfedeb0b4f865",
+  "candidates": [
+    {
+      "policy": "ch_energy_rank_r0.20_b0.55",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        -17.0,
+        -16.0,
+        10.0,
+        -24.0,
+        -24.0
+      ],
+      "median_fnd_or_censor_delta_rounds": -17.0,
+      "paired_packets_per_joule_relative_delta": [
+        3.4517952197221646e-05,
+        -8.370575125971058e-05,
+        -8.360849617683463e-05,
+        -0.00011291408760816246,
+        -7.863612697778244e-06
+      ],
+      "median_packets_per_joule_relative_delta": -8.360849617683463e-05,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": false,
+        "at_least_two_seeds_gain_two_percent": false,
+        "no_seed_loses_more_than_one_percent": false
+      },
+      "bounded_probe_justified": false
+    },
+    {
+      "policy": "ch_energy_rank_r0.20_b0.70",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        -37.0,
+        -47.0,
+        -10.0,
+        -24.0,
+        -40.0
+      ],
+      "median_fnd_or_censor_delta_rounds": -37.0,
+      "paired_packets_per_joule_relative_delta": [
+        0.00018925523903945418,
+        6.781136346201144e-05,
+        2.9798963439020554e-05,
+        -5.9218075227240874e-05,
+        8.066193006794897e-05
+      ],
+      "median_packets_per_joule_relative_delta": 6.781136346201144e-05,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": false,
+        "at_least_two_seeds_gain_two_percent": false,
+        "no_seed_loses_more_than_one_percent": false
+      },
+      "bounded_probe_justified": false
+    },
+    {
+      "policy": "ch_energy_rank_r0.30_b0.55",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        -7.0,
+        1.0,
+        17.0,
+        -14.0,
+        -12.0
+      ],
+      "median_fnd_or_censor_delta_rounds": -7.0,
+      "paired_packets_per_joule_relative_delta": [
+        -5.977024336945025e-05,
+        -6.880823180388518e-05,
+        -9.912971836167905e-05,
+        -9.263880887455667e-05,
+        -2.7634896999195746e-05
+      ],
+      "median_packets_per_joule_relative_delta": -6.880823180388518e-05,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": true,
+        "at_least_two_seeds_gain_two_percent": false,
+        "no_seed_loses_more_than_one_percent": false
+      },
+      "bounded_probe_justified": false
+    },
+    {
+      "policy": "ch_energy_rank_r0.30_b0.70",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        -37.0,
+        -42.0,
+        -10.0,
+        -24.0,
+        -40.0
+      ],
+      "median_fnd_or_censor_delta_rounds": -37.0,
+      "paired_packets_per_joule_relative_delta": [
+        0.00021257380656436453,
+        8.76182705109585e-05,
+        4.082353927592486e-05,
+        -4.887628683580836e-05,
+        9.040621240519187e-05
+      ],
+      "median_packets_per_joule_relative_delta": 8.76182705109585e-05,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": false,
+        "at_least_two_seeds_gain_two_percent": false,
+        "no_seed_loses_more_than_one_percent": false
+      },
+      "bounded_probe_justified": false
+    },
+    {
+      "policy": "ch_energy_rank_r0.40_b0.55",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        0.0,
+        26.0,
+        29.0,
+        -4.0,
+        0.0
+      ],
+      "median_fnd_or_censor_delta_rounds": 0.0,
+      "paired_packets_per_joule_relative_delta": [
+        -8.464874915170562e-05,
+        -8.741259221378694e-05,
+        -0.00010965202284596298,
+        -7.582918676096728e-05,
+        -7.201576844084734e-06
+      ],
+      "median_packets_per_joule_relative_delta": -8.464874915170562e-05,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": true,
+        "at_least_two_seeds_gain_two_percent": true,
+        "no_seed_loses_more_than_one_percent": true
+      },
+      "bounded_probe_justified": true
+    },
+    {
+      "policy": "ch_energy_rank_r0.40_b0.70",
+      "all_five_qos_pass": true,
+      "paired_fnd_or_censor_delta_rounds": [
+        -39.0,
+        -32.0,
+        -17.0,
+        -24.0,
+        -31.0
+      ],
+      "median_fnd_or_censor_delta_rounds": -31.0,
+      "paired_packets_per_joule_relative_delta": [
+        0.0001982179114758953,
+        0.00010807563136672194,
+        5.707371888208357e-05,
+        -1.2465689313012618e-05,
+        0.0001133740914278647
+      ],
+      "median_packets_per_joule_relative_delta": 0.00010807563136672194,
+      "headroom_pass": false,
+      "bounded_probe_criteria": {
+        "all_five_qos_pass": true,
+        "median_lifetime_noninferior_within_one_percent": false,
+        "at_least_two_seeds_gain_two_percent": false,
+        "no_seed_loses_more_than_one_percent": false
+      },
+      "bounded_probe_justified": false
+    }
+  ],
+  "claim_boundary": "authorizes_one_optimizer_seed_for_100_episodes_only"
+}

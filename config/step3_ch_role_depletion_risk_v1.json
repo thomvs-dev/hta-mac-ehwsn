@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "frozen_step3_development_risk",
+  "purpose": "Penalize service into a depleted currently scheduled CH without modifying CH selection",
+  "learned_intervention": "mac_allocation_only",
+  "ch_schedule_modified": false,
+  "uses_realized_future_harvest": false,
+  "reserve_threshold_fraction": 0.3,
+  "forecast_reference_j": 0.0002635465991289487,
+  "distance_reference_m": 70.71067811865476,
+  "forecast_relief_weight": 0.5,
+  "distance_exposure_weight": 0.5,
+  "scale": 1.0,
+  "weight": 1.0,
+  "apply_to": "raw_learning_reward_before_frozen_c51_scale",
+  "max_allowed_absolute_reward_fraction": 0.2,
+  "selection_rule": "stop_if_probe_inactive_or_reward_fraction_exceeds_cap",
+  "claim_boundary": "development_mechanism_candidate_not_lifetime_superiority"
+}

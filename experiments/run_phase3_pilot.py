@@ -32,6 +32,12 @@ from core.hmm import load_solar_hmm, load_thermal_auxiliary
 from core.paired_statistics import paired_wilcoxon_effect
 from envs import MACEnvironmentConfig
 from envs.scheduled_mac_env import ScheduledIntraClusterMACEnv
+from experiments.paper_aligned_environment import (
+    configure_mac as configure_paper_aligned_mac,
+    disabled_thermal_hmm,
+    load_profile as load_environment_profile,
+    schedule_bundle as paper_aligned_schedule_bundle,
+)
 
 
 METRIC_DIRECTION = {
@@ -50,6 +56,11 @@ METRIC_DIRECTION = {
     "dropped_stale_packets": "lower_is_better",
     "dropped_death_packets": "lower_is_better",
     "dropped_overflow_packets": "lower_is_better",
+    "mean_allocated_slots_per_active_cluster_round": "descriptive_only",
+    "mean_feasible_demand_slots_per_active_cluster_round": "descriptive_only",
+    "budget_utilization_fraction": "descriptive_only",
+    "budget_binding_cluster_round_fraction": "descriptive_only",
+    "contention_cluster_round_fraction": "descriptive_only",
 }
 
 METRICS = (
@@ -71,6 +82,11 @@ METRICS = (
     "dropped_stale_packets",
     "dropped_death_packets",
     "dropped_overflow_packets",
+    "mean_allocated_slots_per_active_cluster_round",
+    "mean_feasible_demand_slots_per_active_cluster_round",
+    "budget_utilization_fraction",
+    "budget_binding_cluster_round_fraction",
+    "contention_cluster_round_fraction",
 )
 
 
@@ -79,6 +95,7 @@ def parse_args():
     parser.add_argument("--seeds", default="3100,3101,3102,3103,3104")
     parser.add_argument("--horizon", type=int, default=3000)
     parser.add_argument("--run-name", default="paired_pilot_5seed")
+    parser.add_argument("--environment-profile")
     parser.add_argument("--skip-compatibility", action="store_true")
     parser.add_argument("--hta-checkpoint")
     parser.add_argument("--hta-budget", type=int, default=8)
@@ -188,6 +205,41 @@ def coefficient_of_variation(values):
     return float(values.std(ddof=0) / mean) if mean > 0.0 else 0.0
 
 
+def allocation_pressure(env, action):
+    """Measure actual allocation and feasible queue demand against B per cluster."""
+    action = np.asarray(action, dtype=np.int64)
+    allocated = 0
+    feasible_demand = 0
+    active_clusters = 0
+    binding_clusters = 0
+    contended_clusters = 0
+    node_ids = np.arange(env.n_nodes)
+    for cluster, ch in enumerate(env.cluster_heads):
+        ch = int(ch)
+        if not env.alive[ch]:
+            continue
+        members = np.flatnonzero(
+            (env.cluster_of == cluster) & env.alive & (node_ids != ch)
+        )
+        active_clusters += 1
+        cluster_allocated = int(action[members].sum())
+        cluster_demand = int(
+            np.minimum(env.queue[members], env.cfg.n_max).sum()
+        )
+        allocated += cluster_allocated
+        feasible_demand += cluster_demand
+        binding_clusters += int(cluster_allocated >= env.cfg.frame_slot_budget)
+        contended_clusters += int(cluster_demand > env.cfg.frame_slot_budget)
+    return {
+        "allocated_slots": allocated,
+        "feasible_demand_slots": feasible_demand,
+        "active_clusters": active_clusters,
+        "binding_clusters": binding_clusters,
+        "contended_clusters": contended_clusters,
+        "available_budget_slots": active_clusters * env.cfg.frame_slot_budget,
+    }
+
+
 def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
     env = ScheduledIntraClusterMACEnv(
         config, radio, solar, thermal, idle_energy_enabled=idle_enabled
@@ -197,11 +249,24 @@ def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
     cumulative_service = np.zeros(env.n_nodes, dtype=np.float64)
     total_consumed = 0.0
     hnd = None
+    total_allocated_slots = 0
+    total_feasible_demand_slots = 0
+    total_active_cluster_rounds = 0
+    total_binding_cluster_rounds = 0
+    total_contended_cluster_rounds = 0
+    total_available_budget_slots = 0
     terminated = False
     truncated = False
     info = env._info()
     while not terminated and not truncated:
         action = policy.select_action(state, env)
+        pressure = allocation_pressure(env, action)
+        total_allocated_slots += pressure["allocated_slots"]
+        total_feasible_demand_slots += pressure["feasible_demand_slots"]
+        total_active_cluster_rounds += pressure["active_clusters"]
+        total_binding_cluster_rounds += pressure["binding_clusters"]
+        total_contended_cluster_rounds += pressure["contended_clusters"]
+        total_available_budget_slots += pressure["available_budget_slots"]
         state, _, terminated, truncated, info = env.step(action)
         delivered = np.asarray(
             info["delivered_packets_per_node"], dtype=np.float64
@@ -250,6 +315,29 @@ def run_one(policy, seed, bundle, solar, thermal, radio, config, idle_enabled):
         "alive_at_end": int(env.alive.sum()),
         "right_censored": right_censored,
         "schedule_exhausted": bool(info.get("schedule_exhausted", False)),
+        "allocated_slots_total": total_allocated_slots,
+        "feasible_demand_slots_total": total_feasible_demand_slots,
+        "active_cluster_rounds": total_active_cluster_rounds,
+        "mean_allocated_slots_per_active_cluster_round": (
+            total_allocated_slots / total_active_cluster_rounds
+            if total_active_cluster_rounds else 0.0
+        ),
+        "mean_feasible_demand_slots_per_active_cluster_round": (
+            total_feasible_demand_slots / total_active_cluster_rounds
+            if total_active_cluster_rounds else 0.0
+        ),
+        "budget_utilization_fraction": (
+            total_allocated_slots / total_available_budget_slots
+            if total_available_budget_slots else 0.0
+        ),
+        "budget_binding_cluster_round_fraction": (
+            total_binding_cluster_rounds / total_active_cluster_rounds
+            if total_active_cluster_rounds else 0.0
+        ),
+        "contention_cluster_round_fraction": (
+            total_contended_cluster_rounds / total_active_cluster_rounds
+            if total_active_cluster_rounds else 0.0
+        ),
     }
 
 
@@ -446,6 +534,24 @@ def main():
     run_dir.mkdir(parents=True, exist_ok=True)
     policy, solar, thermal, radio, config, manifest = build_assets(args.horizon)
     checkpoint_sha = manifest["checkpoint"]["sha256"]
+    environment_profile = None
+    environment_profile_evidence = None
+    idle_energy_enabled = True
+    if args.environment_profile is not None:
+        profile_path = Path(args.environment_profile)
+        if not profile_path.is_absolute():
+            profile_path = ROOT / profile_path
+        environment_profile, environment_profile_evidence = load_environment_profile(
+            profile_path
+        )
+        forbidden = set(
+            environment_profile["prohibited_registered_held_out_seeds"]
+        ).intersection(seeds)
+        if forbidden:
+            raise ValueError(f"registered held-out seeds are forbidden: {sorted(forbidden)}")
+        thermal = disabled_thermal_hmm(thermal)
+        config = configure_paper_aligned_mac(environment_profile, config)
+        idle_energy_enabled = False
     hta_checkpoint = (
         ROOT
         / "outputs"
@@ -468,14 +574,19 @@ def main():
     failures = []
 
     for seed in seeds:
-        bundle, metadata = schedule_bundle(
-            policy, seed, args.horizon, checkpoint_sha
-        )
+        if environment_profile is None:
+            bundle, metadata = schedule_bundle(
+                policy, seed, args.horizon, checkpoint_sha
+            )
+        else:
+            bundle, metadata = paper_aligned_schedule_bundle(
+                environment_profile, solar, seed, args.horizon
+            )
         schedule_metadata[str(seed)] = metadata
         for name, factory in factories:
             try:
                 row = run_one(
-                    factory(), seed, bundle, solar, thermal, radio, config, True
+                    factory(), seed, bundle, solar, thermal, radio, config, idle_energy_enabled
                 )
                 rows.append(row)
                 print(
@@ -565,6 +676,7 @@ def main():
         "all_metrics_finite": all_finite,
         "git_hash": git_hash(),
         "frozen_checkpoint_sha256": checkpoint_sha,
+        "environment_profile": environment_profile_evidence,
         "hta_checkpoint": str(hta_checkpoint),
         "hta_budget": int(args.hta_budget),
         "trained_checkpoint_sha256": file_sha256(hta_checkpoint),

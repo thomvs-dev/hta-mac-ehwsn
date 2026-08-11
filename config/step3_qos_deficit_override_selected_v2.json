@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "frozen_selected_qos_deficit_candidate",
+  "candidate_id": "target0.557_floor0.20_fill0.50",
+  "delivery_trajectory_target": 0.5575,
+  "ch_post_forwarding_reserve_floor": 0.2,
+  "deficit_completion_fraction": 0.5,
+  "budget": 16,
+  "horizon": 1200,
+  "optimizer_seed": 5599,
+  "bounded_episodes": 100,
+  "parent_sweep": "outputs/audits/STEP3_QOS_DEFICIT_OVERRIDE_REFINEMENT_V2_20260811.json",
+  "parent_sweep_sha256": "ed543e57311497f9c9792349c9deb0ce8c612c19c3c66c02e46df550eb47ccb6",
+  "selection_evidence": {
+    "joint_qos_passes": 18,
+    "delivery_passes": 20,
+    "mean_delivery_ratio": 0.5565990588530362,
+    "mean_fnd_free_steps": 1161.05,
+    "minimum_allowed_mean_fnd_free_steps": 1158.75,
+    "added_slots": 20335,
+    "risk_blocked_slots": 1453
+  },
+  "learned_intervention": "mac_allocation_only",
+  "ch_schedule_modified": false,
+  "uses_realized_future_harvest": false,
+  "full_training_authorized": false,
+  "claim_boundary": "adaptive_development_candidate_one_bounded_probe_only"
+}

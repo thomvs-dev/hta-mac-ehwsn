@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "status": "frozen_external_transfer_integrity_anchor",
+  "created_utc": "2026-08-07T22:24:14.266877+00:00",
+  "handoff_mechanism": "transfer_manifest_plus_report_plus_preflight_addendum_plus_bundle_plus_sidecar_plus_notebook",
+  "report_is_standalone_integrity_anchor": false,
+  "reason": "embedding the bundle hash inside a report that is itself bundled creates a circular hash dependency",
+  "bundle_sha256": "f36c3f71d4ed939274b232e0227aadd3f8e7dba356496fd78352c206234ce3c2",
+  "architecture": "equivariant_set_branching",
+  "track_role": "secondary_literature_alignment_side_study",
+  "artifacts": [
+    {
+      "path": "colab/HTA_MAC_PaperAligned_B16_QoSRepaired_Training_Bundle_20260808.zip",
+      "bytes": 2514409,
+      "sha256": "f36c3f71d4ed939274b232e0227aadd3f8e7dba356496fd78352c206234ce3c2"
+    },
+    {
+      "path": "colab/HTA_MAC_PaperAligned_B16_QoSRepaired_Training_Bundle_20260808.zip.sha256",
+      "bytes": 133,
+      "sha256": "f38f1cd463500659884c8744b78bbe9be3df8c5fae339f345772f5aea22f7b04"
+    },
+    {
+      "path": "colab/HTA_MAC_PaperAligned_B16_QoSRepaired_Training_Colab_20260808.ipynb",
+      "bytes": 25019,
+      "sha256": "9abcf409381afdf76816102ac7f92957595d74688878ecd4c1bae0627c81fe61"
+    },
+    {
+      "path": "HTA_MAC_QOS_REPAIRED_AGENT_EXECUTION_HANDOFF_20260808.md",
+      "bytes": 31779,
+      "sha256": "2895ed85ff3ec40bed3dc68baf8e410c56c6f67b7718465fca5a22532f64c54b"
+    },
+    {
+      "path": "HTA_MAC_EXTERNAL_REVIEW_RESOLUTION_AND_PREFLIGHT_DECISION_20260808.md",
+      "bytes": 12452,
+      "sha256": "303f45a5a3578f0b5f81b787041afad520a2c4ce922a0842dcd7c48fdcead061"
+    },
+    {
+      "path": "config/paper_aligned_hasani2025_architecture_decision_repaired.json",
+      "bytes": 2636,
+      "sha256": "4811d844798c100cdd2ca1bf57ad329d58e983e70417e5621c05bd614f42a7d8"
+    },
+    {
+      "path": "outputs/audits/paper_aligned_b16_current_code_preflight_foundation_seed5299_20260808.json",
+      "bytes": 519248,
+      "sha256": "d104369227fecce277154697e9f250b48cb390f580a730a2b662cbf0457ffa3c"
+    },
+    {
+      "path": "outputs/phase3/paper_aligned_b16_budget_pressure_audit_seed5299_20260808/summary.json",
+      "bytes": 113291,
+      "sha256": "729e02d44826ab1c8a0bc68e04c9d011851bd0c9415611e25e9c2e2891ffad4a"
+    },
+    {
+      "path": "outputs/phase3/paper_aligned_b16_budget_pressure_audit_seed5299_20260808/raw_trials.csv",
+      "bytes": 14192,
+      "sha256": "4e1794d3d06be01f288648533175f9532243e97084339f82871704c112ca82ed"
+    }
+  ]
+}

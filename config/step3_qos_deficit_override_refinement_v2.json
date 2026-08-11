@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_execution",
+  "candidate_family": "qos_deficit_override_adaptive_refinement_v2",
+  "development_only": true,
+  "adaptive_refinement": true,
+  "parent_sweep": "outputs/audits/STEP3_QOS_DEFICIT_OVERRIDE_SWEEP_20260811.json",
+  "refinement_rationale": "v1 bracketed unchanged gates: target 0.55 preserved FND but missed delivery while target 0.575 reached 19/20 joint QoS and missed mean-FND noninferiority by 1.55 rounds",
+  "no_learning": true,
+  "seed": 2400,
+  "target_ranks": 20,
+  "horizon": 1200,
+  "budget": 16,
+  "grid": {
+    "delivery_trajectory_target": [0.5575, 0.5625, 0.5675],
+    "ch_post_forwarding_reserve_floor": [0.15, 0.2],
+    "deficit_completion_fraction": [0.5, 1.0]
+  },
+  "gates": {
+    "minimum_joint_qos_pairs": 18,
+    "fnd_noninferiority_margin_rounds": 12.0
+  },
+  "selection_rule": "passing_then_max_mean_fnd_then_min_added_slots_then_max_delivery",
+  "one_final_refinement_only": true,
+  "learned_intervention": "mac_allocation_only",
+  "ch_schedule_modified": false,
+  "uses_realized_future_harvest": false,
+  "claim_boundary": "adaptive_development_no_learning_refinement_not_confirmatory_model_selection_or_publication_evidence"
+}

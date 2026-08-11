@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "step3_mechanism_probe_fail",
+  "learning_performed": false,
+  "policy": "static_equal_deterministic_reachability_only",
+  "claim_boundary": "signal_and_accounting_reachability_not_model_performance",
+  "environment_profile_sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964",
+  "ch_risk_config_sha256": "690d951fa5f7b718bd6c50d9aa9cd12a5a4ac62569d78b4d5e87e0be7e0daa30",
+  "frozen_risk_fraction_cap": 0.2,
+  "gates": {
+    "all_seeds_observe_fnd": false,
+    "all_seeds_observe_death": false,
+    "all_seeds_activate_ch_risk": true,
+    "risk_non_dominating_conservative_bound": true,
+    "role_energy_reconstructs_exactly": true,
+    "configured_horizon_covers_prior_fnd_region": true
+  },
+  "trials": [
+    {
+      "seed": 2400,
+      "configured_horizon": 1200,
+      "steps_executed": 1200,
+      "t_fnd": null,
+      "global_deaths": 0,
+      "nonzero_ch_risk_records": 992,
+      "risk_absolute_reward_fraction_upper_bound": 0.0014420317501712505,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    }
+  ]
+}

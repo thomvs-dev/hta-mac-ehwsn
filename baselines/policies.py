@@ -10,6 +10,10 @@ import torch
 from agents.branching_dqn import BranchingAgentConfig, BranchingDQNAgent
 from agents.budget_projection import project_slot_budget
 from baselines.interface import MACPolicyInterface
+from envs.policy_observation import (
+    PHASE2D_POLICY_SCHEMA,
+    build_policy_observation,
+)
 
 
 def _rank_proportional(scores, budget: int, n_max: int) -> np.ndarray:
@@ -245,7 +249,7 @@ class HTAMACPolicy(MACPolicyInterface):
     def select_action(self, state, env):
         action = np.zeros(env.n_nodes, dtype=np.int64)
         embedding = np.asarray(env.embedding, dtype=np.float32)
-        features = np.concatenate((state, embedding), axis=1).astype(np.float32)
+        legacy_features = np.concatenate((state, embedding), axis=1).astype(np.float32)
         for cluster, ch in enumerate(env.cluster_heads):
             members = self.eligible_members(env, cluster, int(ch))
             if not len(members):
@@ -258,7 +262,7 @@ class HTAMACPolicy(MACPolicyInterface):
             )
             if self.agent.cfg.architecture == "legacy_weight_tied":
                 cluster_action, _ = self.agent.act(
-                    features[members],
+                    legacy_features[members],
                     np.ones(len(members), dtype=bool),
                     epsilon=0.0,
                     caps=np.minimum(env.queue[members], env.cfg.n_max),
@@ -268,6 +272,15 @@ class HTAMACPolicy(MACPolicyInterface):
             else:
                 cluster_mask = np.zeros(env.n_nodes, dtype=bool)
                 cluster_mask[members] = True
+                if self.agent.cfg.state_schema == PHASE2D_POLICY_SCHEMA:
+                    features = build_policy_observation(
+                        env,
+                        state,
+                        cluster_mask,
+                        schema=self.agent.cfg.state_schema,
+                    )
+                else:
+                    features = legacy_features
                 caps = np.minimum(env.queue, env.cfg.n_max)
                 caps[~cluster_mask] = 0
                 global_action, _ = self.agent.act(
@@ -276,6 +289,9 @@ class HTAMACPolicy(MACPolicyInterface):
                     epsilon=0.0,
                     caps=caps,
                     budget=budget,
+                    tie_break_priorities=np.arange(
+                        env.n_nodes, dtype=np.int64
+                    ),
                 )
                 action[members] = global_action[members]
         return self.validate(action, env)

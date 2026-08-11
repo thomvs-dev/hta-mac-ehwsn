@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "step3_mechanism_probe_pass",
+  "learning_performed": false,
+  "policy": "static_equal_deterministic_reachability_only",
+  "claim_boundary": "signal_and_accounting_reachability_not_model_performance",
+  "environment_profile_sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964",
+  "ch_risk_config_sha256": "690d951fa5f7b718bd6c50d9aa9cd12a5a4ac62569d78b4d5e87e0be7e0daa30",
+  "frozen_risk_fraction_cap": 0.2,
+  "gates": {
+    "all_seeds_observe_fnd": true,
+    "all_seeds_observe_death": true,
+    "all_seeds_activate_ch_risk": true,
+    "risk_non_dominating_conservative_bound": true,
+    "role_energy_reconstructs_exactly": true,
+    "configured_horizon_covers_prior_fnd_region": true
+  },
+  "trials": [
+    {
+      "seed": 2400,
+      "configured_horizon": 3000,
+      "steps_executed": 1330,
+      "t_fnd": 1330,
+      "global_deaths": 1,
+      "nonzero_ch_risk_records": 2311,
+      "risk_absolute_reward_fraction_upper_bound": 0.004548375007571091,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    },
+    {
+      "seed": 2401,
+      "configured_horizon": 3000,
+      "steps_executed": 1326,
+      "t_fnd": 1326,
+      "global_deaths": 1,
+      "nonzero_ch_risk_records": 1944,
+      "risk_absolute_reward_fraction_upper_bound": 0.003248939966119413,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    },
+    {
+      "seed": 2402,
+      "configured_horizon": 3000,
+      "steps_executed": 1376,
+      "t_fnd": 1376,
+      "global_deaths": 1,
+      "nonzero_ch_risk_records": 2515,
+      "risk_absolute_reward_fraction_upper_bound": 0.004187150591564549,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    },
+    {
+      "seed": 2403,
+      "configured_horizon": 3000,
+      "steps_executed": 1426,
+      "t_fnd": 1426,
+      "global_deaths": 1,
+      "nonzero_ch_risk_records": 3152,
+      "risk_absolute_reward_fraction_upper_bound": 0.00566591443208841,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    },
+    {
+      "seed": 2404,
+      "configured_horizon": 3000,
+      "steps_executed": 1394,
+      "t_fnd": 1394,
+      "global_deaths": 1,
+      "nonzero_ch_risk_records": 2771,
+      "risk_absolute_reward_fraction_upper_bound": 0.004736802947312642,
+      "maximum_role_energy_reconstruction_error_j": 0.0,
+      "schedule_schema_version": "paper_aligned_exogenous_leach_v1"
+    }
+  ]
+}

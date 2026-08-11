@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "step3_mechanism_probe_pass",
+  "overall_pass": true,
+  "learning_performed": false,
+  "gates": {
+    "all_seeds_activate_ch_risk": true,
+    "risk_non_dominating_conservative_bound": true,
+    "role_energy_reconstructs_exactly": true,
+    "configured_horizon_covers_prior_fnd_region": true,
+    "paired_energy_proportional_observes_fnd_all_seeds": true,
+    "same_development_seeds": true,
+    "same_horizon": true
+  },
+  "static_equal_death_observation_required": false,
+  "reason": "Risk activation/accounting are checked under static equal; FND reachability is checked under the paired energy-proportional policy. Death occurrence is policy-dependent in the idle-listening-disabled B16 profile.",
+  "static_probe_status": "step3_mechanism_probe_fail",
+  "static_probe_sha256": "fac6d9ee9b2c65a8937cc6c1f1de932df89188c43ac79303445c285d85cd8c36",
+  "headroom_evidence_sha256": "1ff9ee78bd47c185d9458e142a64d82af6bdbbfbfe11ef1cf23dfedeb0b4f865",
+  "energy_proportional_fnd_rounds": {
+    "2400": 1078,
+    "2401": 1075,
+    "2402": 1090,
+    "2403": 1132,
+    "2404": 1127
+  },
+  "claim_boundary": "mechanism_and_lifetime_reachability_only_not_model_performance",
+  "static_stdout": "{\"status\": \"step3_mechanism_probe_fail\", \"output\": \"F:\\\\WSN\\\\matlab\\\\stage2\\\\hta-mac\\\\outputs\\\\audits\\\\step3_bounded_mechanism_combined_local.static_equal.json\"}\n",
+  "static_stderr": ""
+}

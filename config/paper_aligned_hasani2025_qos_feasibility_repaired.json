@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "status": "predeclared_post_repair_development_targets",
+  "environment_profile": "config/paper_aligned_hasani2025_b16_qos_repaired.json",
+  "delivery_denominator": "sum of pre-service queued packets for alive members of the current target cluster",
+  "delivery_interpretation": "target-backlog service opportunity ratio; not end-to-end generated-packet delivery",
+  "fairness_metric": "target_cluster_service_fairness",
+  "global_evaluation_metrics": [
+    "global_network_end_to_end_delivery_ratio",
+    "global_network_stale_drop_ratio",
+    "global_network_service_fairness"
+  ],
+  "threshold_rationale": "Delivery and stale thresholds are retained from the predeclared development protocol. The target-service fairness floor is 0.70, based on the 0.703-0.708 target-cluster diagnostic range from the three pre-repair development lineages; this is a development feasibility transfer, not confirmation evidence.",
+  "optimizer_seeds": [5399, 6399, 7399],
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "reserved_confirmation_seeds": [3400, 3401, 3402, 3403, 3404],
+  "prohibited_registered_held_out_seeds": [3100, 3101, 3102, 3103, 3104],
+  "held_out_seeds_used": false
+}

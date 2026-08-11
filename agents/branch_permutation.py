@@ -60,6 +60,7 @@ def permute_complete_bundle(
     caps,
     action_mask,
     permutation,
+    tie_break_priorities=None,
 ) -> dict[str, np.ndarray]:
     """Move every branch-indexed inference constraint as one bundle."""
     state = np.asarray(state)
@@ -77,6 +78,14 @@ def permute_complete_bundle(
     if not np.array_equal(action_mask, expected):
         raise ValueError("action mask is inconsistent with validity mask/caps")
     order = validate_permutation(permutation, size)
+    if tie_break_priorities is None:
+        priorities = None
+    else:
+        priorities = np.asarray(tie_break_priorities, dtype=np.int64)
+        if priorities.shape != (size,):
+            raise ValueError("tie-break priorities are not branch-aligned")
+        if np.unique(priorities).size != size:
+            raise ValueError("tie-break priorities must be unique")
     bundle = {
         "state": state[order].copy(),
         "mask": mask[order].copy(),
@@ -84,6 +93,8 @@ def permute_complete_bundle(
         "action_mask": action_mask[order].copy(),
         "permutation": order.copy(),
     }
+    if priorities is not None:
+        bundle["tie_break_priorities"] = priorities[order].copy()
     moved_expected = action_mask_from_caps(
         bundle["mask"], bundle["caps"], action_mask.shape[1]
     )

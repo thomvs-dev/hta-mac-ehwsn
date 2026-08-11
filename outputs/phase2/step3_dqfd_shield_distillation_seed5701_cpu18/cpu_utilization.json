@@ -1,0 +1,509 @@
+﻿{
+    "schema_version":  1,
+    "run_name":  "step3_dqfd_shield_distillation_seed5701_cpu18",
+    "pid":  31060,
+    "cpu_threads":  18,
+    "logical_processors":  20,
+    "useful_training_process_only":  true,
+    "mean_total_machine_cpu_percent":  85.538,
+    "peak_total_machine_cpu_percent":  87.806,
+    "samples":  [
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:32.6936199Z",
+                        "total_machine_cpu_percent":  22.719
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:37.8105611Z",
+                        "total_machine_cpu_percent":  87.806
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:42.8843689Z",
+                        "total_machine_cpu_percent":  86.166
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:48.0197528Z",
+                        "total_machine_cpu_percent":  86.076
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:53.1574335Z",
+                        "total_machine_cpu_percent":  86.478
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:01:58.2263332Z",
+                        "total_machine_cpu_percent":  85.617
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:03.3433324Z",
+                        "total_machine_cpu_percent":  86.797
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:08.4028287Z",
+                        "total_machine_cpu_percent":  87.259
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:13.4512301Z",
+                        "total_machine_cpu_percent":  87.682
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:18.5421378Z",
+                        "total_machine_cpu_percent":  86.812
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:23.6318212Z",
+                        "total_machine_cpu_percent":  84.914
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:28.6836961Z",
+                        "total_machine_cpu_percent":  86.184
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:33.7615611Z",
+                        "total_machine_cpu_percent":  83.158
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:38.8466040Z",
+                        "total_machine_cpu_percent":  82.595
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:43.9258442Z",
+                        "total_machine_cpu_percent":  83.182
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:49.0094865Z",
+                        "total_machine_cpu_percent":  85.446
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:54.0936081Z",
+                        "total_machine_cpu_percent":  84.577
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:02:59.1301215Z",
+                        "total_machine_cpu_percent":  83.763
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:04.1478736Z",
+                        "total_machine_cpu_percent":  84.108
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:09.1751905Z",
+                        "total_machine_cpu_percent":  85.921
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:14.2121435Z",
+                        "total_machine_cpu_percent":  82.949
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:19.3138769Z",
+                        "total_machine_cpu_percent":  85.985
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:24.3755623Z",
+                        "total_machine_cpu_percent":  86.403
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:29.4382276Z",
+                        "total_machine_cpu_percent":  85.182
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:34.5177275Z",
+                        "total_machine_cpu_percent":  84.177
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:39.5350517Z",
+                        "total_machine_cpu_percent":  82.589
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:44.5722850Z",
+                        "total_machine_cpu_percent":  86.047
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:49.5962620Z",
+                        "total_machine_cpu_percent":  85.341
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:54.6298395Z",
+                        "total_machine_cpu_percent":  87.118
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:03:59.6654938Z",
+                        "total_machine_cpu_percent":  86.772
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:04.7027974Z",
+                        "total_machine_cpu_percent":  87.379
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:09.7726846Z",
+                        "total_machine_cpu_percent":  86.463
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:14.8086014Z",
+                        "total_machine_cpu_percent":  86.798
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:19.8649412Z",
+                        "total_machine_cpu_percent":  86.911
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:24.9215680Z",
+                        "total_machine_cpu_percent":  87.215
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:29.9378846Z",
+                        "total_machine_cpu_percent":  86.717
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:35.0235541Z",
+                        "total_machine_cpu_percent":  83.906
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:40.0404562Z",
+                        "total_machine_cpu_percent":  85.056
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:45.0757759Z",
+                        "total_machine_cpu_percent":  87.522
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:50.0921816Z",
+                        "total_machine_cpu_percent":  87.089
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:04:55.1220319Z",
+                        "total_machine_cpu_percent":  86.002
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:00.1618034Z",
+                        "total_machine_cpu_percent":  85.647
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:05.2069587Z",
+                        "total_machine_cpu_percent":  85.571
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:10.2521871Z",
+                        "total_machine_cpu_percent":  84.532
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:15.2765824Z",
+                        "total_machine_cpu_percent":  86.593
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:20.3008717Z",
+                        "total_machine_cpu_percent":  86.393
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:25.3365514Z",
+                        "total_machine_cpu_percent":  85.065
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:30.3638865Z",
+                        "total_machine_cpu_percent":  84.647
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:35.3796056Z",
+                        "total_machine_cpu_percent":  84.998
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:40.4200510Z",
+                        "total_machine_cpu_percent":  84.922
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:45.4578557Z",
+                        "total_machine_cpu_percent":  84.765
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:50.4850044Z",
+                        "total_machine_cpu_percent":  87.447
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:05:55.5068202Z",
+                        "total_machine_cpu_percent":  86.218
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:00.5255998Z",
+                        "total_machine_cpu_percent":  85.881
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:05.5411984Z",
+                        "total_machine_cpu_percent":  86.013
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:10.5631870Z",
+                        "total_machine_cpu_percent":  86.152
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:15.5925551Z",
+                        "total_machine_cpu_percent":  87.02
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:20.6119739Z",
+                        "total_machine_cpu_percent":  87.255
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:25.6341969Z",
+                        "total_machine_cpu_percent":  86.382
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:30.6583008Z",
+                        "total_machine_cpu_percent":  87.018
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:35.6921104Z",
+                        "total_machine_cpu_percent":  83.42
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:40.7138741Z",
+                        "total_machine_cpu_percent":  85.923
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:45.7357176Z",
+                        "total_machine_cpu_percent":  86.715
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:50.7518294Z",
+                        "total_machine_cpu_percent":  87.266
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:06:55.7788779Z",
+                        "total_machine_cpu_percent":  87.418
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:00.8003616Z",
+                        "total_machine_cpu_percent":  85.259
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:05.8240879Z",
+                        "total_machine_cpu_percent":  87.009
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:10.8515365Z",
+                        "total_machine_cpu_percent":  85.966
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:15.8713907Z",
+                        "total_machine_cpu_percent":  87.31
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:20.9107193Z",
+                        "total_machine_cpu_percent":  85.747
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:25.9369042Z",
+                        "total_machine_cpu_percent":  86.314
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:30.9744356Z",
+                        "total_machine_cpu_percent":  85.902
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:36.0025645Z",
+                        "total_machine_cpu_percent":  84.897
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:41.0365913Z",
+                        "total_machine_cpu_percent":  87.281
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:46.0583000Z",
+                        "total_machine_cpu_percent":  86.717
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:51.0870681Z",
+                        "total_machine_cpu_percent":  86.114
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:07:56.1024431Z",
+                        "total_machine_cpu_percent":  87.247
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:01.1370956Z",
+                        "total_machine_cpu_percent":  86.572
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:06.1636293Z",
+                        "total_machine_cpu_percent":  86.494
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:11.1892332Z",
+                        "total_machine_cpu_percent":  87.536
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:16.2239320Z",
+                        "total_machine_cpu_percent":  85.019
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:21.2533385Z",
+                        "total_machine_cpu_percent":  86.538
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:26.2936319Z",
+                        "total_machine_cpu_percent":  84.94
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:31.3169923Z",
+                        "total_machine_cpu_percent":  84.791
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:36.3397579Z",
+                        "total_machine_cpu_percent":  85.688
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:41.3573763Z",
+                        "total_machine_cpu_percent":  86.181
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:46.3757453Z",
+                        "total_machine_cpu_percent":  86.868
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:51.4040877Z",
+                        "total_machine_cpu_percent":  87.395
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:08:56.4242237Z",
+                        "total_machine_cpu_percent":  86.869
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:01.4566291Z",
+                        "total_machine_cpu_percent":  86.393
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:06.4742358Z",
+                        "total_machine_cpu_percent":  87.115
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:11.5073710Z",
+                        "total_machine_cpu_percent":  86.924
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:16.5422972Z",
+                        "total_machine_cpu_percent":  86.986
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:21.5640991Z",
+                        "total_machine_cpu_percent":  87.602
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:26.5788452Z",
+                        "total_machine_cpu_percent":  86.401
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:31.6245142Z",
+                        "total_machine_cpu_percent":  85.624
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:36.6850709Z",
+                        "total_machine_cpu_percent":  84.384
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:41.7005050Z",
+                        "total_machine_cpu_percent":  86.81
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:46.7659095Z",
+                        "total_machine_cpu_percent":  86.355
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:51.8268438Z",
+                        "total_machine_cpu_percent":  86.215
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:09:56.8481902Z",
+                        "total_machine_cpu_percent":  85.992
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:01.8770855Z",
+                        "total_machine_cpu_percent":  86.842
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:06.9165656Z",
+                        "total_machine_cpu_percent":  86.908
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:11.9463386Z",
+                        "total_machine_cpu_percent":  87.417
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:16.9747771Z",
+                        "total_machine_cpu_percent":  86.974
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:21.9964463Z",
+                        "total_machine_cpu_percent":  87.216
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:27.0252896Z",
+                        "total_machine_cpu_percent":  86.936
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:32.0499254Z",
+                        "total_machine_cpu_percent":  84.008
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:37.0661829Z",
+                        "total_machine_cpu_percent":  86.905
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:42.0893057Z",
+                        "total_machine_cpu_percent":  85.682
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:47.1177635Z",
+                        "total_machine_cpu_percent":  86.414
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:52.1356882Z",
+                        "total_machine_cpu_percent":  86.035
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:10:57.1567171Z",
+                        "total_machine_cpu_percent":  85.531
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:02.1843051Z",
+                        "total_machine_cpu_percent":  85.326
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:07.2061199Z",
+                        "total_machine_cpu_percent":  85.175
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:12.2363676Z",
+                        "total_machine_cpu_percent":  86.539
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:17.2653939Z",
+                        "total_machine_cpu_percent":  86.374
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:22.2924434Z",
+                        "total_machine_cpu_percent":  87.2
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:27.3075435Z",
+                        "total_machine_cpu_percent":  87.065
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:32.3256045Z",
+                        "total_machine_cpu_percent":  85.581
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:37.3533979Z",
+                        "total_machine_cpu_percent":  85.4
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:42.3794863Z",
+                        "total_machine_cpu_percent":  86.766
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:47.3986422Z",
+                        "total_machine_cpu_percent":  86.372
+                    },
+                    {
+                        "timestamp_utc":  "2026-08-11T15:11:52.4340815Z",
+                        "total_machine_cpu_percent":  86.403
+                    }
+                ],
+    "exit_code":  null
+}

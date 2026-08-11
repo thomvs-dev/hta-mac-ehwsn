@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "profile_id": "hasani2025_ge2021_terrestrial_solar_b16_v1",
+  "status": "exploratory_paper_aligned_development",
+  "purpose": "Cross-paper terrestrial clustered solar EH-WSN comparison without changing the registered HTA-MAC experiment",
+  "closest_sources": [
+    "https://doi.org/10.1038/s41598-025-14111-y",
+    "https://doi.org/10.1177/15501477211007411"
+  ],
+  "claim_boundary": "paper_aligned_not_a_third_party_reproduction",
+  "learned_intervention": "hta_mac_only",
+  "cluster_schedule": "exogenous_balanced_leach_rotation",
+  "mobility": "disabled_static_positions",
+  "idle_listening": "disabled_to_match_published_omission",
+  "network": {
+    "num_nodes": 100,
+    "field_size_m": 100.0,
+    "bs_position_m": [50.0, 50.0],
+    "initial_energy_j": 0.5,
+    "ch_ratio": 0.2,
+    "packet_bits": 4000,
+    "control_packet_bits": 500
+  },
+  "harvesting": {
+    "solar": "trained_stage1_hmm",
+    "solar_rectification_scale": 0.01,
+    "thermal": "disabled_zero_energy"
+  },
+  "mac": {
+    "frame_slot_budget": 16,
+    "n_max": 3,
+    "queue_max_packets": 5,
+    "packet_ttl_rounds": 3,
+    "idle_slot_bit_times": 4000
+  },
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "optimizer_seeds": [5299, 6299, 7299],
+  "reserved_confirmation_seeds": [3400, 3401, 3402, 3403, 3404],
+  "prohibited_registered_held_out_seeds": [3100, 3101, 3102, 3103, 3104],
+  "held_out_seeds_used": false
+}

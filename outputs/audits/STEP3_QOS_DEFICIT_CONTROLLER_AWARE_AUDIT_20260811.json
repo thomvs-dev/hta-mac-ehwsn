@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "adaptive_shielded_rl_evidence_pass_confirmation_required",
+  "overall_pass": true,
+  "legacy_step3_overall_gate_pass": false,
+  "legacy_penalty_geometry_failure_reason": "controller_kept_delivery_feasible_so_active_lagrangian_penalty_fraction_was_zero",
+  "method_classification": "shielded_hybrid_rl_not_neural_policy_only_constrained_rl",
+  "gates": {
+    "legacy_full_gate_failure_preserved": true,
+    "bounded_checkpoint_gate_pass": true,
+    "last_three_controller_on_qos_pass": true,
+    "final_controller_on_joint_qos_18_of_20": true,
+    "final_fnd_noninferior": true,
+    "controller_applied_during_training_and_evaluation": true,
+    "controller_active": true,
+    "controller_risk_gate_active": true,
+    "controller_off_qos_fails": true,
+    "cpu_evidence_valid": true
+  },
+  "controller_on": {
+    "final_joint_qos_passes": 18,
+    "final_mean_fnd_free_steps": 1161.05,
+    "final_mean_throughput": 97987.05,
+    "final_mean_packets_per_joule": 2065.077214285471
+  },
+  "controller_off": {
+    "joint_qos_passes": 0,
+    "mean_delivery_ratio": 0.4879489367227867,
+    "mean_fnd_free_steps": 1170.2
+  },
+  "controller_dependence": {
+    "joint_qos_pass_delta": 18,
+    "claim": "qos_feasibility_is_controller_dependent_in_this_adaptive_development_run"
+  },
+  "confirmation_run_authorized": true,
+  "held_out_evaluation_authorized": false,
+  "publication_claim_authorized": false,
+  "evidence_sha256": {
+    "summary": "ab2316f756848203a606d073b9c549d7310470e0dd9c87c9246609d7a91e85f9",
+    "bounded_gate": "0ab7d4e6ac83bd0df53f2360b0167b766b3d3f492bbd8dd6a24107e845d3ee53",
+    "controller_off_diagnostic": "0f0fce45e8a1f67f827de3240edf86d4f749357a029ecf32250cbb0879396067",
+    "controller_config": "8fa9caf4f333852fdb7ff9104cacba6cf9cbf2aba4365ba23103441cba8fa80c",
+    "cpu_summary": "9f4f5e577c4fb12b50365ea30ca5ab8c90561aabf89823061fc7ccc4de349f21"
+  },
+  "claim_boundary": "adaptive_seed2400_result_requires_fresh_unused_development_seed_confirmation_before_held_out_evaluation"
+}

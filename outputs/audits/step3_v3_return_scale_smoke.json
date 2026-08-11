@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "status": "frozen_development_scale",
+  "reward_scale": 1.0,
+  "apply_to": "replay_and_c51_reward_only",
+  "physical_metrics_scaled": false,
+  "calibration_method": "random_budgeted_discounted_return_two_sided_quantiles",
+  "q_low": 1.0024647619047615,
+  "q_high": 1.0190590476190469,
+  "q_star": 1.0190590476190469,
+  "return_count": 2,
+  "rollouts": 1,
+  "episode_length_min": 2,
+  "episode_length_max": 2,
+  "gamma": 0.99,
+  "support": {
+    "v_min": -30.0,
+    "v_max": 30.0,
+    "atoms": 51
+  },
+  "headroom_fraction": 0.8,
+  "quantile_probability": 0.995,
+  "development_seeds": [
+    2400
+  ],
+  "environment_profile_sha256": "57E579E702DFCDAB0D0DF78CB20C0944212B7D34D6D32667DF352E3CBE88F964",
+  "qos_constraint_sha256": "31AAF56A3D7AFA425C68CB51017D7DF6C6DFFF115D0AD796861C87BED6DF305C",
+  "schedule_schema_version": "paper_aligned_exogenous_leach_v1",
+  "held_out_seeds_used": false
+}
