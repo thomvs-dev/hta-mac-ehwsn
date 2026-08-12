@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_primary_listwise_residual_continuation",
+  "purpose": "continue the operationally passing near-gate listwise ranker without relaxing any v1 gate",
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "prohibited_seeds": [3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404],
+  "horizon": 3000,
+  "budget": 24,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "source_ranker_checkpoint": "outputs/phase2/step3_primary_listwise_residual_sweep_v1/listnet_h32_lr3e3_ep8/removal_ranker.pt",
+  "source_ranker_checkpoint_sha256": "3e80a837b0a58162326f1c3a4a4b0054e24ea8b9a3553b2dc529584b77d4482d",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "band": {"lower_delivery_target": 0.235, "upper_delivery_target": 0.300, "reserve_floor": 0.20, "completion_fraction": 0.50},
+  "candidates": [
+    {"candidate_id": "continue_lr5e4_ep12", "seed": 7201, "hidden": 32, "learning_rate": 0.0005, "epochs": 12, "dagger_iterations": 1},
+    {"candidate_id": "continue_lr1e3_ep12", "seed": 7202, "hidden": 32, "learning_rate": 0.001, "epochs": 12, "dagger_iterations": 1},
+    {"candidate_id": "continue_lr2e3_ep10", "seed": 7203, "hidden": 32, "learning_rate": 0.002, "epochs": 10, "dagger_iterations": 1},
+    {"candidate_id": "continue_lr3e3_ep8", "seed": 7204, "hidden": 32, "learning_rate": 0.003, "epochs": 8, "dagger_iterations": 1}
+  ],
+  "batch_size": 128,
+  "parallel_candidates": 4,
+  "threads_per_candidate": 4,
+  "gates": {
+    "minimum_joint_qos_pairs": 23,
+    "minimum_teacher_correction_reduction_fraction": 0.90,
+    "minimum_validation_top1_accuracy": 0.90,
+    "maximum_mean_fnd_degradation_rounds": 5.0,
+    "maximum_fairness_degradation": 0.01,
+    "maximum_packets_per_j_degradation_fraction": 0.01
+  },
+  "selection_rule": ["retain_gate_passing_candidates_only", "minimize_teacher_action_disagreement_l1", "maximize_validation_top1_accuracy", "maximize_mean_episode_service_fairness", "maximize_mean_global_packets_per_j", "prefer_lower_candidate_index"],
+  "confirmation_seeds_opened": false,
+  "claim_boundary": "development-only continuation of a hybrid residual ranker; no inference"
+}

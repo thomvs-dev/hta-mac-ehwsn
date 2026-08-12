@@ -66,12 +66,15 @@ def load_agent(checkpoint_path: Path):
     return agent, checkpoint
 
 
-def build_environments(profile_path: Path, risk_config: dict, horizon: int):
+def build_environments(
+    profile_path: Path | None, risk_config: dict, horizon: int, seeds=(2400,),
+):
     configure_step3_risk(risk_config)
     trainer.ScheduledIntraClusterMACEnv = RoleSeparatedScheduledMACEnv
     trainer.DynamicClusterTrainingEnv = Step3V3DynamicClusterTrainingEnv
     return trainer.build_curriculum(
-        [2400], horizon, observation_schema=STEP3_CH_CONTEXT_SCHEMA,
+        [int(seed) for seed in seeds], horizon,
+        observation_schema=STEP3_CH_CONTEXT_SCHEMA,
         environment_profile=profile_path,
     )
 
@@ -162,6 +165,9 @@ def evaluate_policy(policy_name, environments, agent, qos, budget):
         delivery_ratio = counters["executed_delivery"] / demand
         stale_ratio = counters["stale_drops"] / demand
         fairness = float(env.step3_qos_counts["fairness"])
+        episode_fairness = float(
+            env.step3_qos_counts.get("episode_service_fairness", fairness)
+        )
         joint = (
             delivery_ratio >= qos.minimum_delivery_ratio
             and stale_ratio <= qos.maximum_stale_drop_ratio
@@ -175,6 +181,7 @@ def evaluate_policy(policy_name, environments, agent, qos, budget):
             "delivery_ratio": delivery_ratio,
             "stale_ratio": stale_ratio,
             "fairness": fairness,
+            "episode_service_fairness": episode_fairness,
             "joint_qos_pass": bool(joint),
             "fnd_free_steps": int(env.base.t_fnd if env.base.t_fnd is not None else steps),
             "target_ch_alive_at_end": bool(env.base.alive[int(env.ch)]),
@@ -203,6 +210,9 @@ def aggregate(rows, qos):
         "micro_delivery_ratio": totals["executed_delivery"] / total_demand,
         "mean_fnd_free_steps": float(np.mean([row["fnd_free_steps"] for row in rows])),
         "mean_fairness": float(np.mean([row["fairness"] for row in rows])),
+        "mean_episode_service_fairness": float(
+            np.mean([row["episode_service_fairness"] for row in rows])
+        ),
         "totals": totals,
     }
 
