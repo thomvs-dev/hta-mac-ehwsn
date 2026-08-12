@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_listwise_residual_confirmation",
+  "confirmation_seeds": [3500, 3501, 3502, 3503, 3504],
+  "development_and_prior_seeds": [2400, 2401, 2402, 2403, 2404, 3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404],
+  "horizon": 3000,
+  "budget": 24,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "selected_ranker_checkpoint": "outputs/phase2/step3_primary_listwise_residual_continuation_v2/continue_lr3e3_ep8/removal_ranker.pt",
+  "selected_ranker_checkpoint_sha256": "9df103c19d1f80336f80514d54bb88ee43cda31ca9749214160404e77a625c57",
+  "selection_report": "outputs/phase2/step3_primary_listwise_residual_continuation_v2/summary.json",
+  "selection_report_sha256": "9d33d5ac5217813ae03700c2e40a7ae7c4dcced866323b8f17dbc2d48fc30e3b",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "band": {"lower_delivery_target": 0.235, "upper_delivery_target": 0.300, "reserve_floor": 0.20, "completion_fraction": 0.50},
+  "gates": {
+    "minimum_joint_qos_pairs": 23,
+    "minimum_teacher_correction_reduction_fraction": 0.90,
+    "maximum_mean_fnd_degradation_rounds": 5.0,
+    "maximum_fairness_degradation": 0.01,
+    "maximum_packets_per_j_degradation_fraction": 0.01
+  },
+  "statistics": {"paired_bootstrap_resamples": 10000, "confidence_level": 0.95, "wilcoxon_alternative": "two-sided", "random_seed": 20260812},
+  "workers": 2,
+  "threads_per_worker": 8,
+  "confirmation_seeds_opened": false,
+  "claim_boundary": "independent confirmation of hybrid residual ranker equivalence to the frozen analytic teacher; not neural-policy superiority"
+}

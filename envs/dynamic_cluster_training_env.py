@@ -170,6 +170,12 @@ class DynamicClusterTrainingEnv:
         info["target_ch"] = current_ch
         info["target_members"] = current_members.copy()
         info["target_cluster_service_fairness"] = raw_terms["queue_fairness"]
+        offered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
+        delivered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
+        offered_per_node[current_members] = queue_before * alive_before
+        delivered_per_node[current_members] = delivered
+        info["target_packets_offered_per_node"] = offered_per_node
+        info["target_packets_delivered_per_node"] = delivered_per_node
 
         done = self._is_done(
             terminated,

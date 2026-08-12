@@ -14,7 +14,7 @@ from agents.branching_dqn import BranchingAgentConfig
 from agents.qos_constraints_v3 import Step3QoSConstraintConfig, Step3QoSConstraintController
 from envs.step3_lifetime_env import RoleSeparatedScheduledMACEnv, configure_step3_risk
 from envs.step3_policy_observation import STEP3_CH_CONTEXT_SCHEMA
-from envs.step3_v3_env import Step3V3DynamicClusterTrainingEnv
+from envs.step3_v3_env import Step3V3DynamicClusterTrainingEnv, episode_service_fairness
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,6 +69,27 @@ def test_v3_qos_controller_enforces_floors_and_ema():
     assert update["update_variant"] == "ema_episode_end"
     assert update["multipliers"]["delivery"] > 5.0
     assert update["multipliers"]["fairness"] >= 1.0
+
+
+def test_episode_service_fairness_is_cohort_consistent_and_empty_safe():
+    assert episode_service_fairness([0, 0], [0, 0]) == 1.0
+    assert episode_service_fairness([5, 10, 0], [10, 20, 0]) == pytest.approx(1.0)
+    assert episode_service_fairness([10, 0], [10, 10]) == pytest.approx(0.5)
+    with pytest.raises(ValueError, match="equal shape"):
+        episode_service_fairness([1], [1, 2])
+
+
+def test_v3_exposes_prospective_episode_service_fairness(monkeypatch):
+    env, _ = build_one(monkeypatch)
+    _, mask, _ = env.reset()
+    action = np.zeros(env.base.n_nodes, dtype=np.int64)
+    active = np.flatnonzero(mask)
+    action[active[: min(len(active), env.base.cfg.frame_slot_budget)]] = 1
+    _, _, _, info = env.step(action)
+    assert 0.0 <= info["target_episode_service_fairness"] <= 1.0
+    assert info["target_episode_service_fairness"] == pytest.approx(
+        env.step3_qos_counts["episode_service_fairness"]
+    )
 
 
 def test_v3_reward_balance_includes_ch_risk():

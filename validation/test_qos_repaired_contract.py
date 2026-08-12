@@ -51,6 +51,12 @@ def test_repaired_dynamic_environment_emits_coherent_service_cohort():
         assert info["target_cluster_service_fairness"] == pytest.approx(
             info["reward_raw_terms"]["queue_fairness"]
         )
+        assert int(info["target_packets_delivered_per_node"].sum()) == info[
+            "target_packets_delivered"
+        ]
+        assert int(info["target_packets_offered_per_node"].sum()) == info[
+            "target_packets_offered"
+        ]
         if done:
             break
 
