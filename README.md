@@ -7,7 +7,34 @@ and a compact learned residual ranker for globally coupled slot removal.
 
 Routing changes and cluster-head retraining are deliberately out of scope.
 
-## Current verified result
+## Current verified result: final matched evaluation
+
+The final preregistered evaluation used 20 previously unused independent seeds
+(3700--3719), five target-rank schedules nested per seed, a 3,000-round
+idle-listening-on horizon, and five matched policies. Statistical tests operate
+on seed means (n=20), not the 100 correlated seed/rank rows.
+
+| Policy | Joint QoS | Delivery | Stale | Fairness | FND | Packets/J |
+|---|---:|---:|---:|---:|---:|---:|
+| HTA-MAC learned residual | **99/100** | 0.279481 | 0.056102 | 0.858371 | 125.10 | 224.8928 |
+| Analytic teacher | **99/100** | 0.279521 | 0.056109 | 0.858429 | 125.10 | 224.9213 |
+| Tuned energy-proportional | 97/100 | 0.285246 | 0.060788 | 0.807922 | 132.43 | 225.5582 |
+| S2A2MAC-adapted | 0/100 | 0.136319 | 0.155080 | 0.669100 | 140.53 | 231.8784 |
+| FFSS-adapted | 1/100 | 0.208664 | 0.045595 | 0.959557 | 133.99 | 220.4545 |
+
+Against tuned energy-proportional, HTA-MAC improved fairness by 0.05045 and
+reduced stale ratio by 0.00469, but reduced delivery by 0.00576, reached FND
+7.33 rounds earlier, and delivered 0.665 fewer packets/J. All five paired
+differences remained significant after Holm correction across 15 prespecified
+hypotheses. The supported contribution is reliable joint-QoS allocation with
+an explicit QoS--lifetime trade-off, not universal lifetime superiority.
+
+See
+[`HTA_MAC_FINAL_MATCHED_BASELINE_REPORT_20260813.md`](HTA_MAC_FINAL_MATCHED_BASELINE_REPORT_20260813.md)
+for confidence intervals, adjusted p-values, effect sizes, limitations, and
+paper-safe claims.
+
+## Residual confirmation
 
 The primary idle-on track now includes a service-aware, permutation-equivariant
 listwise residual ranker. It was selected on development seeds 2400--2404 and
@@ -108,7 +135,7 @@ python -B -m pytest validation -q -p no:cacheprovider
 Expected result for this revision:
 
 ```text
-135 passed
+139 passed
 ```
 
 Rerun the frozen independent confirmation:
@@ -140,8 +167,14 @@ exit code if any operational gate fails.
   `outputs/phase3/step3_primary_listwise_residual_confirmation_v1/summary.json`
 - Fresh-cohort ablation:
   `outputs/phase3/step3_primary_listwise_residual_ablation_v1/summary.json`
+- Final matched-baseline evaluation:
+  `outputs/phase3/step3_final_matched_baseline_evaluation_v1/summary.json`
+- Publication tables and figures:
+  `outputs/phase3/step3_final_matched_baseline_evaluation_v1/publication/`
 - Frozen confirmation contract:
   `config/step3_primary_listwise_residual_confirmation_v1.json`
+- Frozen final-evaluation contract:
+  `config/step3_final_matched_baseline_evaluation_v1.json`
 
 Historical Phase 0--3 status files remain available for provenance:
 

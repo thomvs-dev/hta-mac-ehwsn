@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_final_matched_baseline_evaluation",
+  "purpose": "final untouched-cohort comparison of the confirmed learned residual controller with fixed matched-simulator baselines",
+  "evaluation_seeds": [3700, 3701, 3702, 3703, 3704, 3705, 3706, 3707, 3708, 3709, 3710, 3711, 3712, 3713, 3714, 3715, 3716, 3717, 3718, 3719],
+  "all_prior_seeds": [2400, 2401, 2402, 2403, 2404, 3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404, 3500, 3501, 3502, 3503, 3504, 3600, 3601, 3602, 3603, 3604],
+  "independent_unit": "seed",
+  "nested_subcases_per_seed": 5,
+  "horizon": 3000,
+  "budget": 24,
+  "environment_profile": null,
+  "environment_profile_definition": "primary idle-listening-on RoleSeparatedScheduledMACEnv curriculum; frozen HEART-CH schedule; MAC-only intervention",
+  "policies": ["learned_listwise_residual", "analytic_teacher", "energy_proportional_tuned", "s2a2mac_adapted", "ffss_adapted"],
+  "inferential_comparators": ["energy_proportional_tuned", "s2a2mac_adapted", "ffss_adapted"],
+  "mechanism_reference": "analytic_teacher",
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "selected_ranker_checkpoint": "outputs/phase2/step3_primary_listwise_residual_continuation_v2/continue_lr3e3_ep8/removal_ranker.pt",
+  "selected_ranker_checkpoint_sha256": "9df103c19d1f80336f80514d54bb88ee43cda31ca9749214160404e77a625c57",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "band": {"lower_delivery_target": 0.235, "upper_delivery_target": 0.300, "reserve_floor": 0.20, "completion_fraction": 0.50},
+  "baseline_parameters": {
+    "energy_proportional_score_exponent": 4.0,
+    "energy_proportional_selection_source": "development-only sweep outputs/phase3/step3_dev_energy_exponent_fairness_sweep_v1/summary.json",
+    "s2a2mac_energy_weight": 0.25,
+    "s2a2mac_load_weight": 0.75,
+    "ffss_margin_weight": 1.0,
+    "ffss_queue_weight": 1.0
+  },
+  "statistics": {
+    "confidence_level": 0.95,
+    "paired_bootstrap_resamples": 20000,
+    "random_seed": 20260813,
+    "test": "two-sided paired Wilcoxon signed-rank on seed-level means",
+    "multiplicity_correction": "Holm across 15 prespecified controller-vs-baseline hypotheses",
+    "metrics": {
+      "delivery_ratio": "higher",
+      "stale_ratio": "lower",
+      "episode_service_fairness": "higher",
+      "fnd_free_steps": "higher",
+      "global_packets_per_j": "higher"
+    }
+  },
+  "integrity_gates": {
+    "expected_rows_per_policy": 100,
+    "expected_seed_units_per_policy": 20,
+    "minimum_primary_joint_qos_pairs": 90,
+    "require_all_fnd_events_observed": true,
+    "require_complete_pairing": true
+  },
+  "workers": 5,
+  "threads_per_worker": 3,
+  "selection_or_retuning_permitted": false,
+  "evaluation_seeds_opened": false,
+  "claim_boundary": "matched-simulator evidence under the frozen primary environment only; adapted literature policies are structural reimplementations, not direct reproduction of published numerical tables; no cross-simulator superiority claim"
+}
