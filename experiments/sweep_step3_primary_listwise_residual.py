@@ -258,6 +258,8 @@ def evaluate_ranker(agent, ranker, environments, qos, contract):
                      "fnd_free_steps": int(env.base.t_fnd if env.base.t_fnd is not None else contract["horizon"]),
                      "global_packets_per_j": int(env.base.total_packets) / max(energy, 1e-12)})
     return {"pairs": len(rows), "joint_qos_pass_count": int(sum(r["joint_qos_pass"] for r in rows)),
+            "mean_delivery_ratio": float(np.mean([r["delivery_ratio"] for r in rows])),
+            "mean_stale_ratio": float(np.mean([r["stale_ratio"] for r in rows])),
             "mean_fnd_free_steps": float(np.mean([r["fnd_free_steps"] for r in rows])),
             "mean_episode_service_fairness": float(np.mean([r["episode_service_fairness"] for r in rows])),
             "mean_global_packets_per_j": float(np.mean([r["global_packets_per_j"] for r in rows])),

@@ -37,6 +37,32 @@ See
 for the complete result, confidence intervals, limitations, and paper-safe
 claim boundary.
 
+## Fresh-cohort ablation
+
+A separately preregistered ablation on seeds 3600--3604 compared analytic
+ranking, learned ranking, and disabling upper-band removal:
+
+| Arm | QoS | Delivery | FND-free | Fairness | Packets/J |
+|---|---:|---:|---:|---:|---:|
+| Analytic teacher | 25/25 | 0.278071 | 123.92 | 0.858214 | 225.7291 |
+| Learned listwise residual | 25/25 | 0.277843 | 123.88 | 0.859354 | 225.7709 |
+| No upper-band removal | 25/25 | 0.308043 | 121.84 | 0.831995 | 225.3260 |
+
+The learned ranker again reduced teacher-action disagreement by **95.36%** and
+passed every compatibility gate. Disabling upper-band removal increased mean
+delivery by 0.02997, but advanced FND by 2.08 rounds, reduced fairness by
+0.02622, and reduced packets/J by 0.40314. Paired 95% confidence intervals for
+those four effects excluded zero.
+
+The residual ranker has 225 parameters, adding 0.194% to the 116,033-parameter
+base controller. Component-level median latency was similar to analytic ranking;
+the learned p95 was higher, so no end-to-end speedup is claimed.
+
+See
+[`HTA_MAC_LISTWISE_RESIDUAL_ABLATION_REPORT_20260813.md`](HTA_MAC_LISTWISE_RESIDUAL_ABLATION_REPORT_20260813.md)
+for paired effect sizes, confidence intervals, p-values, profiling methodology,
+and limitations.
+
 ## Method
 
 The learned residual module addresses a failure of earlier full-action and
@@ -82,7 +108,7 @@ python -B -m pytest validation -q -p no:cacheprovider
 Expected result for this revision:
 
 ```text
-132 passed
+135 passed
 ```
 
 Rerun the frozen independent confirmation:
@@ -112,6 +138,8 @@ exit code if any operational gate fails.
   `outputs/phase2/step3_primary_listwise_residual_continuation_v2/summary.json`
 - Independent confirmation:
   `outputs/phase3/step3_primary_listwise_residual_confirmation_v1/summary.json`
+- Fresh-cohort ablation:
+  `outputs/phase3/step3_primary_listwise_residual_ablation_v1/summary.json`
 - Frozen confirmation contract:
   `config/step3_primary_listwise_residual_confirmation_v1.json`
 

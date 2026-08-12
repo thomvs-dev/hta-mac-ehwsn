@@ -1,0 +1,1113 @@
+{
+  "schema_version": 1,
+  "status": "primary_listwise_residual_ablation_passed",
+  "contract_sha256": "be2179e22ecd814e6cbdff49034730f11c9b55453c2f13f24d19b329c94ba92e",
+  "ablation_seeds": [
+    3600,
+    3601,
+    3602,
+    3603,
+    3604
+  ],
+  "ablation_seeds_opened": true,
+  "arms": {
+    "analytic_teacher": {
+      "pairs": 25,
+      "joint_qos_pass_count": 25,
+      "mean_delivery_ratio": 0.2780708237564406,
+      "mean_stale_ratio": 0.0569609619600418,
+      "mean_episode_service_fairness": 0.8582135142085293,
+      "mean_fnd_free_steps": 123.92,
+      "mean_global_packets_per_j": 225.72913264539685,
+      "intervention": {
+        "steps": 3247,
+        "intervention_steps": 499,
+        "added_slots": 0,
+        "removed_slots": 4008,
+        "risk_blocked_slots": 0,
+        "changed_slots_l1": 4008
+      },
+      "rows": [
+        {
+          "seed": 3600,
+          "target_rank": 0,
+          "delivery_ratio": 0.29050147492625367,
+          "stale_ratio": 0.07233038348082596,
+          "episode_service_fairness": 0.8249944823251667,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets": 10501,
+          "network_energy_j": 46.47634571007147,
+          "global_packets_per_j": 225.94289287516904
+        },
+        {
+          "seed": 3600,
+          "target_rank": 1,
+          "delivery_ratio": 0.25820200218059275,
+          "stale_ratio": 0.06700366736049163,
+          "episode_service_fairness": 0.823692342607872,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 130,
+          "global_packets": 10595,
+          "network_energy_j": 47.090069832389055,
+          "global_packets_per_j": 224.99435736051183
+        },
+        {
+          "seed": 3600,
+          "target_rank": 2,
+          "delivery_ratio": 0.24668409332946073,
+          "stale_ratio": 0.06873850324329557,
+          "episode_service_fairness": 0.8744854573829548,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets": 9946,
+          "network_energy_j": 44.37354137931853,
+          "global_packets_per_j": 224.1425789070691
+        },
+        {
+          "seed": 3600,
+          "target_rank": 3,
+          "delivery_ratio": 0.27133773538762535,
+          "stale_ratio": 0.06052824651504035,
+          "episode_service_fairness": 0.8276088230824733,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 10543,
+          "network_energy_j": 46.8160955205223,
+          "global_packets_per_j": 225.20032657098392
+        },
+        {
+          "seed": 3600,
+          "target_rank": 4,
+          "delivery_ratio": 0.27213194276012614,
+          "stale_ratio": 0.06524375454765947,
+          "episode_service_fairness": 0.7808958055460921,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets": 9960,
+          "network_energy_j": 44.18811364106752,
+          "global_packets_per_j": 225.39998156299168
+        },
+        {
+          "seed": 3601,
+          "target_rank": 0,
+          "delivery_ratio": 0.2998902649318075,
+          "stale_ratio": 0.046559021790249254,
+          "episode_service_fairness": 0.8102443598438187,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 113,
+          "global_packets": 9096,
+          "network_energy_j": 40.37305351548688,
+          "global_packets_per_j": 225.29878738329327
+        },
+        {
+          "seed": 3601,
+          "target_rank": 1,
+          "delivery_ratio": 0.287235375172241,
+          "stale_ratio": 0.04609795816109232,
+          "episode_service_fairness": 0.8646991969953067,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 120,
+          "global_packets": 10440,
+          "network_energy_j": 45.931471103436294,
+          "global_packets_per_j": 227.29513662842265
+        },
+        {
+          "seed": 3601,
+          "target_rank": 2,
+          "delivery_ratio": 0.3,
+          "stale_ratio": 0.05377358490566038,
+          "episode_service_fairness": 0.8714372984934584,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets": 11299,
+          "network_energy_j": 49.48301633717283,
+          "global_packets_per_j": 228.34097103154807
+        },
+        {
+          "seed": 3601,
+          "target_rank": 3,
+          "delivery_ratio": 0.2746271905954066,
+          "stale_ratio": 0.04887340807663002,
+          "episode_service_fairness": 0.8421571890541467,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets": 10378,
+          "network_energy_j": 45.67556955706993,
+          "global_packets_per_j": 227.21117876883997
+        },
+        {
+          "seed": 3601,
+          "target_rank": 4,
+          "delivery_ratio": 0.2759367554689192,
+          "stale_ratio": 0.04559237600173273,
+          "episode_service_fairness": 0.9054334056714827,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets": 10418,
+          "network_energy_j": 45.74257814607694,
+          "global_packets_per_j": 227.7527944911756
+        },
+        {
+          "seed": 3602,
+          "target_rank": 0,
+          "delivery_ratio": 0.2601847465656087,
+          "stale_ratio": 0.059924206537186164,
+          "episode_service_fairness": 0.8517454887459147,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 124,
+          "global_packets": 10086,
+          "network_energy_j": 45.07348369541893,
+          "global_packets_per_j": 223.76792679606206
+        },
+        {
+          "seed": 3602,
+          "target_rank": 1,
+          "delivery_ratio": 0.25814652183961173,
+          "stale_ratio": 0.059278946152068406,
+          "episode_service_fairness": 0.8563714369697656,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 119,
+          "global_packets": 9380,
+          "network_energy_j": 41.638734763446564,
+          "global_packets_per_j": 225.27101395584262
+        },
+        {
+          "seed": 3602,
+          "target_rank": 2,
+          "delivery_ratio": 0.2909134442715192,
+          "stale_ratio": 0.05195738058182689,
+          "episode_service_fairness": 0.8412704864974269,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 125,
+          "global_packets": 10352,
+          "network_energy_j": 45.88203607492369,
+          "global_packets_per_j": 225.62207097992692
+        },
+        {
+          "seed": 3602,
+          "target_rank": 3,
+          "delivery_ratio": 0.2987097615013684,
+          "stale_ratio": 0.06542421477909553,
+          "episode_service_fairness": 0.8989491932268551,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 123,
+          "global_packets": 10292,
+          "network_energy_j": 45.62635592403113,
+          "global_packets_per_j": 225.57137846240454
+        },
+        {
+          "seed": 3602,
+          "target_rank": 4,
+          "delivery_ratio": 0.29766162310866573,
+          "stale_ratio": 0.04456671251719395,
+          "episode_service_fairness": 0.9005473352839368,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 119,
+          "global_packets": 9921,
+          "network_energy_j": 43.9945153141409,
+          "global_packets_per_j": 225.50538241322894
+        },
+        {
+          "seed": 3603,
+          "target_rank": 0,
+          "delivery_ratio": 0.27705627705627706,
+          "stale_ratio": 0.07888407888407889,
+          "episode_service_fairness": 0.8034599734454464,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 132,
+          "global_packets": 10187,
+          "network_energy_j": 45.452835372566035,
+          "global_packets_per_j": 224.1224318901031
+        },
+        {
+          "seed": 3603,
+          "target_rank": 1,
+          "delivery_ratio": 0.25180912427897223,
+          "stale_ratio": 0.07047718930256948,
+          "episode_service_fairness": 0.8568515648290733,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 133,
+          "global_packets": 10051,
+          "network_energy_j": 45.040859699077906,
+          "global_packets_per_j": 223.15293418357572
+        },
+        {
+          "seed": 3603,
+          "target_rank": 2,
+          "delivery_ratio": 0.2531511367652256,
+          "stale_ratio": 0.07209329720815173,
+          "episode_service_fairness": 0.8453368629743668,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9643,
+          "network_energy_j": 43.25743661069508,
+          "global_packets_per_j": 222.92120743964378
+        },
+        {
+          "seed": 3603,
+          "target_rank": 3,
+          "delivery_ratio": 0.2642694063926941,
+          "stale_ratio": 0.06278538812785388,
+          "episode_service_fairness": 0.8495530031405768,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9885,
+          "network_energy_j": 44.38052335738904,
+          "global_packets_per_j": 222.73283981799233
+        },
+        {
+          "seed": 3603,
+          "target_rank": 4,
+          "delivery_ratio": 0.27442804012171756,
+          "stale_ratio": 0.05127916150118336,
+          "episode_service_fairness": 0.8834636611097306,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9860,
+          "network_energy_j": 44.28502145752614,
+          "global_packets_per_j": 222.64864451870588
+        },
+        {
+          "seed": 3604,
+          "target_rank": 0,
+          "delivery_ratio": 0.2999670727691801,
+          "stale_ratio": 0.05037866315442871,
+          "episode_service_fairness": 0.855662067385932,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 9546,
+          "network_energy_j": 41.95215308323349,
+          "global_packets_per_j": 227.54493627682567
+        },
+        {
+          "seed": 3604,
+          "target_rank": 1,
+          "delivery_ratio": 0.2649924226022949,
+          "stale_ratio": 0.05260878978133795,
+          "episode_service_fairness": 0.8825546839504247,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 10094,
+          "network_energy_j": 44.30041626175628,
+          "global_packets_per_j": 227.85338946609315
+        },
+        {
+          "seed": 3604,
+          "target_rank": 2,
+          "delivery_ratio": 0.2924271844660194,
+          "stale_ratio": 0.04763754045307443,
+          "episode_service_fairness": 0.9189189347035384,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 10897,
+          "network_energy_j": 47.58594323984478,
+          "global_packets_per_j": 228.9961963152954
+        },
+        {
+          "seed": 3604,
+          "target_rank": 3,
+          "delivery_ratio": 0.29841673734803503,
+          "stale_ratio": 0.04170200735086231,
+          "episode_service_fairness": 0.9250500516963335,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 115,
+          "global_packets": 9405,
+          "network_energy_j": 41.16329357855421,
+          "global_packets_per_j": 228.48025953151475
+        },
+        {
+          "seed": 3604,
+          "target_rank": 4,
+          "delivery_ratio": 0.29309026007139216,
+          "stale_ratio": 0.04028556858745538,
+          "episode_service_fairness": 0.8599547502511382,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 114,
+          "global_packets": 9649,
+          "network_energy_j": 42.420888114214385,
+          "global_packets_per_j": 227.45869850770083
+        }
+      ]
+    },
+    "no_upper_band_removal": {
+      "pairs": 25,
+      "joint_qos_pass_count": 25,
+      "mean_delivery_ratio": 0.30804259006548557,
+      "mean_stale_ratio": 0.055704961390101525,
+      "mean_episode_service_fairness": 0.8319950464756115,
+      "mean_fnd_free_steps": 121.84,
+      "mean_global_packets_per_j": 225.32599561368642,
+      "intervention": {
+        "steps": 3166,
+        "teacher_action_disagreement_l1": 33316,
+        "teacher_removed_slots": 33316,
+        "executed_slots": 58511
+      },
+      "rows": [
+        {
+          "seed": 3600,
+          "target_rank": 0,
+          "delivery_ratio": 0.29640219204193474,
+          "stale_ratio": 0.07231355730283535,
+          "episode_service_fairness": 0.8283309874253002,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets": 10526,
+          "network_energy_j": 46.610892580079614,
+          "global_packets_per_j": 225.82704207854113
+        },
+        {
+          "seed": 3600,
+          "target_rank": 1,
+          "delivery_ratio": 0.2600754417311892,
+          "stale_ratio": 0.0669049037125273,
+          "episode_service_fairness": 0.817946889825032,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 130,
+          "global_packets": 10610,
+          "network_energy_j": 47.12879788209075,
+          "global_packets_per_j": 225.12774517492772
+        },
+        {
+          "seed": 3600,
+          "target_rank": 2,
+          "delivery_ratio": 0.24833594361785435,
+          "stale_ratio": 0.06891151135473766,
+          "episode_service_fairness": 0.8744587612310092,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 134,
+          "global_packets": 9866,
+          "network_energy_j": 44.07725833983196,
+          "global_packets_per_j": 223.83424858084342
+        },
+        {
+          "seed": 3600,
+          "target_rank": 3,
+          "delivery_ratio": 0.28811830698623153,
+          "stale_ratio": 0.059153493115757266,
+          "episode_service_fairness": 0.7895707668212297,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 10463,
+          "network_energy_j": 46.35751554588979,
+          "global_packets_per_j": 225.70234571010533
+        },
+        {
+          "seed": 3600,
+          "target_rank": 4,
+          "delivery_ratio": 0.2876746198541229,
+          "stale_ratio": 0.06465570527877364,
+          "episode_service_fairness": 0.7817800743798683,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets": 10043,
+          "network_energy_j": 44.53539763896769,
+          "global_packets_per_j": 225.50601392211556
+        },
+        {
+          "seed": 3601,
+          "target_rank": 0,
+          "delivery_ratio": 0.3402061855670103,
+          "stale_ratio": 0.04560545168617858,
+          "episode_service_fairness": 0.7491041782049351,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 107,
+          "global_packets": 8736,
+          "network_energy_j": 38.80657326436001,
+          "global_packets_per_j": 225.11650128157927
+        },
+        {
+          "seed": 3601,
+          "target_rank": 1,
+          "delivery_ratio": 0.3222106360792492,
+          "stale_ratio": 0.042157008788917025,
+          "episode_service_fairness": 0.8161438975523976,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 9612,
+          "network_energy_j": 42.45943000848738,
+          "global_packets_per_j": 226.38080629152628
+        },
+        {
+          "seed": 3601,
+          "target_rank": 2,
+          "delivery_ratio": 0.33020957573692283,
+          "stale_ratio": 0.06099846651899812,
+          "episode_service_fairness": 0.7747380574067959,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 9540,
+          "network_energy_j": 42.04782005640756,
+          "global_packets_per_j": 226.88453259174904
+        },
+        {
+          "seed": 3601,
+          "target_rank": 3,
+          "delivery_ratio": 0.3032337473425087,
+          "stale_ratio": 0.04800268546492111,
+          "episode_service_fairness": 0.8548116684092544,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets": 10872,
+          "network_energy_j": 47.867198716450375,
+          "global_packets_per_j": 227.12839463203542
+        },
+        {
+          "seed": 3601,
+          "target_rank": 4,
+          "delivery_ratio": 0.3147533478310633,
+          "stale_ratio": 0.047041318530388,
+          "episode_service_fairness": 0.8489701775763405,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets": 10896,
+          "network_energy_j": 47.955750157015615,
+          "global_packets_per_j": 227.2094579758333
+        },
+        {
+          "seed": 3602,
+          "target_rank": 0,
+          "delivery_ratio": 0.2848562300319489,
+          "stale_ratio": 0.05597444089456869,
+          "episode_service_fairness": 0.8026346448179185,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets": 10032,
+          "network_energy_j": 44.791918790730534,
+          "global_packets_per_j": 223.96897187793778
+        },
+        {
+          "seed": 3602,
+          "target_rank": 1,
+          "delivery_ratio": 0.27060226595110315,
+          "stale_ratio": 0.06129994036970781,
+          "episode_service_fairness": 0.8375583054697511,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 117,
+          "global_packets": 9275,
+          "network_energy_j": 41.342903434572136,
+          "global_packets_per_j": 224.34321804897658
+        },
+        {
+          "seed": 3602,
+          "target_rank": 2,
+          "delivery_ratio": 0.33392980041293874,
+          "stale_ratio": 0.04514796971782519,
+          "episode_service_fairness": 0.8422227606694036,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 123,
+          "global_packets": 9988,
+          "network_energy_j": 44.32037756815637,
+          "global_packets_per_j": 225.35909096533177
+        },
+        {
+          "seed": 3602,
+          "target_rank": 3,
+          "delivery_ratio": 0.3377301456444078,
+          "stale_ratio": 0.06196757350920583,
+          "episode_service_fairness": 0.8501636643786449,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 123,
+          "global_packets": 10456,
+          "network_energy_j": 46.342886343693586,
+          "global_packets_per_j": 225.62254587370708
+        },
+        {
+          "seed": 3602,
+          "target_rank": 4,
+          "delivery_ratio": 0.3900687070580887,
+          "stale_ratio": 0.03763272954403498,
+          "episode_service_fairness": 0.8662878827354403,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 115,
+          "global_packets": 10266,
+          "network_energy_j": 45.729005471836075,
+          "global_packets_per_j": 224.4964633294442
+        },
+        {
+          "seed": 3603,
+          "target_rank": 0,
+          "delivery_ratio": 0.2830051057622174,
+          "stale_ratio": 0.07901774860199368,
+          "episode_service_fairness": 0.8014104116028098,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 10210,
+          "network_energy_j": 45.56737139076417,
+          "global_packets_per_j": 224.0638353361198
+        },
+        {
+          "seed": 3603,
+          "target_rank": 1,
+          "delivery_ratio": 0.2646018647519023,
+          "stale_ratio": 0.07116064730468331,
+          "episode_service_fairness": 0.8544003061354589,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 129,
+          "global_packets": 10117,
+          "network_energy_j": 45.334109097454764,
+          "global_packets_per_j": 223.16529874341367
+        },
+        {
+          "seed": 3603,
+          "target_rank": 2,
+          "delivery_ratio": 0.2570314346490191,
+          "stale_ratio": 0.07196880170172536,
+          "episode_service_fairness": 0.8483641014692472,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9669,
+          "network_energy_j": 43.389948416879825,
+          "global_packets_per_j": 222.83962882607406
+        },
+        {
+          "seed": 3603,
+          "target_rank": 3,
+          "delivery_ratio": 0.26910144927536234,
+          "stale_ratio": 0.06342028985507246,
+          "episode_service_fairness": 0.8274677501672292,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9824,
+          "network_energy_j": 44.13924509696947,
+          "global_packets_per_j": 222.56837375486742
+        },
+        {
+          "seed": 3603,
+          "target_rank": 4,
+          "delivery_ratio": 0.2871629407697626,
+          "stale_ratio": 0.05127909656602904,
+          "episode_service_fairness": 0.8651750523279766,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets": 9917,
+          "network_energy_j": 44.59195122941228,
+          "global_packets_per_j": 222.39439465162658
+        },
+        {
+          "seed": 3604,
+          "target_rank": 0,
+          "delivery_ratio": 0.3377832425786053,
+          "stale_ratio": 0.04883189882311611,
+          "episode_service_fairness": 0.8270340468723376,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 114,
+          "global_packets": 9647,
+          "network_energy_j": 42.347623388985795,
+          "global_packets_per_j": 227.80499182650922
+        },
+        {
+          "seed": 3604,
+          "target_rank": 1,
+          "delivery_ratio": 0.29206387035271686,
+          "stale_ratio": 0.05290753098188751,
+          "episode_service_fairness": 0.8479490057531694,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 115,
+          "global_packets": 9740,
+          "network_energy_j": 42.87666840607948,
+          "global_packets_per_j": 227.16317200193114
+        },
+        {
+          "seed": 3604,
+          "target_rank": 2,
+          "delivery_ratio": 0.3843569161844316,
+          "stale_ratio": 0.037334328915437746,
+          "episode_service_fairness": 0.8703896078383758,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 111,
+          "global_packets": 9290,
+          "network_energy_j": 40.8793878643068,
+          "global_packets_per_j": 227.2538921286397
+        },
+        {
+          "seed": 3604,
+          "target_rank": 3,
+          "delivery_ratio": 0.384535904942311,
+          "stale_ratio": 0.03840192870673325,
+          "episode_service_fairness": 0.8877271684538517,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 109,
+          "global_packets": 9134,
+          "network_energy_j": 40.20862117187659,
+          "global_packets_per_j": 227.1652131754436
+        },
+        {
+          "seed": 3604,
+          "target_rank": 4,
+          "delivery_ratio": 0.3330148764842364,
+          "stale_ratio": 0.040535007506482874,
+          "episode_service_fairness": 0.8352359943665105,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 110,
+          "global_packets": 9785,
+          "network_energy_j": 43.253644511442644,
+          "global_packets_per_j": 226.2237115628812
+        }
+      ]
+    },
+    "learned_listwise_residual": {
+      "pairs": 25,
+      "joint_qos_pass_count": 25,
+      "mean_delivery_ratio": 0.27784256929182777,
+      "mean_stale_ratio": 0.05711113294245373,
+      "mean_fnd_free_steps": 123.88,
+      "mean_episode_service_fairness": 0.8593539530358474,
+      "mean_global_packets_per_j": 225.77088724902364,
+      "teacher_action_disagreement_l1": 186,
+      "teacher_changed_slots_l1": 4086,
+      "rows": [
+        {
+          "seed": 3600,
+          "target_rank": 0,
+          "delivery_ratio": 0.29050147492625367,
+          "stale_ratio": 0.07233038348082596,
+          "episode_service_fairness": 0.8249944823251667,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets_per_j": 225.94289287516904
+        },
+        {
+          "seed": 3600,
+          "target_rank": 1,
+          "delivery_ratio": 0.25820200218059275,
+          "stale_ratio": 0.06700366736049163,
+          "episode_service_fairness": 0.823692342607872,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 130,
+          "global_packets_per_j": 224.99435736051183
+        },
+        {
+          "seed": 3600,
+          "target_rank": 2,
+          "delivery_ratio": 0.24668409332946073,
+          "stale_ratio": 0.06873850324329557,
+          "episode_service_fairness": 0.8744854573829548,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets_per_j": 224.1425789070691
+        },
+        {
+          "seed": 3600,
+          "target_rank": 3,
+          "delivery_ratio": 0.27133773538762535,
+          "stale_ratio": 0.060772805086818295,
+          "episode_service_fairness": 0.8301600373420552,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets_per_j": 225.21579219823727
+        },
+        {
+          "seed": 3600,
+          "target_rank": 4,
+          "delivery_ratio": 0.27206595538312317,
+          "stale_ratio": 0.06522793404461688,
+          "episode_service_fairness": 0.7806316329136732,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 135,
+          "global_packets_per_j": 225.40053850979314
+        },
+        {
+          "seed": 3601,
+          "target_rank": 0,
+          "delivery_ratio": 0.29524226503210743,
+          "stale_ratio": 0.050204319906596614,
+          "episode_service_fairness": 0.836632253865326,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 112,
+          "global_packets_per_j": 226.44636517552044
+        },
+        {
+          "seed": 3601,
+          "target_rank": 1,
+          "delivery_ratio": 0.2872900476309852,
+          "stale_ratio": 0.046502882928052144,
+          "episode_service_fairness": 0.8644256984630043,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 120,
+          "global_packets_per_j": 227.3081874293193
+        },
+        {
+          "seed": 3601,
+          "target_rank": 2,
+          "delivery_ratio": 0.3,
+          "stale_ratio": 0.05363881401617251,
+          "episode_service_fairness": 0.8715142169329361,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets_per_j": 228.3420176325084
+        },
+        {
+          "seed": 3601,
+          "target_rank": 3,
+          "delivery_ratio": 0.2741707449700924,
+          "stale_ratio": 0.048939641109298535,
+          "episode_service_fairness": 0.838595580873974,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets_per_j": 227.24033034241725
+        },
+        {
+          "seed": 3601,
+          "target_rank": 4,
+          "delivery_ratio": 0.27595539677384434,
+          "stale_ratio": 0.045361047959294146,
+          "episode_service_fairness": 0.9041494627662301,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 118,
+          "global_packets_per_j": 227.7865281648084
+        },
+        {
+          "seed": 3602,
+          "target_rank": 0,
+          "delivery_ratio": 0.2601847465656087,
+          "stale_ratio": 0.06004263382283278,
+          "episode_service_fairness": 0.8519888217691401,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 124,
+          "global_packets_per_j": 223.76857619549816
+        },
+        {
+          "seed": 3602,
+          "target_rank": 1,
+          "delivery_ratio": 0.25809435707678074,
+          "stale_ratio": 0.05955134135060129,
+          "episode_service_fairness": 0.8540828552284071,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 119,
+          "global_packets_per_j": 225.32437259174498
+        },
+        {
+          "seed": 3602,
+          "target_rank": 2,
+          "delivery_ratio": 0.29084380610412924,
+          "stale_ratio": 0.05206463195691203,
+          "episode_service_fairness": 0.8417050255188857,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 125,
+          "global_packets_per_j": 225.64186582242843
+        },
+        {
+          "seed": 3602,
+          "target_rank": 3,
+          "delivery_ratio": 0.2985133020344288,
+          "stale_ratio": 0.06520605112154408,
+          "episode_service_fairness": 0.8971384843857938,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 123,
+          "global_packets_per_j": 225.49359035993893
+        },
+        {
+          "seed": 3602,
+          "target_rank": 4,
+          "delivery_ratio": 0.29725274725274725,
+          "stale_ratio": 0.04436813186813187,
+          "episode_service_fairness": 0.9001607758185824,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 120,
+          "global_packets_per_j": 225.40388787691685
+        },
+        {
+          "seed": 3603,
+          "target_rank": 0,
+          "delivery_ratio": 0.27705627705627706,
+          "stale_ratio": 0.07888407888407889,
+          "episode_service_fairness": 0.8034599734454464,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 132,
+          "global_packets_per_j": 224.1224318901031
+        },
+        {
+          "seed": 3603,
+          "target_rank": 1,
+          "delivery_ratio": 0.25180912427897223,
+          "stale_ratio": 0.07047718930256948,
+          "episode_service_fairness": 0.8568515648290733,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 133,
+          "global_packets_per_j": 223.15293418357572
+        },
+        {
+          "seed": 3603,
+          "target_rank": 2,
+          "delivery_ratio": 0.2531511367652256,
+          "stale_ratio": 0.07209329720815173,
+          "episode_service_fairness": 0.8453368629743668,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets_per_j": 222.92120743964378
+        },
+        {
+          "seed": 3603,
+          "target_rank": 3,
+          "delivery_ratio": 0.2642694063926941,
+          "stale_ratio": 0.06278538812785388,
+          "episode_service_fairness": 0.8495530031405768,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets_per_j": 222.73283981799233
+        },
+        {
+          "seed": 3603,
+          "target_rank": 4,
+          "delivery_ratio": 0.27442804012171756,
+          "stale_ratio": 0.05127916150118336,
+          "episode_service_fairness": 0.8834636611097306,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 131,
+          "global_packets_per_j": 222.64864451870588
+        },
+        {
+          "seed": 3604,
+          "target_rank": 0,
+          "delivery_ratio": 0.29986811737553576,
+          "stale_ratio": 0.050445103857566766,
+          "episode_service_fairness": 0.8570676619779903,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets_per_j": 227.5379076697477
+        },
+        {
+          "seed": 3604,
+          "target_rank": 1,
+          "delivery_ratio": 0.2649924226022949,
+          "stale_ratio": 0.05260878978133795,
+          "episode_service_fairness": 0.8825546839504247,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 116,
+          "global_packets_per_j": 227.85338946609315
+        },
+        {
+          "seed": 3604,
+          "target_rank": 2,
+          "delivery_ratio": 0.2925442563638713,
+          "stale_ratio": 0.047551363225222895,
+          "episode_service_fairness": 0.925277744087536,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 115,
+          "global_packets_per_j": 228.99282188460586
+        },
+        {
+          "seed": 3604,
+          "target_rank": 3,
+          "delivery_ratio": 0.29850113122171945,
+          "stale_ratio": 0.04143099547511312,
+          "episode_service_fairness": 0.9247584534752153,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 115,
+          "global_packets_per_j": 228.38450168409508
+        },
+        {
+          "seed": 3604,
+          "target_rank": 4,
+          "delivery_ratio": 0.2931056454696062,
+          "stale_ratio": 0.04027016694278068,
+          "episode_service_fairness": 0.8611680887118225,
+          "joint_qos_pass": true,
+          "fnd_free_steps": 114,
+          "global_packets_per_j": 227.47362122914765
+        }
+      ]
+    }
+  },
+  "residual_teacher_correction_reduction_fraction": 0.9535928143712575,
+  "paired_statistics": {
+    "learned_listwise_residual_minus_teacher": {
+      "delivery_ratio": {
+        "mean_paired_difference_treatment_minus_teacher": -0.00022825446461283594,
+        "median_paired_difference": 0.0,
+        "bootstrap_confidence_interval": [
+          -0.0006228440650541387,
+          -7.162298629347439e-06
+        ],
+        "wilcoxon_two_sided_p_value": 0.2695445099640895,
+        "paired_cohens_dz": -0.24541104207062475,
+        "wins_ties_losses": {
+          "wins": 5,
+          "ties": 12,
+          "losses": 8
+        },
+        "pairs": 25
+      },
+      "stale_ratio": {
+        "mean_paired_difference_treatment_minus_teacher": 0.0001501709824119335,
+        "median_paired_difference": 0.0,
+        "bootstrap_confidence_interval": [
+          -4.215974449142564e-05,
+          0.0004751340079749794
+        ],
+        "wilcoxon_two_sided_p_value": 0.807627441050397,
+        "paired_cohens_dz": 0.2017522309635178,
+        "wins_ties_losses": {
+          "wins": 8,
+          "ties": 9,
+          "losses": 8
+        },
+        "pairs": 25
+      },
+      "fnd_free_steps": {
+        "mean_paired_difference_treatment_minus_teacher": -0.04,
+        "median_paired_difference": 0.0,
+        "bootstrap_confidence_interval": [
+          -0.16,
+          0.08
+        ],
+        "wilcoxon_two_sided_p_value": 0.7245179908306631,
+        "paired_cohens_dz": -0.11389895949029986,
+        "wins_ties_losses": {
+          "wins": 1,
+          "ties": 22,
+          "losses": 2
+        },
+        "pairs": 25
+      },
+      "episode_service_fairness": {
+        "mean_paired_difference_treatment_minus_teacher": 0.0011404388273181087,
+        "median_paired_difference": 0.0,
+        "bootstrap_confidence_interval": [
+          -0.0004061901999583848,
+          0.003604543199058904
+        ],
+        "wilcoxon_two_sided_p_value": 0.9138236759974231,
+        "paired_cohens_dz": 0.2057044415783666,
+        "wins_ties_losses": {
+          "wins": 8,
+          "ties": 9,
+          "losses": 8
+        },
+        "pairs": 25
+      },
+      "global_packets_per_j": {
+        "mean_paired_difference_treatment_minus_teacher": 0.04175460362683907,
+        "median_paired_difference": 0.0,
+        "bootstrap_confidence_interval": [
+          -0.015454487330258244,
+          0.14083520626523235
+        ],
+        "wilcoxon_two_sided_p_value": 0.23389495161570595,
+        "paired_cohens_dz": 0.17907681593356473,
+        "wins_ties_losses": {
+          "wins": 11,
+          "ties": 9,
+          "losses": 5
+        },
+        "pairs": 25
+      }
+    },
+    "no_upper_band_removal_minus_teacher": {
+      "delivery_ratio": {
+        "mean_paired_difference_treatment_minus_teacher": 0.02997176630904497,
+        "median_paired_difference": 0.027071447750421973,
+        "bootstrap_confidence_interval": [
+          0.02045433578144075,
+          0.04060708601188224
+        ],
+        "wilcoxon_two_sided_p_value": 5.960464477539063e-08,
+        "paired_cohens_dz": 1.129707719294317,
+        "wins_ties_losses": {
+          "wins": 25,
+          "ties": 0,
+          "losses": 0
+        },
+        "pairs": 25
+      },
+      "stale_ratio": {
+        "mean_paired_difference_treatment_minus_teacher": -0.0012560005699402738,
+        "median_paired_difference": -0.0001244955064263753,
+        "bootstrap_confidence_interval": [
+          -0.0025865422363382756,
+          2.7397929608402858e-05
+        ],
+        "wilcoxon_two_sided_p_value": 0.1134914755821228,
+        "paired_cohens_dz": -0.36712321461504416,
+        "wins_ties_losses": {
+          "wins": 9,
+          "ties": 0,
+          "losses": 16
+        },
+        "pairs": 25
+      },
+      "fnd_free_steps": {
+        "mean_paired_difference_treatment_minus_teacher": -2.08,
+        "median_paired_difference": -1.0,
+        "bootstrap_confidence_interval": [
+          -3.04,
+          -1.2
+        ],
+        "wilcoxon_two_sided_p_value": 0.0002482381797268954,
+        "paired_cohens_dz": -0.8742892115551331,
+        "wins_ties_losses": {
+          "wins": 0,
+          "ties": 10,
+          "losses": 15
+        },
+        "pairs": 25
+      },
+      "episode_service_fairness": {
+        "mean_paired_difference_treatment_minus_teacher": -0.026218467732917746,
+        "median_paired_difference": -0.024718755884627686,
+        "bootstrap_confidence_interval": [
+          -0.03673298217528528,
+          -0.016516669983076653
+        ],
+        "wilcoxon_two_sided_p_value": 7.49826431274414e-05,
+        "paired_cohens_dz": -0.9957292464064645,
+        "wins_ties_losses": {
+          "wins": 5,
+          "ties": 0,
+          "losses": 20
+        },
+        "pairs": 25
+      },
+      "global_packets_per_j": {
+        "mean_paired_difference_treatment_minus_teacher": -0.4031370317104199,
+        "median_paired_difference": -0.1822861017139985,
+        "bootstrap_confidence_interval": [
+          -0.6483093486461596,
+          -0.17910365889888874
+        ],
+        "wilcoxon_two_sided_p_value": 0.003419220447540283,
+        "paired_cohens_dz": -0.6755756092222592,
+        "wins_ties_losses": {
+          "wins": 7,
+          "ties": 0,
+          "losses": 18
+        },
+        "pairs": 25
+      }
+    }
+  },
+  "profiling": {
+    "ranker_parameters": 225,
+    "base_controller_parameters": 116033,
+    "ranker_parameter_overhead_fraction": 0.0019391035308920738,
+    "ranker_checkpoint_bytes": 3747,
+    "estimated_ranker_macs_per_node": 192,
+    "estimated_ranker_macs_at_profile_node_count": 19200,
+    "component_only_latency_note": "single removal-choice component; excludes environment, C51 inference, QoS-count arithmetic, and repeated multi-removal projection",
+    "learned_ranker_latency": {
+      "median_us": 120.3,
+      "p95_us": 199.52999999999997,
+      "mean_us": 134.5043,
+      "iterations": 2000
+    },
+    "analytic_teacher_ranking_latency": {
+      "median_us": 122.85,
+      "p95_us": 173.51999999999998,
+      "mean_us": 132.23260000000002,
+      "iterations": 2000
+    }
+  },
+  "checks": {
+    "residual_joint_qos": true,
+    "residual_teacher_correction_reduction": true,
+    "residual_fnd": true,
+    "residual_fairness": true,
+    "residual_packets_per_j": true,
+    "no_upper_action_distinct": true
+  },
+  "gate_pass": true,
+  "elapsed_seconds": 54.12184160000015,
+  "claim_boundary": "fresh-cohort component ablation and efficiency profile; no cross-simulator superiority claim"
+}
