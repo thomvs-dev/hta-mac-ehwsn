@@ -160,3 +160,9 @@ checkpoints. V1 evidence is immutable. V2 should replace V1 only after a
 predeclared held-out gate improves delivery and packets/J without erasing the
 fairness/staleness contribution.
 
+## Continue in a new Codex chat
+
+New agents should read [`AGENTS.md`](AGENTS.md) and the dated
+[`execution handoff`](HTA_MAC_NEW_CHAT_EXECUTION_HANDOFF_20260901.md) before
+changing code. A ready-to-paste prompt is available in
+[`START_NEXT_CHAT.md`](START_NEXT_CHAT.md).
