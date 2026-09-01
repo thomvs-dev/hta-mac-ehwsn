@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "frozen_postconfirmation_comparator_contract_repair_audit",
+  "source_contract": "config/step4_final_confirmation_v1.json",
+  "source_contract_sha256": "a4341cd63c9bef61319ff70e8cda5b842ca74f521d6499556d93f255474f5548",
+  "source_confirmation": "outputs/phase4/final_confirmation_v1/final_confirmation.json",
+  "source_confirmation_sha256": "e3f6845edcde07d4825ee10c79f33bb875e4f2c76fe40677c6a3a65fc6beb232",
+  "evaluation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "workers": 6,
+  "threads_per_worker": 1,
+  "comparator": "energy_proportional_queue_cap_corrected",
+  "correction": "retain residual-energy ranking and exponent but allocate only while action is below the per-node queue cap",
+  "decision_rules": {
+    "no_training_or_retuning": true,
+    "no_model_selection": true,
+    "all_ten_scenarios_reported": true,
+    "supersede_uncapped_energy_comparisons": true
+  },
+  "claim_boundary": "post-confirmation corrective audit on already-opened seeds; descriptive replacement for invalid uncapped energy-proportional contrasts, not a new independent confirmation"
+}

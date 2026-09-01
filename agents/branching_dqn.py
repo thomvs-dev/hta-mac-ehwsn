@@ -13,6 +13,7 @@ from .architectures import (
     EquivariantSetBranchingC51,
     GlobalBranchingDuelingC51,
     IndependentDuelingC51,
+    WorkloadConditionedEquivariantSetBranchingC51,
 )
 from .budget_projection import project_slot_budget
 from .prioritized_replay import PrioritizedReplay
@@ -95,6 +96,9 @@ class BranchingAgentConfig:
     demonstration_margin: float = 0.8
     precision: str = "fp32"
     reward_scale: float = 1.0
+    workload_context_start: int = 33
+    workload_context_features: int = 7
+    ablated_feature_indices: tuple[int, ...] = ()
 
 
 class BranchingDQNAgent:
@@ -121,6 +125,12 @@ class BranchingDQNAgent:
             network_type = EquivariantSetBranchingC51
             kwargs["budget"] = config.budget
             kwargs["max_branches"] = config.max_branches
+        elif config.architecture == "workload_equivariant_set_branching":
+            network_type = WorkloadConditionedEquivariantSetBranchingC51
+            kwargs["budget"] = config.budget
+            kwargs["max_branches"] = config.max_branches
+            kwargs["workload_start"] = config.workload_context_start
+            kwargs["workload_features"] = config.workload_context_features
         elif config.architecture == "independent_dqns":
             network_type = IndependentDuelingC51
             kwargs["max_branches"] = config.max_branches
@@ -189,20 +199,28 @@ class BranchingDQNAgent:
 
     def _transform_state_tensor(self, state):
         """Scale physical forecast moments and the inherited embedding."""
-        if not self.cfg.normalize_input_blocks:
-            return state
-        transformed = state.clone()
-        harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
-        transformed[..., 1] = transformed[..., 1] / harvest_scale
-        transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
-        embedding_start = int(self.cfg.embedding_start_dim)
-        if not 18 <= embedding_start <= transformed.shape[-1]:
-            raise ValueError("embedding start is incompatible with state schema")
-        if transformed.shape[-1] > embedding_start:
-            transformed[..., embedding_start:] = F.layer_norm(
-                transformed[..., embedding_start:],
-                (transformed.shape[-1] - embedding_start,),
-            )
+        transformed = state.clone() if (
+            self.cfg.normalize_input_blocks or self.cfg.ablated_feature_indices
+        ) else state
+        if self.cfg.normalize_input_blocks:
+            harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
+            transformed[..., 1] = transformed[..., 1] / harvest_scale
+            transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
+            embedding_start = int(self.cfg.embedding_start_dim)
+            if not 18 <= embedding_start <= transformed.shape[-1]:
+                raise ValueError("embedding start is incompatible with state schema")
+            if transformed.shape[-1] > embedding_start:
+                transformed[..., embedding_start:] = F.layer_norm(
+                    transformed[..., embedding_start:],
+                    (transformed.shape[-1] - embedding_start,),
+                )
+        if self.cfg.ablated_feature_indices:
+            indices = tuple(int(index) for index in self.cfg.ablated_feature_indices)
+            if len(set(indices)) != len(indices) or any(
+                index < 0 or index >= transformed.shape[-1] for index in indices
+            ):
+                raise ValueError("ablated feature index outside state layout")
+            transformed[..., list(indices)] = 0.0
         return transformed
 
     def q_values_tensor(self, state, mask=None, *, target=False):

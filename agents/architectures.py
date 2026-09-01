@@ -199,6 +199,117 @@ class EquivariantSetBranchingC51(nn.Module):
         log_probabilities = self.forward(state, mask)
         return (log_probabilities.exp() * self.support).sum(dim=-1)
 
+    def q_values_without_set_context(self, state, mask=None):
+        """Diagnostic intervention that removes invariant cluster context.
+
+        This uses the trained local encoder and categorical head without
+        retraining.  It is therefore a mechanism-dependence diagnostic, not a
+        replacement for a separately trained architecture ablation.
+        """
+        mask = self._validate(state, mask)
+        hidden = self.node_encoder(state) * mask.unsqueeze(-1)
+        context = hidden.new_zeros((hidden.shape[0], self.hidden_dim))
+        repeated_context = context.unsqueeze(1).expand(-1, state.shape[1], -1)
+        value = self.value(context).view(-1, 1, 1, self.atoms)
+        advantage = self.advantage(
+            torch.cat((hidden, repeated_context), dim=-1)
+        ).view(-1, state.shape[1], self.actions, self.atoms)
+        logits = value + advantage - advantage.mean(dim=2, keepdim=True)
+        probabilities = F.softmax(logits, dim=-1)
+        q_values = (probabilities * self.support).sum(dim=-1)
+        return torch.where(mask.unsqueeze(-1), q_values, torch.zeros_like(q_values))
+
+
+class WorkloadConditionedEquivariantSetBranchingC51(EquivariantSetBranchingC51):
+    """Equivariant C51 with a separate invariant workload-context pathway.
+
+    The established node encoder receives the original feature layout. Seven
+    broadcast workload features are removed before local encoding and appended
+    only to invariant global context. This permits exact warm-starting from the
+    confirmed v3 network with initially zero workload influence.
+    """
+
+    def __init__(self, *args, workload_start=33, workload_features=7, **kwargs):
+        full_input_dim = int(kwargs.pop("input_dim", 72))
+        self.full_input_dim = full_input_dim
+        self.workload_start = int(workload_start)
+        self.workload_features = int(workload_features)
+        base_input_dim = full_input_dim - self.workload_features
+        if not 0 <= self.workload_start <= base_input_dim:
+            raise ValueError("invalid workload-context insertion point")
+        super().__init__(*args, input_dim=base_input_dim, **kwargs)
+        old_context = self.global_context
+        first = old_context[0]
+        expanded = nn.Linear(
+            first.in_features + self.workload_features,
+            first.out_features,
+        )
+        self.global_context = nn.Sequential(
+            expanded, old_context[1], old_context[2], old_context[3]
+        )
+        # Workload columns start with exactly zero influence. Existing context
+        # parameters retain their normal initialization until warm-started.
+        with torch.no_grad():
+            expanded.weight[:, -self.workload_features:].zero_()
+
+    def _split_state(self, state):
+        if state.shape[-1] != self.full_input_dim:
+            raise ValueError("state does not match workload-conditioned layout")
+        end = self.workload_start + self.workload_features
+        workload = state[..., self.workload_start:end]
+        base = torch.cat((state[..., :self.workload_start], state[..., end:]), dim=-1)
+        return base, workload
+
+    def _set_context_with_workload(self, hidden, mask, workload):
+        valid = mask.unsqueeze(-1)
+        masked = hidden * valid
+        count = valid.sum(dim=1).clamp_min(1)
+        mean = (masked.to(torch.float64).sum(dim=1) / count.to(torch.float64)).to(hidden.dtype)
+        negative_infinity = torch.finfo(hidden.dtype).min
+        maximum = hidden.masked_fill(~valid, negative_infinity).max(dim=1).values
+        maximum = torch.where(mask.any(dim=1, keepdim=True), maximum, torch.zeros_like(maximum))
+        active_fraction = mask.to(hidden.dtype).mean(dim=1, keepdim=True)
+        budget = self.normalized_budget.to(hidden.dtype).expand(hidden.shape[0], 1)
+        workload_mean = (
+            (workload * valid).to(torch.float64).sum(dim=1) / count.to(torch.float64)
+        ).to(hidden.dtype)
+        return self.global_context(torch.cat(
+            (mean, maximum, active_fraction, budget, workload_mean), dim=-1
+        ))
+
+    def forward(self, state, mask=None):
+        base_state, workload = self._split_state(state)
+        mask = self._validate(base_state, mask)
+        hidden = self.node_encoder(base_state) * mask.unsqueeze(-1)
+        context = self._set_context_with_workload(hidden, mask, workload)
+        repeated_context = context.unsqueeze(1).expand(-1, state.shape[1], -1)
+        value = self.value(context).view(-1, 1, 1, self.atoms)
+        advantage = self.advantage(torch.cat((hidden, repeated_context), dim=-1)).view(
+            -1, state.shape[1], self.actions, self.atoms
+        )
+        logits = value + advantage - advantage.mean(dim=2, keepdim=True)
+        log_probabilities = F.log_softmax(logits, dim=-1)
+        uniform_log = -torch.log(state.new_tensor(float(self.atoms)))
+        return torch.where(mask[:, :, None, None], log_probabilities, uniform_log)
+
+
+def warmstart_workload_conditioned(network, source_state_dict):
+    """Load an equivariant v3 network with zero initial workload influence."""
+    if not isinstance(network, WorkloadConditionedEquivariantSetBranchingC51):
+        raise TypeError("destination must be workload-conditioned equivariant C51")
+    destination = network.state_dict()
+    for key, source in source_state_dict.items():
+        if key == "global_context.0.weight":
+            if destination[key].shape[1] != source.shape[1] + network.workload_features:
+                raise RuntimeError("global-context expansion shape mismatch")
+            destination[key][:, :source.shape[1]] = source
+            destination[key][:, source.shape[1]:].zero_()
+        elif key in destination and destination[key].shape == source.shape:
+            destination[key] = source
+        else:
+            raise RuntimeError(f"unsupported warm-start tensor: {key}")
+    network.load_state_dict(destination)
+
 
 class _LocalDuelingC51(nn.Module):
     def __init__(self, input_dim, hidden_dim, actions, atoms):

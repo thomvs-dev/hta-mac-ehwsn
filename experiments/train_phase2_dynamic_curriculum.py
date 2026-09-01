@@ -77,6 +77,7 @@ def parse_args():
         choices=(
             "shared_branching",
             "equivariant_set_branching",
+            "workload_equivariant_set_branching",
             "independent_dqns",
         ),
         default="shared_branching",
@@ -94,6 +95,11 @@ def parse_args():
     )
     parser.add_argument("--demonstration-margin", type=float, default=0.8)
     parser.add_argument("--precision", choices=("fp32", "bf16"), default="fp32")
+    parser.add_argument(
+        "--ablated-feature-indices",
+        default="",
+        help="comma-separated observation columns forced to zero during training and inference",
+    )
     return parser.parse_args()
 
 
@@ -465,6 +471,13 @@ def policy_stability_summary(snapshots, relative_tolerance):
 
 def main():
     args = parse_args()
+    ablated_feature_indices = tuple(
+        int(value.strip())
+        for value in str(args.ablated_feature_indices).split(",")
+        if value.strip()
+    )
+    if len(set(ablated_feature_indices)) != len(ablated_feature_indices):
+        raise ValueError("ablated feature indices must be unique")
     if args.reinitialize_categorical_outputs and not args.initial_checkpoint:
         raise ValueError(
             "categorical output reinitialization requires an initial checkpoint"
@@ -497,7 +510,10 @@ def main():
 
     observation_schema = (
         PHASE2D_POLICY_SCHEMA
-        if args.architecture == "equivariant_set_branching"
+        if args.architecture in {
+            "equivariant_set_branching",
+            "workload_equivariant_set_branching",
+        }
         else LEGACY_POLICY_SCHEMA
     )
     environments, curriculum_manifest, env_cfg = build_curriculum(
@@ -547,6 +563,7 @@ def main():
         demonstration_margin=args.demonstration_margin,
         precision=args.precision,
         reward_scale=reward_scale,
+        ablated_feature_indices=ablated_feature_indices,
     )
     if reward_scale_evidence is not None:
         frozen_support = reward_scale_evidence["payload"]["support"]
@@ -744,6 +761,7 @@ def main():
             "episode": episode + 1,
             "seed": env.seed,
             "target_rank": env.target_rank,
+            "scenario_id": getattr(env, "step4_scenario_id", None),
             "target_cluster": info["target_cluster"],
             "target_ch": info["target_ch"],
             "target_members": len(info["target_members"]),
@@ -878,7 +896,12 @@ def main():
         }
 
     visited = {
-        (int(row["seed"]), int(row["target_rank"])) for row in rows
+        (
+            int(row["seed"]),
+            int(row["target_rank"]),
+            row.get("scenario_id"),
+        )
+        for row in rows
     }
     full_curriculum_seen = len(visited) == len(environments)
     smoke_only = args.episodes < 500

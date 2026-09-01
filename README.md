@@ -1,195 +1,162 @@
 # HTA-MAC
 
-HTA-MAC is a bounded intra-cluster MAC research framework for energy-harvesting
-wireless sensor networks. It combines a frozen HEART-CH cluster-head schedule,
-a permutation-equivariant branching C51 controller, explicit QoS accounting,
-and a compact learned residual ranker for globally coupled slot removal.
+HTA-MAC is a research framework for constrained intra-cluster medium-access
+control in energy-harvesting wireless sensor networks. It uses a shared,
+permutation-equivariant branching distributional controller to allocate a
+bounded slot budget while accounting for delivery, packet staleness, service
+fairness, and cluster-head energy risk.
 
-Routing changes and cluster-head retraining are deliberately out of scope.
+The contribution is deliberately scoped to MAC allocation. Cluster-head
+selection follows an exogenous HEART-CH schedule; routing and cluster-head
+retraining are outside the learned intervention.
 
-## Current verified result: final matched evaluation
+## Current paper baseline
 
-The final preregistered evaluation used 20 previously unused independent seeds
-(3700--3719), five target-rank schedules nested per seed, a 3,000-round
-idle-listening-on horizon, and five matched policies. Statistical tests operate
-on seed means (n=20), not the 100 correlated seed/rank rows.
-
-| Policy | Joint QoS | Delivery | Stale | Fairness | FND | Packets/J |
-|---|---:|---:|---:|---:|---:|---:|
-| HTA-MAC learned residual | **99/100** | 0.279481 | 0.056102 | 0.858371 | 125.10 | 224.8928 |
-| Analytic teacher | **99/100** | 0.279521 | 0.056109 | 0.858429 | 125.10 | 224.9213 |
-| Tuned energy-proportional | 97/100 | 0.285246 | 0.060788 | 0.807922 | 132.43 | 225.5582 |
-| S2A2MAC-adapted | 0/100 | 0.136319 | 0.155080 | 0.669100 | 140.53 | 231.8784 |
-| FFSS-adapted | 1/100 | 0.208664 | 0.045595 | 0.959557 | 133.99 | 220.4545 |
-
-Against tuned energy-proportional, HTA-MAC improved fairness by 0.05045 and
-reduced stale ratio by 0.00469, but reduced delivery by 0.00576, reached FND
-7.33 rounds earlier, and delivered 0.665 fewer packets/J. All five paired
-differences remained significant after Holm correction across 15 prespecified
-hypotheses. The supported contribution is reliable joint-QoS allocation with
-an explicit QoS--lifetime trade-off, not universal lifetime superiority.
-
-See
-[`HTA_MAC_FINAL_MATCHED_BASELINE_REPORT_20260813.md`](HTA_MAC_FINAL_MATCHED_BASELINE_REPORT_20260813.md)
-for confidence intervals, adjusted p-values, effect sizes, limitations, and
-paper-safe claims.
-
-## Residual confirmation
-
-The primary idle-on track now includes a service-aware, permutation-equivariant
-listwise residual ranker. It was selected on development seeds 2400--2404 and
-confirmed on a separately frozen cohort, seeds 3500--3504.
-
-| Confirmation metric (25 seed/rank pairs) | Analytic teacher | Learned residual |
-|---|---:|---:|
-| Joint QoS | 24/25 | 24/25 |
-| Mean FND-free steps | 124.20 | 124.20 |
-| Mean episode service fairness | 0.837725 | 0.837657 |
-| Mean packets/J | 223.8858 | 223.8713 |
-| Teacher changes / residual disagreement | 3,089 | 118 |
-
-The residual ranker reduced action disagreement with the analytic teacher by
-**96.18%** and passed every preregistered confirmation gate. Paired 95%
-bootstrap intervals included zero for FND, fairness, and packets/J; two-sided
-Wilcoxon p-values were 1.000, 0.817, and 0.089 respectively.
-
-The supported claim is operational compatibility with the analytic teacher
-within the frozen tolerances. This is a hybrid constrained controller: the
-QoS-band removal count remains analytic. The evidence does not establish
-teacher superiority, a fully unconstrained neural policy, or universal 25/25
-QoS feasibility.
-
-See
-[`HTA_MAC_LISTWISE_RESIDUAL_CONFIRMATION_REPORT_20260812.md`](HTA_MAC_LISTWISE_RESIDUAL_CONFIRMATION_REPORT_20260812.md)
-for the complete result, confidence intervals, limitations, and paper-safe
-claim boundary.
-
-## Fresh-cohort ablation
-
-A separately preregistered ablation on seeds 3600--3604 compared analytic
-ranking, learned ranking, and disabling upper-band removal:
-
-| Arm | QoS | Delivery | FND-free | Fairness | Packets/J |
-|---|---:|---:|---:|---:|---:|
-| Analytic teacher | 25/25 | 0.278071 | 123.92 | 0.858214 | 225.7291 |
-| Learned listwise residual | 25/25 | 0.277843 | 123.88 | 0.859354 | 225.7709 |
-| No upper-band removal | 25/25 | 0.308043 | 121.84 | 0.831995 | 225.3260 |
-
-The learned ranker again reduced teacher-action disagreement by **95.36%** and
-passed every compatibility gate. Disabling upper-band removal increased mean
-delivery by 0.02997, but advanced FND by 2.08 rounds, reduced fairness by
-0.02622, and reduced packets/J by 0.40314. Paired 95% confidence intervals for
-those four effects excluded zero.
-
-The residual ranker has 225 parameters, adding 0.194% to the 116,033-parameter
-base controller. Component-level median latency was similar to analytic ranking;
-the learned p95 was higher, so no end-to-end speedup is claimed.
-
-See
-[`HTA_MAC_LISTWISE_RESIDUAL_ABLATION_REPORT_20260813.md`](HTA_MAC_LISTWISE_RESIDUAL_ABLATION_REPORT_20260813.md)
-for paired effect sizes, confidence intervals, p-values, profiling methodology,
-and limitations.
-
-## Method
-
-The learned residual module addresses a failure of earlier full-action and
-branch-local distillation objectives. Those objectives did not observe the
-cumulative per-node service used by the teacher and could not reliably reproduce
-a globally budget-coupled removal order.
-
-The replacement uses:
-
-- a shared node scorer, so score permutations follow node permutations;
-- cumulative-service percentile and fraction features;
-- standardized marginal Q-loss and action-cap features;
-- listwise cross-entropy over the teacher's next removal;
-- one DAgger-style on-policy aggregation cycle;
-- deterministic QoS-band and global-budget projection.
-
-The selected residual checkpoint contains only 3.7 KB of serialized model and
-metadata. Its SHA-256 is:
+The manuscript-facing implementation is frozen as
+`HTA_MAC_PAPER_BASELINE_V1_20260901`. Its executable identity is the checkpoint
+with SHA-256:
 
 ```text
-9df103c19d1f80336f80514d54bb88ee43cda31ca9749214160404e77a625c57
+31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a
 ```
+
+The common-simulator 100-node reference result is:
+
+| Policy | Delivery | Stale loss | Fairness | RMST | Packets/J |
+|---|---:|---:|---:|---:|---:|
+| HTA-MAC V1 | 0.42770 | **0.02476** | **0.94511** | 128.28 | 225.77 |
+| Cap-corrected residual-energy heuristic | **0.44591** | 0.04838 | 0.87166 | **149.32** | **242.36** |
+| Custom online primal-dual | 0.43020 | **0.01700** | **0.98081** | 131.10 | 232.45 |
+
+HTA-MAC V1 is therefore not an all-metric winner. Relative to the corrected
+residual-energy heuristic, it moves the operating point toward lower stale loss
+and higher fairness, while giving up delivery, restricted-mean survival, and
+packets/J. This measured QoS--lifetime trade-off is the defensible result.
+
+The original preregistered confirmation remains preserved, but a later audit
+corrected the energy-proportional comparator's cap handling. The corrected
+audit supersedes the earlier energy-proportional ranking. It does not alter the
+saved HTA-MAC trajectories.
+
+## Methodology
+
+### Policy
+
+The controller uses an `EquivariantSetBranchingC51` architecture:
+
+- a shared local encoder processes every scheduled member;
+- masked permutation-invariant global context couples branch decisions;
+- a categorical C51 head estimates per-branch return distributions;
+- deterministic budget projection converts branch choices into a feasible slot
+  allocation;
+- trajectory-order and concavity regularization provide structured auxiliary
+  supervision;
+- QoS multipliers account for delivery, stale loss, and service fairness;
+- scheduled-CH reserve, forecast, uncertainty, distance, and feasibility
+  context expose role-conditioned energy risk.
+
+The shared branch construction preserves node-identity equivariance, while
+projection enforces the global budget. The policy never changes the externally
+supplied cluster-head schedule.
+
+### Evaluation protocol
+
+- 20 independent paired confirmation seeds: 3900--3919
+- five target ranks nested within each seed
+- 3,000-round horizon
+- projection and environment budget of 24 slots
+- common topology, traffic, harvesting, and schedule realizations for paired
+  policy comparisons
+- bootstrap confidence intervals over seed-level paired effects
+- Wilcoxon signed-rank tests with Holm correction within declared families
+- restricted mean survival time for censored first-node-death outcomes
+- ten transfer conditions covering node count, traffic, harvesting, battery,
+  field scale, and an external PVGIS irradiance trace
+
+The PVGIS input is a real irradiance trace, but the wireless network and radio
+remain simulated. The online primal-dual comparator is a custom non-neural
+controller, not a reproduction of PPO-Lagrangian, CPO, or another named paper.
+
+Seeds 3900--3919 have been opened and must never be used for future tuning,
+selection, or early stopping.
+
+### Additional evidence
+
+The repository includes cap-corrected comparator auditing; scaling from 50 to
+300 nodes in increments of 50; matched architecture and auxiliary-loss
+ablations; robustness tests across traffic, harvesting, battery, field scale,
+and an external solar trace; and confidence intervals, paired tests, effect
+sizes, latency, parameter count, and memory/complexity measurements.
+
+Cross-paper headline percentages are contextual evidence only. Different
+simulators, traffic definitions, clustering policies, energy models, and
+endpoints do not form a valid numerical leaderboard.
+
+## Important provenance
+
+The checkpoint-producing training summary records a failed legacy curriculum
+gate and a failed Step-3 development gate. Later independent evaluations are
+preserved, but the training gate is not rewritten as a success. This is an
+important limitation and a motivation for the next training version.
+
+## Frozen fallback release
+
+The complete V1 fallback is in
+[`releases/HTA_MAC_PAPER_BASELINE_V1_20260901/`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/).
+It contains the exact checkpoint, source snapshot, configs, evidence, PVGIS
+trace, manuscript, paper-safe claims, SHA-256 manifest, verification script,
+and rollback instructions.
+
+Transfer archive:
+[`HTA_MAC_PAPER_BASELINE_V1_20260901.zip`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901.zip)
+
+Archive SHA-256:
+
+```text
+4c4e18dfc32b903a01b9519a930426e423714c3cde37749a1e65902566315b4a
+```
+
+Verify the expanded release:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File releases/HTA_MAC_PAPER_BASELINE_V1_20260901/VERIFY_RELEASE.ps1
+```
+
+Detailed interpretation and rollback guidance:
+
+- [`PAPER_CLAIMS.md`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/PAPER_CLAIMS.md)
+- [`ROLLBACK.md`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/ROLLBACK.md)
+- [`HTA_MAC_PRIMARY_PAPER_PERFORMANCE_COMPARISON_20260831.md`](HTA_MAC_PRIMARY_PAPER_PERFORMANCE_COMPARISON_20260831.md)
+- [`HTA_MAC_FINAL_20SEED_CONFIRMATION_REPORT_20260815.md`](HTA_MAC_FINAL_20SEED_CONFIRMATION_REPORT_20260815.md)
 
 ## Repository layout
 
 ```text
-agents/       branching C51, QoS, and CH-risk components
-envs/         identity-safe scheduled MAC environments and QoS accounting
-experiments/  training, listwise selection, and confirmation entry points
-config/       frozen experiment, seed, threshold, and statistics contracts
-validation/   unit, invariance, accounting, and contract tests
-outputs/      selected checkpoints and compact machine-readable evidence
+agents/       branching C51, equivariant policy, projection, and QoS modules
+envs/         scheduled intra-cluster MAC environments and accounting
+experiments/  training, audit, confirmation, and scalability entry points
+config/       frozen experiment contracts and decision thresholds
+validation/   invariance, accounting, contract, and regression tests
+outputs/      selected checkpoints and machine-readable evidence
+paper/        manuscript source and figure-generation utilities
+releases/     immutable paper-facing fallback packages
 ```
 
-## Reproduce the verified checks
+## Verification
 
-From the repository root:
+Run the validation suite from the repository root:
 
 ```powershell
 python -B -m pytest validation -q -p no:cacheprovider
 ```
 
-Expected result for this revision:
+A fresh experiment must be kept separate from the frozen evidence; differences
+should be diagnosed, not overwritten.
 
-```text
-139 passed
-```
+## Boundary for the next version
 
-Rerun the frozen independent confirmation:
+Future delivery/energy-efficiency work must use new V2 configs, run names, and
+checkpoints. V1 evidence is immutable. V2 should replace V1 only after a
+predeclared held-out gate improves delivery and packets/J without erasing the
+fairness/staleness contribution.
 
-```powershell
-$env:OMP_NUM_THREADS='8'
-$env:MKL_NUM_THREADS='8'
-$env:OPENBLAS_NUM_THREADS='8'
-$env:NUMEXPR_NUM_THREADS='8'
-
-python -B -m experiments.confirm_step3_primary_listwise_residual `
-  --contract config/step3_primary_listwise_residual_confirmation_v1.json `
-  --output outputs/phase3/step3_primary_listwise_residual_confirmation_v1/summary.json
-```
-
-The confirmation runner uses two eight-thread processes. It verifies every
-checkpoint/config hash before opening the frozen cohort and returns a nonzero
-exit code if any operational gate fails.
-
-## Authoritative artifacts
-
-- Selected base controller:
-  `outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt`
-- Selected residual ranker:
-  `outputs/phase2/step3_primary_listwise_residual_continuation_v2/continue_lr3e3_ep8/removal_ranker.pt`
-- Development selection:
-  `outputs/phase2/step3_primary_listwise_residual_continuation_v2/summary.json`
-- Independent confirmation:
-  `outputs/phase3/step3_primary_listwise_residual_confirmation_v1/summary.json`
-- Fresh-cohort ablation:
-  `outputs/phase3/step3_primary_listwise_residual_ablation_v1/summary.json`
-- Final matched-baseline evaluation:
-  `outputs/phase3/step3_final_matched_baseline_evaluation_v1/summary.json`
-- Publication tables and figures:
-  `outputs/phase3/step3_final_matched_baseline_evaluation_v1/publication/`
-- Frozen confirmation contract:
-  `config/step3_primary_listwise_residual_confirmation_v1.json`
-- Frozen final-evaluation contract:
-  `config/step3_final_matched_baseline_evaluation_v1.json`
-
-Historical Phase 0--3 status files remain available for provenance:
-
-- `PHASE0_STATUS.md`
-- `PHASE1_STATUS.md`
-- `PHASE2_STATUS.md`
-- `PHASE3_STATUS.md`
-- `BASELINE_PROVENANCE.md`
-- `PRE_PHASE2_DECISION_CLOSURE.md`
-
-## Non-negotiable scope
-
-- frozen HEART-CH cluster-head selection and shared exogenous schedules;
-- no cluster-head retraining and no routing modification;
-- identity-preserving, schedule-matched training and evaluation;
-- explicit cohort-consistent delivery, stale-drop, and service-fairness metrics;
-- paired comparisons and frozen thresholds before confirmation;
-- no cross-paper numerical superiority claim under incompatible simulators.

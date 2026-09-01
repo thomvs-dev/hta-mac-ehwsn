@@ -1,0 +1,816 @@
+diff --git a/README.md b/README.md
+index 92b44d9..11b06db 100644
+--- a/README.md
++++ b/README.md
+@@ -7,6 +7,40 @@ and a compact learned residual ranker for globally coupled slot removal.
+ 
+ Routing changes and cluster-head retraining are deliberately out of scope.
+ 
++## Publication-extension ablations and all-cluster deployment
++
++A new publication-evidence pipeline now evaluates the controller
++simultaneously in every active scheduled cluster, tracks FND/HND/LND with
++censoring, measures inference latency, and compares greedy budget projection
++with an exact dynamic-programming optimum. It also defines five matched
++retraining arms across three optimizer initializations: full, no CH context,
++no trajectory-order loss, no concavity loss, and no auxiliary losses.
++
++All smoke checks pass. A five-run development pilot shows that the earlier
++one-cluster 20-node advantage does not automatically transfer to network-wide
++deployment. Under high traffic, however, HTA-MAC improves both delivery and
++packets/J over energy-proportional and online primal-dual control while reaching
++FND earlier. The 15-lineage matched retraining matrix has since completed in
++72.04 minutes at high CPU utilization, but no lineage passed the predeclared
++training gate; four lineages collapsed to all-sleep and all 15 failed reward
++convergence. The separate 20-run evaluation cohort therefore remains sealed
++pending a development-only initialization and QoS-controller repair.
++
++A literature-grounded secondary robustness hypothesis is also frozen before
++opening the final cohort: load-robust fair-energy retention (LRFER) measures the
++paired fraction of Jain-weighted packets/J retained from the reference to the
++high-traffic scenario. On the five-seed development pilot, HTA-MAC ranks first
++at 0.9561, versus 0.9274 for online primal-dual and 0.8609 for
++energy-proportional. This is explicitly exploratory, does not erase the
++20-node or FND losses, and cannot be confirmed until training gates pass and
++the sealed evaluation is run.
++
++See
++[`HTA_MAC_PUBLICATION_ABLATION_AND_ALL_CLUSTER_PILOT_20260817.md`](HTA_MAC_PUBLICATION_ABLATION_AND_ALL_CLUSTER_PILOT_20260817.md)
++for the implementation, pilot results, limitations, and required next run.
++The metric rationale and equations are in
++[`HTA_MAC_LOAD_ROBUST_FAIR_ENERGY_METRIC_20260817.md`](HTA_MAC_LOAD_ROBUST_FAIR_ENERGY_METRIC_20260817.md).
++
+ ## Current verified result: final matched evaluation
+ 
+ The final preregistered evaluation used 20 previously unused independent seeds
+@@ -34,6 +68,12 @@ See
+ for confidence intervals, adjusted p-values, effect sizes, limitations, and
+ paper-safe claims.
+ 
++The 15-paper Firecrawl review, cross-paper comparability audit, and manuscript
++writing guide are in
++[`HTA_MAC_FIRECRAWL_LITERATURE_AND_WRITING_ANALYSIS_20260812.md`](HTA_MAC_FIRECRAWL_LITERATURE_AND_WRITING_ANALYSIS_20260812.md).
++Its citation-ready BibTeX companion is
++[`references/HTA_MAC_FIRECRAWL_REFERENCE_LIBRARY_20260812.bib`](references/HTA_MAC_FIRECRAWL_REFERENCE_LIBRARY_20260812.bib).
++
+ ## Residual confirmation
+ 
+ The primary idle-on track now includes a service-aware, permutation-equivariant
+@@ -135,7 +175,7 @@ python -B -m pytest validation -q -p no:cacheprovider
+ Expected result for this revision:
+ 
+ ```text
+-139 passed
++167 passed
+ ```
+ 
+ Rerun the frozen independent confirmation:
+diff --git a/agents/architectures.py b/agents/architectures.py
+index 624bd1d..6b1ac22 100644
+--- a/agents/architectures.py
++++ b/agents/architectures.py
+@@ -199,6 +199,117 @@ class EquivariantSetBranchingC51(nn.Module):
+         log_probabilities = self.forward(state, mask)
+         return (log_probabilities.exp() * self.support).sum(dim=-1)
+ 
++    def q_values_without_set_context(self, state, mask=None):
++        """Diagnostic intervention that removes invariant cluster context.
++
++        This uses the trained local encoder and categorical head without
++        retraining.  It is therefore a mechanism-dependence diagnostic, not a
++        replacement for a separately trained architecture ablation.
++        """
++        mask = self._validate(state, mask)
++        hidden = self.node_encoder(state) * mask.unsqueeze(-1)
++        context = hidden.new_zeros((hidden.shape[0], self.hidden_dim))
++        repeated_context = context.unsqueeze(1).expand(-1, state.shape[1], -1)
++        value = self.value(context).view(-1, 1, 1, self.atoms)
++        advantage = self.advantage(
++            torch.cat((hidden, repeated_context), dim=-1)
++        ).view(-1, state.shape[1], self.actions, self.atoms)
++        logits = value + advantage - advantage.mean(dim=2, keepdim=True)
++        probabilities = F.softmax(logits, dim=-1)
++        q_values = (probabilities * self.support).sum(dim=-1)
++        return torch.where(mask.unsqueeze(-1), q_values, torch.zeros_like(q_values))
++
++
++class WorkloadConditionedEquivariantSetBranchingC51(EquivariantSetBranchingC51):
++    """Equivariant C51 with a separate invariant workload-context pathway.
++
++    The established node encoder receives the original feature layout. Seven
++    broadcast workload features are removed before local encoding and appended
++    only to invariant global context. This permits exact warm-starting from the
++    confirmed v3 network with initially zero workload influence.
++    """
++
++    def __init__(self, *args, workload_start=33, workload_features=7, **kwargs):
++        full_input_dim = int(kwargs.pop("input_dim", 72))
++        self.full_input_dim = full_input_dim
++        self.workload_start = int(workload_start)
++        self.workload_features = int(workload_features)
++        base_input_dim = full_input_dim - self.workload_features
++        if not 0 <= self.workload_start <= base_input_dim:
++            raise ValueError("invalid workload-context insertion point")
++        super().__init__(*args, input_dim=base_input_dim, **kwargs)
++        old_context = self.global_context
++        first = old_context[0]
++        expanded = nn.Linear(
++            first.in_features + self.workload_features,
++            first.out_features,
++        )
++        self.global_context = nn.Sequential(
++            expanded, old_context[1], old_context[2], old_context[3]
++        )
++        # Workload columns start with exactly zero influence. Existing context
++        # parameters retain their normal initialization until warm-started.
++        with torch.no_grad():
++            expanded.weight[:, -self.workload_features:].zero_()
++
++    def _split_state(self, state):
++        if state.shape[-1] != self.full_input_dim:
++            raise ValueError("state does not match workload-conditioned layout")
++        end = self.workload_start + self.workload_features
++        workload = state[..., self.workload_start:end]
++        base = torch.cat((state[..., :self.workload_start], state[..., end:]), dim=-1)
++        return base, workload
++
++    def _set_context_with_workload(self, hidden, mask, workload):
++        valid = mask.unsqueeze(-1)
++        masked = hidden * valid
++        count = valid.sum(dim=1).clamp_min(1)
++        mean = (masked.to(torch.float64).sum(dim=1) / count.to(torch.float64)).to(hidden.dtype)
++        negative_infinity = torch.finfo(hidden.dtype).min
++        maximum = hidden.masked_fill(~valid, negative_infinity).max(dim=1).values
++        maximum = torch.where(mask.any(dim=1, keepdim=True), maximum, torch.zeros_like(maximum))
++        active_fraction = mask.to(hidden.dtype).mean(dim=1, keepdim=True)
++        budget = self.normalized_budget.to(hidden.dtype).expand(hidden.shape[0], 1)
++        workload_mean = (
++            (workload * valid).to(torch.float64).sum(dim=1) / count.to(torch.float64)
++        ).to(hidden.dtype)
++        return self.global_context(torch.cat(
++            (mean, maximum, active_fraction, budget, workload_mean), dim=-1
++        ))
++
++    def forward(self, state, mask=None):
++        base_state, workload = self._split_state(state)
++        mask = self._validate(base_state, mask)
++        hidden = self.node_encoder(base_state) * mask.unsqueeze(-1)
++        context = self._set_context_with_workload(hidden, mask, workload)
++        repeated_context = context.unsqueeze(1).expand(-1, state.shape[1], -1)
++        value = self.value(context).view(-1, 1, 1, self.atoms)
++        advantage = self.advantage(torch.cat((hidden, repeated_context), dim=-1)).view(
++            -1, state.shape[1], self.actions, self.atoms
++        )
++        logits = value + advantage - advantage.mean(dim=2, keepdim=True)
++        log_probabilities = F.log_softmax(logits, dim=-1)
++        uniform_log = -torch.log(state.new_tensor(float(self.atoms)))
++        return torch.where(mask[:, :, None, None], log_probabilities, uniform_log)
++
++
++def warmstart_workload_conditioned(network, source_state_dict):
++    """Load an equivariant v3 network with zero initial workload influence."""
++    if not isinstance(network, WorkloadConditionedEquivariantSetBranchingC51):
++        raise TypeError("destination must be workload-conditioned equivariant C51")
++    destination = network.state_dict()
++    for key, source in source_state_dict.items():
++        if key == "global_context.0.weight":
++            if destination[key].shape[1] != source.shape[1] + network.workload_features:
++                raise RuntimeError("global-context expansion shape mismatch")
++            destination[key][:, :source.shape[1]] = source
++            destination[key][:, source.shape[1]:].zero_()
++        elif key in destination and destination[key].shape == source.shape:
++            destination[key] = source
++        else:
++            raise RuntimeError(f"unsupported warm-start tensor: {key}")
++    network.load_state_dict(destination)
++
+ 
+ class _LocalDuelingC51(nn.Module):
+     def __init__(self, input_dim, hidden_dim, actions, atoms):
+@@ -264,4 +375,4 @@ class IndependentDuelingC51(nn.Module):
+ 
+     def q_values(self, state, mask=None):
+         log_probabilities = self.forward(state, mask)
+-        return (log_probabilities.exp() * self.support).sum(dim=-1)
+\ No newline at end of file
++        return (log_probabilities.exp() * self.support).sum(dim=-1)
+diff --git a/agents/branching_dqn.py b/agents/branching_dqn.py
+index 675a216..960f0e7 100644
+--- a/agents/branching_dqn.py
++++ b/agents/branching_dqn.py
+@@ -13,6 +13,7 @@ from .architectures import (
+     EquivariantSetBranchingC51,
+     GlobalBranchingDuelingC51,
+     IndependentDuelingC51,
++    WorkloadConditionedEquivariantSetBranchingC51,
+ )
+ from .budget_projection import project_slot_budget
+ from .prioritized_replay import PrioritizedReplay
+@@ -95,6 +96,9 @@ class BranchingAgentConfig:
+     demonstration_margin: float = 0.8
+     precision: str = "fp32"
+     reward_scale: float = 1.0
++    workload_context_start: int = 33
++    workload_context_features: int = 7
++    ablated_feature_indices: tuple[int, ...] = ()
+ 
+ 
+ class BranchingDQNAgent:
+@@ -121,6 +125,12 @@ class BranchingDQNAgent:
+             network_type = EquivariantSetBranchingC51
+             kwargs["budget"] = config.budget
+             kwargs["max_branches"] = config.max_branches
++        elif config.architecture == "workload_equivariant_set_branching":
++            network_type = WorkloadConditionedEquivariantSetBranchingC51
++            kwargs["budget"] = config.budget
++            kwargs["max_branches"] = config.max_branches
++            kwargs["workload_start"] = config.workload_context_start
++            kwargs["workload_features"] = config.workload_context_features
+         elif config.architecture == "independent_dqns":
+             network_type = IndependentDuelingC51
+             kwargs["max_branches"] = config.max_branches
+@@ -189,20 +199,28 @@ class BranchingDQNAgent:
+ 
+     def _transform_state_tensor(self, state):
+         """Scale physical forecast moments and the inherited embedding."""
+-        if not self.cfg.normalize_input_blocks:
+-            return state
+-        transformed = state.clone()
+-        harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
+-        transformed[..., 1] = transformed[..., 1] / harvest_scale
+-        transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
+-        embedding_start = int(self.cfg.embedding_start_dim)
+-        if not 18 <= embedding_start <= transformed.shape[-1]:
+-            raise ValueError("embedding start is incompatible with state schema")
+-        if transformed.shape[-1] > embedding_start:
+-            transformed[..., embedding_start:] = F.layer_norm(
+-                transformed[..., embedding_start:],
+-                (transformed.shape[-1] - embedding_start,),
+-            )
++        transformed = state.clone() if (
++            self.cfg.normalize_input_blocks or self.cfg.ablated_feature_indices
++        ) else state
++        if self.cfg.normalize_input_blocks:
++            harvest_scale = max(float(self.cfg.hybrid_harvest_max_j), 1e-12)
++            transformed[..., 1] = transformed[..., 1] / harvest_scale
++            transformed[..., 2] = transformed[..., 2] / (harvest_scale ** 2)
++            embedding_start = int(self.cfg.embedding_start_dim)
++            if not 18 <= embedding_start <= transformed.shape[-1]:
++                raise ValueError("embedding start is incompatible with state schema")
++            if transformed.shape[-1] > embedding_start:
++                transformed[..., embedding_start:] = F.layer_norm(
++                    transformed[..., embedding_start:],
++                    (transformed.shape[-1] - embedding_start,),
++                )
++        if self.cfg.ablated_feature_indices:
++            indices = tuple(int(index) for index in self.cfg.ablated_feature_indices)
++            if len(set(indices)) != len(indices) or any(
++                index < 0 or index >= transformed.shape[-1] for index in indices
++            ):
++                raise ValueError("ablated feature index outside state layout")
++            transformed[..., list(indices)] = 0.0
+         return transformed
+ 
+     def q_values_tensor(self, state, mask=None, *, target=False):
+diff --git a/agents/budget_projection.py b/agents/budget_projection.py
+index 66746c2..174f857 100644
+--- a/agents/budget_projection.py
++++ b/agents/budget_projection.py
+@@ -58,3 +58,83 @@ def project_slot_budget(
+             )
+ 
+     return allocation
++
++
++def solve_slot_budget_exact(branch_q_values, budget: int, *, caps=None) -> tuple[np.ndarray, float]:
++    """Solve the separable integer slot allocation exactly by dynamic programming.
++
++    Unlike :func:`project_slot_budget`, this routine does not assume diminishing
++    marginal values.  It is intended for diagnostic comparison, not the online
++    control path.  The returned objective is ``sum_i Q_i(a_i)``.
++    """
++    q = np.asarray(branch_q_values, dtype=np.float64)
++    if q.ndim != 2 or q.shape[1] < 1:
++        raise ValueError("branch_q_values must have shape [nodes, n_max+1]")
++    if budget < 0 or not np.all(np.isfinite(q)):
++        raise ValueError("budget must be non-negative and Q values finite")
++    nodes, actions = q.shape
++    if caps is None:
++        caps_array = np.full(nodes, actions - 1, dtype=np.int64)
++    else:
++        caps_array = np.asarray(caps, dtype=np.int64)
++        if caps_array.shape != (nodes,):
++            raise ValueError("caps must align with branches")
++        if np.any(caps_array < 0) or np.any(caps_array >= actions):
++            raise ValueError("caps outside the available action range")
++
++    effective_budget = min(int(budget), int(caps_array.sum()))
++    values = np.full((nodes + 1, effective_budget + 1), -np.inf, dtype=np.float64)
++    choices = np.zeros((nodes, effective_budget + 1), dtype=np.int64)
++    values[0, 0] = 0.0
++    for node in range(nodes):
++        for used in range(effective_budget + 1):
++            best_value = -np.inf
++            best_action = 0
++            for action in range(min(int(caps_array[node]), used) + 1):
++                previous = values[node, used - action]
++                candidate = previous + q[node, action]
++                if candidate > best_value:
++                    best_value = candidate
++                    best_action = action
++            values[node + 1, used] = best_value
++            choices[node, used] = best_action
++
++    used = int(np.argmax(values[nodes]))
++    allocation = np.zeros(nodes, dtype=np.int64)
++    for node in range(nodes - 1, -1, -1):
++        action = int(choices[node, used])
++        allocation[node] = action
++        used -= action
++    objective = float(sum(q[node, allocation[node]] for node in range(nodes)))
++    return allocation, objective
++
++
++def projection_optimality_diagnostic(branch_q_values, allocation, budget: int, *, caps=None) -> dict:
++    """Compare a feasible allocation with the exact separable-Q optimum."""
++    q = np.asarray(branch_q_values, dtype=np.float64)
++    candidate = np.asarray(allocation, dtype=np.int64)
++    if candidate.shape != (q.shape[0],):
++        raise ValueError("allocation must align with branches")
++    caps_array = (
++        np.full(q.shape[0], q.shape[1] - 1, dtype=np.int64)
++        if caps is None else np.asarray(caps, dtype=np.int64)
++    )
++    feasible = bool(
++        caps_array.shape == candidate.shape
++        and np.all(candidate >= 0)
++        and np.all(candidate <= caps_array)
++        and int(candidate.sum()) <= int(budget)
++    )
++    if not feasible:
++        raise ValueError("candidate allocation is infeasible")
++    exact, exact_value = solve_slot_budget_exact(q, budget, caps=caps_array)
++    candidate_value = float(sum(q[node, candidate[node]] for node in range(q.shape[0])))
++    regret = max(0.0, exact_value - candidate_value)
++    return {
++        "candidate_objective": candidate_value,
++        "exact_objective": exact_value,
++        "absolute_regret": float(regret),
++        "allocation_match": bool(np.array_equal(candidate, exact)),
++        "candidate_slots": int(candidate.sum()),
++        "exact_slots": int(exact.sum()),
++    }
+diff --git a/envs/step3_policy_observation.py b/envs/step3_policy_observation.py
+index 3ad7931..7abdc88 100644
+--- a/envs/step3_policy_observation.py
++++ b/envs/step3_policy_observation.py
+@@ -8,6 +8,7 @@ from envs.policy_observation import PHASE2D_POLICY_SCHEMA, build_policy_observat
+ 
+ 
+ STEP3_CH_CONTEXT_SCHEMA = "step3_ch_context_v3"
++STEP3_WORKLOAD_CONTEXT_SCHEMA = "step3_workload_context_v4"
+ CH_CONTEXT_NAMES = (
+     "scheduled_ch_reserve_fraction",
+     "scheduled_ch_forecast_fraction",
+@@ -17,6 +18,15 @@ CH_CONTEXT_NAMES = (
+     "target_member_fraction",
+     "scheduled_ch_alive",
+ )
++WORKLOAD_CONTEXT_NAMES = (
++    "target_backlog_per_member_fraction",
++    "target_budget_pressure_log_fraction",
++    "target_expiring_packet_fraction",
++    "target_demand_ewma_fraction",
++    "network_alive_fraction",
++    "target_member_energy_p10_fraction",
++    "qos_lifetime_preference",
++)
+ 
+ 
+ def scheduled_ch_context(base_env, ch: int, members, physical_state, risk_config) -> np.ndarray:
+@@ -48,32 +58,75 @@ def scheduled_ch_context(base_env, ch: int, members, physical_state, risk_config
+     return context
+ 
+ 
+-def step3_observation_layout(base_env) -> dict:
++def workload_context(base_env, members, wrapper=None) -> np.ndarray:
++    members = np.asarray(members, dtype=np.int64)
++    alive_members = members[base_env.alive[members]]
++    member_count = max(1, len(alive_members))
++    backlog = float(base_env.queue[alive_members].sum())
++    queue_capacity = max(1.0, member_count * float(base_env.cfg.queue_max_packets))
++    budget = max(1.0, float(base_env.cfg.frame_slot_budget))
++    expiring = float(sum(
++        sum(age >= base_env.cfg.packet_ttl_rounds for age in base_env.packet_ages[node])
++        for node in alive_members
++    ))
++    demand_ewma = float(getattr(wrapper, "step3_demand_ewma", backlog / member_count))
++    preference = float(getattr(wrapper, "step3_qos_lifetime_preference", 0.5))
++    energy = (
++        base_env.energy[alive_members] / max(float(base_env.cfg.initial_energy_j), 1e-12)
++        if len(alive_members) else np.asarray([0.0])
++    )
++    context = np.asarray([
++        np.clip(backlog / queue_capacity, 0.0, 1.0),
++        np.clip(np.log1p(backlog / budget) / np.log(5.0), 0.0, 1.0),
++        np.clip(expiring / queue_capacity, 0.0, 1.0),
++        np.clip(demand_ewma / max(1.0, float(base_env.cfg.queue_max_packets)), 0.0, 1.0),
++        np.clip(np.mean(base_env.alive), 0.0, 1.0),
++        np.clip(np.quantile(energy, 0.10), 0.0, 1.0),
++        np.clip(preference, 0.0, 1.0),
++    ], dtype=np.float32)
++    if context.shape != (len(WORKLOAD_CONTEXT_NAMES),) or not np.all(np.isfinite(context)):
++        raise RuntimeError("invalid workload context")
++    return context
++
++
++def step3_observation_layout(base_env, schema=STEP3_CH_CONTEXT_SCHEMA) -> dict:
++    if schema not in {STEP3_CH_CONTEXT_SCHEMA, STEP3_WORKLOAD_CONTEXT_SCHEMA}:
++        raise ValueError(f"unsupported Step 3 observation schema: {schema}")
+     base = policy_feature_layout(base_env, PHASE2D_POLICY_SCHEMA)
+-    embedding_start = int(base["embedding_start"]) + len(CH_CONTEXT_NAMES)
++    names = list(CH_CONTEXT_NAMES)
++    if schema == STEP3_WORKLOAD_CONTEXT_SCHEMA:
++        names.extend(WORKLOAD_CONTEXT_NAMES)
++    embedding_start = int(base["embedding_start"]) + len(names)
+     return {
+-        "schema": STEP3_CH_CONTEXT_SCHEMA,
++        "schema": schema,
+         "physical_features": base["physical_features"],
+         "packet_age_features": base["packet_age_features"],
+         "action_validity_features": base["action_validity_features"],
+-        "scheduled_ch_context_features": len(CH_CONTEXT_NAMES),
+-        "scheduled_ch_context_names": list(CH_CONTEXT_NAMES),
++        "scheduled_ch_context_features": len(names),
++        "scheduled_ch_context_names": names,
+         "embedding_features": base["embedding_features"],
+         "embedding_start": embedding_start,
+-        "total_features": int(base["total_features"]) + len(CH_CONTEXT_NAMES),
++        "total_features": int(base["total_features"]) + len(names),
+     }
+ 
+ 
+-def build_step3_observation(base_env, physical_state, active_mask, *, ch, members, risk_config):
++def build_step3_observation(
++    base_env, physical_state, active_mask, *, ch, members, risk_config,
++    schema=STEP3_CH_CONTEXT_SCHEMA, wrapper=None,
++):
+     base = build_policy_observation(
+         base_env, physical_state, active_mask, schema=PHASE2D_POLICY_SCHEMA
+     )
+     old_layout = policy_feature_layout(base_env, PHASE2D_POLICY_SCHEMA)
+     split = int(old_layout["embedding_start"])
+     context = scheduled_ch_context(base_env, ch, members, physical_state, risk_config)
++    if schema == STEP3_WORKLOAD_CONTEXT_SCHEMA:
++        context = np.concatenate((context, workload_context(base_env, members, wrapper)))
++    elif schema != STEP3_CH_CONTEXT_SCHEMA:
++        raise ValueError(f"unsupported Step 3 observation schema: {schema}")
+     broadcast = np.broadcast_to(context, (base_env.n_nodes, context.size)).copy()
+     observation = np.concatenate((base[:, :split], broadcast, base[:, split:]), axis=1).astype(np.float32)
+-    expected = step3_observation_layout(base_env)
++    expected = step3_observation_layout(base_env, schema)
+     if observation.shape != (base_env.n_nodes, expected["total_features"]):
+         raise RuntimeError("Step 3 observation shape mismatch")
+     return observation
+diff --git a/envs/step3_v3_env.py b/envs/step3_v3_env.py
+index 16acbd9..2164f08 100644
+--- a/envs/step3_v3_env.py
++++ b/envs/step3_v3_env.py
+@@ -5,7 +5,12 @@ from __future__ import annotations
+ import numpy as np
+ 
+ from envs.step3_lifetime_env import Step3DynamicClusterTrainingEnv
+-from envs.step3_policy_observation import build_step3_observation, step3_observation_layout
++from envs.step3_policy_observation import (
++    STEP3_CH_CONTEXT_SCHEMA,
++    STEP3_WORKLOAD_CONTEXT_SCHEMA,
++    build_step3_observation,
++    step3_observation_layout,
++)
+ 
+ 
+ def episode_service_fairness(delivered, offered):
+@@ -41,6 +46,13 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
+         self.step3_episode_offered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
+         self.step3_episode_delivered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
+         self.step3_qos_counts["episode_service_fairness"] = 1.0
++        alive_members = self.members[self.base.alive[self.members]]
++        self.step3_demand_ewma = float(
++            self.base.queue[alive_members].sum() / max(1, len(alive_members))
++        )
++        self.step3_qos_lifetime_preference = float(
++            getattr(self, "step3_qos_lifetime_preference", 0.5)
++        )
+         return result
+ 
+     def _observation(self, state):
+@@ -53,12 +65,12 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
+             raise RuntimeError("Step 3 v3 risk config is not installed")
+         return build_step3_observation(
+             self.base, state, self._mask(), ch=self.ch, members=self.members,
+-            risk_config=risk_config,
++            risk_config=risk_config, schema=self.observation_schema, wrapper=self,
+         )
+ 
+     @property
+     def observation_layout(self):
+-        return step3_observation_layout(self.base)
++        return step3_observation_layout(self.base, self.observation_schema)
+ 
+     def step(self, member_action):
+         observation, mask, done, info = super().step(member_action)
+@@ -77,5 +89,9 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
+             self.step3_episode_delivered_per_node,
+             self.step3_episode_offered_per_node,
+         )
++        offered_per_member = int(info["target_packets_offered"]) / max(
++            1, len(info["target_members"])
++        )
++        self.step3_demand_ewma = 0.8 * self.step3_demand_ewma + 0.2 * offered_per_member
+         info["target_episode_service_fairness"] = counts["episode_service_fairness"]
+         return observation, mask, done, info
+diff --git a/experiments/train_phase2_dynamic_curriculum.py b/experiments/train_phase2_dynamic_curriculum.py
+index dbeaf1e..a569827 100644
+--- a/experiments/train_phase2_dynamic_curriculum.py
++++ b/experiments/train_phase2_dynamic_curriculum.py
+@@ -77,6 +77,7 @@ def parse_args():
+         choices=(
+             "shared_branching",
+             "equivariant_set_branching",
++            "workload_equivariant_set_branching",
+             "independent_dqns",
+         ),
+         default="shared_branching",
+@@ -94,6 +95,11 @@ def parse_args():
+     )
+     parser.add_argument("--demonstration-margin", type=float, default=0.8)
+     parser.add_argument("--precision", choices=("fp32", "bf16"), default="fp32")
++    parser.add_argument(
++        "--ablated-feature-indices",
++        default="",
++        help="comma-separated observation columns forced to zero during training and inference",
++    )
+     return parser.parse_args()
+ 
+ 
+@@ -465,6 +471,13 @@ def policy_stability_summary(snapshots, relative_tolerance):
+ 
+ def main():
+     args = parse_args()
++    ablated_feature_indices = tuple(
++        int(value.strip())
++        for value in str(args.ablated_feature_indices).split(",")
++        if value.strip()
++    )
++    if len(set(ablated_feature_indices)) != len(ablated_feature_indices):
++        raise ValueError("ablated feature indices must be unique")
+     if args.reinitialize_categorical_outputs and not args.initial_checkpoint:
+         raise ValueError(
+             "categorical output reinitialization requires an initial checkpoint"
+@@ -497,7 +510,10 @@ def main():
+ 
+     observation_schema = (
+         PHASE2D_POLICY_SCHEMA
+-        if args.architecture == "equivariant_set_branching"
++        if args.architecture in {
++            "equivariant_set_branching",
++            "workload_equivariant_set_branching",
++        }
+         else LEGACY_POLICY_SCHEMA
+     )
+     environments, curriculum_manifest, env_cfg = build_curriculum(
+@@ -547,6 +563,7 @@ def main():
+         demonstration_margin=args.demonstration_margin,
+         precision=args.precision,
+         reward_scale=reward_scale,
++        ablated_feature_indices=ablated_feature_indices,
+     )
+     if reward_scale_evidence is not None:
+         frozen_support = reward_scale_evidence["payload"]["support"]
+@@ -744,6 +761,7 @@ def main():
+             "episode": episode + 1,
+             "seed": env.seed,
+             "target_rank": env.target_rank,
++            "scenario_id": getattr(env, "step4_scenario_id", None),
+             "target_cluster": info["target_cluster"],
+             "target_ch": info["target_ch"],
+             "target_members": len(info["target_members"]),
+@@ -878,7 +896,12 @@ def main():
+         }
+ 
+     visited = {
+-        (int(row["seed"]), int(row["target_rank"])) for row in rows
++        (
++            int(row["seed"]),
++            int(row["target_rank"]),
++            row.get("scenario_id"),
++        )
++        for row in rows
+     }
+     full_curriculum_seen = len(visited) == len(environments)
+     smoke_only = args.episodes < 500
+diff --git a/paper/refs.bib b/paper/refs.bib
+index b6a3f26..2a45429 100644
+--- a/paper/refs.bib
++++ b/paper/refs.bib
+@@ -1,2 +1,199 @@
+-% References are added only after DOI verification during the manuscript phase.
++@article{iannello2012ehmac,
++  author={Iannello, Fabio and Simeone, Osvaldo and Spagnolini, Umberto},
++  title={Medium Access Control Protocols for Wireless Sensor Networks with Energy Harvesting},
++  journal={IEEE Transactions on Communications},
++  year={2012}, volume={60}, number={5}, pages={1381--1395},
++  doi={10.1109/TCOMM.2012.030712.110089}
++}
+ 
++@article{movva2022s2a2mac,
++  author={Movva, Pavani and Kamarajugadda, Kishore Kumar and Polipalli, Trinatha Rao},
++  title={An Energy Aware Cluster-Based Routing and Adaptive Semi-Synchronized MAC for Energy Harvesting WSN},
++  journal={International Journal of Communication Systems}, year={2022},
++  doi={10.1002/dac.5202}
++}
++
++@article{gong2021ffss,
++  author={Gong, Siliang and Liu, Xiaoying and Zheng, Kechen and Lu, Wenwei and Zhu, Yi-hua},
++  title={TDMA Scheduling Schemes Targeting High Channel Utilization for Energy-Harvesting Wireless Sensor Networks},
++  journal={IET Communications}, year={2021},
++  doi={10.1049/cmu2.12243}
++}
++
++@article{hasani2025drl,
++  author={Hasani, Zahra and Mahdavimoghadam, Maryam and Mohammadi, Razieh and Shirmohammadi, Zahra and Nikoofard, Amirhossein and Nikahd, Eesa and Davoodi, Kasra},
++  title={Deep Reinforcement Learning-Based Mechanism to Improve the Throughput of EH-WSNs},
++  journal={Scientific Reports}, year={2025}, volume={15},
++  doi={10.1038/s41598-025-14111-y}
++}
++
++@article{ge2021cooperative,
++  author={Ge, Yujia and Nan, Yurong and Guo, Xianhai},
++  title={Maximizing Network Throughput by Cooperative Reinforcement Learning in Clustered Solar-Powered Wireless Sensor Networks},
++  journal={International Journal of Distributed Sensor Networks}, year={2021},
++  doi={10.1177/15501477211007411}
++}
++
++@article{eris2024underwaterrl,
++  author={Eri{\c{s}}, {\c{C}}i{\u{g}}dem and G{\"u}l, {\"O}mer Melih and Sar{\i}saray B{\"o}l{\"u}k, P{\i}nar},
++  title={A Novel Medium Access Policy Based on Reinforcement Learning in Energy-Harvesting Underwater Sensor Networks},
++  journal={Sensors}, year={2024}, volume={24}, number={17}, pages={5791},
++  doi={10.3390/s24175791}
++}
++
++@inproceedings{sarang2024henomac,
++  author={Sarang, Sohail and Stojanovi{\'c}, Goran M. and Drieberg, Micheal and Jeoti, Varun and Valkama, Mikko},
++  title={HENO-MAC: Hybrid Energy Harvesting-Based Energy Neutral Operation MAC Protocol for Delay-Sensitive IoT Applications},
++  booktitle={IEEE Wireless Communications and Networking Conference}, year={2024},
++  doi={10.1109/WCNC57260.2024.10571258}
++}
++
++@article{lee2021reemac,
++  author={Lee, Sol-Bee and Kwon, Jung-Hyok and Kim, Eui-Jik},
++  title={Residual Energy Estimation-Based MAC Protocol for Wireless Powered Sensor Networks},
++  journal={Sensors}, year={2021}, volume={21}, number={22}, pages={7617},
++  doi={10.3390/s21227617}
++}
++
++@article{sefuba2015adaptive,
++  author={Sefuba, Maria and Walingo, Tom and Takawira, Fambirai},
++  title={Energy Efficient Medium Access Control Protocol for Clustered Wireless Sensor Networks with Adaptive Cross-Layer Scheduling},
++  journal={Sensors}, year={2015}, volume={15}, number={9}, pages={24026--24053},
++  doi={10.3390/s150924026}
++}
++
++@article{zou2016predictive,
++  author={Zou, Tengyue and Lin, Shouying and Feng, Qijie and Chen, Yanlian},
++  title={Energy-Efficient Control with Harvesting Predictions for Solar-Powered Wireless Sensor Networks},
++  journal={Sensors}, year={2016}, volume={16}, number={1}, pages={53},
++  doi={10.3390/s16010053}
++}
++
++@misc{chu2019multiaccess,
++  author={Chu, Man and Li, Hang and Liao, Xuewen and Cui, Shuguang},
++  title={Reinforcement Learning Based Multi-Access Control and Battery Prediction with Energy Harvesting in IoT Systems},
++  year={2018}, eprint={1805.05929}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/1805.05929}
++}
++
++@misc{sharma2019structure,
++  author={Sharma, Nikhilesh and Mastronarde, Nicholas and Chakareski, Jacob},
++  title={Accelerated Structure-Aware Reinforcement Learning for Delay-Sensitive Energy Harvesting Wireless Sensors},
++  year={2018}, eprint={1807.08315}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/1807.08315}
++}
++
++@misc{li2018fair,
++  author={Li, Kai and Yuen, Chau and Kusy, Branislav and Jurdak, Raja and Ignjatovic, Aleksandar and Kanhere, Salil S. and Jha, Sanjay},
++  title={Fair Scheduling for Data Collection in Mobile Sensor Networks with Energy Harvesting},
++  year={2016}, eprint={1603.02476}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/1603.02476}
++}
++
++@misc{biason2016decentralized,
++  author={Biason, Alessandro and Dey, Subhrakanti and Zorzi, Michele},
++  title={A Decentralized Optimization Framework for Energy Harvesting Devices},
++  year={2017}, eprint={1701.02081}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/1701.02081}
++}
++
++@misc{leong2020drl,
++  author={Leong, Alex S. and Ramaswamy, Arunselvan and Quevedo, Daniel E. and Karl, Holger and Shi, Ling},
++  title={Deep Reinforcement Learning for Wireless Sensor Scheduling in Cyber-Physical Systems},
++  year={2018}, eprint={1809.05149}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/1809.05149}
++}
++
++@inproceedings{heinzelman2000leach,
++  author={Heinzelman, Wendi Rabiner and Chandrakasan, Anantha and Balakrishnan, Hari},
++  title={Energy-Efficient Communication Protocol for Wireless Microsensor Networks},
++  booktitle={Proceedings of the 33rd Hawaii International Conference on System Sciences},
++  year={2000}, doi={10.1109/HICSS.2000.926982}
++}
++
++@article{bellemare2017c51,
++  author={Bellemare, Marc G. and Dabney, Will and Munos, R{\'e}mi},
++  title={A Distributional Perspective on Reinforcement Learning},
++  journal={Proceedings of Machine Learning Research}, year={2017}, volume={70}, pages={449--458}
++}
++
++@inproceedings{tavakoli2018branching,
++  author={Tavakoli, Arash and Pardo, Fabio and Kormushev, Petar},
++  title={Action Branching Architectures for Deep Reinforcement Learning},
++  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
++  year={2018}, volume={32}, number={1}, doi={10.1609/aaai.v32i1.11798}
++}
++
++@inproceedings{zaheer2017deepsets,
++  author={Zaheer, Manzil and Kottur, Satwik and Ravanbakhsh, Siamak and P{\'o}czos, Barnab{\'a}s and Salakhutdinov, Ruslan and Smola, Alexander J.},
++  title={Deep Sets}, booktitle={Advances in Neural Information Processing Systems},
++  year={2017}, volume={30}
++}
++
++@article{holm1979,
++  author={Holm, Sture}, title={A Simple Sequentially Rejective Multiple Test Procedure},
++  journal={Scandinavian Journal of Statistics}, year={1979}, volume={6}, number={2}, pages={65--70}
++}
++
++@article{wilcoxon1945,
++  author={Wilcoxon, Frank}, title={Individual Comparisons by Ranking Methods},
++  journal={Biometrics Bulletin}, year={1945}, volume={1}, number={6}, pages={80--83},
++  doi={10.2307/3001968}
++}
++
++@book{efron1994bootstrap,
++  author={Efron, Bradley and Tibshirani, Robert J.}, title={An Introduction to the Bootstrap},
++  publisher={CRC Press}, year={1994}, doi={10.1201/9780429246593}
++}
++
++@article{jain1984fairness,
++  author={Jain, Raj and Chiu, Dah-Ming and Hawe, William R.},
++  title={A Quantitative Measure of Fairness and Discrimination for Resource Allocation in Shared Computer Systems},
++  journal={DEC Research Report TR-301}, year={1984}
++}
++
++@article{uno2014rmst,
++  author={Uno, Hajime and Claggett, Brian and Tian, Lu and Inoue, Eisuke and Gallo, Paul and Miyata, Toshio and Schrag, Deborah and Takeuchi, Masahiro and Uyama, Yoshiaki and Zhao, Lihui and Skali, Hicham and Solomon, Scott and Jacobus, Susanna and Hughes, Michael and Packer, Milton and Wei, Lee-Jen},
++  title={Moving Beyond the Hazard Ratio in Quantifying the Between-Group Difference in Survival Analysis},
++  journal={Journal of Clinical Oncology}, year={2014}, volume={32}, number={22}, pages={2380--2385},
++  doi={10.1200/JCO.2014.55.2208}
++}
++
++@misc{pvgis2020,
++  author={{European Commission Joint Research Centre}},
++  title={Photovoltaic Geographical Information System (PVGIS) ERA5 Hourly Radiation Data},
++  year={2020}, publisher={European Commission}, doi={10.2905/JRC.FDTQ22G}
++}
++
++@book{altman1999cmdp,
++  author={Altman, Eitan}, title={Constrained Markov Decision Processes},
++  publisher={Chapman and Hall/CRC}, year={1999}, doi={10.1201/9781315140223}
++}
++
++@misc{meshkati2007energy,
++  author={Meshkati, Farhad and Poor, H. Vincent and Schwartz, Stuart C. and Balan, Radu V.},
++  title={Energy Efficiency and Delay Quality-of-Service in Wireless Networks},
++  year={2007}, eprint={cs/0601098}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/cs/0601098}
++}
++
++@article{gao2017statistical,
++  author={Gao, Ya and Cheng, Wenchi and Zhang, Hailin},
++  title={Statistical-QoS Guaranteed Energy Efficiency Optimization for Energy Harvesting Wireless Sensor Networks},
++  journal={Sensors}, year={2017}, volume={17}, number={9}, pages={1933},
++  doi={10.3390/s17091933}
++}
++
++@article{yang2018fairness,
++  author={Yang, Zhaohui and Xu, Wei and Pan, Yijin and Pan, Cunhua and Chen, Ming},
++  title={Optimal Fairness-Aware Time and Power Allocation in Wireless Powered Communication Networks},
++  journal={IEEE Transactions on Communications}, year={2018}, volume={66}, number={7}, pages={3122--3135},
++  doi={10.1109/TCOMM.2018.2807443}
++}
++
++@misc{jaffres2010multiobjective,
++  author={Jaffr{\`e}s-Runser, Katia and Comaniciu, Cristina and Gorce, Jean-Marie},
++  title={A Multiobjective Optimization Framework for Routing in Wireless Ad Hoc Networks},
++  year={2010}, eprint={0902.0782}, archivePrefix={arXiv},
++  url={https://arxiv.org/abs/0902.0782}
++}

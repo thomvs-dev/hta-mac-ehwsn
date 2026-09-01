@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "release_id": "HTA_MAC_PAPER_BASELINE_V1_20260901",
+  "manifest_scope": "all frozen payload files except this manifest and the outer transfer zip",
+  "hash_algorithm": "SHA-256",
+  "repository_head": "c9794d31c3b4e74c9789ed28e2c4ac51a6b8545a",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "files": [
+    {
+      "release_path": "artifacts/config/step3_primary_qos_candidate_v1.json",
+      "bytes": 1317,
+      "sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff"
+    },
+    {
+      "release_path": "artifacts/config/step3_v3_risk_weight_5.json",
+      "bytes": 783,
+      "sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e"
+    },
+    {
+      "release_path": "artifacts/config/step4_cap_corrected_energy_audit_v1.json",
+      "bytes": 1199,
+      "sha256": "a6813c23ee1474db851c97b0d53de175304df4a7d78a878f16ec166d965b9b0a"
+    },
+    {
+      "release_path": "artifacts/config/step4_final_confirmation_v1.json",
+      "bytes": 5108,
+      "sha256": "a4341cd63c9bef61319ff70e8cda5b842ca74f521d6499556d93f255474f5548"
+    },
+    {
+      "release_path": "artifacts/config/step4_node_scalability_50_300_v1.json",
+      "bytes": 3838,
+      "sha256": "0e908354d1da456c52046879b721110de2a01d1f1641c78fc51f420b092d48d8"
+    },
+    {
+      "release_path": "artifacts/data/external/pvgis_srrl_2020_hourly.csv",
+      "bytes": 178272,
+      "sha256": "5fab9b88336afd54917d53660186005987a7eea7931594b526ed91ce91ca4fd4"
+    },
+    {
+      "release_path": "artifacts/outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+      "bytes": 1948577,
+      "sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a"
+    },
+    {
+      "release_path": "artifacts/outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/episodes.jsonl",
+      "bytes": 308501,
+      "sha256": "36f2b4976fd58fb933dd6d94f3422ba93047087cc999cdaf54ba00a521e4efff"
+    },
+    {
+      "release_path": "artifacts/outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/summary.json",
+      "bytes": 179596,
+      "sha256": "aaef891aa7e4e1717165cb79cee631dd3ad6acfac9deaf5b8a5a45ea7d026186"
+    },
+    {
+      "release_path": "artifacts/outputs/phase4/cap_corrected_energy_audit_v1/results.json",
+      "bytes": 671852,
+      "sha256": "d23625d1f923080248e2b3d7c812fcb3a2f80406f7c72e5aca60ba5916d03139"
+    },
+    {
+      "release_path": "artifacts/outputs/phase4/final_confirmation_v1/final_confirmation.json",
+      "bytes": 1911338,
+      "sha256": "e3f6845edcde07d4825ee10c79f33bb875e4f2c76fe40677c6a3a65fc6beb232"
+    },
+    {
+      "release_path": "artifacts/outputs/phase4/node_scalability_50_300_v1/results.json",
+      "bytes": 2540598,
+      "sha256": "f0131f9903df3fd1ec007776d51ce56c6dea754e60b9391ce4da091acdc25125"
+    },
+    {
+      "release_path": "artifacts/outputs/phase4/publication_extension_v1/fair_energy_pilot_reanalysis.json",
+      "bytes": 63051,
+      "sha256": "10a2ffb530968f5632b6332e936198c31fbfb39f0da00c8cedee9beb10269364"
+    },
+    {
+      "release_path": "artifacts/outputs/phase4/publication_extension_v1/training_full.json",
+      "bytes": 32377,
+      "sha256": "7127936e438965c84a2282680408957b5d7b2c5524783af54cabb2a78ed75ee7"
+    },
+    {
+      "release_path": "EXPERIMENT_BOUNDARY.md",
+      "bytes": 1314,
+      "sha256": "c66471fc75fb7a19ec285f7dac4f3f3fb440271240e1aeb10fbadb563b59b247"
+    },
+    {
+      "release_path": "manuscript/ablation_evidence.pdf",
+      "bytes": 19428,
+      "sha256": "be0f9cee3da1f262673fc36e010d9e4e3aeb0c5a836472ecaef0b525f44b6594"
+    },
+    {
+      "release_path": "manuscript/complexity_profile.pdf",
+      "bytes": 21157,
+      "sha256": "94b815c86a1086e7639ec17ae8593d9ff50421003152e9315bb4093b9684f58b"
+    },
+    {
+      "release_path": "manuscript/hta_mac_architecture.png",
+      "bytes": 1190746,
+      "sha256": "3d29174bb600abf4c0d1194549ac9ab8280ebeacf2ac856824a03f4c4aa9f579"
+    },
+    {
+      "release_path": "manuscript/hta_mac_comparison_context.pdf",
+      "bytes": 28005,
+      "sha256": "c2c33c575afb2bb4612837e1b9aec260076edb3c6dc1daa37a333b738088aa19"
+    },
+    {
+      "release_path": "manuscript/hta_mac_comparison_context.png",
+      "bytes": 345052,
+      "sha256": "3455b24e700a2491b28f3235769afa18bc74489d7ae4893b7e2d0ad1fb474805"
+    },
+    {
+      "release_path": "manuscript/HTA_MAC_Overleaf_Package_V1.zip",
+      "bytes": 1606084,
+      "sha256": "30fdeb94538b582159a476fbd8fd0176dd008c38a14198e48090bf7efbf2788d"
+    },
+    {
+      "release_path": "manuscript/main.tex",
+      "bytes": 57918,
+      "sha256": "45dee0e45fce939a358d71e4870447f5f2fb55e859c9f3484b1bec1b0e4ae6d4"
+    },
+    {
+      "release_path": "manuscript/README.md",
+      "bytes": 568,
+      "sha256": "e26094457856145874f493ba65a9cccf3d08dc556c6cd0fbb1d6de3092b3834a"
+    },
+    {
+      "release_path": "manuscript/reference_nodes20_pareto.pdf",
+      "bytes": 17736,
+      "sha256": "76d3c9b40d53977789ae86733e23e4891e79dd7b9d49d2a4991a3e4fe4b0e2cb"
+    },
+    {
+      "release_path": "manuscript/robustness_multimetric.pdf",
+      "bytes": 22422,
+      "sha256": "e6279d60e9bec9c8502ffc92118b795b925bb8e3d61a0a8d1c7d157bfb390757"
+    },
+    {
+      "release_path": "manuscript/scalability_performance.pdf",
+      "bytes": 28495,
+      "sha256": "46378dbbaab89f45a0c804bdac1d9807fde119aa3669a8fad1da2c60047a4c2f"
+    },
+    {
+      "release_path": "PAPER_CLAIMS.md",
+      "bytes": 2824,
+      "sha256": "578850e7199096d96198f831f2de63c93e885c8f6c6a64c7b6411766a2d3a988"
+    },
+    {
+      "release_path": "PROVENANCE.json",
+      "bytes": 938,
+      "sha256": "fbe74237f35075dca14801fa5dd7c1cde9233ff27e46ac4d7c5712d6085babea"
+    },
+    {
+      "release_path": "README.md",
+      "bytes": 3677,
+      "sha256": "15e7e4635c4afdef2c704136db95ce10cd7216fc8b607c78eb4618f36dd2e766"
+    },
+    {
+      "release_path": "reports/HTA_MAC_FINAL_20SEED_CONFIRMATION_REPORT_20260815.md",
+      "bytes": 9188,
+      "sha256": "7e26799e1a897125984b541710e2a7e62112da00fa57c868b7168226ec3ae306"
+    },
+    {
+      "release_path": "reports/HTA_MAC_LOAD_ROBUST_FAIR_ENERGY_METRIC_20260817.md",
+      "bytes": 6521,
+      "sha256": "d11ea93e5a452b49a4d7560f8d2fdccb8e2dd4d71fcf76e4052b327b90abc0c3"
+    },
+    {
+      "release_path": "reports/HTA_MAC_PRIMARY_PAPER_PERFORMANCE_COMPARISON_20260831.md",
+      "bytes": 15257,
+      "sha256": "c923782e492c2fac278a7caa3e33c1b7c4accdb6c97cd0e641e3fb0bed00f326"
+    },
+    {
+      "release_path": "reports/HTA_MAC_PUBLICATION_ABLATION_AND_ALL_CLUSTER_PILOT_20260817.md",
+      "bytes": 9091,
+      "sha256": "1e0cb659039d95942ac3d2926701e690efbd9685d8373d3c7263eaddb5f1e063"
+    },
+    {
+      "release_path": "ROLLBACK.md",
+      "bytes": 1843,
+      "sha256": "3ef8a28eaca476d2611f0b8bc14ba5adacc78d9563f1a58c673f22ef56877a93"
+    },
+    {
+      "release_path": "source_snapshot.zip",
+      "bytes": 5448891,
+      "sha256": "d69c2ee5a1e5950a6de30b466eb30f46033bfe87f59e81797736caa03553de64"
+    },
+    {
+      "release_path": "TRACKED_WORKTREE.patch",
+      "bytes": 38834,
+      "sha256": "e7008711461ffd3f7543724257ce1baddd7534fb0a63514dd16d0b5440b6d22f"
+    },
+    {
+      "release_path": "VERIFY_RELEASE.ps1",
+      "bytes": 872,
+      "sha256": "c38f3247372c2cc8da50481e65b20de61fbc639be6e358db92e4ccc8a159a943"
+    },
+    {
+      "release_path": "WORKTREE_STATUS.txt",
+      "bytes": 113066,
+      "sha256": "b5f4df4ce345792b7f207c7a383ee853c0eca82fcc140fb2aada454cf3dd6202"
+    }
+  ]
+}

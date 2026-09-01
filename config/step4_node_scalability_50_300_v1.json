@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "frozen_postconfirmation_node_scalability_extension",
+  "purpose": "paired fixed-policy node-count scalability extension from 50 through 300 nodes in increments of 50",
+  "evaluation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "seeds_already_opened_in_final_confirmation": true,
+  "source_confirmation": "outputs/phase4/final_confirmation_v1/final_confirmation.json",
+  "source_confirmation_sha256": "e3f6845edcde07d4825ee10c79f33bb875e4f2c76fe40677c6a3a65fc6beb232",
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 6,
+  "threads_per_worker": 1,
+  "execution_note": "Reduced from 12 to 6 processes after a pre-evaluation Windows spawn MemoryError; scientific settings are unchanged.",
+  "smoke_seed": 4001,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "policies": ["hta_mac", "energy_proportional", "online_primal_dual"],
+  "energy_proportional_score_exponent": 4.0,
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.1,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "scenarios": [
+    {"id": "nodes_50", "nodes": 50, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_150", "nodes": 150, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_200", "nodes": 200, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_250", "nodes": 250, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_300", "nodes": 300, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0}
+  ],
+  "capacity_expansion": {
+    "learned_weights_changed": false,
+    "optimizer_or_training_used": false,
+    "maximum_branch_capacity": 300,
+    "rule": "retain the checkpoint exactly for node counts at most 100; above 100, instantiate the same shared-weight architecture at the scenario node count and recompute only the deterministic normalized-budget buffer as budget divided by branch capacity",
+    "claim_boundary": "zero-retraining architectural extrapolation above the checkpoint's original 100-branch capacity"
+  },
+  "inference": {
+    "unit": "seed_mean_across_all_scheduled_CH_ranks",
+    "alpha": 0.05,
+    "bootstrap_resamples": 20000,
+    "bootstrap_seed": 20260829,
+    "paired_test": "two-sided Wilcoxon signed-rank",
+    "multiplicity": "Holm correction across six node-count delivery contrasts",
+    "fnd_censoring": "event count plus restricted survival capped at 3000 rounds"
+  },
+  "decision_rules": {
+    "no_training_or_retuning": true,
+    "no_model_selection": true,
+    "all_sizes_reported": true,
+    "failed_or_adverse_scaling_results_reported": true
+  },
+  "claim_boundary": "post-confirmation paired scalability extension using already-opened seeds; learned weights are frozen; results above 100 nodes test deterministic capacity expansion and are not independent confirmation"
+}

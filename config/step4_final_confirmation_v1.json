@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_final_20seed_confirmation",
+  "purpose": "one-shot paired confirmation of the retained HTA-MAC source against energy-proportional and online primal-dual baselines",
+  "confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "confirmation_seeds_opened": false,
+  "smoke_seed": 4000,
+  "prior_development_seeds": [2400, 2401, 2402, 2403, 2404, 3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404, 3500, 3501, 3502, 3503, 3504, 3600, 3601, 3602, 3603, 3604, 3700, 3701, 3702, 3703, 3704, 3705, 3706, 3707, 3708, 3709, 3710, 3711, 3712, 3713, 3714, 3715, 3716, 3717, 3718, 3719, 3800, 3801, 3802, 3803, 3804, 3970, 3971, 3980, 3981, 3982, 3983, 3984, 3990, 3991, 3992, 3993, 3994],
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 12,
+  "threads_per_worker": 1,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "external_trace": {
+    "path": "data/external/pvgis_srrl_2020_hourly.csv",
+    "sha256": "5fab9b88336afd54917d53660186005987a7eea7931594b526ed91ce91ca4fd4",
+    "source": "European Commission JRC PVGIS ERA5 hourly series, SRRL coordinates, year 2020",
+    "dataset_doi": "10.2905/JRC.FDTQ22G"
+  },
+  "policies": ["hta_mac", "energy_proportional", "online_primal_dual"],
+  "energy_proportional_score_exponent": 4.0,
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.10,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "scenarios": [
+    {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_20", "nodes": 20, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_50", "nodes": 50, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 0.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 0.5, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.5, "initial_energy_multiplier": 1.0},
+    {"id": "battery_half", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 0.5},
+    {"id": "field_large", "nodes": 100, "field_scale": 1.5, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "external_trace_srrl_2020", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0, "use_external_trace": true}
+  ],
+  "inference": {
+    "unit": "seed_mean_across_target_ranks",
+    "alpha": 0.05,
+    "bootstrap_resamples": 20000,
+    "bootstrap_seed": 20260815,
+    "paired_test": "Wilcoxon signed-rank",
+    "multiplicity": "Holm correction within each declared family",
+    "fnd_censoring": "event count plus restricted mean survival time capped at horizon"
+  },
+  "predeclared_claims": {
+    "reference_delivery_superiority_vs_energy": {"scenario": "reference_100", "metric": "delivery_ratio", "alternative": "greater"},
+    "delivery_robustness_vs_energy_family": {"scenarios": ["reference_100", "nodes_20", "nodes_50", "traffic_low", "traffic_high", "harvest_low", "harvest_high", "battery_half", "field_large", "external_trace_srrl_2020"], "metric": "delivery_ratio", "alternative": "greater", "holm_family": true},
+    "nodes20_lifetime_superiority_vs_energy": {"scenario": "nodes_20", "metric": "restricted_survival_rounds", "alternative": "greater"},
+    "reference_noninferiority_vs_primal_dual": {"delivery_margin_absolute": 0.01, "rmst_margin_rounds": 6.0, "packets_per_j_margin_fraction": 0.05}
+  },
+  "decision_rules": {
+    "no_retuning_after_open": true,
+    "no_candidate_selection_on_confirmation": true,
+    "failed_claims_are_reported_not_repaired": true,
+    "universal_lifetime_superiority_not_claimed": true
+  },
+  "claim_boundary": "final confirmation in the independent balanced-rotation transfer simulator; external PVGIS irradiance is a real trace but the network remains simulated; online primal-dual is a constrained non-neural baseline, not a PPO/CPO reproduction"
+}

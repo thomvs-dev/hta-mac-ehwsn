@@ -1,0 +1,1843 @@
+{
+  "schema_version": 1,
+  "status": "publication_fair_energy_reanalysis_complete",
+  "source": "F:\\WSN\\matlab\\stage2\\hta-mac\\outputs\\phase4\\publication_extension_v1\\pilot.json",
+  "source_sha256": "e55f1cb60c6ad969eba6164eff623978f905e8cb0171e5de3e5d9e6a9523932e",
+  "contract": "F:\\WSN\\matlab\\stage2\\hta-mac\\config\\publication_ablation_all_cluster_v1.json",
+  "contract_sha256": "4686b4c84e1b21640298b9efbc84185758e731cc6da5c4cba6fcfb6e1a7ccbc4",
+  "seeds": [
+    4100,
+    4101,
+    4102,
+    4103,
+    4104
+  ],
+  "scenarios": [
+    "reference_100",
+    "nodes_20",
+    "traffic_high"
+  ],
+  "metric_definitions": {
+    "jain_weighted_goodput_efficiency": {
+      "symbol": "JWGE",
+      "equation": "packets_per_j * service_fairness",
+      "units": "packets_per_joule",
+      "role": "secondary_metric",
+      "required_companion_metrics": [
+        "packets_per_j",
+        "service_fairness",
+        "delivery_ratio",
+        "stale_ratio",
+        "fnd_round",
+        "hnd_round"
+      ],
+      "interpretation": "reliable network goodput per joule discounted by unequal per-node service"
+    },
+    "load_robust_fair_energy_retention": {
+      "symbol": "LRFER",
+      "equation": "JWGE(traffic_high) / JWGE(reference_100), paired by environment seed",
+      "reference_scenario": "reference_100",
+      "stress_scenario": "traffic_high",
+      "role": "pilot_derived_secondary_hypothesis",
+      "confirmation_cohort": [
+        4200,
+        4201,
+        4202,
+        4203,
+        4204,
+        4205,
+        4206,
+        4207,
+        4208,
+        4209,
+        4210,
+        4211,
+        4212,
+        4213,
+        4214,
+        4215,
+        4216,
+        4217,
+        4218,
+        4219
+      ],
+      "claim_boundary": "must be reported with its components and lifetime metrics; development-pilot ranking is exploratory"
+    }
+  },
+  "analysis": {
+    "reference_100": {
+      "policies": {
+        "hta_mac": {
+          "mean_delivery_ratio": 0.6416193539743309,
+          "mean_stale_ratio": 0.0052235360341814875,
+          "mean_service_fairness": 0.9798158281998519,
+          "mean_fnd_round": 120.6,
+          "mean_hnd_round": 166.4,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 345.96345948838217,
+          "mean_network_energy_j": 55.85631698684373,
+          "mean_jain_weighted_goodput_per_j": 338.9711874094209,
+          "mean_residual_energy_fairness": 0.8081588029586074,
+          "mean_decision_latency_ms_per_network_round_mean": 17.242457626666667,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_ch_context": {
+          "mean_delivery_ratio": 0.6504043125907757,
+          "mean_stale_ratio": 0.005365473229095561,
+          "mean_service_fairness": 0.9802149586061176,
+          "mean_fnd_round": 122.0,
+          "mean_hnd_round": 168.6,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 349.15101563409524,
+          "mean_network_energy_j": 55.75707231856152,
+          "mean_jain_weighted_goodput_per_j": 342.2428403324035,
+          "mean_residual_energy_fairness": 0.8346837053577033,
+          "mean_decision_latency_ms_per_network_round_mean": 17.376976473333336,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_set_context": {
+          "mean_delivery_ratio": 0.6679622958218037,
+          "mean_stale_ratio": 0.006017597645569427,
+          "mean_service_fairness": 0.9709051719744183,
+          "mean_fnd_round": 122.2,
+          "mean_hnd_round": 168.4,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 356.9481522408366,
+          "mean_network_energy_j": 56.107395403327814,
+          "mean_jain_weighted_goodput_per_j": 346.55543500881623,
+          "mean_residual_energy_fairness": 0.8133571040196184,
+          "mean_decision_latency_ms_per_network_round_mean": 13.960738979999999,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "energy_proportional": {
+          "mean_delivery_ratio": 0.6484473425724395,
+          "mean_stale_ratio": 0.01146291045545609,
+          "mean_service_fairness": 0.9402534414062254,
+          "mean_fnd_round": 156.4,
+          "mean_hnd_round": 167.4,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 335.7140113673051,
+          "mean_network_energy_j": 54.83794069642521,
+          "mean_jain_weighted_goodput_per_j": 315.7048325022997,
+          "mean_residual_energy_fairness": 0.8670414613387404,
+          "mean_decision_latency_ms_per_network_round_mean": 0.2561336866666667,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "online_primal_dual": {
+          "mean_delivery_ratio": 0.6556652089613612,
+          "mean_stale_ratio": 0.0032492706076152128,
+          "mean_service_fairness": 0.9794819016659975,
+          "mean_fnd_round": 133.2,
+          "mean_hnd_round": 165.6,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 336.7599707613284,
+          "mean_network_energy_j": 55.194911223636986,
+          "mean_jain_weighted_goodput_per_j": 329.8389281794615,
+          "mean_residual_energy_fairness": 0.8619724487575782,
+          "mean_decision_latency_ms_per_network_round_mean": 0.7289398866666665,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        }
+      },
+      "full_minus_alternative": {
+        "hta_no_ch_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.008784958616444571,
+            "median_difference": -0.008622198168165784,
+            "bootstrap_95_ci": [
+              -0.012976160595698217,
+              -0.004593756637190927
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.00014193719491407416,
+            "median_difference": -9.727058621062084e-05,
+            "bootstrap_95_ci": [
+              -0.0002628429937443992,
+              -4.108439849423561e-05
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.000399130406265491,
+            "median_difference": 7.74007174790814e-05,
+            "bootstrap_95_ci": [
+              -0.001360571882105166,
+              0.00045164382754392385
+            ],
+            "wilcoxon_two_sided_p": 0.8125
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.4,
+            "median_difference": -1.0,
+            "bootstrap_95_ci": [
+              -3.2,
+              -0.2
+            ],
+            "wilcoxon_two_sided_p": 0.25
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -2.2,
+            "median_difference": -4.0,
+            "bootstrap_95_ci": [
+              -4.8,
+              1.0
+            ],
+            "wilcoxon_two_sided_p": 0.25
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -3.1875561457131196,
+            "median_difference": -1.5239259668380214,
+            "bootstrap_95_ci": [
+              -8.260975108217782,
+              0.2858238169255287
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 0.09924466828220915,
+            "median_difference": 0.276241974601767,
+            "bootstrap_95_ci": [
+              -0.4134499128353653,
+              0.4296411143960469
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -3.271652922982605,
+            "median_difference": -2.1607964145612186,
+            "bootstrap_95_ci": [
+              -8.245546898583552,
+              0.19200139604049582
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.026524902399095995,
+            "median_difference": -0.0548021628386649,
+            "bootstrap_95_ci": [
+              -0.09600447233596716,
+              0.048151202662178164
+            ],
+            "wilcoxon_two_sided_p": 0.4375
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": -0.134518846666667,
+            "median_difference": 0.02088756666666569,
+            "bootstrap_95_ci": [
+              -0.3685761933333332,
+              0.08342628666666627
+            ],
+            "wilcoxon_two_sided_p": 0.8125
+          }
+        },
+        "hta_no_set_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.026342941847472635,
+            "median_difference": -0.022749771683331255,
+            "bootstrap_95_ci": [
+              -0.03257475510247145,
+              -0.021444881283240957
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0007940616113879393,
+            "median_difference": -0.0009024717001158223,
+            "bootstrap_95_ci": [
+              -0.001029270218255546,
+              -0.0004674572986840835
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.008910656225433721,
+            "median_difference": 0.009398563909698066,
+            "bootstrap_95_ci": [
+              0.004038359104322065,
+              0.013853646124578001
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.6,
+            "median_difference": -2.0,
+            "bootstrap_95_ci": [
+              -3.2,
+              0.8
+            ],
+            "wilcoxon_two_sided_p": 0.375
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -2.0,
+            "median_difference": -1.0,
+            "bootstrap_95_ci": [
+              -4.6,
+              0.6
+            ],
+            "wilcoxon_two_sided_p": 0.5
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -10.984692752454453,
+            "median_difference": -9.463620157015782,
+            "bootstrap_95_ci": [
+              -14.742785906686162,
+              -7.326850549997777
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": -0.25107841648409135,
+            "median_difference": -0.30950573488079414,
+            "bootstrap_95_ci": [
+              -0.42295738101365005,
+              -0.07420691036982277
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -7.584247599395337,
+            "median_difference": -9.009612336712621,
+            "bootstrap_95_ci": [
+              -11.435298733644732,
+              -2.9943396873859114
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.005198301061011134,
+            "median_difference": -0.012356588085504994,
+            "bootstrap_95_ci": [
+              -0.14069958095050197,
+              0.1303029788284797
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 3.281718646666667,
+            "median_difference": 3.3218064666666667,
+            "bootstrap_95_ci": [
+              3.170952446666668,
+              3.38765612
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "energy_proportional": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0068279885981085585,
+            "median_difference": -0.012512853970160775,
+            "bootstrap_95_ci": [
+              -0.013893968274500979,
+              0.002113811213259753
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.006239374421274601,
+            "median_difference": -0.005474715942877087,
+            "bootstrap_95_ci": [
+              -0.00787523508549748,
+              -0.004873863426125995
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.03956238679362658,
+            "median_difference": 0.036118690927681385,
+            "bootstrap_95_ci": [
+              0.03365357189265898,
+              0.047435838840043675
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -35.8,
+            "median_difference": -36.0,
+            "bootstrap_95_ci": [
+              -38.4,
+              -33.0
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.0,
+            "median_difference": -2.0,
+            "bootstrap_95_ci": [
+              -3.2,
+              1.4
+            ],
+            "wilcoxon_two_sided_p": 0.5
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": 10.249448121077057,
+            "median_difference": 8.73863895027796,
+            "bootstrap_95_ci": [
+              2.1989343675022726,
+              19.272047764623096
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 1.0183762904185145,
+            "median_difference": 0.8916622589192471,
+            "bootstrap_95_ci": [
+              0.46482508776125686,
+              1.6997429521034249
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": 23.266354907121173,
+            "median_difference": 22.090451864724628,
+            "bootstrap_95_ci": [
+              14.081192481262315,
+              34.56958685813812
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.05888265838013314,
+            "median_difference": -0.07519242232680556,
+            "bootstrap_95_ci": [
+              -0.14069672398147737,
+              0.05079471212100071
+            ],
+            "wilcoxon_two_sided_p": 0.4375
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 16.98632394,
+            "median_difference": 16.955334233333332,
+            "bootstrap_95_ci": [
+              16.935367246666665,
+              17.03728063333333
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "online_primal_dual": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.014045854987030126,
+            "median_difference": -0.013380929654592921,
+            "bootstrap_95_ci": [
+              -0.019496745255246428,
+              -0.007998251767095144
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": 0.0019742654265662747,
+            "median_difference": 0.0015072574063510484,
+            "bootstrap_95_ci": [
+              0.0013585392285729349,
+              0.0028841692508286857
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.0003339265338545783,
+            "median_difference": -0.0006655615104599333,
+            "bootstrap_95_ci": [
+              -0.004267983159088162,
+              0.004964556560408928
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -12.6,
+            "median_difference": -13.0,
+            "bootstrap_95_ci": [
+              -15.4,
+              -9.8
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.8,
+            "median_difference": 1.0,
+            "bootstrap_95_ci": [
+              -2.6,
+              4.2
+            ],
+            "wilcoxon_two_sided_p": 0.875
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": 9.203488727053696,
+            "median_difference": 9.969491689750384,
+            "bootstrap_95_ci": [
+              6.339278993583207,
+              12.093052896650828
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 0.6614057632067329,
+            "median_difference": 0.5437701228633642,
+            "bootstrap_95_ci": [
+              0.4047046397218992,
+              0.9181068866915666
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": 9.132259229959402,
+            "median_difference": 8.815612047355899,
+            "bootstrap_95_ci": [
+              5.972374895148846,
+              12.183926113443624
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.053813645798970924,
+            "median_difference": -0.05779999095591548,
+            "bootstrap_95_ci": [
+              -0.1312626540058761,
+              0.02246383092180444
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 16.51351774,
+            "median_difference": 16.517698366666668,
+            "bootstrap_95_ci": [
+              16.449328700000002,
+              16.572066313333334
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        }
+      }
+    },
+    "nodes_20": {
+      "policies": {
+        "hta_mac": {
+          "mean_delivery_ratio": 0.8523624856677916,
+          "mean_stale_ratio": 0.00042672237662850994,
+          "mean_service_fairness": 0.9944106447891787,
+          "mean_fnd_round": 152.4,
+          "mean_hnd_round": 178.0,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 389.2558840127696,
+          "mean_network_energy_j": 11.264050455918733,
+          "mean_jain_weighted_goodput_per_j": 387.0840468097882,
+          "mean_residual_energy_fairness": 0.9299912461512069,
+          "mean_decision_latency_ms_per_network_round_mean": 2.395983906666667,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_ch_context": {
+          "mean_delivery_ratio": 0.8610980909677698,
+          "mean_stale_ratio": 0.0003147508873616265,
+          "mean_service_fairness": 0.9955543147562389,
+          "mean_fnd_round": 153.2,
+          "mean_hnd_round": 176.0,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 386.3902278965882,
+          "mean_network_energy_j": 11.224071181843321,
+          "mean_jain_weighted_goodput_per_j": 384.6727352518096,
+          "mean_residual_energy_fairness": 0.9087662885411347,
+          "mean_decision_latency_ms_per_network_round_mean": 2.4548058133333335,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_set_context": {
+          "mean_delivery_ratio": 0.8699805708912258,
+          "mean_stale_ratio": 0.000994006078644691,
+          "mean_service_fairness": 0.9910798325833394,
+          "mean_fnd_round": 150.4,
+          "mean_hnd_round": 179.2,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 392.62347204370064,
+          "mean_network_energy_j": 11.320271113619285,
+          "mean_jain_weighted_goodput_per_j": 389.0829499396029,
+          "mean_residual_energy_fairness": 0.9451684924783544,
+          "mean_decision_latency_ms_per_network_round_mean": 1.7527952066666663,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "energy_proportional": {
+          "mean_delivery_ratio": 0.879104691016623,
+          "mean_stale_ratio": 0.0008996205733916409,
+          "mean_service_fairness": 0.9968175904546326,
+          "mean_fnd_round": 156.2,
+          "mean_hnd_round": 184.6,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 394.9314514622699,
+          "mean_network_energy_j": 11.330024103414598,
+          "mean_jain_weighted_goodput_per_j": 393.67749004328664,
+          "mean_residual_energy_fairness": 0.9139658621196748,
+          "mean_decision_latency_ms_per_network_round_mean": 0.05308206666666667,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "online_primal_dual": {
+          "mean_delivery_ratio": 0.8817339787451104,
+          "mean_stale_ratio": 0.00035588631020292,
+          "mean_service_fairness": 0.9975594336287831,
+          "mean_fnd_round": 155.0,
+          "mean_hnd_round": 181.0,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 393.2570403150279,
+          "mean_network_energy_j": 11.278952362775218,
+          "mean_jain_weighted_goodput_per_j": 392.2965276345055,
+          "mean_residual_energy_fairness": 0.9302463706783793,
+          "mean_decision_latency_ms_per_network_round_mean": 0.15356794,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        }
+      },
+      "full_minus_alternative": {
+        "hta_no_ch_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.008735605299978254,
+            "median_difference": -0.008047005626604764,
+            "bootstrap_95_ci": [
+              -0.01586930903324959,
+              -0.0011327911338423259
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": 0.00011197148926688333,
+            "median_difference": 0.0001926040061633282,
+            "bootstrap_95_ci": [
+              -0.00027953525965828204,
+              0.00042461610225558773
+            ],
+            "wilcoxon_two_sided_p": 0.8125
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.001143669967060368,
+            "median_difference": -0.0010897137157740433,
+            "bootstrap_95_ci": [
+              -0.0018429277503581032,
+              -0.000393119132461206
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -0.8,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              -3.0,
+              0.6
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": 2.0,
+            "median_difference": 2.0,
+            "bootstrap_95_ci": [
+              1.0,
+              2.8
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": 2.865656116181435,
+            "median_difference": 3.2897282197625373,
+            "bootstrap_95_ci": [
+              -2.7450632571520144,
+              8.513709317058888
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 0.03997927407541191,
+            "median_difference": 0.0573377935839936,
+            "bootstrap_95_ci": [
+              0.014710873233731547,
+              0.059825893154582845
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": 2.411311557978513,
+            "median_difference": 2.940778934128616,
+            "bootstrap_95_ci": [
+              -3.246340567183586,
+              8.25428409803601
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.021224957610072016,
+            "median_difference": 0.020923650824989037,
+            "bootstrap_95_ci": [
+              0.007226404469960724,
+              0.035223510750183304
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": -0.058821906666666555,
+            "median_difference": -0.07256243333333323,
+            "bootstrap_95_ci": [
+              -0.09086795333333324,
+              -0.019426673333333255
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          }
+        },
+        "hta_no_set_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.017618085223434266,
+            "median_difference": -0.022517062114360997,
+            "bootstrap_95_ci": [
+              -0.04084505039568857,
+              0.00396424226652139
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0005672837020161811,
+            "median_difference": -0.0005776988151812815,
+            "bootstrap_95_ci": [
+              -0.0010815290498326817,
+              -5.303835419968059e-05
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.0033308122058391954,
+            "median_difference": 0.0013725315586973208,
+            "bootstrap_95_ci": [
+              -0.0016293858369111458,
+              0.009302576820730967
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": 2.0,
+            "median_difference": -1.0,
+            "bootstrap_95_ci": [
+              -5.8,
+              12.6
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.2,
+            "median_difference": -1.0,
+            "bootstrap_95_ci": [
+              -2.8,
+              0.2
+            ],
+            "wilcoxon_two_sided_p": 0.375
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -3.36758803093104,
+            "median_difference": -1.8142142640836596,
+            "bootstrap_95_ci": [
+              -7.0643659814849,
+              0.12662351459097182
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": -0.056220657700550805,
+            "median_difference": -0.03692999959350374,
+            "bootstrap_95_ci": [
+              -0.11451076508609148,
+              2.2391772412788667e-05
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -1.9989031298147324,
+            "median_difference": -1.7709362106674007,
+            "bootstrap_95_ci": [
+              -5.392379292505666,
+              1.1407065475139917
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.01517724632714772,
+            "median_difference": -0.005118113448304817,
+            "bootstrap_95_ci": [
+              -0.031695110313599686,
+              -0.004868249529744228
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 0.6431887000000002,
+            "median_difference": 0.6686441000000001,
+            "bootstrap_95_ci": [
+              0.5780799933333334,
+              0.7082974066666667
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "energy_proportional": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.026742205348831448,
+            "median_difference": -0.02323186305418823,
+            "bootstrap_95_ci": [
+              -0.03829679172181455,
+              -0.01518761897584835
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0004728981967631312,
+            "median_difference": -1.2776975557764414e-05,
+            "bootstrap_95_ci": [
+              -0.0012219531230023973,
+              0.0001492015756451776
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.0024069456654540965,
+            "median_difference": -0.0022845092628864805,
+            "bootstrap_95_ci": [
+              -0.0032584780277031154,
+              -0.0016813296216064088
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -3.8,
+            "median_difference": -4.0,
+            "bootstrap_95_ci": [
+              -6.8,
+              -1.0
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -6.6,
+            "median_difference": -5.0,
+            "bootstrap_95_ci": [
+              -10.0,
+              -4.2
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -5.675567449500306,
+            "median_difference": -9.26172450774692,
+            "bootstrap_95_ci": [
+              -11.567113291508473,
+              1.2867984874544618
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": -0.06597364749586632,
+            "median_difference": -0.08550361492899938,
+            "bootstrap_95_ci": [
+              -0.1111390491831589,
+              -0.018166135739488352
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -6.593443233498545,
+            "median_difference": -9.787503119319183,
+            "bootstrap_95_ci": [
+              -12.676278109245947,
+              0.3158066359111558
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.016025384031531996,
+            "median_difference": 0.008567532888273388,
+            "bootstrap_95_ci": [
+              -0.03149921019208657,
+              0.06129737755326705
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 2.3429018400000006,
+            "median_difference": 2.3249982000000005,
+            "bootstrap_95_ci": [
+              2.3206676533333335,
+              2.3750692066666668
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "online_primal_dual": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0293714930773187,
+            "median_difference": -0.029011428441596765,
+            "bootstrap_95_ci": [
+              -0.04552248175361242,
+              -0.013352671855875298
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": 7.083606642558983e-05,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              -8.347692336824486e-05,
+              0.0002557588950119013
+            ],
+            "wilcoxon_two_sided_p": 0.875
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.003148788839604455,
+            "median_difference": -0.0031198070836283565,
+            "bootstrap_95_ci": [
+              -0.004417748242931574,
+              -0.001950857360225
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -2.6,
+            "median_difference": -2.0,
+            "bootstrap_95_ci": [
+              -5.4,
+              -0.4
+            ],
+            "wilcoxon_two_sided_p": 0.25
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -3.0,
+            "median_difference": -4.0,
+            "bootstrap_95_ci": [
+              -5.6,
+              -0.4
+            ],
+            "wilcoxon_two_sided_p": 0.25
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -4.0011563022582095,
+            "median_difference": -4.756678484065276,
+            "bootstrap_95_ci": [
+              -5.643436276892714,
+              -2.030310628720872
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": -0.014901906856484005,
+            "median_difference": -0.010615267095399616,
+            "bootstrap_95_ci": [
+              -0.037300934294059826,
+              0.005426201337785486
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -5.212480824717318,
+            "median_difference": -5.520894175661567,
+            "bootstrap_95_ci": [
+              -7.179025170053057,
+              -2.6987943015412386
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.00025512452717262323,
+            "median_difference": 0.0019615786520101874,
+            "bootstrap_95_ci": [
+              -0.026644916153404676,
+              0.02405041080921879
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 2.242415966666667,
+            "median_difference": 2.2289057,
+            "bootstrap_95_ci": [
+              2.2236731133333336,
+              2.2718018200000003
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        }
+      }
+    },
+    "traffic_high": {
+      "policies": {
+        "hta_mac": {
+          "mean_delivery_ratio": 0.40125118816541727,
+          "mean_stale_ratio": 0.01403373580635762,
+          "mean_service_fairness": 0.9522728069643792,
+          "mean_fnd_round": 105.2,
+          "mean_hnd_round": 127.0,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 340.3081669742084,
+          "mean_network_energy_j": 55.4442641325025,
+          "mean_jain_weighted_goodput_per_j": 324.0465289345681,
+          "mean_residual_energy_fairness": 0.7891023358459981,
+          "mean_decision_latency_ms_per_network_round_mean": 17.527229553333335,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_ch_context": {
+          "mean_delivery_ratio": 0.408915081512314,
+          "mean_stale_ratio": 0.014597695406312472,
+          "mean_service_fairness": 0.9464928967365539,
+          "mean_fnd_round": 105.0,
+          "mean_hnd_round": 127.6,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 345.01489877468873,
+          "mean_network_energy_j": 55.19655485166984,
+          "mean_jain_weighted_goodput_per_j": 326.5340503432716,
+          "mean_residual_energy_fairness": 0.8212035120992314,
+          "mean_decision_latency_ms_per_network_round_mean": 17.032370773333334,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "hta_no_set_context": {
+          "mean_delivery_ratio": 0.42512370253620374,
+          "mean_stale_ratio": 0.015995808495373666,
+          "mean_service_fairness": 0.919539746364425,
+          "mean_fnd_round": 105.0,
+          "mean_hnd_round": 128.4,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 356.10791157969055,
+          "mean_network_energy_j": 55.674902984795025,
+          "mean_jain_weighted_goodput_per_j": 327.43259468958405,
+          "mean_residual_energy_fairness": 0.7430641628848865,
+          "mean_decision_latency_ms_per_network_round_mean": 13.324668293333335,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "energy_proportional": {
+          "mean_delivery_ratio": 0.36421330687224235,
+          "mean_stale_ratio": 0.017025878147695617,
+          "mean_service_fairness": 0.9269375375280541,
+          "mean_fnd_round": 124.8,
+          "mean_hnd_round": 128.8,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 293.0292879162538,
+          "mean_network_energy_j": 53.297920390796456,
+          "mean_jain_weighted_goodput_per_j": 271.53807013631615,
+          "mean_residual_energy_fairness": 0.8865800737655795,
+          "mean_decision_latency_ms_per_network_round_mean": 0.21949129333333334,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        },
+        "online_primal_dual": {
+          "mean_delivery_ratio": 0.35738587132426447,
+          "mean_stale_ratio": 0.015373245591257495,
+          "mean_service_fairness": 0.9671413453312075,
+          "mean_fnd_round": 113.2,
+          "mean_hnd_round": 129.8,
+          "mean_lnd_round": 3000.0,
+          "mean_packets_per_j": 316.3814852171425,
+          "mean_network_energy_j": 54.31852914987245,
+          "mean_jain_weighted_goodput_per_j": 305.9324670714179,
+          "mean_residual_energy_fairness": 0.8414005051632081,
+          "mean_decision_latency_ms_per_network_round_mean": 0.5947516666666667,
+          "fnd_events": 5,
+          "hnd_events": 5,
+          "lnd_events": 0,
+          "qos_joint_passes": 5,
+          "feasibility_violations": 0
+        }
+      },
+      "full_minus_alternative": {
+        "hta_no_ch_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.007663893346896688,
+            "median_difference": -0.009446182067475717,
+            "bootstrap_95_ci": [
+              -0.010432025104004917,
+              -0.004895761589788461
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0005639595999548514,
+            "median_difference": -0.0006292402344816577,
+            "bootstrap_95_ci": [
+              -0.0007786364939456278,
+              -0.0002939450860968234
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.005779910227825269,
+            "median_difference": 0.005692652019205435,
+            "bootstrap_95_ci": [
+              0.00441562183948554,
+              0.007144198616164998
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.2,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.6
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -0.6,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              -1.8,
+              0.4
+            ],
+            "wilcoxon_two_sided_p": 0.75
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -4.706731800480315,
+            "median_difference": -4.579156926202643,
+            "bootstrap_95_ci": [
+              -7.852421754772228,
+              -1.5554326739998487
+            ],
+            "wilcoxon_two_sided_p": 0.125
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 0.24770928083266028,
+            "median_difference": 0.273160614362979,
+            "bootstrap_95_ci": [
+              0.09878294988487517,
+              0.4094449578833249
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -2.4875214087036057,
+            "median_difference": -2.0175712999417215,
+            "bootstrap_95_ci": [
+              -6.04856554227797,
+              1.1192133822265533
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.0321011762532333,
+            "median_difference": 0.005402502325416725,
+            "bootstrap_95_ci": [
+              -0.0985050687016038,
+              0.031196047796278714
+            ],
+            "wilcoxon_two_sided_p": 0.8125
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 0.49485877999999917,
+            "median_difference": -0.004465533333334548,
+            "bootstrap_95_ci": [
+              -0.06769273333333459,
+              1.057410293333333
+            ],
+            "wilcoxon_two_sided_p": 0.8125
+          }
+        },
+        "hta_no_set_context": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.023872514370786448,
+            "median_difference": -0.02587792371075892,
+            "bootstrap_95_ci": [
+              -0.02639839691265732,
+              -0.02059387683005026
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.001962072689016045,
+            "median_difference": -0.002067186274421302,
+            "bootstrap_95_ci": [
+              -0.0023071484839624883,
+              -0.0016169968940696017
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.03273306059995436,
+            "median_difference": 0.03072217104529995,
+            "bootstrap_95_ci": [
+              0.026549556630646103,
+              0.039559821784067625
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.2,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.6
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.4,
+            "median_difference": -2.0,
+            "bootstrap_95_ci": [
+              -2.4,
+              -0.2
+            ],
+            "wilcoxon_two_sided_p": 0.1875
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": -15.799744605482193,
+            "median_difference": -15.713680031503202,
+            "bootstrap_95_ci": [
+              -19.40123070245295,
+              -12.613987953856816
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": -0.23063885229253883,
+            "median_difference": -0.025961915606934838,
+            "bootstrap_95_ci": [
+              -0.6572425013079524,
+              0.11565791022312766
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": -3.3860657550160225,
+            "median_difference": -2.392167560549126,
+            "bootstrap_95_ci": [
+              -4.696037341829026,
+              -2.1383779860183383
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.04603817296111155,
+            "median_difference": 0.04873928967228647,
+            "bootstrap_95_ci": [
+              -0.0903569434390076,
+              0.18243328936123068
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 4.202561259999999,
+            "median_difference": 4.198953899999998,
+            "bootstrap_95_ci": [
+              4.147374673333332,
+              4.254197446666666
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "energy_proportional": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": 0.037037881293174924,
+            "median_difference": 0.03727487138243263,
+            "bootstrap_95_ci": [
+              0.03186508432796834,
+              0.04203526436941209
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0029921423413379984,
+            "median_difference": -0.002882469981092317,
+            "bootstrap_95_ci": [
+              -0.003228557560043391,
+              -0.002844559011844857
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": 0.025335269436325313,
+            "median_difference": 0.02535631894002688,
+            "bootstrap_95_ci": [
+              0.01610054969444963,
+              0.034569989178201
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -19.6,
+            "median_difference": -19.0,
+            "bootstrap_95_ci": [
+              -21.6,
+              -17.8
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -1.8,
+            "median_difference": -1.0,
+            "bootstrap_95_ci": [
+              -4.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 0.25
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": 47.2788790579546,
+            "median_difference": 47.90465958721779,
+            "bootstrap_95_ci": [
+              40.212469909181685,
+              53.53901892265062
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 2.146343741706038,
+            "median_difference": 2.2735712488345783,
+            "bootstrap_95_ci": [
+              1.6293390351167403,
+              2.529351023186605
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": 52.50845879825194,
+            "median_difference": 54.81302759987392,
+            "bootstrap_95_ci": [
+              46.933750329613076,
+              57.16322212356452
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.09747773791958139,
+            "median_difference": -0.08757182759665816,
+            "bootstrap_95_ci": [
+              -0.23534539457619932,
+              0.033824682093880676
+            ],
+            "wilcoxon_two_sided_p": 0.3125
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 17.307738259999997,
+            "median_difference": 17.281811233333332,
+            "bootstrap_95_ci": [
+              17.270028673333332,
+              17.35421111333333
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        },
+        "online_primal_dual": {
+          "delivery_ratio": {
+            "pairs": 5,
+            "mean_difference": 0.0438653168411528,
+            "median_difference": 0.040648422070900025,
+            "bootstrap_95_ci": [
+              0.03755392338409217,
+              0.05182786029445426
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "stale_ratio": {
+            "pairs": 5,
+            "mean_difference": -0.0013395097848998747,
+            "median_difference": -0.0014041532636620072,
+            "bootstrap_95_ci": [
+              -0.0019848803316083923,
+              -0.0008036380368576519
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "service_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.014868538366828287,
+            "median_difference": -0.01410102255333412,
+            "bootstrap_95_ci": [
+              -0.01940750713418955,
+              -0.010426231127139807
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "fnd_round": {
+            "pairs": 5,
+            "mean_difference": -8.0,
+            "median_difference": -7.0,
+            "bootstrap_95_ci": [
+              -11.0,
+              -5.8
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "hnd_round": {
+            "pairs": 5,
+            "mean_difference": -2.8,
+            "median_difference": -2.0,
+            "bootstrap_95_ci": [
+              -5.4,
+              -1.2
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "lnd_round": {
+            "pairs": 5,
+            "mean_difference": 0.0,
+            "median_difference": 0.0,
+            "bootstrap_95_ci": [
+              0.0,
+              0.0
+            ],
+            "wilcoxon_two_sided_p": 1.0
+          },
+          "packets_per_j": {
+            "pairs": 5,
+            "mean_difference": 23.926681757065968,
+            "median_difference": 20.67028450943741,
+            "bootstrap_95_ci": [
+              16.517264398356087,
+              34.65646999220927
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "network_energy_j": {
+            "pairs": 5,
+            "mean_difference": 1.125734982630044,
+            "median_difference": 0.9933313358582083,
+            "bootstrap_95_ci": [
+              0.5274832161771357,
+              1.836091642169913
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "jain_weighted_goodput_per_j": {
+            "pairs": 5,
+            "mean_difference": 18.11406186315014,
+            "median_difference": 15.987841346879293,
+            "bootstrap_95_ci": [
+              12.060477508924771,
+              26.854987447062673
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          },
+          "residual_energy_fairness": {
+            "pairs": 5,
+            "mean_difference": -0.05229816931721003,
+            "median_difference": -0.14045912046500486,
+            "bootstrap_95_ci": [
+              -0.15990685391043946,
+              0.09466640596895812
+            ],
+            "wilcoxon_two_sided_p": 0.625
+          },
+          "decision_latency_ms_per_network_round_mean": {
+            "pairs": 5,
+            "mean_difference": 16.932477886666668,
+            "median_difference": 17.025308333333335,
+            "bootstrap_95_ci": [
+              16.821532453333333,
+              17.042625933333333
+            ],
+            "wilcoxon_two_sided_p": 0.0625
+          }
+        }
+      }
+    },
+    "cross_scenario_load_robustness": {
+      "assessed": true,
+      "equation": "JWGE(traffic_high) / JWGE(reference_100), paired by environment seed",
+      "pilot_derived_requires_sealed_confirmation": true,
+      "policies": {
+        "hta_mac": {
+          "pairs": 5,
+          "mean_retention": 0.9561098568230717,
+          "median_retention": 0.9558184500772153,
+          "bootstrap_95_ci": [
+            0.9410107502873185,
+            0.9706394346376817
+          ],
+          "wilcoxon_two_sided_vs_unit_retention_p": 0.0625,
+          "per_seed": {
+            "4100": 0.9711368443228457,
+            "4101": 0.9558184500772153,
+            "4102": 0.9775525172327505,
+            "4103": 0.9471037551669461,
+            "4104": 0.9289377173156003
+          }
+        },
+        "hta_no_ch_context": {
+          "pairs": 5,
+          "mean_retention": 0.9540914659119227,
+          "median_retention": 0.952959441342593,
+          "bootstrap_95_ci": [
+            0.9491492008764123,
+            0.9593470559410744
+          ],
+          "wilcoxon_two_sided_vs_unit_retention_p": 0.0625,
+          "per_seed": {
+            "4100": 0.9527653332779611,
+            "4101": 0.9636054656733952,
+            "4102": 0.9458297368869021,
+            "4103": 0.952959441342593,
+            "4104": 0.9552973523787622
+          }
+        },
+        "hta_no_set_context": {
+          "pairs": 5,
+          "mean_retention": 0.944947490942835,
+          "median_retention": 0.9462709384817011,
+          "bootstrap_95_ci": [
+            0.9342979391137071,
+            0.9555970427719629
+          ],
+          "wilcoxon_two_sided_vs_unit_retention_p": 0.0625,
+          "per_seed": {
+            "4100": 0.9623362724124304,
+            "4101": 0.9343253107483539,
+            "4102": 0.9535208652766264,
+            "4103": 0.9282840677950631,
+            "4104": 0.9462709384817011
+          }
+        },
+        "energy_proportional": {
+          "pairs": 5,
+          "mean_retention": 0.860861973317221,
+          "median_retention": 0.8540894533033823,
+          "bootstrap_95_ci": [
+            0.840003795308472,
+            0.8893562853948035
+          ],
+          "wilcoxon_two_sided_vs_unit_retention_p": 0.0625,
+          "per_seed": {
+            "4100": 0.8274006649466444,
+            "4101": 0.9119808393189698,
+            "4102": 0.8540894533033823,
+            "4103": 0.8471113806180645,
+            "4104": 0.8637275283990441
+          }
+        },
+        "online_primal_dual": {
+          "pairs": 5,
+          "mean_retention": 0.9273950277161462,
+          "median_retention": 0.936922685096867,
+          "bootstrap_95_ci": [
+            0.9114189324702895,
+            0.9429318069440488
+          ],
+          "wilcoxon_two_sided_vs_unit_retention_p": 0.0625,
+          "per_seed": {
+            "4100": 0.9461058329847001,
+            "4101": 0.9427623418269885,
+            "4102": 0.9096102577460341,
+            "4103": 0.936922685096867,
+            "4104": 0.9015740209261416
+          }
+        }
+      },
+      "rank_by_mean_retention": [
+        "hta_mac",
+        "hta_no_ch_context",
+        "hta_no_set_context",
+        "online_primal_dual",
+        "energy_proportional"
+      ],
+      "hta_mac_minus_alternative": {
+        "hta_no_ch_context": {
+          "pairs": 5,
+          "mean_difference": 0.0020183909111488596,
+          "median_difference": -0.0058556861756469125,
+          "bootstrap_95_ci": [
+            -0.014829797498866126,
+            0.02104176490507741
+          ],
+          "wilcoxon_two_sided_p": 1.0
+        },
+        "hta_no_set_context": {
+          "pairs": 5,
+          "mean_difference": 0.011162365880236624,
+          "median_difference": 0.018819687371882998,
+          "bootstrap_95_ci": [
+            -0.003833487926352586,
+            0.021973853988370817
+          ],
+          "wilcoxon_two_sided_p": 0.1875
+        },
+        "energy_proportional": {
+          "pairs": 5,
+          "mean_difference": 0.09524788350585059,
+          "median_difference": 0.09999237454888166,
+          "bootstrap_95_ci": [
+            0.06361759477969701,
+            0.12687817223200415
+          ],
+          "wilcoxon_two_sided_p": 0.0625
+        },
+        "online_primal_dual": {
+          "pairs": 5,
+          "mean_difference": 0.028714829106925334,
+          "median_difference": 0.02503101133814567,
+          "bootstrap_95_ci": [
+            0.014192602969984546,
+            0.04884931661996694
+          ],
+          "wilcoxon_two_sided_p": 0.0625
+        }
+      }
+    }
+  },
+  "claim_boundary": "post-hoc development-pilot metric discovery; rankings are exploratory; confirmation requires the sealed 4200-4219 cohort and all standard metrics"
+}

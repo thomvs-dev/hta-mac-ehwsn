@@ -5,7 +5,12 @@ from __future__ import annotations
 import numpy as np
 
 from envs.step3_lifetime_env import Step3DynamicClusterTrainingEnv
-from envs.step3_policy_observation import build_step3_observation, step3_observation_layout
+from envs.step3_policy_observation import (
+    STEP3_CH_CONTEXT_SCHEMA,
+    STEP3_WORKLOAD_CONTEXT_SCHEMA,
+    build_step3_observation,
+    step3_observation_layout,
+)
 
 
 def episode_service_fairness(delivered, offered):
@@ -41,6 +46,13 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
         self.step3_episode_offered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
         self.step3_episode_delivered_per_node = np.zeros(self.base.n_nodes, dtype=np.int64)
         self.step3_qos_counts["episode_service_fairness"] = 1.0
+        alive_members = self.members[self.base.alive[self.members]]
+        self.step3_demand_ewma = float(
+            self.base.queue[alive_members].sum() / max(1, len(alive_members))
+        )
+        self.step3_qos_lifetime_preference = float(
+            getattr(self, "step3_qos_lifetime_preference", 0.5)
+        )
         return result
 
     def _observation(self, state):
@@ -53,12 +65,12 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
             raise RuntimeError("Step 3 v3 risk config is not installed")
         return build_step3_observation(
             self.base, state, self._mask(), ch=self.ch, members=self.members,
-            risk_config=risk_config,
+            risk_config=risk_config, schema=self.observation_schema, wrapper=self,
         )
 
     @property
     def observation_layout(self):
-        return step3_observation_layout(self.base)
+        return step3_observation_layout(self.base, self.observation_schema)
 
     def step(self, member_action):
         observation, mask, done, info = super().step(member_action)
@@ -77,5 +89,9 @@ class Step3V3DynamicClusterTrainingEnv(Step3DynamicClusterTrainingEnv):
             self.step3_episode_delivered_per_node,
             self.step3_episode_offered_per_node,
         )
+        offered_per_member = int(info["target_packets_offered"]) / max(
+            1, len(info["target_members"])
+        )
+        self.step3_demand_ewma = 0.8 * self.step3_demand_ewma + 0.2 * offered_per_member
         info["target_episode_service_fairness"] = counts["episode_service_fairness"]
         return observation, mask, done, info
