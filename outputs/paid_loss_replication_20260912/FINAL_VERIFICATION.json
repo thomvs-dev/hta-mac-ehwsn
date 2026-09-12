@@ -1,0 +1,9 @@
+{
+  "status": "saved_evidence_arithmetic_verified",
+  "trials": 40,
+  "frames": 64194,
+  "all_seeds_retained": true,
+  "full_requested_horizon_not_identified": true,
+  "training_started": false,
+  "verifier_sha256": "d331499f9e1448fb508964d7b0712ff8038fb27985b3797a9090a6ee0af2f4df"
+}

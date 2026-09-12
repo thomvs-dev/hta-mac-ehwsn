@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b_teacher_gate",
+  "phase": "B_gate_only_no_training",
+  "source_calibration_results": "outputs/phaseB/v2_marginal_teacher_calibration_20260901/calibration_results.json",
+  "source_calibration_results_sha256": "45f8148f3ad93e5ad9fae91b01ba795bc385b4be577a2a10ada1a394fca03cfc",
+  "selected_teacher": "outputs/phaseB/v2_marginal_teacher_calibration_20260901/selected_teacher.json",
+  "selected_teacher_sha256": "3c8d03ad8ffbd4c506341ae0c88b6b430f46769dd83e72766e9c7fbabc4542db",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "gate_seeds": [12200, 12201, 12202, 12203, 12204, 12205, 12206, 12207, 12208, 12209, 12210, 12211, 12212, 12213, 12214, 12215, 12216, 12217, 12218, 12219],
+  "calibration_seeds": [12100, 12101, 12102, 12103, 12104, 12105, 12106, 12107, 12108, 12109],
+  "all_prior_v2_seeds": [12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019],
+  "permanently_opened_confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "gate_b_targets": {
+    "delivery_min": 0.450,
+    "packets_per_j_min": 244.8,
+    "stale_ratio_max": 0.035,
+    "fairness_min": 0.92,
+    "rmst_min": 128.0,
+    "feasibility_violations_max": 0
+  },
+  "inference": {
+    "unit": "seed_mean_across_five_target_ranks",
+    "bootstrap_resamples": 20000,
+    "bootstrap_seed": 20260901,
+    "confidence_level": 0.95
+  },
+  "decision_rules": {
+    "selected_teacher_cannot_change_after_gate_open": true,
+    "all_six_gate_components_must_pass": true,
+    "failed_gate_b_stops_neural_training": true,
+    "report_structural_frontier_if_failed": true,
+    "no_training": true
+  }
+}

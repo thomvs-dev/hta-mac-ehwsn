@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_step4_publication_development",
+  "purpose": "bounded development analysis for Pareto control, transfer generalization, an online primal-dual constrained baseline, and external solar-trace replay",
+  "development_seeds": [3800, 3801, 3802, 3803, 3804],
+  "prohibited_prior_seeds": [2400, 2401, 2402, 2403, 2404, 3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404, 3500, 3501, 3502, 3503, 3504, 3600, 3601, 3602, 3603, 3604, 3700, 3701, 3702, 3703, 3704, 3705, 3706, 3707, 3708, 3709, 3710, 3711, 3712, 3713, 3714, 3715, 3716, 3717, 3718, 3719],
+  "confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "confirmation_seeds_opened": false,
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 5,
+  "threads_per_worker": 3,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "selected_ranker_checkpoint": "outputs/phase2/step3_primary_listwise_residual_continuation_v2/continue_lr3e3_ep8/removal_ranker.pt",
+  "selected_ranker_checkpoint_sha256": "9df103c19d1f80336f80514d54bb88ee43cda31ca9749214160404e77a625c57",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "pareto_operating_points": [
+    {"id": "service_priority", "lower_delivery_target": 0.235, "upper_delivery_target": 0.330, "reserve_floor": 0.15, "completion_fraction": 0.35},
+    {"id": "balanced_frozen", "lower_delivery_target": 0.235, "upper_delivery_target": 0.300, "reserve_floor": 0.20, "completion_fraction": 0.50},
+    {"id": "lifetime_priority", "lower_delivery_target": 0.235, "upper_delivery_target": 0.270, "reserve_floor": 0.30, "completion_fraction": 0.70}
+  ],
+  "transfer_scenarios": [
+    {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_20", "nodes": 20, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_50", "nodes": 50, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 0.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 0.5, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.5, "initial_energy_multiplier": 1.0},
+    {"id": "battery_half", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 0.5},
+    {"id": "field_large", "nodes": 100, "field_scale": 1.5, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0}
+  ],
+  "transfer_policies": ["learned_listwise_residual", "raw_branching_c51", "energy_proportional_tuned", "online_primal_dual_qos"],
+  "energy_proportional_score_exponent": 4.0,
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.10,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "external_trace": {
+    "status": "downloaded_and_hash_frozen_before_full_development_run",
+    "path": "data/external/pvgis_srrl_2020_hourly.csv",
+    "source": "European Commission Joint Research Centre PVGIS hourly series, SRRL coordinates, PVGIS-ERA5",
+    "source_url": "https://re.jrc.ec.europa.eu/api/v5_3/seriescalc?lat=39.7423&lon=-105.1785&startyear=2020&endyear=2020&outputformat=json&components=0&pvcalculation=0&raddatabase=PVGIS-ERA5",
+    "dataset_doi": "10.2905/JRC.FDTQ22G",
+    "sha256": "5fab9b88336afd54917d53660186005987a7eea7931594b526ed91ce91ca4fd4",
+    "normalization": "mean_positive_harvest_matched_to_frozen_hmm"
+  },
+  "analysis_rules": {
+    "development_is_descriptive_only": true,
+    "no_p_values_on_five_seed_development": true,
+    "fnd_censoring": "report observed-event count and restricted mean survival time; never replace censoring with an observed FND",
+    "selection_on_confirmation_seeds": false,
+    "full_confirmation_requires_all_four_tracks": true
+  },
+  "claim_boundary": "development-only evidence; independent balanced-rotation transfer scenarios are not HEART-CH results; online primal-dual is a constrained-learning baseline but not a PPO reproduction; no publication claim until the separately frozen 20-seed confirmation is executed"
+}

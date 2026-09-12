@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_development_sweep",
+  "purpose": "tune the energy-proportional exponent and recompute prospective fairness on development seeds only",
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "reserved_confirmation_seeds_opened": false,
+  "prohibited_seeds": [3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404],
+  "target_ranks_per_seed": 20,
+  "horizon": 1200,
+  "budget": 16,
+  "energy_score_exponents": [0.5, 1.0, 2.0, 3.0, 4.0],
+  "environment_profile": "config/paper_aligned_hasani2025_b16_qos_repaired.json",
+  "environment_profile_sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "qos_config": "config/step3_v3_qos_ema_floor_candidate.json",
+  "qos_config_sha256": "31aaf56a3d7afa425c68cb51017d7df6c6dfff115d0ad796861c87bed6df305c",
+  "prospective_fairness": {
+    "name": "episode_member_service_ratio_jain",
+    "provisional_threshold": 0.70,
+    "threshold_status": "diagnostic_only_not_recalibrated",
+    "automatic_threshold_selection": false,
+    "required_outputs": ["minimum", "q05", "q10", "q25", "median", "mean", "q75", "q90", "q95", "maximum"]
+  },
+  "selection_rule": [
+    "maximize_joint_qos_pass_count_under_provisional_threshold",
+    "maximize_mean_restricted_fnd_free_steps_tau_1200",
+    "maximize_mean_delivery_ratio",
+    "maximize_mean_global_packets_per_j",
+    "prefer_smaller_exponent"
+  ],
+  "selection_scope": "development_only",
+  "inferential_claim_permitted": false,
+  "claim_boundary": "baseline tuning and fairness distribution only; does not confirm performance"
+}

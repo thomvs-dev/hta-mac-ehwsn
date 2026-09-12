@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b7_service_quantity_frontier",
+  "phase": "B7_deterministic_service_quantity_audit_no_training",
+  "hypothesis": "a modest frame service cap can reduce coupled member idle and transmit depletion enough to postpone first death, potentially improving finite-horizon delivery and packets per joule jointly",
+  "scientific_basis": [
+    "B5 measured an allocation-dependent idle-listening oracle gap",
+    "B6 improved packets per joule but failed the unchanged joint gate with fixed maximum feasible service quantity",
+    "Lyapunov drift-plus-penalty control treats admitted service and energy as a joint decision: https://arxiv.org/abs/1410.2418",
+    "Energy-harvesting scheduling is structurally coupled across admission, allocation, and stored energy: https://arxiv.org/abs/1804.09040"
+  ],
+  "source_b6_stop_evidence": "outputs/phaseB/v2_idle_aware_teacher_development_20260904/STOP_EVIDENCE.json",
+  "source_b6_stop_evidence_sha256": "af1ddc108ad2e403fcb048427c8b45a252bd39cd794abfc63fba7dbb96582bfb",
+  "teacher_implementation": "agents/idle_aware_oracle_teacher.py",
+  "teacher_implementation_sha256": "4b1c4e06759daddf8dfc46bb8d057a309e4b96ecca3865db397d8ce033b85c97",
+  "source_b5_oracle_runner": "experiments/run_v2_phase_b5_reduced_cluster_exact_oracle.py",
+  "source_b5_oracle_runner_sha256": "7a4da9b096f39fe5786910fe176bf9a20aec0884ad2f7b85b6ad52c88316802f",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "development_seeds": [12800, 12801, 12802, 12803, 12804, 12805, 12806, 12807, 12808, 12809],
+  "reserved_gate_seeds": [12900, 12901, 12902, 12903, 12904, 12905, 12906, 12907, 12908, 12909, 12910, 12911, 12912, 12913, 12914, 12915, 12916, 12917, 12918, 12919],
+  "unavailable_seed_ranges": [[3900, 3919], [12000, 12719]],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "physical_budget": 24,
+  "service_cap_candidates": [20, 21, 22, 23, 24],
+  "workers": 8,
+  "threads_per_worker": 1,
+  "teacher": {
+    "base_teacher": {"energy_weight": 4.0, "depletion_weight": 0.5, "fairness_guard": 0.9, "stale_guard": 0.035, "reserve_floor": 0.08},
+    "reduced_member_limit": 8
+  },
+  "gate_targets_unchanged": {"delivery_min": 0.450, "packets_per_j_min": 244.8, "stale_ratio_max": 0.035, "fairness_min": 0.92, "rmst_min": 128.0, "feasibility_violations_max": 0},
+  "selection_rule": {
+    "passing_candidates": "highest mean packets per joule, then delivery, then larger service cap",
+    "if_none_pass": "seal structural frontier and stop without opening reserved seeds",
+    "no_post_outcome_candidate_additions": true
+  },
+  "decision_rules": {
+    "open_reserved_gate_seeds_only_if_development_passes_all_targets": true,
+    "failed_development_stops_progression": true,
+    "no_neural_training": true,
+    "do_not_weaken_failed_gate": true
+  }
+}

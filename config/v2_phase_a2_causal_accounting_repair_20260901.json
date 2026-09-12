@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_a2_causal_accounting_repair",
+  "phase": "A2_only_no_training",
+  "scope": "MAC-only causal replay under the frozen exogenous HEART-CH schedule",
+  "source_phase_a_results": "outputs/phaseA/v2_marginal_service_energy_audit_20260901/results.json",
+  "source_phase_a_results_sha256": "13cabd31d10ddab5ebe61f33fb2e5c75b635d1cb20df01600a9b2c157a13cd94",
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "development_seeds": [12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019],
+  "opened_development_cohort": true,
+  "permanently_opened_confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "energy_proportional_score_exponent": 4.0,
+  "factorial_arms": {
+    "hta_count_hta_selection": {"count_rule": "hta_positive_marginal_stop", "selection_rule": "hta_q_ranking"},
+    "hta_count_residual_selection": {"count_rule": "hta_positive_marginal_stop", "selection_rule": "residual_energy_ranking"},
+    "full_count_hta_selection": {"count_rule": "fill_to_min_budget_and_feasible_demand", "selection_rule": "hta_q_ranking"},
+    "full_count_residual_selection": {"count_rule": "fill_to_min_budget_and_feasible_demand", "selection_rule": "residual_energy_ranking"}
+  },
+  "factorial_contract": {
+    "count_shapley": "0.5*((full_count_hta_selection-hta_count_hta_selection)+(full_count_residual_selection-hta_count_residual_selection))",
+    "selection_shapley": "0.5*((hta_count_residual_selection-hta_count_hta_selection)+(full_count_residual_selection-full_count_hta_selection))",
+    "reconstruction": "count_shapley+selection_shapley equals full_count_residual_selection-hta_count_hta_selection",
+    "a1_endpoint_mapping": {
+      "hta_count_hta_selection": "hta_mac_v1",
+      "full_count_residual_selection": "residual_energy_cap_corrected"
+    },
+    "unexplained_residual": "A1 observed reference-minus-HTA gap minus A2 factorial reconstructed gap",
+    "attributed_gap": "max(0,positive A1 observed gap-absolute unexplained residual), capped at the positive observed gap",
+    "attribution_fraction": "attributed gap divided by positive A1 observed gap; 1.0 if no adverse gap remains"
+  },
+  "gate_a": {
+    "threshold": 0.8,
+    "metrics": ["delivery_ratio", "packets_per_j"],
+    "rule": "pass iff both attribution fractions are at least 0.80 and all endpoint replication, factorization, feasibility, role-energy, and seed-integrity checks pass",
+    "threshold_cannot_be_changed_after_results": true
+  },
+  "endpoint_replication_absolute_tolerance": 1e-12,
+  "factorial_reconstruction_absolute_tolerance": 1e-12,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "decision_rules": {
+    "no_training": true,
+    "no_phase_b": true,
+    "reuse_opened_development_seeds_for_diagnosis_only": true,
+    "failed_gate_stops_progression": true,
+    "preserve_original_phase_a_failure": true
+  }
+}

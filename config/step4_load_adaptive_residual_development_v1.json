@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_step4_load_adaptive_development",
+  "purpose": "paired development and internal validation of a raw-policy-relative load-adaptive residual controller",
+  "calibration_seeds": [3810, 3811, 3812, 3813, 3814],
+  "validation_seeds": [3820, 3821, 3822, 3823, 3824],
+  "prohibited_prior_seed_ranges": [[2400, 2404], [3100, 3104], [3400, 3404], [3500, 3504], [3600, 3604], [3700, 3719], [3800, 3804]],
+  "confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "confirmation_seeds_opened": false,
+  "horizon": 3000,
+  "budget": 24,
+  "parallel_workers": 4,
+  "threads_per_worker": 3,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "selected_ranker_checkpoint": "outputs/phase2/step3_primary_listwise_residual_continuation_v2/continue_lr3e3_ep8/removal_ranker.pt",
+  "selected_ranker_checkpoint_sha256": "9df103c19d1f80336f80514d54bb88ee43cda31ca9749214160404e77a625c57",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "external_trace": "data/external/pvgis_srrl_2020_hourly.csv",
+  "external_trace_sha256": "5fab9b88336afd54917d53660186005987a7eea7931594b526ed91ce91ca4fd4",
+  "band": {
+    "lower_delivery_target": 0.235,
+    "upper_delivery_target": 0.300,
+    "reserve_floor": 0.20,
+    "completion_fraction": 0.50
+  },
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.10,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "candidates": [
+    {"id": "retain80_energy1", "raw_policy_retention": 0.80, "maximum_upper_target": 0.90, "energy_gate_exponent": 1.0},
+    {"id": "retain90_energy1", "raw_policy_retention": 0.90, "maximum_upper_target": 0.95, "energy_gate_exponent": 1.0},
+    {"id": "retain95_energy15", "raw_policy_retention": 0.95, "maximum_upper_target": 0.98, "energy_gate_exponent": 1.5}
+  ],
+  "transfer_scenarios": [
+    {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_20", "nodes": 20, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 0.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "field_large", "nodes": 100, "field_scale": 1.5, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "external_trace_srrl_2020", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0, "use_external_trace": true}
+  ],
+  "calibration_gates": {
+    "minimum_primary_joint_qos_pairs": 23,
+    "minimum_reference_delivery_improvement": 0.05,
+    "minimum_low_traffic_delivery": 0.65,
+    "minimum_nodes20_delivery": 0.65,
+    "maximum_primary_fnd_degradation_rounds": 5.0,
+    "maximum_any_transfer_fnd_degradation_rounds": 6.0,
+    "maximum_reference_efficiency_degradation_fraction": 0.05
+  },
+  "selection_order": ["highest_minimum_delivery_improvement", "highest_mean_fnd_delta", "lowest_candidate_index"],
+  "analysis_rules": {
+    "selection_uses_calibration_only": true,
+    "validation_is_single_use": true,
+    "no_p_values": true,
+    "nested_rank_is_not_an_independent_unit": true,
+    "confirmation_selection_forbidden": true
+  },
+  "claim_boundary": "development mechanism evidence only; no publication claim and no confirmation-seed access"
+}

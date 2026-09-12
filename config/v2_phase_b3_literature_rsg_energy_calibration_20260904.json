@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b3_literature_rsg_energy_calibration",
+  "phase": "B3_calibration_only_no_training",
+  "hypothesis": "RSG queue plus time-since-last-service weights, deadline pressure, virtual delivery debt, and queue-battery harvest-spill interaction can improve delivery and energy jointly while exact stale/fairness repairs retain secondary constraints",
+  "literature_anchors": [
+    "https://arxiv.org/abs/1405.0625",
+    "https://arxiv.org/abs/1803.09778",
+    "https://arxiv.org/abs/1910.03556",
+    "https://arxiv.org/abs/1410.2418",
+    "https://arxiv.org/abs/2401.00717"
+  ],
+  "failed_phase_b2_evidence": "outputs/phaseB/v2_guarded_teacher_calibration_final_20260904/STOP_EVIDENCE.json",
+  "failed_phase_b2_evidence_sha256": "9a32321d8ff604200a5980f6b0f7c38604519e4fc483358da5866e07d5b9772b",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "development_seeds": [12100, 12101, 12102, 12103, 12104, 12105, 12106, 12107, 12108, 12109],
+  "reserved_gate_seeds": [12500, 12501, 12502, 12503, 12504, 12505, 12506, 12507, 12508, 12509, 12510, 12511, 12512, 12513, 12514, 12515, 12516, 12517, 12518, 12519],
+  "opened_or_forbidden_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919, 12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019, 12100, 12101, 12102, 12103, 12104, 12105, 12106, 12107, 12108, 12109, 12200, 12201, 12202, 12203, 12204, 12205, 12206, 12207, 12208, 12209, 12210, 12211, 12212, 12213, 12214, 12215, 12216, 12217, 12218, 12219, 12400, 12401, 12402, 12403, 12404, 12405, 12406, 12407, 12408, 12409, 12410, 12411, 12412, 12413, 12414, 12415, 12416, 12417, 12418, 12419],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "candidate_grid": {
+    "energy_weight": [2.0, 4.0],
+    "deadline_weight": [2.0, 4.0, 8.0],
+    "tsls_weight": [0.5, 1.5],
+    "harvest_credit": [0.25, 1.0],
+    "fixed": {"queue_weight": 1.0, "delivery_debt_weight": 1.0, "depletion_weight": 1.0, "stale_guard": 0.035, "fairness_guard": 0.92, "reserve_floor": 0.08, "delivery_floor": 0.45}
+  },
+  "gate_b_targets": {"delivery_min": 0.450, "packets_per_j_min": 244.8, "stale_ratio_max": 0.035, "fairness_min": 0.92, "rmst_min": 128.0, "feasibility_violations_max": 0},
+  "selection_rule": {"passing_candidates": "highest mean packets/J, then delivery, then candidate_id", "if_none_pass": "stop without opening reserved seeds", "no_threshold_weakening": true},
+  "decision_rules": {"reserved_gate_seeds_open_only_if_development_passes_all_targets": true, "no_training": true, "failed_b3_stops_progression": true}
+}

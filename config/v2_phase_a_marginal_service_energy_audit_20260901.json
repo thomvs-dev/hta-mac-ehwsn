@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_a_mechanism_audit",
+  "phase": "A_only_no_training",
+  "scope": "MAC-only HTA-MAC allocation under the frozen exogenous HEART-CH schedule",
+  "development_seeds": [12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019],
+  "permanently_opened_confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "seed_registry_globs": [
+    "config/*.json",
+    "releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/config/**/*.json"
+  ],
+  "seed_registry_exclude": ["config/v2_phase_a_marginal_service_energy_audit_20260901.json"],
+  "source_contract": "config/step4_final_confirmation_v1.json",
+  "source_contract_sha256": "a4341cd63c9bef61319ff70e8cda5b842ca74f521d6499556d93f255474f5548",
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "policies": ["hta_mac_v1", "residual_energy_cap_corrected", "online_primal_dual"],
+  "gap_reference_policy": "residual_energy_cap_corrected",
+  "energy_proportional_score_exponent": 4.0,
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.10,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "workers": 8,
+  "threads_per_worker": 1,
+  "runtime_capacity_amendment": {
+    "made_before_any_audit_outcome": true,
+    "original_workers": 16,
+    "amended_workers": 8,
+    "reason": "The first Windows spawn launch failed during worker imports because the host paging file was too small; no simulator task completed and no Gate A outcome was observed.",
+    "scientific_contract_changed": false
+  },
+  "trace_format": "gzip_json_lines_one_decision_per_line_with_feasible_slot_candidates",
+  "attribution_contract": {
+    "threshold": 0.8,
+    "comparison": "residual_energy_cap_corrected_minus_hta_mac_v1",
+    "delivery_gap": "positive difference of cohort-mean target delivery ratios",
+    "under_service_capacity_ratio": "cohort mean of max(0,min(unused_budget,unallocated_feasible_demand))/target_demand",
+    "delivery_attributed": "min(positive delivery gap, positive HTA-minus-reference under-service-capacity-ratio)",
+    "efficiency_decomposition": "two-order Shapley decomposition of packets_per_j using cohort-mean global packets and network joules",
+    "efficiency_service_attributed": "positive service Shapley component multiplied by delivery attribution fraction",
+    "efficiency_energy_attributed": "positive energy Shapley component only when exact role-energy reconstruction and a favorable measured network-energy difference both hold",
+    "fraction_rule": "each fraction is attributed positive gap divided by positive observed gap; a nonpositive observed gap is 1.0 because no adverse gap remains",
+    "gate_rule": "pass iff min(delivery_attribution_fraction,efficiency_attribution_fraction) >= threshold"
+  },
+  "decision_rules": {
+    "no_training": true,
+    "no_retuning": true,
+    "no_confirmation_seed_use": true,
+    "failed_gate_stops_phase_progression": true,
+    "gate_threshold_cannot_be_weakened_after_results": true
+  }
+}

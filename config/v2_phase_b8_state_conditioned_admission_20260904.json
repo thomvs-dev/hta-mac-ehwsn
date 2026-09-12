@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b8_state_conditioned_admission",
+  "phase": "B8_state_conditioned_admission_development_no_training",
+  "hypothesis": "contracting only energy-risky frames, while preserving full-action expiring service and projected fairness, can capture the lifetime benefit seen in B7 without paying the delivery loss of a static cap",
+  "source_b7_stop_evidence": "outputs/phaseB/v2_service_quantity_frontier_20260904/STOP_EVIDENCE.json",
+  "source_b7_stop_evidence_sha256": "d49430ae44d648ff13e115f7273945d3bc8b17f9cad8b19e6330b0fc3608fa23",
+  "teacher_implementation": "agents/state_conditioned_admission_teacher.py",
+  "teacher_implementation_sha256": "f1cce14bbcc4ef3eb6ab9b2751eb4c0c86ed9603c847c8925d3543064712f049",
+  "allocator_implementation": "agents/idle_aware_oracle_teacher.py",
+  "allocator_implementation_sha256": "4b1c4e06759daddf8dfc46bb8d057a309e4b96ecca3865db397d8ce033b85c97",
+  "source_b5_oracle_runner": "experiments/run_v2_phase_b5_reduced_cluster_exact_oracle.py",
+  "source_b5_oracle_runner_sha256": "7a4da9b096f39fe5786910fe176bf9a20aec0884ad2f7b85b6ad52c88316802f",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "development_seeds": [13000, 13001, 13002, 13003, 13004, 13005, 13006, 13007, 13008, 13009],
+  "reserved_gate_seeds": [13100, 13101, 13102, 13103, 13104, 13105, 13106, 13107, 13108, 13109, 13110, 13111, 13112, 13113, 13114, 13115, 13116, 13117, 13118, 13119],
+  "unavailable_seed_ranges": [[3900, 3919], [12000, 12919]],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "physical_budget": 24,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "fixed_allocator": {
+    "base_teacher": {"energy_weight": 4.0, "depletion_weight": 0.5, "fairness_guard": 0.9, "stale_guard": 0.035, "reserve_floor": 0.08},
+    "reduced_member_limit": 8
+  },
+  "candidate_grid": {
+    "reserve_fraction": [0.0, 0.0025, 0.005, 0.01],
+    "maximum_slot_reduction": [2, 4],
+    "minimum_service_cap": 20
+  },
+  "observable_risk_definition": "minimum no-harvest post-action energy fraction among scheduled target members and current target CH",
+  "admission_constraints": {
+    "selected_expiring_service_not_below_full_action": true,
+    "selected_projected_jain_fairness_not_below_full_action": true,
+    "budget_caps_and_dead_mask_exact": true,
+    "future_harvest_or_rng_not_observed": true
+  },
+  "gate_targets_unchanged": {"delivery_min": 0.450, "packets_per_j_min": 244.8, "stale_ratio_max": 0.035, "fairness_min": 0.92, "rmst_min": 128.0, "feasibility_violations_max": 0},
+  "selection_rule": {
+    "passing_candidates": "highest mean packets per joule, then delivery, then candidate id",
+    "if_none_pass": "seal structural frontier and stop without opening reserved seeds",
+    "no_post_outcome_grid_changes": true
+  },
+  "decision_rules": {
+    "open_reserved_gate_seeds_only_if_development_passes_all_targets": true,
+    "failed_development_stops_progression": true,
+    "no_neural_training": true,
+    "do_not_weaken_failed_gate": true
+  }
+}

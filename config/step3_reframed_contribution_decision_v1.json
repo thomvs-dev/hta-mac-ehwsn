@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "accepted_after_negative_band_only_ablation",
+  "decision_date": "2026-08-12",
+  "primary_contribution": "permutation-equivariant distributional branching MAC control quality under a frozen delivery and CH-reserve shield",
+  "accepted_contribution_statement": "A permutation-equivariant distributional branching MAC policy, trained under shield-intervention distillation, converges close to a constrained delivery/reserve operating region with substantially less runtime correction than an unshielded heuristic under the identical constraint, yielding improved fairness, stale-drop control, and energy-normalized efficiency at matched horizons, while achieving comparable rather than superior survival time to the constraint mechanism alone.",
+  "neural_policy_role": "primary_control_quality_and_qos_band_approximation_component",
+  "lifetime_claim": "comparable_not_superior_to_band_only_on_seed3400",
+  "fairness_threshold": 0.70,
+  "fairness_threshold_decision": "retain_frozen_nonbinding_development_registered_floor",
+  "b16_campaign_seed_decision": "do_not_open_3401_3404_before_primary_idle_on_hybrid_direction_check",
+  "prohibited_claims": [
+    "neural_component_causes_lifetime_gain",
+    "hta_mac_lifetime_superiority_over_band_only",
+    "target_ranks_are_independent_trials",
+    "b16_profile_establishes_primary_idle_on_hybrid_C1_C3_claims"
+  ],
+  "required_next_diagnostics": [
+    "seed3400_band_only_fnd_node_and_ch_role_identity_audit",
+    "development_only_primary_idle_on_hybrid_mechanism_direction_check"
+  ],
+  "remaining_confirmation_seeds_opened": false
+}

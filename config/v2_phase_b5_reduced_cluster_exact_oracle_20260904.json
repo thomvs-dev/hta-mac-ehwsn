@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b5_reduced_cluster_exact_oracle",
+  "phase": "B5_oracle_gap_audit_no_training",
+  "source_b4_stop_evidence": "outputs/phaseB/v2_constraint_boundary_development_20260904/STOP_EVIDENCE.json",
+  "source_b4_stop_evidence_sha256": "5ec9c232beac16b2a3c5e3859629a5213e3119d405b63c1cce2480a4c3e7fdab",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "development_seeds": [12100, 12101, 12102, 12103, 12104, 12105, 12106, 12107],
+  "forbidden_confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "sample_interval_rounds": 100,
+  "maximum_samples_per_rank": 10,
+  "reduced_member_limit": 8,
+  "b4_candidate": {"energy_weight": 4.0, "depletion_weight": 0.5, "fairness_guard": 0.9, "stale_guard": 0.035, "reserve_floor": 0.08},
+  "oracle_constraints": {
+    "same_allocated_packet_count": true,
+    "served_expiring_packets_not_lower": true,
+    "projected_jain_fairness_not_lower": true,
+    "minimum_post_action_member_energy_not_lower": true,
+    "exact_budget_caps_and_dead_mask": true
+  },
+  "oracle_objective": "minimum exact member_tx plus allocation-dependent idle-listening joules; CH receive aggregation and forwarding are constant when packet count is fixed",
+  "objective_accounting_amendment": {
+    "made_before_corrected_oracle_outcome": true,
+    "superseded_output": "outputs/phaseB/v2_reduced_cluster_exact_oracle_20260904/results.json",
+    "reason": "the initial objective omitted allocation-dependent member idle-listening energy; its negative network-energy deltas exposed the omission",
+    "intermediate_corrected_output": "outputs/phaseB/v2_reduced_cluster_exact_oracle_20260904/results_corrected.json",
+    "final_reporting_correction": "include idle in the target-role subtotal because the corrected exact objective includes allocation-dependent idle listening",
+    "continuation_thresholds_changed": false,
+    "seed_set_or_sampling_changed": false
+  },
+  "continuation_gate": {
+    "minimum_improved_state_fraction": 0.10,
+    "minimum_mean_target_role_energy_reduction_fraction_on_improved_states": 0.0125,
+    "minimum_mean_minimum_residual_gain_fraction_on_improved_states": 0.0,
+    "maximum_constraint_violations": 0,
+    "authorizes": "new deterministic oracle-informed teacher only; never neural training"
+  },
+  "decision_rules": {"no_training": true, "failed_oracle_gate_stops_progression": true, "gate_b_targets_unchanged": true}
+}

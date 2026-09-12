@@ -1,0 +1,445 @@
+{
+  "date": "2026-09-13",
+  "validation": "250 passed, 665 dependency warnings; full local workspace with original assets",
+  "frozen_v1_files_verified": 38,
+  "replication_pipeline_hashes_verified": 68,
+  "raw_records_and_replays": "Retained locally; not bundled in Git. See pipeline.sha256 in summary.json.",
+  "files": {
+    "README.md": {
+      "bytes": 8074,
+      "sha256": "f3087a3b7fe5aef2663f5a4a60c06c15538a21a1f70b59f0f05ded03985c4c67"
+    },
+    "agents/bounded_reserve_frontier.py": {
+      "bytes": 3003,
+      "sha256": "bcdacbbc52ab5a6c035581184fb0427760c596e53332bd5a8cfc690f2c67ca99"
+    },
+    "agents/complete_service_frontier.py": {
+      "bytes": 1724,
+      "sha256": "9a19b90519c598c84f6c59f0f6b5ec396a3da4a05be415ac36730b42e7e0081d"
+    },
+    "agents/deadline_opportunity_guard.py": {
+      "bytes": 2225,
+      "sha256": "eeb17e333ad373257a1ec681ca3c796765938008cc9f5c30e0f833e759e46e26"
+    },
+    "agents/feasible_service_dp.py": {
+      "bytes": 1899,
+      "sha256": "e0a033328ca65036d5377983850a1b8a469e5b02b548c70cb9d4490573808bae"
+    },
+    "agents/global_activation_repair.py": {
+      "bytes": 3976,
+      "sha256": "e1a66942079660ca8fa6f011eef6369309e7b993a9924ed0c3213eb7ee04fdfa"
+    },
+    "agents/guarded_marginal_teacher.py": {
+      "bytes": 11079,
+      "sha256": "a98a9c367ba2764c952b888dc958e52cbdb67af45db6142358a1dc380ead7ac8"
+    },
+    "agents/idle_aware_oracle_teacher.py": {
+      "bytes": 2549,
+      "sha256": "4b1c4e06759daddf8dfc46bb8d057a309e4b96ecca3865db397d8ce033b85c97"
+    },
+    "agents/marginal_utility_teacher.py": {
+      "bytes": 7187,
+      "sha256": "2a197e5a2f84d4040871a67eeae2f598f33b44b7f9e6a208f3784bca833d0db0"
+    },
+    "agents/rsg_energy_teacher.py": {
+      "bytes": 7133,
+      "sha256": "a87e07e902324054cb9730af09ced30649ab1bcef0e71ec81f5b45d983cfb57f"
+    },
+    "agents/state_conditioned_admission_teacher.py": {
+      "bytes": 7126,
+      "sha256": "f1cce14bbcc4ef3eb6ab9b2751eb4c0c86ed9603c847c8925d3543064712f049"
+    },
+    "agents/temporal_reserve_dp.py": {
+      "bytes": 3384,
+      "sha256": "ed9c101e3e005f9ac8a7103886f82825fdbee770566ba58c2a10478993b6b2d6"
+    },
+    "config/b16_secondary_qos_profile_v1.json": {
+      "bytes": 2210,
+      "sha256": "7bab4ad7eecbea8facad1116ff1de8137c893c86f7fd076faec76a46dfff4841"
+    },
+    "config/feasible_service_frontier_20260906.json": {
+      "bytes": 40137,
+      "sha256": "fc41db8184b1e1b0194a3e2221b54c88f20c2ba349e1d560fe197cb9de2e44ef"
+    },
+    "config/paid_loss_20260912.json": {
+      "bytes": 50359,
+      "sha256": "98a0885f95b7ca7117de43c49221ad2477acba8f3f50f4bc6df801950ba042e4"
+    },
+    "config/paid_loss_replication_20260912.json": {
+      "bytes": 51943,
+      "sha256": "2369438625a0126dfed9a4a67ca7c7693d7bc6095892054b1a0384c978db381e"
+    },
+    "config/paper_aligned_hasani2025_b16_qos_repaired.json": {
+      "bytes": 1940,
+      "sha256": "57e579e702dfcdab0d0df78cb20c0944212b7d34d6d32667df352e3cbe88f964"
+    },
+    "config/publication_ablation_all_cluster_v1.json": {
+      "bytes": 5020,
+      "sha256": "4686b4c84e1b21640298b9efbc84185758e731cc6da5c4cba6fcfb6e1a7ccbc4"
+    },
+    "config/reviewer_foundation_20260906.json": {
+      "bytes": 37567,
+      "sha256": "cd38035238d635be84807777c84fe26ca5c5c3fad43ee72bfbb5e13b50fe7c48"
+    },
+    "config/step3_dev_energy_exponent_fairness_sweep_v1.json": {
+      "bytes": 1744,
+      "sha256": "f505050fa5d0899daffd5fcb7433c881664c6e44d58023549c7d6113412becb1"
+    },
+    "config/step3_future_seed_complete_analysis_protocol_v1.json": {
+      "bytes": 1698,
+      "sha256": "7a1659deeb8795b8001a44cbaa4c3c534d32278f517f517b7763ff794868dc13"
+    },
+    "config/step3_primary_branchwise_distillation_sweep_v1.json": {
+      "bytes": 2715,
+      "sha256": "8c1afb9a5de26fb5c4a000760fedb18dbe06fb90f64ac54326e6124c64cc69e0"
+    },
+    "config/step3_primary_idle_on_hybrid_direction_seed2400_v1.json": {
+      "bytes": 2971,
+      "sha256": "4e05fefca299c4b05f19b9fac03cdc2290c2fcfb6e2c35a2466832ef1ac1783f"
+    },
+    "config/step3_reframed_contribution_decision_v1.json": {
+      "bytes": 1620,
+      "sha256": "45f478d983c5e7cbe08605a2b30c44a4a9fdc9c71571dc8887734cec62eada1f"
+    },
+    "config/step3_v3_risk_weight_1.json": {
+      "bytes": 783,
+      "sha256": "1ff549f371d4f06ed852147a5c4507337a914a6441482bd9b6783e9f47ad14bb"
+    },
+    "config/step4_load_adaptive_residual_development_v1.json": {
+      "bytes": 3986,
+      "sha256": "650e0e5f746a771b9304c309a9cec9d862561650a402bb2d558749621e99e1a7"
+    },
+    "config/step4_publication_evidence_development_v1.json": {
+      "bytes": 5084,
+      "sha256": "ec448d2b39af590ef7300dc61e9eb04d822b25bcce39c973a4507c2ec0e8055d"
+    },
+    "config/v2_death_cause_20260905.json": {
+      "bytes": 36897,
+      "sha256": "527e3a157016672e9e9a8cccbee6532bfd572951716128686ec86bb00c09c6d8"
+    },
+    "config/v2_phase_a2_causal_accounting_repair_20260901.json": {
+      "bytes": 3673,
+      "sha256": "9d7ba579dad4327d9b47efa3b103f786171e85feeee49a16da9adbac9871dcb7"
+    },
+    "config/v2_phase_a_marginal_service_energy_audit_20260901.json": {
+      "bytes": 3873,
+      "sha256": "b679d3a4d29f8df4d5bbcc647505917120dcffebb2dedf1bf58de3e74f1b92dd"
+    },
+    "config/v2_phase_b2_guarded_teacher_calibration_20260901.json": {
+      "bytes": 2928,
+      "sha256": "12c91c086676b9ac9c092de539815ddb8cbcdaf16301a6c5cd8bd66448da0f7c"
+    },
+    "config/v2_phase_b3_literature_rsg_energy_calibration_20260904.json": {
+      "bytes": 3153,
+      "sha256": "9e21b77acc53cc310dd1f2ae748e7e792dc74556a3a29c148b15e5f31881afcc"
+    },
+    "config/v2_phase_b4_constraint_boundary_calibration_20260904.json": {
+      "bytes": 3498,
+      "sha256": "cddfc51fe5597bd00784b6b8f667b884808bd989cfee62624b14639e542f9a16"
+    },
+    "config/v2_phase_b5_reduced_cluster_exact_oracle_20260904.json": {
+      "bytes": 3000,
+      "sha256": "bf7866efdfbbca5a524b23fa5b3e091d7c86e965275413798f452a61ac8bb260"
+    },
+    "config/v2_phase_b6_idle_aware_teacher_development_20260904.json": {
+      "bytes": 4120,
+      "sha256": "75cbc2360563f30f0b86bbd387b02901a859b7a84342729e3380ed882e72947c"
+    },
+    "config/v2_phase_b7_service_quantity_frontier_20260904.json": {
+      "bytes": 3204,
+      "sha256": "950d91bfef29ccb245218e5375f1905718884c7a32ba790933b133d8ce1c239d"
+    },
+    "config/v2_phase_b8_state_conditioned_admission_20260904.json": {
+      "bytes": 3394,
+      "sha256": "53c62a4a39514ba5074c49c20a5f9d7e4d8df194fe5c37c2ccc7111c03072cbf"
+    },
+    "config/v2_phase_b_teacher_calibration_20260901.json": {
+      "bytes": 2620,
+      "sha256": "77c45e604ec0dbe5484c75997922c559995a6c95099013ab1640afe7ad195844"
+    },
+    "config/v2_phase_b_teacher_gate_20260901.json": {
+      "bytes": 2282,
+      "sha256": "caaac107f496fc31c397efbb6552d3ab50ddddf73c9fd4b4c23ec4005d582db9"
+    },
+    "envs/censored_packet_bounds.py": {
+      "bytes": 822,
+      "sha256": "357e4732eaff98831c7aadf0eb1e7545b692a542603cb5b96bfc8c7520d56e09"
+    },
+    "envs/control_cost_envelope.py": {
+      "bytes": 1935,
+      "sha256": "9c27d5e52292c178b969eb74ae030d27bd39749278043a734630edf38843cd42"
+    },
+    "envs/packet_cohort_audit.py": {
+      "bytes": 3136,
+      "sha256": "470631e55c9a096f67ba3963c210f9515a769e0258cb50831280ca79a03c2abe"
+    },
+    "envs/paid_control_mac.py": {
+      "bytes": 9370,
+      "sha256": "12231d674151b92aae2b24bc376d8e0925dd32464b1929b44b12656543c1281a"
+    },
+    "envs/reviewer_energy_feasibility.py": {
+      "bytes": 3031,
+      "sha256": "4c69d0275be98f158f16cedb46e79de6fd0010d9d175fa7ffe541ba6cb09bb7e"
+    },
+    "envs/reviewer_energy_feasibility_fast.py": {
+      "bytes": 2945,
+      "sha256": "309f54c7739b99d6868dd862b4c826474acdcb4a252a252060d6ebefebe256da"
+    },
+    "evidence/paid_loss_replication_20260912/summary.json": {
+      "bytes": 443944,
+      "sha256": "4291126766ec8044eed67f83ae1e9965417a9f539ec2b03e70414a919dcfda02"
+    },
+    "experiments/audit_reviewer_foundation_20260906.py": {
+      "bytes": 5661,
+      "sha256": "05eed44f6110d7807338369ed5f76fc203803222dd54206b0cdf6d7acd2410c2"
+    },
+    "experiments/evaluate_paid_loss_replication_20260912.py": {
+      "bytes": 3102,
+      "sha256": "73ab2bf6a629fa4acc9aba1ce4f86708200cfa2e0f54c7fb8c979df4220153df"
+    },
+    "experiments/evaluate_publication_ablation_and_all_cluster.py": {
+      "bytes": 27045,
+      "sha256": "e409792bd21a8d1f79472764952b8b6a920350db9d6f987bdbfb2e0ee3aae69a"
+    },
+    "experiments/evaluate_step4_load_adaptive_residual.py": {
+      "bytes": 19864,
+      "sha256": "7d474811d9e5a49c13ae076f75093657e3c20e1a745c5579161a160a485e1652"
+    },
+    "experiments/evaluate_step4_publication_evidence.py": {
+      "bytes": 24783,
+      "sha256": "62c908f9e673d60d6dda9a1b7d3b3e5e081f22f95692b9471828e50b36ba2c41"
+    },
+    "experiments/paid_control_trial.py": {
+      "bytes": 4962,
+      "sha256": "d6e0f6b7b51557a4675e85e506590206caf067ae28be5249d81781704f22b1fb"
+    },
+    "experiments/run_v2_death_cause_audit_20260905.py": {
+      "bytes": 6141,
+      "sha256": "7fe5287676b231fbe84ab1296eb9dead4af1cae1b1d329206434a98420370dae"
+    },
+    "experiments/run_v2_phase_a2_causal_accounting_repair.py": {
+      "bytes": 24582,
+      "sha256": "f456228082a0434cdd2dd01e1533e2aa710b0cb1f7ae27ede6cebf285b16e3f5"
+    },
+    "experiments/run_v2_phase_a_fresh_audit_20260905.py": {
+      "bytes": 34914,
+      "sha256": "cf80933b6b1dc9770afd9ca4809910195dbd79b626f3614e96bd4e978dc2957e"
+    },
+    "experiments/run_v2_phase_a_mechanism_audit.py": {
+      "bytes": 31143,
+      "sha256": "7c9e8b2bb9f22bbf47934ec6db79a11e165b5848235929cf168491ab0cb1473f"
+    },
+    "experiments/run_v2_phase_b2_guarded_teacher_calibration.py": {
+      "bytes": 10420,
+      "sha256": "a7186ce9d40a2d6ba467d62c90fd2c39f48c993de1486b74b82c81a711e0fd57"
+    },
+    "experiments/run_v2_phase_b3_literature_rsg_energy_calibration.py": {
+      "bytes": 10399,
+      "sha256": "b53584d5834021701b11d75252ed95f5d3a6c12abb208652ff492a3438dbfa41"
+    },
+    "experiments/run_v2_phase_b4_constraint_boundary_calibration.py": {
+      "bytes": 9196,
+      "sha256": "c027a5074e431d9d8b7bf060b706f22f88c7db26da4738f2b963ec46e0398281"
+    },
+    "experiments/run_v2_phase_b5_reduced_cluster_exact_oracle.py": {
+      "bytes": 16486,
+      "sha256": "7a4da9b096f39fe5786910fe176bf9a20aec0884ad2f7b85b6ad52c88316802f"
+    },
+    "experiments/run_v2_phase_b_teacher_calibration.py": {
+      "bytes": 11472,
+      "sha256": "a83441eb0d736e6495b474d791610bce9abe0cd8902aa587376fe4c5df591fbd"
+    },
+    "experiments/run_v2_phase_b_teacher_gate.py": {
+      "bytes": 13600,
+      "sha256": "448727a6bd9616cfd9278db923d16ef5d8d5a042a94d23c5cfdb0620dc3523d3"
+    },
+    "experiments/sweep_step3_primary_branchwise_distillation.py": {
+      "bytes": 16465,
+      "sha256": "ee408f8f2fbbcc362c549ed7017bab33bd1bee7c34464b2c91f9d5325623c18e"
+    },
+    "experiments/sweep_step3_primary_intervention_distillation.py": {
+      "bytes": 12714,
+      "sha256": "e88f05f470196cfd7cc6fe201e910ee52d63f86f437c8ff8e09d5f26647a24ac"
+    },
+    "outputs/paid_loss_replication_20260912/BOOTSTRAP_SENSITIVITY.json": {
+      "bytes": 1838,
+      "sha256": "cb947621869c71e1e9ed6f96648efd8424ca69b42a3d389b3f148d7ed5495c4f"
+    },
+    "outputs/paid_loss_replication_20260912/FINAL_VERIFICATION.json": {
+      "bytes": 292,
+      "sha256": "c7e730d5740bf451b7e2d4ec300f062ada65cdea5d5a68d12b9ab19594f6d12f"
+    },
+    "outputs/paid_loss_replication_20260912/PIPELINE_COMPLETE.json": {
+      "bytes": 10956,
+      "sha256": "c4d7d37924791d637637166857d3eb79bfbc36dd58bd11f0043d66671eb53b7b"
+    },
+    "outputs/paid_loss_replication_20260912/screen.json": {
+      "bytes": 1293,
+      "sha256": "201e617ad216041d99b81046f25a038b78af4073b0d7f6c8c4ab2a8e86e9ed44"
+    },
+    "reports/PAID_LOSS_REPLICATION_METHOD_20260912.md": {
+      "bytes": 2981,
+      "sha256": "ba3e68ed789c4d7b8d8f16cef4b5e52cb89a521acf132af61ac552edab7bc517"
+    },
+    "reports/PAID_LOSS_REPLICATION_RESULTS_20260912.md": {
+      "bytes": 10331,
+      "sha256": "6b93c7c9313b376af3787aff958f75ebc9b9ee8ab3b63f2fe22f4a197b7c50fe"
+    },
+    "reports/PUBLICATION_PAPER_COMPARISON_20260913.md": {
+      "bytes": 9661,
+      "sha256": "3f806ef9fd91ea24289d2246e47d8610290a45f66a6bb7ea2c3fa3f615941009"
+    },
+    "tools/fetch_pvgis_solar_trace.py": {
+      "bytes": 2980,
+      "sha256": "67d355ff80cc1f0f36b9e5466ca347963f0efda865cd007f4c695c22f654196d"
+    },
+    "tools/finalize_paid_loss_replication_20260912.py": {
+      "bytes": 2380,
+      "sha256": "f4e3bcf20aeb6fe9a1a360d9b942b86c61607be16947f120a37e97ef4f4c97b3"
+    },
+    "tools/freeze_paid_loss_replication_20260912.py": {
+      "bytes": 2786,
+      "sha256": "8b8fce9b8c0bf641ce34d7cc0da2f478c18435ac95b3dd7089f1900baf51f466"
+    },
+    "tools/paid_loss_replication_sensitivity_20260912.py": {
+      "bytes": 1448,
+      "sha256": "5e64d23f310eed8019a401dfc3e17401db797469386a3b8dd82263e9a76800f5"
+    },
+    "tools/report_paid_loss_replication_20260912.py": {
+      "bytes": 8554,
+      "sha256": "165942d87b14839e230aba8ca921327157fd6b39075ff621cf311a32a9d1fdef"
+    },
+    "tools/verify_paid_loss_replication_20260912.py": {
+      "bytes": 2255,
+      "sha256": "d331499f9e1448fb508964d7b0712ff8038fb27985b3797a9090a6ee0af2f4df"
+    },
+    "tools/verify_publication_summary_20260913.py": {
+      "bytes": 2484,
+      "sha256": "8aa333808aca318976b7656f9456d5948e83a449b75ffd3d5d87aaba52b6db64"
+    },
+    "validation/test_bounded_reserve_frontier.py": {
+      "bytes": 1854,
+      "sha256": "86510abb735d2a7515f772f0e4472202c5c3de485f185661260934db6bb28f56"
+    },
+    "validation/test_censored_packet_bounds.py": {
+      "bytes": 936,
+      "sha256": "a3efbe0a7a68e28cbf672b1f8e55d83a48a5b0a9fd4824545f1a70a6fffc33a0"
+    },
+    "validation/test_complete_service_frontier.py": {
+      "bytes": 1699,
+      "sha256": "e89f31994cec87f59d87aff29514ed19623170f79ae454cf6aecad8d3a137ed7"
+    },
+    "validation/test_control_cost_envelope.py": {
+      "bytes": 1375,
+      "sha256": "7580ea17ef84646608b116dd0a89219209fe9618d08094d8178ea1f35fb04578"
+    },
+    "validation/test_deadline_opportunity_guard.py": {
+      "bytes": 2343,
+      "sha256": "f2ed2abda8e9305465c5cb479b9ee2bbe9a942a313e35ce5dcb474893320e3e8"
+    },
+    "validation/test_feasible_service_dp.py": {
+      "bytes": 2544,
+      "sha256": "755c560912e0f43612c01aa494c7aaf77a7fb994d44b8a39a801c55f13d5b399"
+    },
+    "validation/test_global_activation_repair.py": {
+      "bytes": 2516,
+      "sha256": "84151044ed8c921ae3fb0bce909a2455a43161acb15a63ce11dee852007f14f3"
+    },
+    "validation/test_packet_cohort_audit.py": {
+      "bytes": 1859,
+      "sha256": "2e3aeb21109316ea5f097f2235cd8bc6271fb8d3c592d292cc0684626817825e"
+    },
+    "validation/test_paid_control_mac.py": {
+      "bytes": 4169,
+      "sha256": "9e9063440626e01ef7f7c651d6d47ddc518dc1c5ebfe8c0a435a12a84421d233"
+    },
+    "validation/test_primary_branchwise_distillation.py": {
+      "bytes": 2113,
+      "sha256": "643620819928a4f53052aa575e70749131263e3d996564dea538425438896d54"
+    },
+    "validation/test_publication_ablation_all_cluster.py": {
+      "bytes": 4668,
+      "sha256": "bef6784be2143e07074ab30c5909a7d2c52b11094ad05a7f6fcf85a3bb8e95eb"
+    },
+    "validation/test_reviewer_energy_feasibility.py": {
+      "bytes": 2517,
+      "sha256": "67c86be4ec0e3b9d3688a938eb4c0b3da875306f1300f0552f6449276853a591"
+    },
+    "validation/test_reviewer_foundation.py": {
+      "bytes": 855,
+      "sha256": "f05ad02ec155f5dfaaf4ef7ebb2fb11b1a245ed891d83a572f25e8563144b3f3"
+    },
+    "validation/test_step3_review_blocker_contracts.py": {
+      "bytes": 2860,
+      "sha256": "d1f29dae9cf49aed7c04f1eeeea48651bdc2ad4bcfafb25e03f48c778a85e434"
+    },
+    "validation/test_step3_workload_context.py": {
+      "bytes": 4467,
+      "sha256": "9292ae33c03115ffcf64b381ed3f8cf9bbc0fd5d6c97aa4d259608c00f1901d7"
+    },
+    "validation/test_step4_load_adaptive_residual.py": {
+      "bytes": 4968,
+      "sha256": "9231b07147ed7c344d27202c4d05618eaf8919f36fcd10afc2516a1235afc3fa"
+    },
+    "validation/test_step4_publication_evidence.py": {
+      "bytes": 3694,
+      "sha256": "596932e48a668dd694bdc94944065b7cb8d1b8c365ac5520b89c7fe76ceae3f0"
+    },
+    "validation/test_temporal_reserve_dp.py": {
+      "bytes": 2470,
+      "sha256": "50f4b77f73a12c1fbf87f0d1021cc1d1eac4d63b0aba63b9d1d4e684dc2d284a"
+    },
+    "validation/test_v2_death_cause_audit.py": {
+      "bytes": 716,
+      "sha256": "0ff65b0de1074719581a7ec3b1557cfc8e443a384ed5d5e87fcdfd2db420b330"
+    },
+    "validation/test_v2_guarded_marginal_teacher.py": {
+      "bytes": 4278,
+      "sha256": "7bfab0657b6b608452b9de0cf4e5a651209caecca7b3e233c605d1be409e4209"
+    },
+    "validation/test_v2_idle_aware_oracle_teacher.py": {
+      "bytes": 3046,
+      "sha256": "60ba3d4debdb1518e4a2a996828b0b1905e05843b3efade6f946cb58c71151d3"
+    },
+    "validation/test_v2_marginal_utility_teacher.py": {
+      "bytes": 4026,
+      "sha256": "8214a634af5f5dddd0aaa04ed67514e52f0b1ff1f1707678e7d4adfabf11f9ee"
+    },
+    "validation/test_v2_phase_a2_causal_accounting_repair.py": {
+      "bytes": 3213,
+      "sha256": "836edab2d8590c1d267a7670e708ccea7622ebafd49917b44443c87fd9b26d72"
+    },
+    "validation/test_v2_phase_a_fresh_audit_20260905.py": {
+      "bytes": 1686,
+      "sha256": "6be30ebb81d6d70ace1220ee5b62093f72e80f584b30c8deb81dd21643225288"
+    },
+    "validation/test_v2_phase_a_mechanism_audit.py": {
+      "bytes": 2666,
+      "sha256": "90a06bf19adcd068cd6f2dce9fc737e1de37eca4947754e6df5ff44189ca494d"
+    },
+    "validation/test_v2_phase_b4_constraint_boundary.py": {
+      "bytes": 995,
+      "sha256": "c1135160fcee153da4d314f4f5b98accde553de44819a472baa45fbd3a910ada"
+    },
+    "validation/test_v2_phase_b5_exact_oracle.py": {
+      "bytes": 2331,
+      "sha256": "0f67faa5426c9e6cfc6ea8c285eb788913854bcb994d25ac464025a9cfd7e0d7"
+    },
+    "validation/test_v2_phase_b7_service_quantity_frontier.py": {
+      "bytes": 1229,
+      "sha256": "8d042731b7369274c5d5e792e759abaf7b8bd6011e591d0dd6012212bfd28aea"
+    },
+    "validation/test_v2_phase_b_teacher_gate.py": {
+      "bytes": 1419,
+      "sha256": "32dbfd6cdd4d9153c4ef70c18f0b1d6852d3e741a8e9e8474309b627d085fe21"
+    },
+    "validation/test_v2_rsg_energy_teacher.py": {
+      "bytes": 4093,
+      "sha256": "30375f45deed05721e7c3dc62949b71bf057d249fc85e69d27357fa7d387064b"
+    },
+    "validation/test_v2_state_conditioned_admission_teacher.py": {
+      "bytes": 2902,
+      "sha256": "ee5921ba97840df14ccb75a1f2045b984aa469fd24bf1ceed57a84f2375920e6"
+    }
+  }
+}

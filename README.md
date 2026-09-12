@@ -1,168 +1,87 @@
-# HTA-MAC
+# HTA-MAC: energy-harvesting WSN scheduling
 
-HTA-MAC is a research framework for constrained intra-cluster medium-access
-control in energy-harvesting wireless sensor networks. It uses a shared,
-permutation-equivariant branching distributional controller to allocate a
-bounded slot budget while accounting for delivery, packet staleness, service
-fairness, and cluster-head energy risk.
+Research code for MAC allocation under frozen HEART-CH cluster-head schedules. The repository contains a **frozen learned V1 baseline** and a **separate deterministic service-frontier candidate**. The latest candidate is an analytical scheduler; no new neural training has started.
 
-The contribution is deliberately scoped to MAC allocation. Cluster-head
-selection follows an exogenous HEART-CH schedule; routing and cluster-head
-retraining are outside the learned intervention.
+## Latest measured result — 13 September 2026
 
-## Current paper baseline
+Independent replication on **20 fresh seeds (380000–380019), 40 paired-policy trials and 64,194 observed frames** passed all ten prospectively specified checks. Both policies pay report, grant and ACK energy; member data attempts and aggregate forwarding each have 10% erasure probability.
 
-The manuscript-facing implementation is frozen as
-`HTA_MAC_PAPER_BASELINE_V1_20260901`. Its executable identity is the checkpoint
-with SHA-256:
+| Metric | Reserve-only comparator | Complete-frontier candidate |
+|---|---:|---:|
+| Mean generated-cohort delivery bounds | 8.8198–9.1380% | 9.2941–9.6109% |
+| Whole-observed-run packets/J | 433.2433 | 441.4588 |
+| Mean Jain service fairness | 0.982091 | 0.981412 |
 
-```text
-31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a
-```
+**Conservative delivery improves 1.7077%**: candidate lower bound versus comparator upper bound. The paired absolute difference is **0.1561 percentage points**, with a two-sided Bonferroni-adjusted 97.5% interval of **[0.1130, 0.1991] percentage points**. **Packets/J improves 1.8963%**, an absolute difference of **8.2155 packets/J**, adjusted interval **[7.6057, 8.8253]**. Both differences are positive on all 20 seeds; the prespecified bootstrap agrees. Fairness is slightly lower, but remains above the declared 0.92 threshold.
 
-The common-simulator 100-node reference result is:
+The comparator is author-constructed reserve-only scheduling in the same revised model. These percentages **do not measure improvement over V1 or an external published algorithm**. Absolute delivery remains low under this offered load.
 
-| Policy | Delivery | Stale loss | Fairness | RMST | Packets/J |
-|---|---:|---:|---:|---:|---:|
-| HTA-MAC V1 | 0.42770 | **0.02476** | **0.94511** | 128.28 | 225.77 |
-| Cap-corrected residual-energy heuristic | **0.44591** | 0.04838 | 0.87166 | **149.32** | **242.36** |
-| Custom online primal-dual | 0.43020 | **0.01700** | **0.98081** | 131.10 | 232.45 |
+- [Unrounded per-seed evidence and checks](evidence/paid_loss_replication_20260912/summary.json)
+- [Detailed result and replay coverage](reports/PAID_LOSS_REPLICATION_RESULTS_20260912.md)
+- [Prospective method and stop conditions](reports/PAID_LOSS_REPLICATION_METHOD_20260912.md)
+- [Recent-paper comparison and journal gaps](reports/PUBLICATION_PAPER_COMPARISON_20260913.md)
 
-HTA-MAC V1 is therefore not an all-metric winner. Relative to the corrected
-residual-energy heuristic, it moves the operating point toward lower stale loss
-and higher fairness, while giving up delivery, restricted-mean survival, and
-packets/J. This measured QoS--lifetime trade-off is the defensible result.
+## Architecture and scope
 
-The original preregistered confirmation remains preserved, but a later audit
-corrected the energy-proportional comparator's cap handling. The corrected
-audit supersedes the earlier energy-proportional ranking. It does not alter the
-saved HTA-MAC trajectories.
+The [complete-frontier allocator](agents/complete_service_frontier.py) enumerates one canonical minimum-energy feasible allocation for every service total from idle through the maximum feasible total, retaining the reserve-only incumbent. It selects using the unchanged reserve surrogate, including member and cluster-head energy. Dominance holds only over this enumerated candidate family, not all tied allocations or long-run outcomes.
 
-## Methodology
+Past-harvest EWMA statistics provide a heuristic reserve forecast, not a calibrated confidence bound. The [paid-control environment](envs/paid_control_mac.py) charges reporting, grants, member transmission, CH reception/aggregation/forwarding, idle listening and ACKs. Missing reports mask member state. Keyed node-indexed traffic and harvest draws preserve paired exogenous inputs. Queues, batteries and absorbing death constrain service.
 
-### Policy
+Actual frozen HEART-CH replay has **20 moving nodes out of 100**. Clustering and routing remain exogenous. In this revised model there are **24 data slots per cluster**, plus control phases; this is different from the original V1 action scope and is not a validated network-wide airtime budget.
 
-The controller uses an `EquivariantSetBranchingC51` architecture:
+## What the result does not establish
 
-- a shared local encoder processes every scheduled member;
-- masked permutation-invariant global context couples branch decisions;
-- a categorical C51 head estimates per-branch return distributions;
-- deterministic budget projection converts branch choices into a feasible slot
-  allocation;
-- trajectory-order and concavity regularization provide structured auxiliary
-  supervision;
-- QoS multipliers account for delivery, stale loss, and service fairness;
-- scheduled-CH reserve, forecast, uncertainty, distance, and feasibility
-  context expose role-conditioned energy risk.
+Schedules terminate after **1,567–1,636 of 3,000 requested frames** because the upstream episode reaches its death threshold. Delivery bounds cover packets generated during the observed portion of the planned birth window (501–2500); they cannot identify unborn packets or sustained 3,000-frame delivery. Pending packets remain explicit. Early terminations and every seed are retained.
 
-The shared branch construction preserves node-identity equivariance, while
-projection enforces the global budget. The policy never changes the externally
-supplied cluster-head schedule.
+Control and ACK channels are reliable when funded. Data erasures are stationary; burst fading, interference, lost ACKs, real packet framing, wall-clock throughput and hardware performance are unvalidated. There is no persistent relay-buffer protocol. The thermal auxiliary is synthetic, as recorded in the frozen asset manifest. These limitations prevent a state-of-the-art or top-tier-journal readiness claim.
 
-### Evaluation protocol
+Historical Gate A/B failures and the failed full-coverage gate remain failures. This separately contracted observed-replay pass does not authorize neural training. Opened seeds 3900–3919 remain prohibited for future tuning or selection.
 
-- 20 independent paired confirmation seeds: 3900--3919
-- five target ranks nested within each seed
-- 3,000-round horizon
-- projection and environment budget of 24 slots
-- common topology, traffic, harvesting, and schedule realizations for paired
-  policy comparisons
-- bootstrap confidence intervals over seed-level paired effects
-- Wilcoxon signed-rank tests with Holm correction within declared families
-- restricted mean survival time for censored first-node-death outcomes
-- ten transfer conditions covering node count, traffic, harvesting, battery,
-  field scale, and an external PVGIS irradiance trace
+## Reproducibility and verification
 
-The PVGIS input is a real irradiance trace, but the wireless network and radio
-remain simulated. The online primal-dual comparator is a custom non-neural
-controller, not a reproduction of PPO-Lagrangian, CPO, or another named paper.
-
-Seeds 3900--3919 have been opened and must never be used for future tuning,
-selection, or early stopping.
-
-### Additional evidence
-
-The repository includes cap-corrected comparator auditing; scaling from 50 to
-300 nodes in increments of 50; matched architecture and auxiliary-loss
-ablations; robustness tests across traffic, harvesting, battery, field scale,
-and an external solar trace; and confidence intervals, paired tests, effect
-sizes, latency, parameter count, and memory/complexity measurements.
-
-Cross-paper headline percentages are contextual evidence only. Different
-simulators, traffic definitions, clustering policies, energy models, and
-endpoints do not form a valid numerical leaderboard.
-
-## Important provenance
-
-The checkpoint-producing training summary records a failed legacy curriculum
-gate and a failed Step-3 development gate. Later independent evaluations are
-preserved, but the training gate is not rewritten as a success. This is an
-important limitation and a motivation for the next training version.
-
-## Frozen fallback release
-
-The complete V1 fallback is in
-[`releases/HTA_MAC_PAPER_BASELINE_V1_20260901/`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/).
-It contains the exact checkpoint, source snapshot, configs, evidence, PVGIS
-trace, manuscript, paper-safe claims, SHA-256 manifest, verification script,
-and rollback instructions.
-
-Transfer archive:
-[`HTA_MAC_PAPER_BASELINE_V1_20260901.zip`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901.zip)
-
-Archive SHA-256:
-
-```text
-4c4e18dfc32b903a01b9519a930426e423714c3cde37749a1e65902566315b4a
-```
-
-Verify the expanded release:
+From the repository root, with Python, NumPy and SciPy installed:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File releases/HTA_MAC_PAPER_BASELINE_V1_20260901/VERIFY_RELEASE.ps1
+python -B tools/verify_publication_summary_20260913.py
 ```
 
-Detailed interpretation and rollback guidance:
+This recomputes the published statistical comparison from unrounded compact rows. It does not substitute for checking raw frame-level physics or replay mobility.
 
-- [`PAPER_CLAIMS.md`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/PAPER_CLAIMS.md)
-- [`ROLLBACK.md`](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/ROLLBACK.md)
-- [`HTA_MAC_PRIMARY_PAPER_PERFORMANCE_COMPARISON_20260831.md`](HTA_MAC_PRIMARY_PAPER_PERFORMANCE_COMPARISON_20260831.md)
-- [`HTA_MAC_FINAL_20SEED_CONFIRMATION_REPORT_20260815.md`](HTA_MAC_FINAL_20SEED_CONFIRMATION_REPORT_20260815.md)
-
-## Repository layout
-
-```text
-agents/       branching C51, equivariant policy, projection, and QoS modules
-envs/         scheduled intra-cluster MAC environments and accounting
-experiments/  training, audit, confirmation, and scalability entry points
-config/       frozen experiment contracts and decision thresholds
-validation/   invariance, accounting, contract, and regression tests
-outputs/      selected checkpoints and machine-readable evidence
-paper/        manuscript source and figure-generation utilities
-releases/     immutable paper-facing fallback packages
-```
-
-## Verification
-
-Run the validation suite from the repository root:
+Full local validation also requires PyTorch, pytest and the original assets:
 
 ```powershell
 python -B -m pytest validation -q -p no:cacheprovider
+powershell -NoProfile -ExecutionPolicy Bypass -File releases/HTA_MAC_PAPER_BASELINE_V1_20260901/VERIFY_RELEASE.ps1
 ```
 
-A fresh experiment must be kept separate from the frozen evidence; differences
-should be diagnosed, not overwritten.
+Release preparation passed **250 tests** (665 dependency warnings), verified **38 frozen V1 files**, and independently checked all **68 hashes** in the completed replication pipeline.
 
-## Boundary for the next version
+The original evaluator is `experiments/evaluate_paid_loss_replication_20260912.py`. It deliberately refuses existing output paths and verifies the archived contract. A full rerun requires the matching `../final_repo` HEART-CH source, checkpoint and solar parameters identified in [core/frozen_assets.yaml](core/frozen_assets.yaml), plus the historical files referenced by the [immutable contract](config/paid_loss_replication_20260912.json). **A Git clone alone is not a complete simulation reproduction package.** Do not remove contract checks to bypass missing assets.
 
-Future delivery/energy-efficiency work must use new V2 configs, run names, and
-checkpoints. V1 evidence is immutable. V2 should replace V1 only after a
-predeclared held-out gate improves delivery and packets/J without erasing the
-fairness/staleness contribution.
+The roughly 283 MB aggregate result, detailed frame records and replay binaries remain in the local experiment archive. This publication includes compact rows and their raw-artifact hashes; those hashes establish identity, not public availability. See [publication inventory](evidence/paid_loss_replication_20260912/PUBLICATION_MANIFEST.json). Independent raw-data availability remains a publication task.
 
-## Continue in a new Codex chat
+## Frozen V1 baseline
 
-New agents should read [`AGENTS.md`](AGENTS.md) and the dated
-[`execution handoff`](HTA_MAC_NEW_CHAT_EXECUTION_HANDOFF_20260901.md) before
-changing code. A ready-to-paste prompt is available in
-[`START_NEXT_CHAT.md`](START_NEXT_CHAT.md).
+Tag **paper-baseline-v1-20260901**, commit `11ef88c336a18833b8511b30dba857ae8b831086`, preserves the learned EquivariantSetBranchingC51 policy. Its 100-node corrected comparison is:
+
+| Policy | Delivery | Stale loss | Fairness | RMST | Packets/J |
+|---|---:|---:|---:|---:|---:|
+| HTA-MAC V1 | 0.42770 | 0.02476 | 0.94511 | 128.28 | 225.77 |
+| Corrected residual-energy | 0.44591 | 0.04838 | 0.87166 | 149.32 | 242.36 |
+| Author-constructed online primal-dual | 0.43020 | 0.01700 | 0.98081 | 131.10 | 232.45 |
+
+V1 demonstrates a fairness/staleness trade-off, not universal superiority. Its checkpoint-producing curriculum and development failures remain recorded. Do not compare the V1 table numerically against the revised paid-loss table as an architecture effect.
+
+The [immutable V1 release](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/) retains its checkpoint, source snapshot, manuscript, evidence, [claim boundaries](releases/HTA_MAC_PAPER_BASELINE_V1_20260901/PAPER_CLAIMS.md) and rollback instructions. Archive SHA-256: `4c4e18dfc32b903a01b9519a930426e423714c3cde37749a1e65902566315b4a`.
+
+## Repository guide
+
+- `agents/`: learned V1 and deterministic allocation implementations.
+- `envs/`: MAC environments, packet accounting and paid-control model.
+- `experiments/`, `config/`: evaluators and frozen study contracts.
+- `validation/`: feasibility, accounting and regression tests.
+- `evidence/`: compact publishable statistical evidence.
+- `reports/`: methods, outcomes and literature comparison.
+- `releases/`: immutable V1 fallback.
+
+Read [AGENTS.md](AGENTS.md) before further experiments. Next research priorities are implementation-faithful matched external baselines, complete-horizon evidence under a new contract, protocol/traffic sensitivity, and an independently accessible raw reproduction package.

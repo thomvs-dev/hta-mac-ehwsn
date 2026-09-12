@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_v2_phase_b_teacher_calibration",
+  "phase": "B_calibration_only_no_training",
+  "source_phase_a2_results": "outputs/phaseA/v2_causal_accounting_repair_20260901/results.json",
+  "source_phase_a2_results_sha256": "f3ca906df8cbabc16822a4d6b1e334cb83baefdc20e43818e71b84725c821b16",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "calibration_seeds": [12100, 12101, 12102, 12103, 12104, 12105, 12106, 12107, 12108, 12109],
+  "reserved_gate_seeds": [12200, 12201, 12202, 12203, 12204, 12205, 12206, 12207, 12208, 12209, 12210, 12211, 12212, 12213, 12214, 12215, 12216, 12217, 12218, 12219],
+  "permanently_opened_confirmation_seeds": [3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919],
+  "all_prior_v2_seeds": [12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015, 12016, 12017, 12018, 12019],
+  "scenario": {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+  "horizon": 3000,
+  "budget": 24,
+  "workers": 8,
+  "threads_per_worker": 1,
+  "candidate_grid": {
+    "energy_weight": [1.0, 2.0, 3.0, 4.0],
+    "stale_weight": [2.0, 4.0, 6.0],
+    "fairness_weight": [1.5, 3.0],
+    "fixed": {
+      "age_weight": 0.25,
+      "queue_weight": 0.10,
+      "residual_weight": 0.20,
+      "harvest_weight": 0.10,
+      "diminishing_weight": 0.15,
+      "member_risk_weight": 0.50,
+      "ch_risk_weight": 0.50,
+      "member_reserve_floor": 0.05,
+      "ch_reserve_floor": 0.05
+    }
+  },
+  "gate_b_targets": {
+    "delivery_min": 0.450,
+    "packets_per_j_min": 244.8,
+    "stale_ratio_max": 0.035,
+    "fairness_min": 0.92,
+    "rmst_min": 128.0,
+    "feasibility_violations_max": 0
+  },
+  "selection_rule": {
+    "passing_candidates": "highest mean packets/J, then highest mean delivery, then candidate_id",
+    "fallback_if_none_pass": "lowest sum of normalized positive Gate B violations, then highest packets/J, then delivery, then candidate_id",
+    "fallback_does_not_pass_gate_b": true
+  },
+  "decision_rules": {
+    "reserved_gate_seeds_not_opened_during_calibration": true,
+    "selected_teacher_frozen_before_gate": true,
+    "no_training": true,
+    "failed_gate_b_stops_progression": true
+  }
+}

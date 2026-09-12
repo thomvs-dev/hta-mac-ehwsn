@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_primary_branchwise_sweep",
+  "purpose": "learn shield-changed branches while preserving unchanged source-policy decisions",
+  "development_seeds": [2400, 2401, 2402, 2403, 2404],
+  "prohibited_seeds": [3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404],
+  "horizon": 3000,
+  "budget": 24,
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "band": {
+    "lower_delivery_target": 0.235,
+    "upper_delivery_target": 0.300,
+    "reserve_floor": 0.20,
+    "completion_fraction": 0.50
+  },
+  "objective": {
+    "changed_branch_loss": "addition_removal_balanced_cross_entropy_on_expected_action_values",
+    "unchanged_branch_loss": "source_policy_to_candidate_masked_kl",
+    "batch_size": 64,
+    "gradient_clip": 5.0,
+    "weight_decay": 0.00001
+  },
+  "candidates": [
+    {"candidate_id": "ce1_kl05_lr1e5_ep5", "seed": 7001, "epochs": 5, "learning_rate": 0.00001, "temperature": 0.05, "changed_weight": 1.0, "preservation_weight": 0.5},
+    {"candidate_id": "ce1_kl2_lr1e5_ep5", "seed": 7002, "epochs": 5, "learning_rate": 0.00001, "temperature": 0.05, "changed_weight": 1.0, "preservation_weight": 2.0},
+    {"candidate_id": "ce1_kl2_lr3e5_ep3", "seed": 7003, "epochs": 3, "learning_rate": 0.00003, "temperature": 0.05, "changed_weight": 1.0, "preservation_weight": 2.0},
+    {"candidate_id": "ce1_kl5_lr3e5_ep3", "seed": 7004, "epochs": 3, "learning_rate": 0.00003, "temperature": 0.05, "changed_weight": 1.0, "preservation_weight": 5.0}
+  ],
+  "parallel_candidates": 4,
+  "threads_per_candidate": 4,
+  "gates": {
+    "minimum_joint_qos_pairs": 23,
+    "minimum_intervention_slot_reduction_fraction": 0.10,
+    "maximum_mean_fnd_degradation_rounds": 5.0,
+    "maximum_fairness_degradation": 0.01,
+    "maximum_packets_per_j_degradation_fraction": 0.01,
+    "minimum_unchanged_branch_agreement": 0.95
+  },
+  "selection_rule": [
+    "retain_gate_passing_candidates_only",
+    "minimize_total_changed_slots",
+    "maximize_unchanged_branch_agreement",
+    "maximize_mean_episode_service_fairness",
+    "maximize_mean_global_packets_per_j",
+    "prefer_lower_candidate_index"
+  ],
+  "confirmation_seeds_opened": false,
+  "claim_boundary": "development-only bounded branch-wise adaptation; no inference"
+}

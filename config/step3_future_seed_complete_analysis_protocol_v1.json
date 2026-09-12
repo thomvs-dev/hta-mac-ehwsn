@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_opening_remaining_confirmation_seeds",
+  "purpose": "prevent outcome-contingent follow-up analysis on confirmation seeds 3401-3404",
+  "remaining_confirmation_seeds": [3401, 3402, 3403, 3404],
+  "currently_open_seed": 3400,
+  "open_permission": "no_go_until_seed3400_common_horizon_and_band_only_decision_is_recorded",
+  "registered_held_out_seeds_prohibited": [3100, 3101, 3102, 3103, 3104],
+  "analysis_pipeline_mandatory_for_every_opened_seed": [
+    "raw_end_to_end_confirmation_with_frozen_training_and_distillation",
+    "prospective_episode_service_fairness_recomputation",
+    "matched_tuned_energy_proportional_baseline",
+    "matched_s2a2mac_adapted_baseline",
+    "matched_band_only_no_neural_ablation",
+    "common_horizon_truncation_for_all_rate_and_cumulative_endpoints",
+    "separate_rmst_or_fnd_survival_endpoint",
+    "post_common_horizon_behavior_reported_separately",
+    "fnd_node_identity_and_ch_role_conditioned_energy_audit",
+    "complete_report_even_when_raw_confirmation_fails"
+  ],
+  "conditional_omission_permitted": false,
+  "selection_or_retuning_on_confirmation_seeds_permitted": false,
+  "target_ranks_are_independent_trials": false,
+  "primary_independent_axis": "environment_seed",
+  "minimum_independent_environment_seeds_for_primary_inference": 8,
+  "preferred_independent_environment_seeds": 10,
+  "optimizer_lineage_subset_design": {
+    "environment_seeds": 3,
+    "optimizer_lineages_per_environment_seed": 3,
+    "purpose": "separate environment-driven from training-stochasticity-driven variance"
+  },
+  "claim_boundary": "protocol definition only; does not authorize seed opening or create evidence"
+}

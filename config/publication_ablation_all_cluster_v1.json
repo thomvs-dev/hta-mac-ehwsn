@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "publication_extension_protocol_v1",
+  "purpose": "core mechanism ablations, exact projection diagnostics, runtime measurement, and simultaneous all-active-cluster evaluation",
+  "horizon": 3000,
+  "smoke_horizon": 20,
+  "budget": 24,
+  "workers": 16,
+  "threads_per_worker": 1,
+  "smoke_seed": 4099,
+  "pilot_seeds": [4100, 4101, 4102, 4103, 4104],
+  "training_environment_seeds": [2400, 2401, 2402, 2403, 2404],
+  "evaluation_seeds": [4200, 4201, 4202, 4203, 4204, 4205, 4206, 4207, 4208, 4209, 4210, 4211, 4212, 4213, 4214, 4215, 4216, 4217, 4218, 4219],
+  "prior_used_seeds": [2299, 2300, 2301, 2302, 2303, 2304, 2400, 2401, 2402, 2403, 2404, 3100, 3101, 3102, 3103, 3104, 3400, 3401, 3402, 3403, 3404, 3500, 3501, 3502, 3503, 3504, 3600, 3601, 3602, 3603, 3604, 3700, 3701, 3702, 3703, 3704, 3705, 3706, 3707, 3708, 3709, 3710, 3711, 3712, 3713, 3714, 3715, 3716, 3717, 3718, 3719, 3800, 3801, 3802, 3803, 3804, 3900, 3901, 3902, 3903, 3904, 3905, 3906, 3907, 3908, 3909, 3910, 3911, 3912, 3913, 3914, 3915, 3916, 3917, 3918, 3919, 3970, 3971, 3980, 3981, 3982, 3983, 3984, 3990, 3991, 3992, 3993, 3994, 4000],
+  "source_checkpoint": "outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/branching_c51.pt",
+  "source_checkpoint_sha256": "31dc4bbed0b91ff326066dee24db3d550f6df4a347eaca82c728c4b77103934a",
+  "qos_config": "config/step3_primary_qos_candidate_v1.json",
+  "qos_config_sha256": "0b286d61cdaf580c0b7fe3134da479966b7b5bfc71b86186e920ced45f7e95ff",
+  "risk_config": "config/step3_v3_risk_weight_5.json",
+  "risk_config_sha256": "4ca4a30af05518a1822cdf0525f6a65766a0bb3b535c53daf455bcb337ab3a4e",
+  "external_trace": {
+    "path": "data/external/pvgis_srrl_2020_hourly.csv",
+    "sha256": "5fab9b88336afd54917d53660186005987a7eea7931594b526ed91ce91ca4fd4"
+  },
+  "policies": ["hta_mac", "hta_no_ch_context", "hta_no_set_context", "energy_proportional", "online_primal_dual"],
+  "energy_proportional_score_exponent": 4.0,
+  "primal_dual": {
+    "learning_rate": 0.05,
+    "maximum_multiplier": 10.0,
+    "energy_weight": 0.25,
+    "harvest_weight": 0.10,
+    "initial_multiplier": {"delivery": 2.0, "stale": 0.5, "fairness": 1.0}
+  },
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20260817,
+  "derived_metrics": {
+    "jain_weighted_goodput_efficiency": {
+      "symbol": "JWGE",
+      "equation": "packets_per_j * service_fairness",
+      "units": "packets_per_joule",
+      "role": "secondary_metric",
+      "required_companion_metrics": ["packets_per_j", "service_fairness", "delivery_ratio", "stale_ratio", "fnd_round", "hnd_round"],
+      "interpretation": "reliable network goodput per joule discounted by unequal per-node service"
+    },
+    "load_robust_fair_energy_retention": {
+      "symbol": "LRFER",
+      "equation": "JWGE(traffic_high) / JWGE(reference_100), paired by environment seed",
+      "reference_scenario": "reference_100",
+      "stress_scenario": "traffic_high",
+      "role": "pilot_derived_secondary_hypothesis",
+      "confirmation_cohort": [4200, 4201, 4202, 4203, 4204, 4205, 4206, 4207, 4208, 4209, 4210, 4211, 4212, 4213, 4214, 4215, 4216, 4217, 4218, 4219],
+      "claim_boundary": "must be reported with its components and lifetime metrics; development-pilot ranking is exploratory"
+    }
+  },
+  "scenarios": [
+    {"id": "reference_100", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_20", "nodes": 20, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "nodes_50", "nodes": 50, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 0.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "traffic_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.5, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_low", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 0.5, "initial_energy_multiplier": 1.0},
+    {"id": "harvest_high", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.5, "initial_energy_multiplier": 1.0},
+    {"id": "battery_half", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 0.5},
+    {"id": "field_large", "nodes": 100, "field_scale": 1.5, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0},
+    {"id": "external_trace_srrl_2020", "nodes": 100, "field_scale": 1.0, "arrival_rate": 1.0, "harvest_multiplier": 1.0, "initial_energy_multiplier": 1.0, "use_external_trace": true}
+  ],
+  "claim_boundary": "post-confirmation publication extension; all-cluster actions share one physical network trajectory per policy; CH selection and routing remain exogenous; no model selection is permitted on the prior 3900-3919 cohort"
+}

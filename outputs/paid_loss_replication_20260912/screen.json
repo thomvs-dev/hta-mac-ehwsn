@@ -1,0 +1,43 @@
+{
+  "status": "observed_replay_screen_pass_not_training_authorization",
+  "checks": {
+    "all_seed_cohorts_defined": true,
+    "matched_observed_horizons": true,
+    "feasibility": true,
+    "mobility": true,
+    "delivery_gain": true,
+    "delivery_interval": true,
+    "packets_per_j_gain": true,
+    "packets_per_j_interval": true,
+    "fairness": true,
+    "stale_worst_case": true
+  },
+  "effects": [
+    {
+      "metric": "delivery",
+      "relative_gain": 0.01707744734014205,
+      "mean_paired_difference": 0.0015605410523059679,
+      "bonferroni_97_5_percent_ci": [
+        0.0011298164466251532,
+        0.0019912656579867826
+      ],
+      "interpretation": "candidate worst-case minus reference best-case pending-packet outcome"
+    },
+    {
+      "metric": "packets_per_j",
+      "relative_gain": 0.018962793996597505,
+      "mean_paired_difference": 8.215504310017504,
+      "bonferroni_97_5_percent_ci": [
+        7.605723133821645,
+        8.825285486213364
+      ],
+      "interpretation": "observed-replay whole-run efficiency"
+    }
+  ],
+  "trials": 40,
+  "frames": 64194,
+  "elapsed_seconds": 1836.5924060000107,
+  "training_started": false,
+  "historical_gates_unchanged": true,
+  "full_3000_frame_delivery_identified": false
+}
