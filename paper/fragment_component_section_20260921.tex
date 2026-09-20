@@ -1,0 +1,38 @@
+% Optional component-study subsection; does not modify the frozen V1 manuscript.
+\subsection{Fragment-repair component and shared-head integration screens}
+We evaluated established selective fragment recovery with block acknowledgements
+as a stronger MAC comparator, rather than as a new ARQ protocol. Each 500-byte
+datagram traversed two hops in six fragments. Paid reports, grants, cumulative
+bitmaps and fixed radio windows were modeled explicitly. A source retained custody
+until receiving a complete delivery receipt. These are synthetic simulations,
+not hardware measurements or an RFC-conformant implementation.
+
+In a corrected single-source development screen (64 paired seeds, 96 scenario
+cells), block acknowledgement increased timely delivery from 11.188\% to
+14.458\% and energy efficiency from 33.8514 to 43.2781 packets/J relative to
+whole-packet retry. The corresponding relative improvements were 29.226\% and
+27.847\%. Two additional proposed extensions failed their prespecified gates:
+affordable block prefixes and a last-frame completion guard. An earlier experiment
+was invalidated because variable transaction timing undercharged ambiguous waits;
+its performance is excluded.
+
+A separate shared-head integration screen used 32 fresh paired development seeds,
+96 scenario cells and three policies (9216 episodes). One, four or twelve sources
+shared a head battery, two live reassembly buffers and a one-second serialized
+frame. Timely delivery was 12.558\%, 13.493\% and 17.121\% for whole-packet retry,
+per-fragment selective retry and block acknowledgement, respectively; efficiency
+was 41.4527, 44.5781 and 57.8723 packets/J. Relative to whole-packet retry, the
+block scheme improved delivery by 36.340\% (paired 95\% interval
+[33.499\%,39.197\%]) and efficiency by 39.611\% ([36.695\%,42.565\%]).
+Against selective retry, gains were 26.892\% and 29.822\%. All four
+family-adjusted bootstrap lower bounds exceeded the prespecified 1\% margin.
+Resampling was over seeds, retaining scenario and policy pairing; percentile
+coverage is approximate. Results are development screens, not confirmation.
+
+The low absolute delivery, reliable-control assumption, conservative radio
+envelope and short horizon limit applicability. Heads were scripted and dedicated;
+this study did not reproduce the full mobile HEART-CH workload. Consequently,
+these percentages do not quantify improvement over HTA-MAC V1 or other published
+systems, and do not certify the original attribution or network-performance
+gates. No neural policy was trained. Full-network integration and independent
+confirmation remain necessary.

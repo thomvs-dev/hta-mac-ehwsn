@@ -1,0 +1,32 @@
+........................................................................ [ 12%]
+........................................................................ [ 24%]
+........................................................................ [ 36%]
+........................................................................ [ 48%]
+........................................................................ [ 60%]
+........................................................................ [ 72%]
+........................................................................ [ 85%]
+........................................................................ [ 97%]
+................                                                         [100%]
+============================== warnings summary ===============================
+hta-mac/validation/test_absorbing_death.py::test_dead_node_receives_no_harvest_or_hmm_transition
+  C:\Users\ASUS\scoop\apps\python313\current\Lib\site-packages\torch_geometric\llm\utils\backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples
+    from torch_geometric.distributed import (
+
+hta-mac/validation/test_absorbing_death.py::test_dead_node_receives_no_harvest_or_hmm_transition
+hta-mac/validation/test_absorbing_death.py::test_dead_node_receives_no_harvest_or_hmm_transition
+  C:\Users\ASUS\scoop\apps\python313\current\Lib\site-packages\torch\jit\_script.py:1488: DeprecationWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+hta-mac/validation/test_absorbing_death.py: 90 warnings
+hta-mac/validation/test_packet_cohort_audit.py: 88 warnings
+hta-mac/validation/test_paper_aligned_environment.py: 44 warnings
+hta-mac/validation/test_qos_repaired_contract.py: 44 warnings
+hta-mac/validation/test_step3_v3.py: 132 warnings
+hta-mac/validation/test_step3_workload_context.py: 176 warnings
+hta-mac/validation/test_v2_idle_aware_oracle_teacher.py: 44 warnings
+hta-mac/validation/test_v2_state_conditioned_admission_teacher.py: 44 warnings
+  C:\Users\ASUS\scoop\apps\python313\current\Lib\site-packages\torch_geometric\inspector.py:433: DeprecationWarning: Failing to pass a value to the 'type_params' parameter of 'typing._eval_type' is deprecated, as it leads to incorrect behaviour when calling typing._eval_type on a stringified annotation that references a PEP 695 type parameter. It will be disallowed in Python 3.15.
+    return typing._eval_type(value, _globals, None)  # type: ignore
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+592 passed, 665 warnings in 48.07s

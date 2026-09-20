@@ -1,0 +1,6 @@
+{
+  "status": "INVALID_FOR_PERFORMANCE_CLAIMS",
+  "reason": "Variable shortened transaction timing undercharged ambiguous source waits when a final receipt was lost; use fixed-window corrected study.",
+  "correction": "outputs/fragment_repair_fixed_20260920",
+  "original_outputs_preserved": true
+}

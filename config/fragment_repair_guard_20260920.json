@@ -1,0 +1,55 @@
+{
+  "horizon": 24,
+  "seed_start": 9700200,
+  "seed_count": 64,
+  "bootstrap_seed": 9789997,
+  "bootstrap_replicates": 20000,
+  "lower_quantile": 0.00625,
+  "minimum_relative_gain": 0.01,
+  "capacity_uj": [
+    4000,
+    16000
+  ],
+  "harvest_uj": [
+    0,
+    300
+  ],
+  "head_change": [
+    false,
+    true
+  ],
+  "ttl": [
+    2,
+    6
+  ],
+  "loss": [
+    "clean",
+    "independent",
+    "burst"
+  ],
+  "ack_loss": [
+    0,
+    0.1
+  ],
+  "arrival_p": 0.35,
+  "workers": 8,
+  "policies": [
+    "whole",
+    "selective",
+    "block",
+    "prefix",
+    "guard"
+  ],
+  "comparators": {
+    "guard": [
+      "whole",
+      "selective",
+      "block",
+      "prefix"
+    ]
+  },
+  "scope": "new MAC-only fragment mechanism development study; not full HEART-CH or V1 comparison",
+  "stop": "stop failed candidates; no neural training; no changes to opened gates",
+  "settlement": "Full fixed grant window; no early release based on hidden outcomes",
+  "hypothesis": "Use partial block windows except decline an incomplete plan in the final usable frame according to head-local cache and received sink bitmap."
+}

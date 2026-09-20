@@ -1,0 +1,284 @@
+{
+  "run": {
+    "scenarios": 96,
+    "seeds": [
+      9700200,
+      9700201,
+      9700202,
+      9700203,
+      9700204,
+      9700205,
+      9700206,
+      9700207,
+      9700208,
+      9700209,
+      9700210,
+      9700211,
+      9700212,
+      9700213,
+      9700214,
+      9700215,
+      9700216,
+      9700217,
+      9700218,
+      9700219,
+      9700220,
+      9700221,
+      9700222,
+      9700223,
+      9700224,
+      9700225,
+      9700226,
+      9700227,
+      9700228,
+      9700229,
+      9700230,
+      9700231,
+      9700232,
+      9700233,
+      9700234,
+      9700235,
+      9700236,
+      9700237,
+      9700238,
+      9700239,
+      9700240,
+      9700241,
+      9700242,
+      9700243,
+      9700244,
+      9700245,
+      9700246,
+      9700247,
+      9700248,
+      9700249,
+      9700250,
+      9700251,
+      9700252,
+      9700253,
+      9700254,
+      9700255,
+      9700256,
+      9700257,
+      9700258,
+      9700259,
+      9700260,
+      9700261,
+      9700262,
+      9700263
+    ],
+    "independent_units": 64,
+    "episodes": 30720,
+    "workers": 8,
+    "seconds": 2.9231820999993943,
+    "v1_payloads_verified": 38,
+    "invariant_violations": 0,
+    "neural_training": false,
+    "original_gate_a_certified": false,
+    "original_gate_b_certified": false
+  },
+  "aggregate": {
+    "whole": {
+      "delivered": 0.908203125,
+      "generated": 8.34375,
+      "pending_undelivered": 1.0930989583333335,
+      "death": 0.0,
+      "overflow": 1.1878255208333333,
+      "stale": 5.154622395833334,
+      "energy_uj": 27461.694010416668,
+      "data_fragments": 15.3203125,
+      "ack_frames": 3.9798177083333335,
+      "duplicate_fragments": 0.0,
+      "deadline_abstentions": 0.0,
+      "grant_frames": 1.4264322916666667,
+      "control_uj": 12566.125,
+      "data_uj": 10575.569010416666,
+      "background_uj": 4320.0,
+      "member_uj": 4575.994791666667,
+      "forward_uj": 3615.265625,
+      "feedback_uj": 2384.30859375,
+      "partial_windows": 0.0,
+      "delivery_ratio": 0.10884831460674158,
+      "packets_per_j": 33.071635153152016
+    },
+    "selective": {
+      "delivered": 0.8717447916666666,
+      "generated": 8.34375,
+      "pending_undelivered": 1.1012369791666667,
+      "death": 0.0,
+      "overflow": 1.1829427083333335,
+      "stale": 5.187825520833333,
+      "energy_uj": 29005.874348958336,
+      "data_fragments": 15.530924479166668,
+      "ack_frames": 17.671875,
+      "duplicate_fragments": 0.06608072916666667,
+      "deadline_abstentions": 0.0,
+      "grant_frames": 2.140950520833333,
+      "control_uj": 10846.286458333334,
+      "data_uj": 13839.587890625,
+      "background_uj": 4320.0,
+      "member_uj": 4352.024739583333,
+      "forward_uj": 4131.583984375,
+      "feedback_uj": 5355.979166666666,
+      "partial_windows": 0.9775390625,
+      "delivery_ratio": 0.10447877652933832,
+      "packets_per_j": 30.054077363055697
+    },
+    "block": {
+      "delivered": 1.1534830729166665,
+      "generated": 8.34375,
+      "pending_undelivered": 1.0970052083333335,
+      "death": 0.0,
+      "overflow": 1.1346028645833335,
+      "stale": 4.958658854166667,
+      "energy_uj": 27772.388671875,
+      "data_fragments": 16.40625,
+      "ack_frames": 4.882161458333333,
+      "duplicate_fragments": 0.40592447916666663,
+      "deadline_abstentions": 0.0,
+      "grant_frames": 1.7360026041666665,
+      "control_uj": 12630.234375,
+      "data_uj": 10822.154296875,
+      "background_uj": 4320.0,
+      "member_uj": 4410.4951171875,
+      "forward_uj": 4365.899088541666,
+      "feedback_uj": 2045.7600911458333,
+      "partial_windows": 0.19026692708333331,
+      "delivery_ratio": 0.13824516229712858,
+      "packets_per_j": 41.53344843847713
+    },
+    "prefix": {
+      "delivered": 1.1531575520833333,
+      "generated": 8.34375,
+      "pending_undelivered": 1.0963541666666667,
+      "death": 0.0006510416666666666,
+      "overflow": 1.1350911458333335,
+      "stale": 4.95849609375,
+      "energy_uj": 28992.998046875,
+      "data_fragments": 19.618815104166668,
+      "ack_frames": 7.07958984375,
+      "duplicate_fragments": 0.4215494791666667,
+      "deadline_abstentions": 0.0,
+      "grant_frames": 2.48681640625,
+      "control_uj": 11121.515625,
+      "data_uj": 13551.482421875,
+      "background_uj": 4320.0,
+      "member_uj": 5394.538411458333,
+      "forward_uj": 5279.708333333334,
+      "feedback_uj": 2877.235677083333,
+      "partial_windows": 0.9300130208333333,
+      "delivery_ratio": 0.1382061485642946,
+      "packets_per_j": 39.77365673666942
+    },
+    "guard": {
+      "delivered": 1.1525065104166667,
+      "generated": 8.34375,
+      "pending_undelivered": 1.0963541666666667,
+      "death": 0.0006510416666666666,
+      "overflow": 1.1350911458333335,
+      "stale": 4.959147135416666,
+      "energy_uj": 28989.931640625,
+      "data_fragments": 19.6044921875,
+      "ack_frames": 7.06689453125,
+      "duplicate_fragments": 0.4161783854166667,
+      "deadline_abstentions": 0.014160156249999998,
+      "grant_frames": 2.4803059895833335,
+      "control_uj": 11134.0625,
+      "data_uj": 13535.869140625,
+      "background_uj": 4320.0,
+      "member_uj": 5392.614583333333,
+      "forward_uj": 5273.610677083333,
+      "feedback_uj": 2869.6438802083335,
+      "partial_windows": 0.9293619791666667,
+      "delivery_ratio": 0.13812812109862674,
+      "packets_per_j": 39.75540628048958
+    }
+  },
+  "iterations": {
+    "guard": {
+      "status": "STOP_candidate_gate_failed",
+      "comparisons": {
+        "whole": {
+          "delivery": {
+            "relative_gain": 0.2689964157706095,
+            "paired_95_interval": [
+              0.2288485903158773,
+              0.3126386119337094
+            ],
+            "family_adjusted_lower": 0.21849440545606857
+          },
+          "efficiency": {
+            "relative_gain": 0.20209980838218522,
+            "paired_95_interval": [
+              0.16418467151171037,
+              0.2434894870765704
+            ],
+            "family_adjusted_lower": 0.15433727850845666
+          }
+        },
+        "selective": {
+          "delivery": {
+            "relative_gain": 0.32206870799103826,
+            "paired_95_interval": [
+              0.2945231056174354,
+              0.35056801883715494
+            ],
+            "family_adjusted_lower": 0.2869001028292114
+          },
+          "efficiency": {
+            "relative_gain": 0.3227957657871523,
+            "paired_95_interval": [
+              0.2953046880085967,
+              0.3513086895077065
+            ],
+            "family_adjusted_lower": 0.2875435882721023
+          }
+        },
+        "block": {
+          "delivery": {
+            "relative_gain": -0.0008466205728797638,
+            "paired_95_interval": [
+              -0.0033741630900676165,
+              0.0011397634990739647
+            ],
+            "family_adjusted_lower": -0.00425835058592979
+          },
+          "efficiency": {
+            "relative_gain": -0.04280988516090434,
+            "paired_95_interval": [
+              -0.045870888651546704,
+              -0.04000247561294203
+            ],
+            "family_adjusted_lower": -0.046750272549831176
+          }
+        },
+        "prefix": {
+          "delivery": {
+            "relative_gain": -0.0005645730416371508,
+            "paired_95_interval": [
+              -0.0014291839359725778,
+              0.0
+            ],
+            "family_adjusted_lower": -0.001729358931139935
+          },
+          "efficiency": {
+            "relative_gain": -0.00045885788929778126,
+            "paired_95_interval": [
+              -0.001302839271797751,
+              0.00011534365232482846
+            ],
+            "family_adjusted_lower": -0.001585515628544682
+          }
+        }
+      }
+    }
+  },
+  "bootstrap_replicates": 20000,
+  "bootstrap_seed": 9789997,
+  "lower_quantile": 0.00625,
+  "family_claims": 8,
+  "raw_rows_recomputed": 30720,
+  "independent_seed_units": 64,
+  "scope": "new finite fragment simulator, not full-network or RFC reproduction",
+  "full_network_gate_pass": false
+}

@@ -1,0 +1,10 @@
+{
+  "core/fragment_repair_fixed.py": "3127dddbcb9141cf572b857a1cf48b0ff85059fccabb63537c86f35740f17baa",
+  "core/chronological_calendar.py": "bec2dd188127d1d2592ed3cdce75c37ceb5217c5956fdd9b4d073ebf7015f357",
+  "core/timed_sleep_mac.py": "310f7278583c42bdbebb16a4d001c330a54c71d1bb5cc0ebe12d85844d3706ef",
+  "validation/test_fragment_repair_fixed.py": "9cfcc4a4339a9f1978840f2284cce6426744d9aee38f85b27b4c83c368f694ee",
+  "config/fragment_repair_fixed_20260920.json": "50fc48d26c6320250a4912944d5ba439c5f859c9877f15c323795899af35da55",
+  "reports/FRAGMENT_REPAIR_FIXED_PROTOCOL_20260920.md": "bdfa181c2ec1e4452107b23f8010e9a714b0ad8735b6f5f3c35922917038cc23",
+  "tools/run_fragment_repair_fixed_20260920.py": "4138378616ee286719d02f04b818c50724171975fc3009a887d4878b05255709",
+  "tools/analyze_fragment_repair_fixed_20260920.py": "54f45acd5937ee146251a8847d4444946645470e1baca1d96e5bf2b8a9e16211"
+}

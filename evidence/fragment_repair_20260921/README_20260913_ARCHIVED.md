@@ -2,43 +2,7 @@
 
 Research code for MAC allocation under frozen HEART-CH cluster-head schedules. The repository contains a **frozen learned V1 baseline** and a **separate deterministic service-frontier candidate**. The latest candidate is an analytical scheduler; no new neural training has started.
 
-## Latest component result — 21 September 2026
-
-A separate shared-head fragment-repair screen completed **9,216 episodes on 32
-fresh paired development seeds**, using eight CPU workers. Sources share a head
-battery, two live relay buffers and a serialized one-second frame.
-
-| Policy | Timely delivery | Packets / charged J |
-|---|---:|---:|
-| Whole-packet retry | 12.5576% | 41.4527 |
-| Per-fragment selective retry | 13.4927% | 44.5781 |
-| Selective repair with block ACK | **17.1211%** | **57.8723** |
-
-Block ACK improves delivery **36.34%** and packets/J **39.61%** versus whole
-retry; versus selective retry the gains are **26.89%** and **29.82%**. All four
-family-adjusted lower bounds exceed the frozen +1% component threshold.
-These are relative improvements within this synthetic model, **not over V1**.
-Absolute delivery remains low. Block ACK is an established mechanism, not a new
-protocol or a claim of journal readiness. This intermediate integration has
-scripted dedicated heads and reliable paid controls; it does not run the full
-mobile HEART-CH environment. Original Gate A/B remain unchanged and uncertified
-by these screens. No neural training was started.
-
-The release also includes the preceding corrected single-source result and
-both failed extensions (prefix and completion guard). An earlier timing-flawed
-run is explicitly excluded. **64,512 valid episodes / 160 distinct seed units**
-are distributed, with raw rows and paired-bootstrap analysis.
-
-- [Evidence, exact reproduction commands and limitations](evidence/fragment_repair_20260921/README.md)
-- [Shared-head results and confidence intervals](reports/SHARED_FRAGMENT_RESULTS_20260921.md)
-- [Frozen shared-head protocol](reports/SHARED_FRAGMENT_PROTOCOL_20260921.md)
-- [Optional paper subsection](paper/fragment_component_section_20260921.tex)
-
-```powershell
-python -B tools/verify_fragment_publication_20260921.py
-```
-
-## Earlier observed-replay result — 13 September 2026
+## Latest measured result — 13 September 2026
 
 Independent replication on **20 fresh seeds (380000–380019), 40 paired-policy trials and 64,194 observed frames** passed all ten prospectively specified checks. Both policies pay report, grant and ACK energy; member data attempts and aggregate forwarding each have 10% erasure probability.
 

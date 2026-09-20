@@ -1,0 +1,56 @@
+{
+  "horizon": 24,
+  "seed_start": 9700100,
+  "seed_count": 64,
+  "bootstrap_seed": 9789998,
+  "bootstrap_replicates": 20000,
+  "lower_quantile": 0.005,
+  "minimum_relative_gain": 0.01,
+  "capacity_uj": [
+    4000,
+    16000
+  ],
+  "harvest_uj": [
+    0,
+    300
+  ],
+  "head_change": [
+    false,
+    true
+  ],
+  "ttl": [
+    2,
+    6
+  ],
+  "loss": [
+    "clean",
+    "independent",
+    "burst"
+  ],
+  "ack_loss": [
+    0,
+    0.1
+  ],
+  "arrival_p": 0.35,
+  "workers": 8,
+  "policies": [
+    "whole",
+    "selective",
+    "block",
+    "prefix"
+  ],
+  "comparators": {
+    "block": [
+      "whole",
+      "selective"
+    ],
+    "prefix": [
+      "whole",
+      "selective",
+      "block"
+    ]
+  },
+  "scope": "new MAC-only fragment mechanism development study; not full HEART-CH or V1 comparison",
+  "stop": "stop failed candidates; no neural training; no changes to opened gates",
+  "settlement": "Full fixed grant window; no early release based on hidden outcomes"
+}

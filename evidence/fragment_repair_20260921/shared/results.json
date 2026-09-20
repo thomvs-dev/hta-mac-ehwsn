@@ -1,0 +1,125 @@
+{
+  "aggregate": {
+    "whole": {
+      "delivered": 6.098307291666666,
+      "generated": 48.5625,
+      "pending_undelivered": 5.855143229166667,
+      "energy_uj": 147114.99967447916,
+      "death": 0.0,
+      "overflow": 6.751302083333333,
+      "stale": 29.857747395833332,
+      "control_uj": 44951.8232421875,
+      "data_uj": 91123.17643229166,
+      "background_uj": 11040.0,
+      "member_uj": 39428.53385416667,
+      "forward_uj": 28068.955729166664,
+      "feedback_uj": 23625.686848958336,
+      "grant_frames": 12.290690104166668,
+      "data_fragments": 126.2421875,
+      "ack_frames": 33.3310546875,
+      "buffer_rejections": 9.859049479166666,
+      "airtime_rejections": 0.016927083333333332,
+      "max_cache": 1.67578125,
+      "max_grants": 2.97265625,
+      "max_frame_us": 214108.45833333334,
+      "delivery_ratio": 0.12557646932646932,
+      "packets_per_j": 41.45265476097182
+    },
+    "selective": {
+      "delivered": 6.552408854166666,
+      "generated": 48.5625,
+      "pending_undelivered": 5.831380208333332,
+      "energy_uj": 146987.1363932292,
+      "death": 0.0006510416666666666,
+      "overflow": 6.6083984375,
+      "stale": 29.569661458333336,
+      "control_uj": 41722.717122395836,
+      "data_uj": 94224.41927083334,
+      "background_uj": 11040.0,
+      "member_uj": 29116.943359375,
+      "forward_uj": 28559.329427083336,
+      "feedback_uj": 36548.146484375,
+      "grant_frames": 13.659505208333332,
+      "data_fragments": 107.57682291666666,
+      "ack_frames": 121.236328125,
+      "buffer_rejections": 8.408203125,
+      "airtime_rejections": 0.018880208333333332,
+      "max_cache": 1.6295572916666665,
+      "max_grants": 3.116536458333333,
+      "max_frame_us": 243965.0520833333,
+      "delivery_ratio": 0.13492733805233803,
+      "packets_per_j": 44.57811081261731
+    },
+    "block": {
+      "delivered": 8.314453125,
+      "generated": 48.5625,
+      "pending_undelivered": 5.7529296875,
+      "energy_uj": 143668.880859375,
+      "death": 0.0016276041666666667,
+      "overflow": 6.369466145833333,
+      "stale": 28.1240234375,
+      "control_uj": 45269.5078125,
+      "data_uj": 87359.373046875,
+      "background_uj": 11040.0,
+      "member_uj": 35057.35221354167,
+      "forward_uj": 35518.434244791664,
+      "feedback_uj": 16783.586588541664,
+      "grant_frames": 14.375651041666666,
+      "data_fragments": 131.9853515625,
+      "ack_frames": 39.83333333333333,
+      "buffer_rejections": 7.3505859375,
+      "airtime_rejections": 0.011393229166666668,
+      "max_cache": 1.6207682291666665,
+      "max_grants": 3.1888020833333335,
+      "max_frame_us": 207310.28125,
+      "delivery_ratio": 0.17121138996138996,
+      "packets_per_j": 57.87233167869037
+    }
+  },
+  "iterations": {
+    "block": {
+      "status": "PASS_necessary_component_screen",
+      "comparisons": {
+        "whole": {
+          "delivery": {
+            "relative_gain": 0.36340343760008564,
+            "paired_95_interval": [
+              0.33499417755568467,
+              0.3919736541517373
+            ],
+            "family_adjusted_lower": 0.3307850239692745
+          },
+          "efficiency": {
+            "relative_gain": 0.3961067635450428,
+            "paired_95_interval": [
+              0.3669490406200201,
+              0.42565176180845077
+            ],
+            "family_adjusted_lower": 0.36289179710675024
+          }
+        },
+        "selective": {
+          "delivery": {
+            "relative_gain": 0.2689154950568833,
+            "paired_95_interval": [
+              0.25463251051647046,
+              0.28366665592927925
+            ],
+            "family_adjusted_lower": 0.2524693729398765
+          },
+          "efficiency": {
+            "relative_gain": 0.2982230656196918,
+            "paired_95_interval": [
+              0.2831891112906318,
+              0.3137856100348141
+            ],
+            "family_adjusted_lower": 0.28066261571019985
+          }
+        }
+      }
+    }
+  },
+  "raw_rows_recomputed": 9216,
+  "independent_seed_units": 32,
+  "full_network_gate_pass": false
+}

@@ -1,0 +1,2508 @@
+{
+  "whole": {
+    "delivered": 0,
+    "generated": 9,
+    "pending_undelivered": 2,
+    "death": 0,
+    "overflow": 0,
+    "stale": 7,
+    "energy_uj": 43458,
+    "data_fragments": 18,
+    "ack_frames": 6,
+    "duplicate_fragments": 0,
+    "deadline_abstentions": 0,
+    "grant_frames": 3,
+    "control_uj": 16896,
+    "data_uj": 22242,
+    "background_uj": 4320,
+    "member_uj": 9624,
+    "forward_uj": 0,
+    "feedback_uj": 12618,
+    "partial_windows": 0,
+    "records": [
+      {
+        "frame": 0,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15888,
+          15888,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 1,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15776,
+          15776,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 2,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15664,
+          15664,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 3,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          11855,
+          11835,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "000000030000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          8046,
+          8006,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "000000030000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          7934,
+          7894,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 6,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [],
+        "battery_uj": [
+          4125,
+          4065,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [],
+            "grant_hex": "0000000000000001000000063f3f",
+            "final_receipt_hex": "000000060000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [],
+        "battery_uj": [
+          4013,
+          3953,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 8,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3901,
+          3841,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 9,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3789,
+          3729,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 10,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          3677,
+          3617,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 11,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3565,
+          3505,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 12,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3453,
+          3393,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 13,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          3341,
+          3281,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 14,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          3229,
+          3169,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 15,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3117,
+          3057,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 16,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [],
+        "battery_uj": [
+          3005,
+          2945,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 17,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [],
+        "battery_uj": [
+          2893,
+          2833,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 18,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [],
+        "battery_uj": [
+          2781,
+          2721,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 19,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          2669,
+          2609,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 20,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          2557,
+          2497,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 21,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21
+        ],
+        "delivered": [],
+        "battery_uj": [
+          2445,
+          2385,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 22,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21,
+          22
+        ],
+        "delivered": [],
+        "battery_uj": [
+          2333,
+          2273,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 23,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          22,
+          23
+        ],
+        "delivered": [],
+        "battery_uj": [
+          2221,
+          2161,
+          16000
+        ],
+        "events": []
+      }
+    ]
+  },
+  "selective": {
+    "delivered": 2,
+    "generated": 9,
+    "pending_undelivered": 2,
+    "death": 0,
+    "overflow": 0,
+    "stale": 5,
+    "energy_uj": 46786,
+    "data_fragments": 29,
+    "ack_frames": 34,
+    "duplicate_fragments": 0,
+    "deadline_abstentions": 0,
+    "grant_frames": 5,
+    "control_uj": 16192,
+    "data_uj": 26274,
+    "background_uj": 4320,
+    "member_uj": 7848,
+    "forward_uj": 7594,
+    "feedback_uj": 10832,
+    "partial_windows": 3,
+    "records": [
+      {
+        "frame": 0,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15888,
+          15888,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 1,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15776,
+          15776,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 2,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15664,
+          15664,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 3,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          10665,
+          10645,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "00000003000000011d",
+            "start_us": 6056,
+            "end_us": 92744,
+            "source_uj": 4887,
+            "head_uj": 4907
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9398,
+          9358,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              5
+            ],
+            "forward": [
+              1,
+              5
+            ],
+            "grant_hex": "0000000000000001000000032022",
+            "final_receipt_hex": "00000003000000013f",
+            "start_us": 6056,
+            "end_us": 26504,
+            "source_uj": 1155,
+            "head_uj": 1175
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9286,
+          9246,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 6,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          4287,
+          4227,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "grant_hex": "0000000000000001000000063f3f",
+            "final_receipt_hex": "000000060000000137",
+            "start_us": 6056,
+            "end_us": 92744,
+            "source_uj": 4887,
+            "head_uj": 4907
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3096,
+          3016,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              3
+            ],
+            "forward": [
+              3
+            ],
+            "grant_hex": "0000000000000001000000060808",
+            "final_receipt_hex": "00000006000000013f",
+            "start_us": 6056,
+            "end_us": 25160,
+            "source_uj": 1079,
+            "head_uj": 1099
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1905,
+          1805,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 8,
+            "member": [
+              0
+            ],
+            "forward": [
+              0
+            ],
+            "grant_hex": "0000000000000001000000080101",
+            "final_receipt_hex": "000000080000000101",
+            "start_us": 6056,
+            "end_us": 25160,
+            "source_uj": 1079,
+            "head_uj": 1099
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1793,
+          1693,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 10,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1681,
+          1581,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 11,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1569,
+          1469,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 12,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1457,
+          1357,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 13,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1345,
+          1245,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 14,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1233,
+          1133,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 15,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1121,
+          1021,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 16,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1009,
+          909,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 17,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          897,
+          797,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 18,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          785,
+          685,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 19,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          673,
+          573,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 20,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          561,
+          813,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 21,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          449,
+          701,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 22,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21,
+          22
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          689,
+          589,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 23,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          22,
+          23
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          577,
+          477,
+          16000
+        ],
+        "events": []
+      }
+    ]
+  },
+  "block": {
+    "delivered": 2,
+    "generated": 9,
+    "pending_undelivered": 2,
+    "death": 0,
+    "overflow": 0,
+    "stale": 5,
+    "energy_uj": 42678,
+    "data_fragments": 31,
+    "ack_frames": 12,
+    "duplicate_fragments": 4,
+    "deadline_abstentions": 0,
+    "grant_frames": 4,
+    "control_uj": 16896,
+    "data_uj": 21462,
+    "background_uj": 4320,
+    "member_uj": 7258,
+    "forward_uj": 9370,
+    "feedback_uj": 4834,
+    "partial_windows": 2,
+    "records": [
+      {
+        "frame": 0,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15888,
+          15888,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 1,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15776,
+          15776,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 2,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15664,
+          15664,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 3,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          11855,
+          11835,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "000000030000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9525,
+          9485,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "grant_hex": "000000000000000100000003203f",
+            "final_receipt_hex": "00000003000000013f",
+            "start_us": 6056,
+            "end_us": 45384,
+            "source_uj": 2218,
+            "head_uj": 2238
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9413,
+          9373,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 6,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          5604,
+          5544,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "grant_hex": "0000000000000001000000063f3f",
+            "final_receipt_hex": "000000060000000137",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4413,
+          4333,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              3
+            ],
+            "forward": [
+              3
+            ],
+            "grant_hex": "0000000000000001000000060808",
+            "final_receipt_hex": "00000006000000013f",
+            "start_us": 6056,
+            "end_us": 25160,
+            "source_uj": 1079,
+            "head_uj": 1099
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4301,
+          4221,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 9,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4189,
+          4109,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 10,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4077,
+          3997,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 11,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3965,
+          3885,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 12,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3853,
+          3773,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 13,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3741,
+          3661,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 14,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3629,
+          3549,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 15,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3517,
+          3437,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 16,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3405,
+          3325,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 17,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3293,
+          3213,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 18,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3181,
+          3101,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 19,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          3069,
+          2989,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 20,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          2957,
+          2877,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 21,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          2845,
+          2765,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 22,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21,
+          22
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          2733,
+          2653,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 23,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          22,
+          23
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          2621,
+          2541,
+          16000
+        ],
+        "events": []
+      }
+    ]
+  },
+  "prefix": {
+    "delivered": 2,
+    "generated": 9,
+    "pending_undelivered": 2,
+    "death": 0,
+    "overflow": 0,
+    "stale": 5,
+    "energy_uj": 46996,
+    "data_fragments": 38,
+    "ack_frames": 15,
+    "duplicate_fragments": 4,
+    "deadline_abstentions": 0,
+    "grant_frames": 5,
+    "control_uj": 15488,
+    "data_uj": 27188,
+    "background_uj": 4320,
+    "member_uj": 9622,
+    "forward_uj": 11144,
+    "feedback_uj": 6422,
+    "partial_windows": 3,
+    "records": [
+      {
+        "frame": 0,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15888,
+          15888,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 1,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15776,
+          15776,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 2,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15664,
+          15664,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 3,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          11855,
+          11835,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "000000030000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9525,
+          9485,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "grant_hex": "000000000000000100000003203f",
+            "final_receipt_hex": "00000003000000013f",
+            "start_us": 6056,
+            "end_us": 45384,
+            "source_uj": 2218,
+            "head_uj": 2238
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9413,
+          9373,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 6,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          5604,
+          5544,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "grant_hex": "0000000000000001000000063f3f",
+            "final_receipt_hex": "000000060000000137",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4413,
+          4333,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              3
+            ],
+            "forward": [
+              3
+            ],
+            "grant_hex": "0000000000000001000000060808",
+            "final_receipt_hex": "00000006000000013f",
+            "start_us": 6056,
+            "end_us": 25160,
+            "source_uj": 1079,
+            "head_uj": 1099
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1448,
+          1348,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 8,
+            "member": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "forward": [
+              0,
+              1,
+              3
+            ],
+            "grant_hex": "0000000000000001000000080f0f",
+            "final_receipt_hex": "00000008000000010b",
+            "start_us": 6056,
+            "end_us": 56648,
+            "source_uj": 2853,
+            "head_uj": 2873
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1336,
+          1236,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 10,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1224,
+          1124,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 11,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1112,
+          1364,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 12,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1000,
+          1252,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 13,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1240,
+          1140,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 14,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1128,
+          1028,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 15,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1016,
+          916,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 16,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          904,
+          804,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 17,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          792,
+          692,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 18,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          680,
+          932,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 19,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          568,
+          820,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 20,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          808,
+          708,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 21,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          696,
+          596,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 22,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21,
+          22
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          584,
+          484,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 23,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          22,
+          23
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          472,
+          372,
+          16000
+        ],
+        "events": []
+      }
+    ]
+  },
+  "guard": {
+    "delivered": 2,
+    "generated": 9,
+    "pending_undelivered": 2,
+    "death": 0,
+    "overflow": 0,
+    "stale": 5,
+    "energy_uj": 46996,
+    "data_fragments": 38,
+    "ack_frames": 15,
+    "duplicate_fragments": 4,
+    "deadline_abstentions": 0,
+    "grant_frames": 5,
+    "control_uj": 15488,
+    "data_uj": 27188,
+    "background_uj": 4320,
+    "member_uj": 9622,
+    "forward_uj": 11144,
+    "feedback_uj": 6422,
+    "partial_windows": 3,
+    "records": [
+      {
+        "frame": 0,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15888,
+          15888,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 1,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15776,
+          15776,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 2,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [],
+        "battery_uj": [
+          15664,
+          15664,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 3,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          3
+        ],
+        "delivered": [],
+        "battery_uj": [
+          11855,
+          11835,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "grant_hex": "0000000000000001000000033f3f",
+            "final_receipt_hex": "000000030000000100",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 4,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9525,
+          9485,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 3,
+            "member": [
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "grant_hex": "000000000000000100000003203f",
+            "final_receipt_hex": "00000003000000013f",
+            "start_us": 6056,
+            "end_us": 45384,
+            "source_uj": 2218,
+            "head_uj": 2238
+          }
+        ]
+      },
+      {
+        "frame": 5,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          9413,
+          9373,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 6,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          6
+        ],
+        "delivered": [
+          3
+        ],
+        "battery_uj": [
+          5604,
+          5544,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "forward": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ],
+            "grant_hex": "0000000000000001000000063f3f",
+            "final_receipt_hex": "000000060000000137",
+            "start_us": 6056,
+            "end_us": 71624,
+            "source_uj": 3697,
+            "head_uj": 3717
+          }
+        ]
+      },
+      {
+        "frame": 7,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          4413,
+          4333,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 6,
+            "member": [
+              3
+            ],
+            "forward": [
+              3
+            ],
+            "grant_hex": "0000000000000001000000060808",
+            "final_receipt_hex": "00000006000000013f",
+            "start_us": 6056,
+            "end_us": 25160,
+            "source_uj": 1079,
+            "head_uj": 1099
+          }
+        ]
+      },
+      {
+        "frame": 8,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1448,
+          1348,
+          16000
+        ],
+        "events": [
+          {
+            "pid": 8,
+            "member": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "forward": [
+              0,
+              1,
+              3
+            ],
+            "grant_hex": "0000000000000001000000080f0f",
+            "final_receipt_hex": "00000008000000010b",
+            "start_us": 6056,
+            "end_us": 56648,
+            "source_uj": 2853,
+            "head_uj": 2873
+          }
+        ]
+      },
+      {
+        "frame": 9,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          8
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1336,
+          1236,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 10,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1224,
+          1124,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 11,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1112,
+          1364,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 12,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          11
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1000,
+          1252,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 13,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1240,
+          1140,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 14,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1128,
+          1028,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 15,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          1016,
+          916,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 16,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          15
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          904,
+          804,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 17,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          792,
+          692,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 18,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          17
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          680,
+          932,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 19,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          568,
+          820,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 20,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          808,
+          708,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 21,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          696,
+          596,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 22,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          21,
+          22
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          584,
+          484,
+          16000
+        ],
+        "events": []
+      },
+      {
+        "frame": 23,
+        "head": 1,
+        "observed_head": 1,
+        "queue": [
+          22,
+          23
+        ],
+        "delivered": [
+          3,
+          6
+        ],
+        "battery_uj": [
+          472,
+          372,
+          16000
+        ],
+        "events": []
+      }
+    ]
+  }
+}

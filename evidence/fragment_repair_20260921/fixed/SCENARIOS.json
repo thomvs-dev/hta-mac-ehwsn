@@ -1,0 +1,770 @@
+[
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 4000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 0,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": false,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 2,
+    "loss": "burst",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "clean",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "independent",
+    "ack_loss": 0.1
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0
+  },
+  {
+    "capacity_uj": 16000,
+    "harvest_uj": 300,
+    "head_change": true,
+    "ttl": 6,
+    "loss": "burst",
+    "ack_loss": 0.1
+  }
+]

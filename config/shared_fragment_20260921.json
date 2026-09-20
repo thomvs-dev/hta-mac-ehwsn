@@ -1,0 +1,12 @@
+{
+  "horizon": 24, "seed_start": 9710000, "seed_count": 32,
+  "bootstrap_seed": 9791000, "bootstrap_replicates": 20000,
+  "lower_quantile": 0.0125, "minimum_relative_gain": 0.01,
+  "sources": [1,4,12], "capacity_uj": [16000,64000],
+  "harvest_uj": [0,1200], "ttl": [2,6],
+  "head_change": [false,true], "loss": ["independent","burst"],
+  "ack_loss": [0.1], "arrival_p": 0.35, "workers": 8,
+  "policies": ["whole","selective","block"],
+  "comparators": {"block": ["whole","selective"]},
+  "scope": "Synthetic shared-head integration; not HEART-CH or V1 comparison"
+}

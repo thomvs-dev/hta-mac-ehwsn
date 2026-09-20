@@ -1,0 +1,10 @@
+{
+  "core/fragment_repair_guard.py": "6244705355dfe9827ac2d9b2f3bbc15dadb5953c2c8681884c51c0730cf718a0",
+  "core/chronological_calendar.py": "bec2dd188127d1d2592ed3cdce75c37ceb5217c5956fdd9b4d073ebf7015f357",
+  "core/timed_sleep_mac.py": "310f7278583c42bdbebb16a4d001c330a54c71d1bb5cc0ebe12d85844d3706ef",
+  "validation/test_fragment_repair_guard.py": "161655e002b01139167ff8bd2a62030d3f082732896271c182061537aee3d243",
+  "config/fragment_repair_guard_20260920.json": "cd27b1d9279733eb34e14b56e04f74c863d35d93a562d105591d76d49a613d15",
+  "reports/FRAGMENT_REPAIR_GUARD_PROTOCOL_20260920.md": "a02d14585fa1144934bd152b223c990bc2d7bb3a1974149740449f45b9030102",
+  "tools/run_fragment_repair_guard_20260920.py": "20d8263022db5d3ca1c08ba8cbf8d2b1c0247e837f3ee6b49772f2a58609a25f",
+  "tools/analyze_fragment_repair_guard_20260920.py": "508e46111c9b26749bb97421e7c8c90d0da22b65b736fb95d5d84a59dd37e1ad"
+}

@@ -1,0 +1,10 @@
+{
+  "config/shared_fragment_20260921.json": "b944e3d387aa3e0ef3232f08033585ef056cbc4e062cf25b2035fd3a77cf14bf",
+  "tools/fragment_study.py": "3d7fa1d3718b4362f02b6ff66e50d234948e3c459c38e412ab2abd3c8b239a86",
+  "core/fragment_repair_fixed.py": "3127dddbcb9141cf572b857a1cf48b0ff85059fccabb63537c86f35740f17baa",
+  "core/chronological_calendar.py": "bec2dd188127d1d2592ed3cdce75c37ceb5217c5956fdd9b4d073ebf7015f357",
+  "core/timed_sleep_mac.py": "310f7278583c42bdbebb16a4d001c330a54c71d1bb5cc0ebe12d85844d3706ef",
+  "core/shared_fragment.py": "4d0028713c39385960a3862d2ead8e3afef58dc27e9c6e1512c86d593d6d6775",
+  "validation/test_shared_fragment.py": "fb074a6b434d044e1bf777146e7f8587a92a367086c1cd3ed193508584368a37",
+  "reports/SHARED_FRAGMENT_PROTOCOL_20260921.md": "06c465078a271fd161fd7d9dfeb340dcf0cab21af106e39b37ef128c87a6c97b"
+}
