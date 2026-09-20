@@ -1,5 +1,5 @@
 {
-  ".gitattributes": "0988c0e30e484e0e76f19e1246beb7441be154d5670782041e84a1feddc2567a",
+  ".gitattributes": "773525a0acc04650c59ad120d054c6f24ce594482a9dff50b633233f801e3274",
   "README.md": "94ad10c0ff583b79e89a12a34bfc672097a3edb8020c67d642559ca69b47dcf0",
   "config/fragment_repair_fixed_20260920.json": "50fc48d26c6320250a4912944d5ba439c5f859c9877f15c323795899af35da55",
   "config/fragment_repair_guard_20260920.json": "cd27b1d9279733eb34e14b56e04f74c863d35d93a562d105591d76d49a613d15",
@@ -215,5 +215,6 @@
   "tools/verify_fragment_publication_20260921.py": "bbf770ad01218e376260af9ebb59cd5e5f582b5dc8160b65e302a411fb86aa28",
   "validation/test_fragment_repair_fixed.py": "9cfcc4a4339a9f1978840f2284cce6426744d9aee38f85b27b4c83c368f694ee",
   "validation/test_fragment_repair_guard.py": "161655e002b01139167ff8bd2a62030d3f082732896271c182061537aee3d243",
-  "validation/test_shared_fragment.py": "fb074a6b434d044e1bf777146e7f8587a92a367086c1cd3ed193508584368a37"
+  "validation/test_shared_fragment.py": "fb074a6b434d044e1bf777146e7f8587a92a367086c1cd3ed193508584368a37",
+  "evidence/fragment_repair_20260921/CLEAN_REPRODUCTION.json": "2e4dfaf28979421c039ae22fb10121911ff210e95a226537f7c569075e17a216"
 }

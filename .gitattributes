@@ -341,3 +341,4 @@
 /releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/publication_extension_v1/training_full.json text eol=crlf whitespace=cr-at-eol
 /releases/HTA_MAC_PAPER_BASELINE_V1_20260901/PROVENANCE.json text eol=crlf whitespace=cr-at-eol
 /releases/HTA_MAC_PAPER_BASELINE_V1_20260901/WORKTREE_STATUS.txt text eol=crlf whitespace=cr-at-eol
+/evidence/fragment_repair_20260921/CLEAN_REPRODUCTION.json -text whitespace=cr-at-eol
