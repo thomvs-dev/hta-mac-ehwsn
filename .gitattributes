@@ -328,3 +328,16 @@
 /validation/test_fragment_repair_guard.py -text whitespace=cr-at-eol
 /validation/test_shared_fragment.py -text whitespace=cr-at-eol
 /evidence/fragment_repair_20260921/PUBLICATION_MANIFEST.json -text whitespace=cr-at-eol
+
+# Preserve original V1 payload bytes on clean Windows checkouts.
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/** -text whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/data/external/pvgis_srrl_2020_hourly.csv text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/episodes.jsonl text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase2/step3_primary_idle_hybrid_100ep_opt6801_cpu6/summary.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/cap_corrected_energy_audit_v1/results.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/final_confirmation_v1/final_confirmation.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/node_scalability_50_300_v1/results.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/publication_extension_v1/fair_energy_pilot_reanalysis.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/artifacts/outputs/phase4/publication_extension_v1/training_full.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/PROVENANCE.json text eol=crlf whitespace=cr-at-eol
+/releases/HTA_MAC_PAPER_BASELINE_V1_20260901/WORKTREE_STATUS.txt text eol=crlf whitespace=cr-at-eol
