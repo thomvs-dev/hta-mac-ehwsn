@@ -1,0 +1,9 @@
+{
+  "comparisons_checked": 22,
+  "independent_seeds": 160,
+  "shared_table_rows_checked": 4,
+  "manual_t_tail_ci_checks": true,
+  "sign_checks": true,
+  "holm_checks": true,
+  "original_gates_unchanged": true
+}

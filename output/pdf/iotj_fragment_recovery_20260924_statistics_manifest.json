@@ -1,0 +1,36 @@
+{
+  "files": {
+    "iotj_fragment_recovery_20260924_statistics.pdf": {
+      "bytes": 383723,
+      "sha256": "3afee7178d21cb2478d5d9d6a33e9bf8f2a22cb3d5023efacadd71b476d1f9b0"
+    },
+    "iotj_fragment_recovery_20260924_statistics_source.zip": {
+      "bytes": 152438,
+      "sha256": "526c650a68f36bb7750b07bbe59791872ec3c826d9c1acb1e4d4ebe4e02084dd"
+    }
+  },
+  "validation": {
+    "pages": 10,
+    "abstract_words": 206,
+    "references": 15,
+    "aggregate_table_values_verified": 36,
+    "undefined_references": 0,
+    "overfull_boxes": 0,
+    "authors_pending": true,
+    "source_pdf_sha256": "3afee7178d21cb2478d5d9d6a33e9bf8f2a22cb3d5023efacadd71b476d1f9b0",
+    "study_evidence": "published commit 0e12c49; component evaluation only",
+    "visual_review": "all ten pages reviewed; final diagnostic legends moved outside data areas"
+  },
+  "statistical_validation": {
+    "comparisons_checked": 22,
+    "independent_seeds": 160,
+    "shared_table_rows_checked": 4,
+    "manual_t_tail_ci_checks": true,
+    "sign_checks": true,
+    "holm_checks": true,
+    "original_gates_unchanged": true
+  },
+  "earlier_pdf_preserved": true,
+  "frozen_v1_payloads_verified": 38,
+  "scope": "Post hoc paired statistical supplement; unchanged experiments and gates; no external performance ranking"
+}

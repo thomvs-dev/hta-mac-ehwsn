@@ -1,0 +1,6 @@
+# Local compiler intermediates and duplicate build output; released PDF is in output/pdf.
+*.aux
+*.log
+main.pdf
+compile_*.txt
+figure_build.txt
